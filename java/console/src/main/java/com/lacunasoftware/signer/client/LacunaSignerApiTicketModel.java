@@ -25,7 +25,6 @@ import java.io.IOException;
  * LacunaSignerApiTicketModel
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-01-07T17:53:40.828-02:00[America/Sao_Paulo]")
 class LacunaSignerApiTicketModel {
 
   @SerializedName("location")
