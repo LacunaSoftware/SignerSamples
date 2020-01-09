@@ -3,6 +3,9 @@ plugins {
     id 'application'
 }
 
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
 group 'com.lacunasoftware'
 version '1.0.0'
 
