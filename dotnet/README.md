@@ -2,7 +2,7 @@
 
 This folder contains **.NET sample projects** demonstrating the usage of [Signer](https://www.dropsigner.com/).
 
-For other languages, please visit the [repository root](https://github.com/LacunaSoftware/PkiSuiteSamples).
+For other languages, please visit the [repository root](https://github.com/LacunaSoftware/SignerSamples).
 
 ## Default sample (Console application)
 
