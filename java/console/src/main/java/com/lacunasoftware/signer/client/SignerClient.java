@@ -3,12 +3,12 @@ package com.lacunasoftware.signer.client;
 
 import com.google.gson.reflect.TypeToken;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -95,6 +95,64 @@ public class SignerClient {
 
 	// endregion
 
+	// region SIGNATURE
+
+	public StartSignatureResponse startPublicSignature(String key, StartSignatureRequest request) throws RestException {
+		LacunaSignerApiSignatureStartSignatureResponse response = getRestClient().post(String.format("/api/documents/keys/%s/signature/certificate", key), request.toModel(), LacunaSignerApiSignatureStartSignatureResponse.class);
+		return new StartSignatureResponse(response);
+	}
+
+	public CompleteSignatureResponse completePublicSignature(String key, CompleteSignatureRequest request) throws RestException {
+		LacunaSignerApiSignatureCompleteSignatureResponse response = getRestClient().post(String.format("/api/documents/keys/%s/signature", key), request.toModel(), LacunaSignerApiSignatureCompleteSignatureResponse.class);
+		return new CompleteSignatureResponse(response);
+	}
+
+	public StartSignatureResponse startSignature(UUID id, StartSignatureRequest request) throws RestException {
+		LacunaSignerApiSignatureStartSignatureResponse response = getRestClient().post(String.format("/api/documents/%s/signature/certificate", id.toString()), request.toModel(), LacunaSignerApiSignatureStartSignatureResponse.class);
+		return new StartSignatureResponse(response);
+	}
+
+	public CompleteSignatureResponse completeSignature(UUID id, CompleteSignatureRequest request) throws RestException {
+		LacunaSignerApiSignatureCompleteSignatureResponse response = getRestClient().post(String.format("/api/documents/%s/signature", id.toString()), request.toModel(), LacunaSignerApiSignatureCompleteSignatureResponse.class);
+		return new CompleteSignatureResponse(response);
+	}
+
+	public void sendElectronicSignatureAuthenticationCode(SendElectronicSignatureAuthenticationRequest request) throws RestException {
+		getRestClient().post("/api/documents/sms-authentication-code", request.toModel());
+	}
+
+	public void signElectronically(UUID id, ElectronicSignatureRequest request) throws RestException {
+		getRestClient().post(String.format("/api/documents/%s/electronic-signature", id.toString()), request.toModel());
+	}
+
+	// endregion
+
+	// region FOLDER
+
+	public FolderInfoModel createFolder(FolderCreateRequest request) throws RestException {
+		LacunaSignerApiFoldersFolderInfoModel model = getRestClient().post("/api/folders", request.toModel(), LacunaSignerApiFoldersFolderInfoModel.class);
+		return new FolderInfoModel(model);
+	}
+
+	public FolderDetailsModel getFolderDetails(UUID folderId) throws RestException {
+		LacunaSignerApiFoldersFolderDetailsModel model = getRestClient().get(String.format("/api/folders/%s/details", folderId.toString()), LacunaSignerApiFoldersFolderDetailsModel.class);
+		return new FolderDetailsModel(model);
+	}
+
+	@SuppressWarnings("unchecked")
+	public PaginatedSearchResponse<FolderInfoModel> listFoldersPaginated(PaginatedSearchParams searchParams, UUID organizationId) throws RestException {
+		String orgIdStr = organizationId != null ? organizationId.toString() : "";
+		LacunaSignerApiPaginatedSearchResponse<LacunaSignerApiFoldersFolderInfoModel> model = (LacunaSignerApiPaginatedSearchResponse<LacunaSignerApiFoldersFolderInfoModel>)getRestClient().get(String.format("/api/folders%s&organizationId=%s", buildSearchPaginatedParamsString(searchParams), orgIdStr), TypeToken.getParameterized(LacunaSignerApiPaginatedSearchResponse.class, LacunaSignerApiFoldersFolderInfoModel.class));
+
+		List<FolderInfoModel> items = new ArrayList<>();
+		for (LacunaSignerApiFoldersFolderInfoModel m : model.getItems()) {
+			items.add(new FolderInfoModel(m));
+		}
+		return new PaginatedSearchResponse<>(items, model.getTotalCount());
+	}
+
+	// endregion
+
 	// region NOTIFICATIONS
 
 	public void sendFlowActionReminder(UUID documentId, UUID flowActionId) throws RestException {
@@ -105,5 +163,21 @@ public class SignerClient {
 	}
 
 	// endregion
+
+	private String buildSearchPaginatedParamsString(PaginatedSearchParams searchParams) {
+		return String.format("?q=%s&limit=%s&offset=%s", getParameterOrEmpty(searchParams.getQ()), searchParams.getLimit(), searchParams.getOffset());
+	}
+
+	private String getParameterOrEmpty(String parameter) {
+		if (parameter == null || parameter.length() == 0) {
+			return "";
+		}
+
+		try {
+			return URLEncoder.encode(parameter, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return "";
+		}
+	}
 
 }

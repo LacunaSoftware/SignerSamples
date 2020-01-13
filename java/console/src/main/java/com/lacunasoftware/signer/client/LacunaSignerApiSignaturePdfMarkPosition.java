@@ -1,20 +1,25 @@
 package com.lacunasoftware.signer.client;
 
 
-public class PdfMarkPosition {
-	private int page;
-	private double topLeftX;
-	private double topLeftY;
-	private double width;
-	private double height;
+import com.google.gson.annotations.SerializedName;
 
-	PdfMarkPosition(LacunaSignerApiSignaturePdfMarkPosition model) {
-		this.page = model.getPage();
-		this.topLeftX = model.getTopLeftX();
-		this.topLeftY = model.getTopLeftY();
-		this.width = model.getWidth();
-		this.height = model.getHeight();
-	}
+
+public class LacunaSignerApiSignaturePdfMarkPosition {
+
+	@SerializedName("page")
+	private int page;
+
+	@SerializedName("topLeftX")
+	private double topLeftX;
+
+	@SerializedName("topLeftY")
+	private double topLeftY;
+
+	@SerializedName("width")
+	private double width;
+
+	@SerializedName("height")
+	private double height;
 
 	public int getPage() {
 		return page;
@@ -54,15 +59,5 @@ public class PdfMarkPosition {
 
 	public void setHeight(double height) {
 		this.height = height;
-	}
-
-	LacunaSignerApiSignaturePdfMarkPosition toModel() {
-		LacunaSignerApiSignaturePdfMarkPosition model = new LacunaSignerApiSignaturePdfMarkPosition();
-		model.setPage(page);
-		model.setTopLeftX(topLeftX);
-		model.setTopLeftY(topLeftY);
-		model.setWidth(width);
-		model.setHeight(height);
-		return model;
 	}
 }
