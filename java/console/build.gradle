@@ -6,7 +6,7 @@ plugins {
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-group 'com.lacunasoftware'
+group 'com.lacunasoftware.signer'
 version '1.0.0'
 
 java {
@@ -16,11 +16,13 @@ java {
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://dl.bintray.com/lacunasoftware/maven"
+    }
 }
 
 dependencies {
-    compile 'io.swagger.core.v3:swagger-annotations:2.0.0'
-    compile 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.lacunasoftware.signer:signer-client:1.0.0'
 }
 
-mainClassName = 'com.lacunasoftware.signer.App'
+mainClassName = 'com.lacunasoftware.signer.sample.App'
