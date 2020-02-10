@@ -81,7 +81,7 @@ namespace Console
 
             //5- Download document
             //printer friendly and signed versions may only be downloaded if the document has at least one signature
-            var signedDocumentId = new Guid("8b965e96-01c8-4a1a-ad20-970da3116a5c");
+            var signedDocumentId = new Guid("2e20e453-2bd5-44c5-9be4-fe66d954c619");
 
             //you may retrieve a pre-authenticated URL (ticket) to download printer friendly, signed and original versions
             var printerFriendlyTicket = await client.GetDocumentDownloadTicketAsync(signedDocumentId, DocumentTicketType.PrinterFriendlyVersion);

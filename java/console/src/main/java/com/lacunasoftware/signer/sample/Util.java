@@ -1,11 +1,10 @@
-package com.lacunasoftware.signer;
+package com.lacunasoftware.signer.sample;
 
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.Objects;
 
 
 public class Util {

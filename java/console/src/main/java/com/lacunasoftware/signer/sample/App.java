@@ -1,7 +1,7 @@
-package com.lacunasoftware.signer;
+package com.lacunasoftware.signer.sample;
 
 
-import com.lacunasoftware.signer.client.*;
+import com.lacunasoftware.signer.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +67,7 @@ public class App {
 		// 5 - Download content
 		// Printer friendly and signed versions may only be downloaded if the document has at least
 		// one signature.
-		UUID signedDocumentId = UUID.fromString("8b965e96-01c8-4a1a-ad20-970da3116a5c");
+		UUID signedDocumentId = UUID.fromString("2e20e453-2bd5-44c5-9be4-fe66d954c619");
 
 		// You may retrieve a pre-authenticated URL (ticket) to download printer-friendly, signed and
 		// original versions.
