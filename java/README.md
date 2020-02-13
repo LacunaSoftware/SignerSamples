@@ -36,3 +36,45 @@ then import the project from Eclipse.
 
 To open one of the samples on IntelliJ IDEA, run `gradlew idea` on the sample's folder
 and then use the "Open" funcionality inside IDEA (works better than "Import").
+
+Signer's client lib
+---------------------
+
+The samples use a client lib which encapsulates the API calls to Signer. This library
+supports **Java 8 or greater**. The lib should be **referenced as a dependency**, as can
+be seen in the file [build.gradle](console/build.gradle) of each sample:
+
+	repositories {
+		mavenCentral()
+		maven {
+			url  "http://dl.bintray.com/lacunasoftware/maven" 
+		}
+	} 
+
+	dependencies {
+		compile("com.lacunasoftware.signer:signer-client:1.0.1")
+	}
+
+If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) instead:
+
+	<dependencies>
+		...
+		<dependency>
+			<groupId>com.lacunasoftware.signer</groupId>
+			<artifactId>signer-client</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		...
+	</dependencies>
+	...
+	<repositories>
+		<repository>
+			<id>lacuna.repository</id>
+			<name>lacuna repository</name>
+			<url>http://dl.bintray.com/lacunasoftware/maven</url>
+		</repository>
+	</repositories>
+
+If your project uses another tool for dependency resolution (e.g. Ivy), please visit the
+[package page on BinTray](https://bintray.com/lacunasoftware/maven/signer-client) and click on
+the link "SET ME UP!".
