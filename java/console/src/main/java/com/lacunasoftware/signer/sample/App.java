@@ -43,10 +43,10 @@ public class App {
 		actions.add(flowActionCreateModel);
 		documentRequest.setFlowActions(actions);
 
-		List<UUID> documentIds = client.createDocument(documentRequest);
+		List<CreateDocumentResult> results = client.createDocument(documentRequest);
 
 		// 3 - Get document details.
-		UUID documentId = documentIds.get(0);
+		UUID documentId = results.get(0).getDocumentId();
 		DocumentModel details = client.getDocumentDetails(documentId);
 
 		// Note: to check if the document is concluded, you can check the details.isConcluded()
