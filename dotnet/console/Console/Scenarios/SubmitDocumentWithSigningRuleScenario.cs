@@ -24,7 +24,7 @@ namespace Console.Scenarios
 
             var uploadModel = signerClient.UploadFileAsync(fileName, file, mimeType);
 
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Two Signers With Order " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Signing Rule " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
             var participantUserOne = new ParticipantUserModel()

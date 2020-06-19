@@ -50,9 +50,9 @@ namespace Console.Scenarios
                 Files = fileUploadModelList,
                 FlowActions = flowActionCreateModelList
             };
-            var documentIds = signerClient.CreateDocumentAsync(documentRequest);
+            var documentResult = signerClient.CreateDocumentAsync(documentRequest);
 
-            var documentId = documentIds.Result[0].DocumentId;
+            var documentId = documentResult.Result[0].DocumentId;
             var details = signerClient.GetDocumentDetailsAsync(documentId);
             var flowAction = details.Result.FlowActions[0];
             await signerClient.SendFlowActionReminderAsync(documentId, flowAction.Id);
