@@ -67,6 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scenarios\SubmitDocumentWithApproversScenario.cs" />
+    <Compile Include="Scenarios\SubmitDocumentWithOneSignerScenario.cs" />
+    <Compile Include="Scenarios\SubmitDocumentWithSigningRuleScenario.cs" />
+    <Compile Include="Scenarios\SubmitDocumentWithTwoOrMoreSignersWithOrderScenario.cs" />
+    <Compile Include="Scenarios\SubmitDocumentWithTwoOrMoreSignersWithoutOrderScenario.cs" />
+    <Compile Include="Scenarios\Scenario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +82,9 @@
     <None Include="sample.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
