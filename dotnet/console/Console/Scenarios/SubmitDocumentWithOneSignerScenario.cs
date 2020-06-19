@@ -19,13 +19,7 @@ namespace Console.Scenarios
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
 
-            var mimeType = "application/octet-stream";
-            if (fileName.EndsWith(".pdf"))
-            {
-                mimeType = "application/pdf";
-            }
-
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, mimeType);
+            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "One Signer " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };

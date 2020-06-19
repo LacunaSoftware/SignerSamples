@@ -16,13 +16,7 @@ namespace Console.Scenarios
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
 
-            var mimeType = "application/octet-stream";
-            if (fileName.EndsWith(".pdf"))
-            {
-                mimeType = "application/pdf";
-            }
-
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, mimeType);
+            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Signing Rule " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
@@ -57,10 +51,12 @@ namespace Console.Scenarios
             };
             var documentResults = signerClient.CreateDocumentAsync(documentRequest);
 
-            var documentId = documentResults.Result[0].DocumentId;
-            var details = signerClient.GetDocumentDetailsAsync(documentId);
-            var flowAction = details.Result.FlowActions[0];
-            await signerClient.SendFlowActionReminderAsync(documentId, flowAction.Id);
+            foreach (var documentResult in documentResults.Result)
+            {
+                var details = signerClient.GetDocumentDetailsAsync(documentResult.DocumentId);
+                var flowAction = details.Result.FlowActions[0];
+                await signerClient.SendFlowActionReminderAsync(documentResult.DocumentId, flowAction.Id);
+            }
         }
     }
 }

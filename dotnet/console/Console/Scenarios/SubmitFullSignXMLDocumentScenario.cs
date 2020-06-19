@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class SubmitDocumentWithApproversScenario : Scenario
+    public class SubmitFullSignXMLDocumentScenario : Scenario
     {
         public override async void Run()
         {
@@ -16,25 +16,31 @@ namespace Console.Scenarios
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
 
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
+            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/xml");
 
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Approver " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "XML Full Sign " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
-            var approverParticipant = new ParticipantUserModel()
+            var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
-            var flowActionCreateModelApprover = new FlowActionCreateModel()
+            var xadesOptionsModel = new XadesOptionsModel()
             {
-                Type = FlowActionType.Approver,
-                User = approverParticipant
+                SignatureType = XadesSignatureTypes.FullXml
             };
 
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModelApprover };
+            var flowActionCreateModel = new FlowActionCreateModel()
+            {
+                Type = FlowActionType.Signer,
+                User = participantUser,
+                XadesOptions = xadesOptionsModel
+            };
+
+            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModel };
 
             var documentRequest = new CreateDocumentRequest()
             {

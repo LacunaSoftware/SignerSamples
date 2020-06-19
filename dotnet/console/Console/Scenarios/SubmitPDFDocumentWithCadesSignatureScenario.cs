@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class SubmitDocumentWithApproversScenario : Scenario
+    public class SubmitPDFDocumentWithCadesSignatureScenario : Scenario
     {
         public override async void Run()
         {
@@ -16,25 +16,25 @@ namespace Console.Scenarios
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
 
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
+            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/octet-stream");
 
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Approver " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "PDF Cades " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
-            var approverParticipant = new ParticipantUserModel()
+            var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
-            var flowActionCreateModelApprover = new FlowActionCreateModel()
+            var flowActionCreateModel = new FlowActionCreateModel()
             {
-                Type = FlowActionType.Approver,
-                User = approverParticipant
+                Type = FlowActionType.Signer,
+                User = participantUser
             };
 
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModelApprover };
+            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModel };
 
             var documentRequest = new CreateDocumentRequest()
             {
