@@ -14,6 +14,10 @@ namespace Console.Scenarios
 {
     public class DocumentOrganizationScenario : Scenario
     {
+        /**
+         * This scenario shows step-by-step the submission of a document
+         * into an already existing folder.
+         */
         public override void Run()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.

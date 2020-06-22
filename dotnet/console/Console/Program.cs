@@ -6,7 +6,8 @@ namespace Console
 
 		static void Main(string[] args)
 		{
-			var scenario = new DocumentOrganizationScenario();
+			// Modify the line below to run different scenarios in folder 'Scenarios'.
+			var scenario = new SubmitDigitalDiplomScenario();
 			scenario.Init();
 			scenario.Run();
 		}

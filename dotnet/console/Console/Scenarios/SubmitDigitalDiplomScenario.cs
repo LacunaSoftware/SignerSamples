@@ -10,6 +10,9 @@ namespace Console.Scenarios
 {
     public class SubmitDigitalDiplomScenario : Scenario
     {
+        /**
+         * This scenario shows step-by-step the submission of an digital diplom.
+         */
         public override void Run()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
@@ -33,46 +36,73 @@ namespace Console.Scenarios
             };
 
             // 4. For a XML file it's necessary to provide for the FlowActionCreateModel a XadexOptionsModel
-            //    specifying the signature type. In this case, it's necessary to specify the type of SignartureType
-            //    for XmlElement, specify the type of the element (We are using Id here) and the value of the identifier
-            //    which must be previously discovered.
-            var xadesOptionsModel = new XadesOptionsModel()
+            //    specifying the signature type. In this case, it's necessary to provide the fields that must be
+            //    signed in the following way:
+            var xadesOptionsDiplomData = new XadesOptionsModel
             {
                 SignatureType = XadesSignatureTypes.XmlElement,
-                ElementToSignIdentifierType = XadesElementIdentifierTypes.Id,
-                ElementToSignIdentifier = "NFe35141214314050000662550010001084271182362300"
+                ElementToSignIdentifierType = XadesElementIdentifierTypes.XPath,
+                ElementToSignIdentifier = @"//dip:DadosDiploma",
+                InsertionOption = XadesInsertionOptions.AppendChild
             };
 
-            // 5. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
-            //    created in the previous step. The FlowActionCreateModel is responsible for holding
-            //    the personal data of the participant and the type of action that it will peform on the flow.
-            //    Also, it's necessary to instantiate the propertie 'XadexOptions' with the previously created instance XadexOptionsModel.
-            var flowActionCreateModel = new FlowActionCreateModel()
+            var xadesOptionsModelRegisterData = new XadesOptionsModel
+            {
+                SignatureType = XadesSignatureTypes.XmlElement,
+                ElementToSignIdentifierType = XadesElementIdentifierTypes.XPath,
+                ElementToSignIdentifier = @"//dip:DadosRegistro",
+                InsertionOption = XadesInsertionOptions.AppendChild
+            };
+
+            // 5. You'll need to create two FlowActionCreateModel's instance foreach ParticipantUserModel
+            //    one for signing the register's data and one for the diplom's data.
+            var flowActionCreateModelDiplomData = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
                 User = participantUser,
-                XadesOptions = xadesOptionsModel
+                XadesOptions = xadesOptionsDiplomData
+            };
+
+            var flowActionCreateModelRegisterData = new FlowActionCreateModel()
+            {
+                Type = FlowActionType.Signer,
+                User = participantUser,
+                XadesOptions = xadesOptionsModelRegisterData
             };
 
             // 6. Signer's server expects a FlowActionCreateModel's list to create a document.
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModel };
+            var flowActionCreateModelList = new List<FlowActionCreateModel>() { 
+                flowActionCreateModelDiplomData,
+                flowActionCreateModelRegisterData
+            };
 
-            // 7. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 7. For a diplom, it's necessary to provide an instance holding the namespace of
+            //    the issuer.
+            var xmlNamespacesModel = new XmlNamespaceModel()
+            {
+                Prefix = "dip",
+                Uri = @"http://portal.mec.gov.br/diplomadigital/arquivos-em-xsd"
+            };
+            var xmlNamespacesModelList = new List<XmlNamespaceModel>() { xmlNamespacesModel };
+
+            // 8. To create the document request, use the list of FileUploadModel, the list of FlowActionCreateModel 
+            //    and the namespace model.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = fileUploadModelList,
-                FlowActions = flowActionCreateModelList
+                FlowActions = flowActionCreateModelList,
+                XmlNamespaces = xmlNamespacesModelList
             };
             var documentResults = signerClient.CreateDocumentAsync(documentRequest);
 
-            // 8. To notify the participant:
+            // 9. To notify the participant:
             foreach (var documentResult in documentResults.Result)
             {
-                // 8.1. Extract the information of the flow using the following procedure.
+                // 9.1. Extract the information of the flow using the following procedure.
                 var details = signerClient.GetDocumentDetailsAsync(documentResult.DocumentId);
                 foreach (var flowAction in details.Result.FlowActions)
                 {
-                    // 8.2. Send notification to the participant.
+                    // 9.2. Send notification to the participant.
                     _ = signerClient.SendFlowActionReminderAsync(documentResult.DocumentId, flowAction.Id);
                 }
             }
