@@ -15,7 +15,7 @@ namespace Console.Scenarios
          * to the signer instance where the document is a XML file and only
          * a specific element of the document must be signed.
          */
-        public override async void Run()
+        public override void Run()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
             var filePath = "sample.xml";

@@ -17,7 +17,7 @@ namespace Console.Scenarios
          * This scenario shows step-by-step the submission of a document
          * to the signer instance where there's one participant in the role of a signatory.
          */
-        public override async void Run()
+        public override void Run()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
             var filePath = "sample.pdf";

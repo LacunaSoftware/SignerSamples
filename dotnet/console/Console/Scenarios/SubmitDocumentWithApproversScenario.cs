@@ -15,7 +15,7 @@ namespace Console.Scenarios
      */
     public class SubmitDocumentWithApproversScenario : Scenario
     {
-        public override async void Run()
+        public override void Run()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
             var filePath = "sample.pdf";

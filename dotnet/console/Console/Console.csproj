@@ -67,6 +67,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scenarios\DocumentOrganizationScenario.cs" />
+    <Compile Include="Scenarios\SubmitDigitalDiplomScenario.cs" />
     <Compile Include="Scenarios\SubmitDocumentWithApproversScenario.cs" />
     <Compile Include="Scenarios\SubmitDocumentWithOneSignerScenario.cs" />
     <Compile Include="Scenarios\SubmitDocumentWithSigningRuleScenario.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Scenarios\SubmitElementSignXMLDocumentScenario.cs" />
     <Compile Include="Scenarios\SubmitPDFDocumentWithCadesSignatureScenario.cs" />
     <Compile Include="Scenarios\SubmitFullSignXMLDocumentScenario.cs" />
+    <Compile Include="Scenarios\VerifyDocumentStatusScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -87,6 +90,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="sample-diplom.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sample.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
