@@ -87,7 +87,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sample.xml" />
+    <Content Include="sample.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

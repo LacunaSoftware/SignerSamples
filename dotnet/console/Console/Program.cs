@@ -6,7 +6,7 @@ namespace Console
 
 		static void Main(string[] args)
 		{
-			var scenario = new SubmitElementSignXMLDocumentScenario();
+			var scenario = new SubmitDocumentWithTwoOrMoreSignersWithoutOrderScenario();
 			scenario.Init();
 			scenario.Run();
 		}

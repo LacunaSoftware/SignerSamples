@@ -10,17 +10,26 @@ namespace Console.Scenarios
 {
     public class SubmitFullSignXMLDocumentScenario : Scenario
     {
+        /**
+         * This scenario shows step-by-step the submission of a document
+         * to the signer instance where the document is a XML file and the
+         * whole document must signed.
+         */
         public override async void Run()
         {
-            var filePath = "sample.pdf";
+            // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
+            var filePath = "sample.xml";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
 
+            // 1.1 The mimeType for a xml file is "application/xml".
             var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/xml");
 
+            // 2. Signer's server expects a FileUploadModel's list to create a document.
             var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "XML Full Sign " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
+            // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
             var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
@@ -28,11 +37,18 @@ namespace Console.Scenarios
                 Identifier = "75502846369"
             };
 
+            // 4. For a XML file it's necessary to provide for the FlowActionCreateModel a XadexOptionsModel
+            //    specifying the signature type. In this case, it's only necessary to specify that the signature type
+            //    it's FullXML.
             var xadesOptionsModel = new XadesOptionsModel()
             {
                 SignatureType = XadesSignatureTypes.FullXml
             };
 
+            // 5. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
+            //    created in the previous step. The FlowActionCreateModel is responsible for holding
+            //    the personal data of the participant and the type of action that it will peform on the flow.
+            //    Also, it's necessary to instantiate the propertie 'XadexOptions' with the previously created instance XadexOptionsModel.
             var flowActionCreateModel = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
@@ -40,19 +56,28 @@ namespace Console.Scenarios
                 XadesOptions = xadesOptionsModel
             };
 
+            // 6. Signer's server expects a FlowActionCreateModel's list to create a document.
             var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModel };
 
+            // 7. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = fileUploadModelList,
                 FlowActions = flowActionCreateModelList
             };
-            var documentResult = signerClient.CreateDocumentAsync(documentRequest);
+            var documentResults = signerClient.CreateDocumentAsync(documentRequest);
 
-            var documentId = documentResult.Result[0].DocumentId;
-            var details = signerClient.GetDocumentDetailsAsync(documentId);
-            var flowAction = details.Result.FlowActions[0];
-            await signerClient.SendFlowActionReminderAsync(documentId, flowAction.Id);
+            // 8. To notify the participant:
+            foreach (var documentResult in documentResults.Result)
+            {
+                // 8.1. Extract the information of the flow using the following procedure.
+                var details = signerClient.GetDocumentDetailsAsync(documentResult.DocumentId);
+                foreach (var flowAction in details.Result.FlowActions)
+                {
+                    // 8.2. Send notification to the participant.
+                    _ = signerClient.SendFlowActionReminderAsync(documentResult.DocumentId, flowAction.Id);
+                }
+            }
         }
     }
 }
