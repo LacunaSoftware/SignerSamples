@@ -54,6 +54,19 @@ namespace Console.Scenarios
             };
             var documentResults = signerClient.CreateDocumentAsync(documentRequest);
 
+            /**
+             * NOTE: The following way of verifying the concludeness of the flow 
+             * works but is discouraged, it will have a huge computational cost not worthy
+             * for such a simple task.
+             * 
+             * The best way to do this task is by enabling a webhook in your organization on the
+             * signer instance. Whenever the flow is completed the instance will take care of
+             * notifying your application by making a POST request for your previously registered url.
+             * 
+             * Access the following link for information about the data posted and search for Webhooks.DocumentConcludedModel:
+             * https://signer-lac.azurewebsites.net/swagger/index.html
+             */
+
             // 7. Check for the concludeness of the flow.
             foreach (var documentResult in documentResults.Result)
             {
