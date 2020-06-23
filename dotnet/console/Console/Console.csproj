@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scenarios\DocumentOrganizationScenario.cs" />
-    <Compile Include="Scenarios\ExtractEmbeddedSignatureActionUrlScenario.cs" />
     <Compile Include="Scenarios\SubmitDigitalDiplomScenario.cs" />
     <Compile Include="Scenarios\SubmitDocumentWithApproversScenario.cs" />
     <Compile Include="Scenarios\SubmitDocumentWithOneSignerScenario.cs" />
