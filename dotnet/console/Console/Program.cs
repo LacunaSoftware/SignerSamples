@@ -7,7 +7,7 @@ namespace Console
 		static void Main(string[] args)
 		{
 			// Modify the line below to run different scenarios in folder 'Scenarios'.
-			var scenario = new ExtractEmbeddedSignatureActionUrlScenario();
+			var scenario = new ExtractEmbeddedSignatureAndRedirectionWithActionUrlScenario();
 			scenario.Init();
 			scenario.Run();
 		}

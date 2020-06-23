@@ -8,11 +8,12 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class ExtractEmbeddedSignatureActionUrlScenario : Scenario
+    public class ExtractEmbeddedSignatureAndRedirectionWithActionUrlScenario : Scenario
     {
         /**
          * This scenario shows step-by-step the submission of a document
-         * and the extraction of it's action url for embed signature purposes.
+         * and the extraction of it's action url for embed signature purposes, 
+         * also, it shows executes a redirection to the signature web page.
          */
         public override void Run()
         {
@@ -23,7 +24,7 @@ namespace Console.Scenarios
             var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Signer's server expects a FileUploadModel's list to create a document.
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "One Signer " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Embedded Signature " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
             // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
@@ -65,6 +66,9 @@ namespace Console.Scenarios
                 EmailAddress = participantUser.Email
             };
             var actionUrlResponse = signerClient.GetActionUrlAsync(documentId, actionUrlRequest).Result;
+
+            // 9. Redirects to the signer page responsible for the signature.
+            System.Diagnostics.Process.Start(actionUrlResponse.Url);
         }
     }
 }
