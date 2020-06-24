@@ -6,22 +6,21 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lacunasoftware.signer.ActionStatus;
 import com.lacunasoftware.signer.CreateDocumentRequest;
+import com.lacunasoftware.signer.CreateDocumentResult;
+import com.lacunasoftware.signer.DocumentModel;
 import com.lacunasoftware.signer.FileUploadModel;
 import com.lacunasoftware.signer.FlowActionCreateModel;
+import com.lacunasoftware.signer.FlowActionModel;
 import com.lacunasoftware.signer.FlowActionType;
-import com.lacunasoftware.signer.FolderCreateRequest;
-import com.lacunasoftware.signer.FolderInfoModel;
 import com.lacunasoftware.signer.ParticipantUserModel;
 import com.lacunasoftware.signer.RestException;
 import com.lacunasoftware.signer.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
 
-public class DocumentOrganizationScenario extends Scenario {
-    /**
-    * This scenario shows step-by-step the submission of a document
-    * into an already existing folder.
-    */
+public class CreateDocumentWithApproversScenario extends Scenario {
+
     @Override
     public void Run() throws IOException, RestException {
         // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
@@ -30,7 +29,7 @@ public class DocumentOrganizationScenario extends Scenario {
 
         // 2. Signer's server expects a FileUploadModel's list to create a document.
         FileUploadModel fileUploadModel = new FileUploadModel(uploadModel);
-        fileUploadModel.setDisplayName("Doc in Folder " + OffsetDateTime.now(ZoneOffset.UTC).toString());
+        fileUploadModel.setDisplayName("Approvers " + OffsetDateTime.now(ZoneOffset.UTC).toString());
         List<FileUploadModel> fileUploadModelList = new ArrayList<>();
 		fileUploadModelList.add(fileUploadModel);
 
@@ -44,26 +43,30 @@ public class DocumentOrganizationScenario extends Scenario {
         //    created in the previous step. The FlowActionCreateModel is responsible for holding
         //    the personal data of the participant and the type of action that it will peform on the flow.
         FlowActionCreateModel flowActionCreateModel = new FlowActionCreateModel();
-        flowActionCreateModel.setType(FlowActionType.SIGNER);
+        flowActionCreateModel.setType(FlowActionType.APPROVER);
         flowActionCreateModel.setUser(user);
 
         // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
         List<FlowActionCreateModel> flowActionCreateModelList = new ArrayList<>();
         flowActionCreateModelList.add(flowActionCreateModel);
 
-        // 6. You'll need to request the creation of a folder or get an existing one.
-        FolderCreateRequest folderCreateRequest = new FolderCreateRequest();
-        folderCreateRequest.setName("Folder " + OffsetDateTime.now(ZoneOffset.UTC).toString());
-        FolderInfoModel folderInfoModel = signerClient.createFolder(folderCreateRequest);
-
-        // 7. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
-        //    Also, it's necessary to provide the id of the folder where you wish to save the document.
-        //    It's also possible to create a brand new folder by lefting the `FolderId` property as null and assigning 
-        //    the occult propertie `NewFolderName` with the desired name for the folder.
+        // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();
         documentRequest.setFiles(fileUploadModelList);
         documentRequest.setFlowActions(flowActionCreateModelList);
-        documentRequest.setFolderId(folderInfoModel.getId());
-        signerClient.createDocument(documentRequest);
-    }
+        List<CreateDocumentResult> documentResults = signerClient.createDocument(documentRequest);
+
+        // 7. To notify the participant:
+        for (CreateDocumentResult documentResult : documentResults) {
+            // 7.1. Extract the information of the flow using the following procedure.
+            DocumentModel details = signerClient.getDocumentDetails(documentResult.getDocumentId());
+            List<FlowActionModel> flowActions = details.getFlowActions();
+            for (FlowActionModel flowAction : flowActions) {
+                // 7.2. Send notification to the participant.
+                if (flowAction.getStatus() == ActionStatus.PENDING) {
+                    signerClient.sendFlowActionReminder(documentResult.getDocumentId(), flowAction.getId());
+                }
+            }
+        }
+    }  
 }

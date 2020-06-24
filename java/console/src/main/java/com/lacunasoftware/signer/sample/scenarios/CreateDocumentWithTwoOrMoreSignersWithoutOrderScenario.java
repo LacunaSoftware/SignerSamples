@@ -19,8 +19,12 @@ import com.lacunasoftware.signer.RestException;
 import com.lacunasoftware.signer.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
 
-public class SubmitDocumentWithApproversScenario extends Scenario {
-
+public class CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario extends Scenario {
+    /**
+    * This scenario shows step-by-step the submission of a document
+    * to the signer instance where there are two participant in the role
+    * of signatories.
+    */
     @Override
     public void Run() throws IOException, RestException {
         // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
@@ -29,26 +33,36 @@ public class SubmitDocumentWithApproversScenario extends Scenario {
 
         // 2. Signer's server expects a FileUploadModel's list to create a document.
         FileUploadModel fileUploadModel = new FileUploadModel(uploadModel);
-        fileUploadModel.setDisplayName("Approvers " + OffsetDateTime.now(ZoneOffset.UTC).toString());
+        fileUploadModel.setDisplayName("Two Signers Without Order " + OffsetDateTime.now(ZoneOffset.UTC).toString());
         List<FileUploadModel> fileUploadModelList = new ArrayList<>();
 		fileUploadModelList.add(fileUploadModel);
 
         // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
-        ParticipantUserModel user = new ParticipantUserModel();
-		user.setName("Jack Bauer");
-		user.setEmail("jack.bauer@mailinator.com");
-        user.setIdentifier("75502846369");
+        ParticipantUserModel participantUserOne = new ParticipantUserModel();
+		participantUserOne.setName("Jack Bauer");
+		participantUserOne.setEmail("jack.bauer@mailinator.com");
+        participantUserOne.setIdentifier("75502846369");
         
+		ParticipantUserModel participantUserTwo = new ParticipantUserModel();
+		participantUserTwo.setName("James Bond");
+		participantUserTwo.setEmail("james.bond@mailinator.com");
+        participantUserTwo.setIdentifier("95588148061");
+
         // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
         //    created in the previous step. The FlowActionCreateModel is responsible for holding
         //    the personal data of the participant and the type of action that it will peform on the flow.
-        FlowActionCreateModel flowActionCreateModel = new FlowActionCreateModel();
-        flowActionCreateModel.setType(FlowActionType.APPROVER);
-        flowActionCreateModel.setUser(user);
+        FlowActionCreateModel flowActionCreateModelOne = new FlowActionCreateModel();
+        flowActionCreateModelOne.setType(FlowActionType.SIGNER);
+        flowActionCreateModelOne.setUser(participantUserOne);
+
+        FlowActionCreateModel flowActionCreateModelTwo = new FlowActionCreateModel();
+        flowActionCreateModelTwo.setType(FlowActionType.SIGNER);
+        flowActionCreateModelTwo.setUser(participantUserTwo);
 
         // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
         List<FlowActionCreateModel> flowActionCreateModelList = new ArrayList<>();
-        flowActionCreateModelList.add(flowActionCreateModel);
+        flowActionCreateModelList.add(flowActionCreateModelOne);
+        flowActionCreateModelList.add(flowActionCreateModelTwo);
 
         // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();
@@ -68,5 +82,5 @@ public class SubmitDocumentWithApproversScenario extends Scenario {
                 }
             }
         }
-    }  
+    }
 }

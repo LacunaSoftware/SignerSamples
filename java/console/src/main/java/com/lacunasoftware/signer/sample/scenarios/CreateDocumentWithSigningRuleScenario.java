@@ -19,11 +19,15 @@ import com.lacunasoftware.signer.RestException;
 import com.lacunasoftware.signer.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
 
-public class VerifyDocumentStatusSCenario extends Scenario {
+public class CreateDocumentWithSigningRuleScenario extends Scenario {
     /**
-    * This scenario shows step-by-step the submission of a document
-    * and the process to check if the flow's actions were completed.
-    */
+     * This scenario shows step-by-step the submission of a document
+     * to the signer instance where there's a signing rule for it.
+     * A signing rule is a modality where multiples participants are
+     * assigned to the document but just an arbitrary number of them 
+     * are needed to sign in order to complete the flow.
+     */
+    @Deprecated
     @Override
     public void Run() throws IOException, RestException {
         // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
@@ -32,26 +36,38 @@ public class VerifyDocumentStatusSCenario extends Scenario {
 
         // 2. Signer's server expects a FileUploadModel's list to create a document.
         FileUploadModel fileUploadModel = new FileUploadModel(uploadModel);
-        fileUploadModel.setDisplayName("Verify " + OffsetDateTime.now(ZoneOffset.UTC).toString());
+        fileUploadModel.setDisplayName("Signing Rule " + OffsetDateTime.now(ZoneOffset.UTC).toString());
         List<FileUploadModel> fileUploadModelList = new ArrayList<>();
 		fileUploadModelList.add(fileUploadModel);
 
         // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
-        ParticipantUserModel user = new ParticipantUserModel();
-		user.setName("Jack Bauer");
-		user.setEmail("jack.bauer@mailinator.com");
-        user.setIdentifier("75502846369");
+        ParticipantUserModel participantUserOne = new ParticipantUserModel();
+		participantUserOne.setName("Jack Bauer");
+		participantUserOne.setEmail("jack.bauer@mailinator.com");
+        participantUserOne.setIdentifier("75502846369");
         
+		ParticipantUserModel participantUserTwo = new ParticipantUserModel();
+		participantUserTwo.setName("James Bond");
+		participantUserTwo.setEmail("james.bond@mailinator.com");
+        participantUserTwo.setIdentifier("95588148061");
+
         // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
         //    created in the previous step. The FlowActionCreateModel is responsible for holding
         //    the personal data of the participant and the type of action that it will peform on the flow.
-        FlowActionCreateModel flowActionCreateModel = new FlowActionCreateModel();
-        flowActionCreateModel.setType(FlowActionType.SIGNER);
-        flowActionCreateModel.setUser(user);
+        //    In the case of order for the flow actions it's necessary to assign values to the `Step` propertie
+        //    of the instances, smaller numbers represents action that comes first.
+        FlowActionCreateModel flowActionCreateModelSigningRule = new FlowActionCreateModel();
+        flowActionCreateModelSigningRule.setType(FlowActionType.SIGN_RULE);
+        flowActionCreateModelSigningRule.setNumberRequiredSignatures(1);
 
+        List<ParticipantUserModel> participantUserModels = new ArrayList<ParticipantUserModel>();
+        participantUserModels.add(participantUserOne);
+        participantUserModels.add(participantUserTwo);
+        flowActionCreateModelSigningRule.setSignRuleUsers(participantUserModels);
+        
         // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
         List<FlowActionCreateModel> flowActionCreateModelList = new ArrayList<>();
-        flowActionCreateModelList.add(flowActionCreateModel);
+        flowActionCreateModelList.add(flowActionCreateModelSigningRule);
 
         // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();
@@ -59,32 +75,15 @@ public class VerifyDocumentStatusSCenario extends Scenario {
         documentRequest.setFlowActions(flowActionCreateModelList);
         List<CreateDocumentResult> documentResults = signerClient.createDocument(documentRequest);
 
-        /**
-        * NOTE: The following way of verifying the concludeness of the flow 
-        * works but is discouraged, it will have a huge computational cost not worthy
-        * for such a simple task.
-        * 
-        * The best way to do this task is by enabling a webhook in your organization on the
-        * signer instance. Whenever the flow is completed the instance will take care of
-        * notifying your application by making a POST request for your previously registered url.
-        * 
-        * Access the following link for information about the data posted and search for Webhooks.DocumentConcludedModel:
-        * https://signer-lac.azurewebsites.net/swagger/index.html
-        */
-
-        // 7. Check for the concludeness of the flow.
+        // 7. To notify the participant:
         for (CreateDocumentResult documentResult : documentResults) {
+            // 7.1. Extract the information of the flow using the following procedure.
             DocumentModel details = signerClient.getDocumentDetails(documentResult.getDocumentId());
-
-            // 7.1. Extracts details from the document.
-            if (details.isConcluded()) {
-
-            }
-
-            // 7.3. Check if each flow action individualy is completed.
-            for (FlowActionModel flowAction : details.getFlowActions()) {
-                if (flowAction.getStatus() == ActionStatus.COMPLETED) {
-
+            List<FlowActionModel> flowActions = details.getFlowActions();
+            for (FlowActionModel flowAction : flowActions) {
+                // 7.2. Send notification to the participant.
+                if (flowAction.getStatus() == ActionStatus.PENDING) {
+                    signerClient.sendFlowActionReminder(documentResult.getDocumentId(), flowAction.getId());
                 }
             }
         }

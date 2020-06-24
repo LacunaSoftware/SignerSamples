@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 
 public class App {
 	public static void main(String[] args) throws URISyntaxException, RestException, IOException {
-		Scenario scenario = new DocumentOrganizationScenario();
+		Scenario scenario = new CreateDocumentWithOneSignerScenario();
 		scenario.Init();
 		scenario.Run();
 	}
