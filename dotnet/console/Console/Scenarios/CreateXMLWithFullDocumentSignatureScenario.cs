@@ -57,7 +57,7 @@ namespace Console.Scenarios
                 XadesOptions = xadesOptionsModel
             };
 
-            // 7. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },

@@ -16,7 +16,7 @@ namespace Console.Scenarios
     {
         /**
          * This scenario shows step-by-step the submission of a document
-         * into an already existing folder.
+         * into an nonexisting folder.
          */
         public override async Task RunAsync()
         {
@@ -46,21 +46,13 @@ namespace Console.Scenarios
                 User = participantUser
             };
 
-            // 5. You'll need to request the creation of a folder or get an existing one.
-            var folderCreateRequest = new FolderCreateRequest()
-            {
-                Name = "Folder " + DateTime.UtcNow.ToString()
-            };
-            var folderInfoModel = await signerClient.CreateFolderAsync(folderCreateRequest);
-
-            // 7. Send the document create request and provide the id of the folder where you wish to save the document.
-            //    It's also possible to create a brand new folder by lefting the `FolderId` property as null and assigning 
-            //    the property `NewFolderName` with the desired name for the folder.
+            // 5. Create a CreateDocumentRequest instance setting the Files list, FlowActions list
+            //    and the NewFolderName string to create the document inside of ab nonexistent folder.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
                 FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel },
-                FolderId = folderInfoModel.Id
+                NewFolderName = "Folder " + DateTime.UtcNow.ToString()
             };
             var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
 

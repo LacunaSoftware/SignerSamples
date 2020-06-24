@@ -75,6 +75,7 @@
     <Compile Include="Scenarios\CreateDocumentWithSigningRuleScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithTwoOrMoreSignersWithOrderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.cs" />
+    <Compile Include="Scenarios\NotifyFlowParticipantsScenario.cs" />
     <Compile Include="Scenarios\Scenario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

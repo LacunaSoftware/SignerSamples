@@ -1,6 +1,7 @@
 ﻿using Lacuna.Signer.Api;
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
+using Lacuna.Signer.Api.Folders;
 using Lacuna.Signer.Api.Users;
 using Lacuna.Signer.Client;
 using System;
@@ -26,6 +27,7 @@ namespace Console.Scenarios
 
         public abstract Task RunAsync();
 
+        // Submits a generic document, useful for certain scenarios.
         protected async Task<CreateDocumentResult> createDocumentAsync()
         {
             var filePath = "sample.pdf";
@@ -55,6 +57,15 @@ namespace Console.Scenarios
             };
 
             return (await signerClient.CreateDocumentAsync(documentRequest)).First();
+        }
+
+        protected async Task<FolderInfoModel> createFolderAsync()
+        {
+            var createFolderRequest = new FolderCreateRequest()
+            {
+                Name = "Folder " + DateTime.UtcNow.ToString()
+            };
+            return await signerClient.CreateFolderAsync(createFolderRequest);
         }
     }
 }
