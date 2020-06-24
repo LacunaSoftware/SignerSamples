@@ -8,11 +8,12 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class VerifyDocumentStatusScenario : Scenario
+    public class CreateDocumentWithTwoOrMoreSignersWithOrderScenario : Scenario
     {
         /**
          * This scenario shows step-by-step the submission of a document
-         * and the process to check if the flow's actions were completed.
+         * to the signer instance where there are two participant in the role
+         * of signatories and the there's a required order for the signatures.
          */
         public override void Run()
         {
@@ -23,28 +24,48 @@ namespace Console.Scenarios
             var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Signer's server expects a FileUploadModel's list to create a document.
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Verify " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Two Signers With Order " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
             // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
-            var approverParticipant = new ParticipantUserModel()
+            var participantUserOne = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
+            var participantUserTwo = new ParticipantUserModel()
+            {
+                Name = "James Bond",
+                Email = "james.bond@mailinator.com",
+                Identifier = "95588148061"
+            };
+
             // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
             //    created in the previous step. The FlowActionCreateModel is responsible for holding
             //    the personal data of the participant and the type of action that it will peform on the flow.
-            var flowActionCreateModelApprover = new FlowActionCreateModel()
+            //    In the case of order for the flow actions it's necessary to assign values to the `Step` propertie
+            //    of the instances, smaller numbers represents action that comes first.
+            var flowActionCreateModelOne = new FlowActionCreateModel()
             {
-                Type = FlowActionType.Approver,
-                User = approverParticipant
+                Type = FlowActionType.Signer,
+                User = participantUserOne,
+                Step = 1
+            };
+
+            var flowActionCreateModelTwo = new FlowActionCreateModel()
+            {
+                Type = FlowActionType.Signer,
+                User = participantUserTwo,
+                Step = 2
             };
 
             // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModelApprover };
+            var flowActionCreateModelList = new List<FlowActionCreateModel>() {
+                flowActionCreateModelOne,
+                flowActionCreateModelTwo
+            };
 
             // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
             var documentRequest = new CreateDocumentRequest()
@@ -54,38 +75,15 @@ namespace Console.Scenarios
             };
             var documentResults = signerClient.CreateDocumentAsync(documentRequest);
 
-            /**
-             * NOTE: The following way of verifying the concludeness of the flow 
-             * works but is discouraged, it will have a huge computational cost not worthy
-             * for such a simple task.
-             * 
-             * The best way to do this task is by enabling a webhook in your organization on the
-             * signer instance. Whenever the flow is completed the instance will take care of
-             * notifying your application by making a POST request for your previously registered url.
-             * 
-             * Access the following link for information about the data posted and search for Webhooks.DocumentConcludedModel:
-             * https://signer-lac.azurewebsites.net/swagger/index.html
-             */
-
-            // 7. Check for the concludeness of the flow.
+            // 7. To notify the participant:
             foreach (var documentResult in documentResults.Result)
             {
-                // 7.1. Extracts details from the document.
+                // 7.1. Extract the information of the flow using the following procedure.
                 var details = signerClient.GetDocumentDetailsAsync(documentResult.DocumentId);
-                
-                // 7.2. Check if the whole flow is conclued.
-                if (details.Result.IsConcluded)
-                {
-
-                }
-
-                // 7.3. Check if each flow action individualy is completed.
                 foreach (var flowAction in details.Result.FlowActions)
                 {
-                    if (flowAction.Status == ActionStatus.Completed)
-                    {
-
-                    }
+                    // 7.2. Send notification to the participant.
+                    _ = signerClient.SendFlowActionReminderAsync(documentResult.DocumentId, flowAction.Id);
                 }
             }
         }

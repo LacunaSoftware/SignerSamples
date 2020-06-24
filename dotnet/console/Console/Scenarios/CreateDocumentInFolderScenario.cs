@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Console.Scenarios
 {
-    public class DocumentOrganizationScenario : Scenario
+    public class CreateDocumentInFolderScenario : Scenario
     {
         /**
          * This scenario shows step-by-step the submission of a document

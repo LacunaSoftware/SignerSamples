@@ -8,62 +8,58 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class SubmitDocumentWithTwoOrMoreSignersWithoutOrderScenario : Scenario
+    public class CreateXMLWithFullDocumentSignatureScenario : Scenario
     {
         /**
          * This scenario shows step-by-step the submission of a document
-         * to the signer instance where there are two participant in the role
-         * of signatories.
+         * to the signer instance where the document is a XML file and the
+         * whole document must signed.
          */
         public override void Run()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
-            var filePath = "sample.pdf";
+            var filePath = "sample.xml";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
+
+            // 1.1 The mimeType for a xml file is "application/xml".
+            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/xml");
 
             // 2. Signer's server expects a FileUploadModel's list to create a document.
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Two Signers Without Order " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "XML Full Sign " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
             // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
-            var participantUserOne = new ParticipantUserModel()
+            var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
-            var participantUserTwo = new ParticipantUserModel()
+            // 4. For a XML file it's necessary to provide for the FlowActionCreateModel a XadexOptionsModel
+            //    specifying the signature type. In this case, it's only necessary to specify that the signature type
+            //    it's FullXML.
+            var xadesOptionsModel = new XadesOptionsModel()
             {
-                Name = "James Bond",
-                Email = "james.bond@mailinator.com",
-                Identifier = "95588148061"
+                SignatureType = XadesSignatureTypes.FullXml
             };
 
-            // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
+            // 5. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
             //    created in the previous step. The FlowActionCreateModel is responsible for holding
             //    the personal data of the participant and the type of action that it will peform on the flow.
-            var flowActionCreateModelOne = new FlowActionCreateModel()
+            //    Also, it's necessary to instantiate the propertie 'XadexOptions' with the previously created instance XadexOptionsModel.
+            var flowActionCreateModel = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
-                User = participantUserOne
+                User = participantUser,
+                XadesOptions = xadesOptionsModel
             };
 
-            var flowActionCreateModelTwo = new FlowActionCreateModel()
-            {
-                Type = FlowActionType.Signer,
-                User = participantUserTwo
-            };
+            // 6. Signer's server expects a FlowActionCreateModel's list to create a document.
+            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModel };
 
-            // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() {
-                flowActionCreateModelOne,
-                flowActionCreateModelTwo
-            };
-
-            // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 7. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = fileUploadModelList,
@@ -71,14 +67,14 @@ namespace Console.Scenarios
             };
             var documentResults = signerClient.CreateDocumentAsync(documentRequest);
 
-            // 7. To notify the participant:
+            // 8. To notify the participant:
             foreach (var documentResult in documentResults.Result)
             {
-                // 7.1. Extract the information of the flow using the following procedure.
+                // 8.1. Extract the information of the flow using the following procedure.
                 var details = signerClient.GetDocumentDetailsAsync(documentResult.DocumentId);
                 foreach (var flowAction in details.Result.FlowActions)
                 {
-                    // 7.2. Send notification to the participant.
+                    // 8.2. Send notification to the participant.
                     _ = signerClient.SendFlowActionReminderAsync(documentResult.DocumentId, flowAction.Id);
                 }
             }
