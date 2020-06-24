@@ -28,17 +28,31 @@ namespace Console.Scenarios
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
             // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
-            var participantUser = new ParticipantUserModel()
+            var participantUserOne = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
+            var participantUserTwo = new ParticipantUserModel()
+            {
+                Name = "James Bond",
+                Email = "james.bond@mailinator.com",
+                Identifier = "95588148061"
+            };
+
+            var ParticipantUserThree = new ParticipantUserModel()
+            {
+                Name = "Gary Eggsy",
+                Email = "gary.eggsy@mailinator.com",
+                Identifier = "87657257008"
+            };
+
             // 4. For a XML file it's necessary to provide for the FlowActionCreateModel a XadexOptionsModel
             //    specifying the signature type. In this case, it's necessary to provide the fields that must be
             //    signed in the following way:
-            var xadesOptionsDiplomData = new XadesOptionsModel
+            var xadesOptionsDiplomData = new XadesOptionsModel()
             {
                 SignatureType = XadesSignatureTypes.XmlElement,
                 ElementToSignIdentifierType = XadesElementIdentifierTypes.XPath,
@@ -46,7 +60,7 @@ namespace Console.Scenarios
                 InsertionOption = XadesInsertionOptions.AppendChild
             };
 
-            var xadesOptionsModelRegisterData = new XadesOptionsModel
+            var xadesOptionsModelRegisterData = new XadesOptionsModel()
             {
                 SignatureType = XadesSignatureTypes.XmlElement,
                 ElementToSignIdentifierType = XadesElementIdentifierTypes.XPath,
@@ -54,26 +68,39 @@ namespace Console.Scenarios
                 InsertionOption = XadesInsertionOptions.AppendChild
             };
 
+            var xadesOptionsModelFull = new XadesOptionsModel()
+            {
+                SignatureType = XadesSignatureTypes.FullXml
+            };
+
             // 5. You'll need to create two FlowActionCreateModel's instance foreach ParticipantUserModel
             //    one for signing the register's data and one for the diplom's data.
             var flowActionCreateModelDiplomData = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
-                User = participantUser,
+                User = participantUserOne,
                 XadesOptions = xadesOptionsDiplomData
             };
 
             var flowActionCreateModelRegisterData = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
-                User = participantUser,
+                User = participantUserTwo,
                 XadesOptions = xadesOptionsModelRegisterData
+            };
+
+            var flowActionCreateModelFull = new FlowActionCreateModel()
+            {
+                Type = FlowActionType.Signer,
+                User = ParticipantUserThree,
+                XadesOptions = xadesOptionsModelFull
             };
 
             // 6. Signer's server expects a FlowActionCreateModel's list to create a document.
             var flowActionCreateModelList = new List<FlowActionCreateModel>() { 
                 flowActionCreateModelDiplomData,
-                flowActionCreateModelRegisterData
+                flowActionCreateModelRegisterData,
+                flowActionCreateModelFull
             };
 
             // 7. For a diplom, it's necessary to provide an instance holding the namespace of
