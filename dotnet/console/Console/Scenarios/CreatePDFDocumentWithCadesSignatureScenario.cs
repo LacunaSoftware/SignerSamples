@@ -5,6 +5,8 @@ using Lacuna.Signer.Api.Users;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Console.Scenarios
 {
@@ -15,22 +17,18 @@ namespace Console.Scenarios
          * to the signer instance where this document it's a PDF and needs to be
          * signed with Cades.
          */
-        public override void Run()
+        public override async Task RunAsync()
         {
-            // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
-            // 1.1. Select a pdf.
+            // 1. The file's bytes must be read by the application and uploaded
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
+            var uploadModel = await signerClient.UploadFileAsync(fileName, file, "application/pdf");
 
-            // 1.2. The mimeType for signing a PDF file with CAdes but me other than "application/pdf", "application/octet-stream" or even 'null' works.
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/octet-stream");
+            // 2. Define the name of the document which will be visible in the application
+            var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "PDF Cades Sample" };
 
-            // 2. Signer's server expects a FileUploadModel's list to create a document.
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "PDF Cades " + DateTime.UtcNow.ToString() };
-            var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
-
-            // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
+            // 3. For each participant on the flow, create one instance of ParticipantUserModel.
             var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
@@ -38,37 +36,26 @@ namespace Console.Scenarios
                 Identifier = "75502846369"
             };
 
-            // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
-            //    created in the previous step. The FlowActionCreateModel is responsible for holding
-            //    the personal data of the participant and the type of action that it will peform on the flow.
+            // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
+            //    This object is responsible for defining the personal data of the participant and the type of 
+            //    action that he will peform on the flow.
             var flowActionCreateModel = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
                 User = participantUser
             };
 
-            // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModel };
-
-            // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 5. Send the document create request specifying that it requires CAdES signatures, since PAdES is
+            //    the default for PDF files.
             var documentRequest = new CreateDocumentRequest()
             {
-                Files = fileUploadModelList,
-                FlowActions = flowActionCreateModelList
+                Files = new List<FileUploadModel>() { fileUploadModel },
+                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel },
+                ForceCadesSignature = true
             };
-            var documentResults = signerClient.CreateDocumentAsync(documentRequest);
+            var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
 
-            // 7. To notify the participant:
-            foreach (var documentResult in documentResults.Result)
-            {
-                // 7.1. Extract the information of the flow using the following procedure.
-                var details = signerClient.GetDocumentDetailsAsync(documentResult.DocumentId);
-                foreach (var flowAction in details.Result.FlowActions)
-                {
-                    // 7.2. Send notification to the participant.
-                    _ = signerClient.SendFlowActionReminderAsync(documentResult.DocumentId, flowAction.Id);
-                }
-            }
+            System.Console.WriteLine($"Document {result.DocumentId} created");
         }
     }
 }

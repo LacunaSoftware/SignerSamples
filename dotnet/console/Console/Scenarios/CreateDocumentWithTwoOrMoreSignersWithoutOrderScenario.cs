@@ -5,6 +5,8 @@ using Lacuna.Signer.Api.Users;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Console.Scenarios
 {
@@ -15,17 +17,16 @@ namespace Console.Scenarios
          * to the signer instance where there are two participant in the role
          * of signatories.
          */
-        public override void Run()
+        public override async Task RunAsync()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
+            var uploadModel = await signerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Signer's server expects a FileUploadModel's list to create a document.
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Two Signers Without Order " + DateTime.UtcNow.ToString() };
-            var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
+            var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Two Signers Without Order Sample" };
 
             // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
             var participantUserOne = new ParticipantUserModel()
@@ -57,31 +58,19 @@ namespace Console.Scenarios
                 User = participantUserTwo
             };
 
-            // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() {
-                flowActionCreateModelOne,
-                flowActionCreateModelTwo
-            };
-
-            // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 5. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
             var documentRequest = new CreateDocumentRequest()
             {
-                Files = fileUploadModelList,
-                FlowActions = flowActionCreateModelList
-            };
-            var documentResults = signerClient.CreateDocumentAsync(documentRequest);
-
-            // 7. To notify the participant:
-            foreach (var documentResult in documentResults.Result)
-            {
-                // 7.1. Extract the information of the flow using the following procedure.
-                var details = signerClient.GetDocumentDetailsAsync(documentResult.DocumentId);
-                foreach (var flowAction in details.Result.FlowActions)
+                Files = new List<FileUploadModel>() { fileUploadModel },
+                FlowActions = new List<FlowActionCreateModel>() 
                 {
-                    // 7.2. Send notification to the participant.
-                    _ = signerClient.SendFlowActionReminderAsync(documentResult.DocumentId, flowAction.Id);
+                    flowActionCreateModelOne,
+                    flowActionCreateModelTwo
                 }
-            }
+            };
+            var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
+
+            System.Console.WriteLine($"Document {result.DocumentId} created");
         }
     }
 }

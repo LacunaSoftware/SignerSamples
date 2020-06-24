@@ -1,4 +1,5 @@
 ﻿using Console.Scenarios;
+using System.Threading.Tasks;
 
 namespace Console
 {
@@ -8,8 +9,8 @@ namespace Console
 		{
 			// Modify the line below to run different scenarios in folder 'Scenarios'.
 			var scenario = new EmbeddedSignatureScenario();
-			scenario.Init();
-			scenario.Run();
+
+            Task.Run(() => scenario.RunAsync()).GetAwaiter().GetResult();
 		}
 	}
 }
