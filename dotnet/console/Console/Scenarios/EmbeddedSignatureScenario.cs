@@ -62,7 +62,7 @@ namespace Console.Scenarios
 
             // 7. Load the embed URL using the LacunaSignerWidget as described in 
             //    https://docs.lacunasoftware.com/pt-br/articles/signer/embedded-signature.html
-            System.Console.WriteLine(actionUrlResponse.Url);
+            System.Console.WriteLine(actionUrlResponse.EmbedUrl);
         }
     }
 }
