@@ -8,12 +8,12 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class SubmitDocumentWithTwoOrMoreSignersWithOrderScenario : Scenario
+    public class CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario : Scenario
     {
         /**
          * This scenario shows step-by-step the submission of a document
          * to the signer instance where there are two participant in the role
-         * of signatories and the there's a required order for the signatures.
+         * of signatories.
          */
         public override void Run()
         {
@@ -24,7 +24,7 @@ namespace Console.Scenarios
             var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Signer's server expects a FileUploadModel's list to create a document.
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Two Signers With Order " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Two Signers Without Order " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
             // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
@@ -45,20 +45,16 @@ namespace Console.Scenarios
             // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
             //    created in the previous step. The FlowActionCreateModel is responsible for holding
             //    the personal data of the participant and the type of action that it will peform on the flow.
-            //    In the case of order for the flow actions it's necessary to assign values to the `Step` propertie
-            //    of the instances, smaller numbers represents action that comes first.
             var flowActionCreateModelOne = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
-                User = participantUserOne,
-                Step = 1
+                User = participantUserOne
             };
 
             var flowActionCreateModelTwo = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
-                User = participantUserTwo,
-                Step = 2
+                User = participantUserTwo
             };
 
             // 5. Signer's server expects a FlowActionCreateModel's list to create a document.

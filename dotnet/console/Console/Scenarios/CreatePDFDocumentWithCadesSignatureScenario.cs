@@ -8,56 +8,47 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    /**
-     * This scenario shows step-by-step the submission of a document
-     * to the signer instance where there's a signing rule for it.
-     * A signing rule is a modality where multiples participants are
-     * assigned to the document but just an arbitrary number of them 
-     * are needed to sign in order to complete the flow.
-     */
-    public class SubmitDocumentWithSigningRuleScenario : Scenario
+    public class CreatePDFDocumentWithCadesSignatureScenario : Scenario
     {
+        /**
+         * This scenario shows step-by-step the submission of a document
+         * to the signer instance where this document it's a PDF and needs to be
+         * signed with Cades.
+         */
         public override void Run()
         {
             // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
+            // 1.1. Select a pdf.
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/pdf");
+
+            // 1.2. The mimeType for signing a PDF file with CAdes but me other than "application/pdf", "application/octet-stream" or even 'null' works.
+            var uploadModel = signerClient.UploadFileAsync(fileName, file, "application/octet-stream");
 
             // 2. Signer's server expects a FileUploadModel's list to create a document.
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Signing Rule " + DateTime.UtcNow.ToString() };
+            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "PDF Cades " + DateTime.UtcNow.ToString() };
             var fileUploadModelList = new List<FileUploadModel>() { fileUploadModel };
 
             // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
-            var participantUserOne = new ParticipantUserModel()
+            var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
-            var participantUserTwo = new ParticipantUserModel()
+            // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
+            //    created in the previous step. The FlowActionCreateModel is responsible for holding
+            //    the personal data of the participant and the type of action that it will peform on the flow.
+            var flowActionCreateModel = new FlowActionCreateModel()
             {
-                Name = "James Bond",
-                Email = "james.bond@mailinator.com",
-                Identifier = "95588148061"
-            };
-
-            // 4. Each signing rule requires just one FlowActionCreateModel independent
-            //    of the number of participants assigned to it. The participants are added to
-            //    it via a list of ParticipantUserModel assigned to the `SignRuleUsers` propertie.
-            //    The number of required signatures from this list of participants is represented by
-            //    the propertie `NumberRequiredSignatures`.
-            var flowActionCreateModelSigningRule = new FlowActionCreateModel()
-            {
-                Type = FlowActionType.SignRule,
-                NumberRequiredSignatures = 1,
-                SignRuleUsers = new List<ParticipantUserModel>() { participantUserOne, participantUserTwo }
+                Type = FlowActionType.Signer,
+                User = participantUser
             };
 
             // 5. Signer's server expects a FlowActionCreateModel's list to create a document.
-            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModelSigningRule };
+            var flowActionCreateModelList = new List<FlowActionCreateModel>() { flowActionCreateModel };
 
             // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
             var documentRequest = new CreateDocumentRequest()

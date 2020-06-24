@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class SubmitDigitalDiplomScenario : Scenario
+    public class CreateDigitalDegreeScenario : Scenario
     {
         /**
          * This scenario shows step-by-step the submission of an digital diplom.

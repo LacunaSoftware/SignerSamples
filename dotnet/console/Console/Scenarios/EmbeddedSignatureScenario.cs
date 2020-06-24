@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Console.Scenarios
 {
-    public class ExtractEmbeddedSignatureAndRedirectionWithActionUrlScenario : Scenario
+    public class EmbeddedSignatureScenario : Scenario
     {
         /**
          * This scenario shows step-by-step the submission of a document
