@@ -20,10 +20,10 @@ namespace Console.Scenarios
             var filePath = "sample-degree.xml";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-            var uploadModel = SignerClient.UploadFileAsync(fileName, file, "application/xml");
+            var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/xml");
 
             // 2. Define the name of the document which will be visible in the application
-            var fileUploadModel = new FileUploadModel(uploadModel.Result) { DisplayName = "Digital Degree Sample" };
+            var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Digital Degree Sample" };
 
             // 3. For each participant on the flow, create one instance of ParticipantUserModel
             var participantUserOne = new ParticipantUserModel()
