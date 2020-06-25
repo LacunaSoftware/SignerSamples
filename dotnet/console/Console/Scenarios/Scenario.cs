@@ -27,7 +27,7 @@ namespace Console.Scenarios
 
         public abstract Task RunAsync();
 
-        // Submits a generic document, useful for certain scenarios.
+        // Creates a generic document, useful for certain scenarios.
         protected async Task<CreateDocumentResult> createDocumentAsync()
         {
             var filePath = "sample.pdf";
