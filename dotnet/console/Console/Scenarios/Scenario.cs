@@ -58,14 +58,5 @@ namespace Console.Scenarios
 
             return (await signerClient.CreateDocumentAsync(documentRequest)).First();
         }
-
-        protected async Task<FolderInfoModel> createFolderAsync()
-        {
-            var createFolderRequest = new FolderCreateRequest()
-            {
-                Name = "Folder " + DateTime.UtcNow.ToString()
-            };
-            return await signerClient.CreateFolderAsync(createFolderRequest);
-        }
     }
 }

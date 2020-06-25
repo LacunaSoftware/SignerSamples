@@ -1,13 +1,10 @@
 ﻿using Lacuna.Signer.Api;
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
-using Lacuna.Signer.Api.Folders;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Console.Scenarios
@@ -15,7 +12,7 @@ namespace Console.Scenarios
     public class CreateDocumentInFolderScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
+         * This scenario shows step by step the creation of a document
          * into an nonexisting folder.
          */
         public override async Task RunAsync()
@@ -46,13 +43,12 @@ namespace Console.Scenarios
                 User = participantUser
             };
 
-            // 5. Create a CreateDocumentRequest instance setting the Files list, FlowActions list
-            //    and the NewFolderName string to create the document inside of ab nonexistent folder.
+            // 5. Send the document create request. Set the NewFolderName property to create a folder for the document.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
                 FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel },
-                NewFolderName = "Folder " + DateTime.UtcNow.ToString()
+                NewFolderName = "New Folder"
             };
             var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
 

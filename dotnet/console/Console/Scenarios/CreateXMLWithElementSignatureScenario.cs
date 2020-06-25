@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Console.Scenarios
     public class CreateXMLWithElementSignatureScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
+         * This scenario shows step by step the creation of a document
          * to the signer instance where the document is a XML file and only
          * a specific element of the document must be signed.
          */
@@ -60,7 +59,7 @@ namespace Console.Scenarios
                 XadesOptions = xadesOptionsModel
             };
 
-            // 6. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 6. Send the document create request
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },

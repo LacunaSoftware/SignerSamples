@@ -1,12 +1,5 @@
 ﻿using Lacuna.Signer.Api;
-using Lacuna.Signer.Api.Documents;
-using Lacuna.Signer.Api.FlowActions;
-using Lacuna.Signer.Api.Users;
 using Lacuna.Signer.Api.Webhooks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Console.Scenarios
@@ -14,7 +7,7 @@ namespace Console.Scenarios
     public class CheckDocumentStatusScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step instructions to check if a document is concluded 
+         * This scenario shows step by step instructions to check if a document is concluded 
          * and the status of it's flow actions.
          */
         public override async Task RunAsync()

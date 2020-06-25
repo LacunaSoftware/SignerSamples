@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Console.Scenarios
 {
@@ -13,7 +9,7 @@ namespace Console.Scenarios
          */
         public override async Task RunAsync()
         {
-            // 1. It's necessary to have a CreateDocumentResult instance.
+            // 1. It's necessary to have a document.
             var result = await createDocumentAsync();
 
             // 2. Obtain the document details with it's Id.

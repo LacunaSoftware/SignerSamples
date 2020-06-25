@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Console.Scenarios
     public class CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
+         * This scenario shows step by step the creation of a document
          * to the signer instance where there are two participant in the role
          * of signatories.
          */
@@ -58,7 +57,7 @@ namespace Console.Scenarios
                 User = participantUserTwo
             };
 
-            // 5. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 5. Send the document create request
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },

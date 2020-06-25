@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 namespace Console.Scenarios
 {
     /**
-     * This scenario shows step-by-step the submission of a document
+     * This scenario shows step by step the creation of a document
      * to the signer instance where there's one participant in the role
      * of an approver.
      */

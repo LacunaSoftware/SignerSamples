@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Console.Scenarios
     public class EmbeddedSignatureScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
+         * This scenario shows step by step the creation of a document
          * and the extraction of it's action url for embed signature purposes, 
          * also, it shows executes a redirection to the signature web page.
          */

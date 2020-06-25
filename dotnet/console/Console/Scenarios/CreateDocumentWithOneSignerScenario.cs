@@ -2,11 +2,9 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Console.Scenarios
@@ -14,7 +12,7 @@ namespace Console.Scenarios
     public class CreateDocumentWithOneSignerScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
+         * This scenario shows step by step the creation of a document
          * to the signer instance where there's one participant in the role of a signatory.
          */
         public override async Task RunAsync()
@@ -45,7 +43,7 @@ namespace Console.Scenarios
                 User = participantUser
             };
 
-            // 5. To create the document request, use the list of FileUploadModel and the list of FlowActionCreateModel.
+            // 5. Send the document create request
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },

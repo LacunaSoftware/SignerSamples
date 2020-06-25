@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Console.Scenarios
     public class CreateDocumentWithTwoOrMoreSignersWithOrderScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
+         * This scenario shows step by step the creation of a document
          * to the signer instance where there are two participant in the role
          * of signatories and the there's a required order for the signatures.
          */
@@ -46,7 +45,7 @@ namespace Console.Scenarios
             // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
             //    created in the previous step. The FlowActionCreateModel is responsible for holding
             //    the personal data of the participant and the type of action that it will peform on the flow.
-            //    In the case of order for the flow actions it's necessary to assign values to the `Step` propertie
+            //    In the case of order for the flow actions it's necessary to assign values to the `Step` property
             //    of the instances, smaller numbers represents action that comes first.
             var flowActionCreateModelOne = new FlowActionCreateModel()
             {

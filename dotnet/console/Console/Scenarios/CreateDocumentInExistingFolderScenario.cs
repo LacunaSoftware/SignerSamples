@@ -2,19 +2,28 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Lacuna.Signer.Api.Folders;
+using Lacuna.Spa.Api;
 
 namespace Console.Scenarios
 {
     public class CreateDocumentInExistingFolderScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
+         * This scenario shows step by step the creation of a document in a existing folder.
+         */
+        public CreateDocumentInExistingFolderScenario() : base()
+        {
+            // 0. It's necessary to have an existing folder.
+            _ = signerClient.CreateFolderAsync(new FolderCreateRequest() { Name = "ExistingFolderName" });
+        }
+
+        /**
+         * This scenario shows step by step the creation of a document
          * into an already existing folder.
          */
         public override async Task RunAsync()
@@ -45,14 +54,12 @@ namespace Console.Scenarios
                 User = participantUser
             };
 
-            // 5. You'll need to request the creation of a folder or get an existing one.
-            var folderCreateRequest = new FolderCreateRequest()
-            {
-                Name = "Folder " + DateTime.UtcNow.ToString()
-            };
-            var folderInfoModel = await signerClient.CreateFolderAsync(folderCreateRequest);
+            // 5. You'll need to retrieve the folder details.
+            var paginatedSearchParams = new PaginatedSearchParams() { Q = "ExistingFolderName" };
+            var paginatedSearchResult = await signerClient.ListFoldersPaginatedAsync(paginatedSearchParams, null);
+            var folderInfoModel = paginatedSearchResult.Items.First();
 
-            // 6. Send the document create request and provide the id of the folder where you want to save the document.
+            // 6. Send the document create request .Set the FolderId property to insert the document in a folder.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
