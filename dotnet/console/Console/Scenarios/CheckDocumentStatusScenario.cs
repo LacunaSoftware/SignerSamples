@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Console.Scenarios
 {
-    public class CheckDocumentStatusScenario : Scenario
+    public class CheckDocumentStatusScenario : Scenario, IWebhookHandlerScenario
     {
         /**
          * This scenario shows step by step instructions to check if a document is concluded 
