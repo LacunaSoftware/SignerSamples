@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,27 +9,27 @@ using System.Threading.Tasks;
 
 namespace Console.Scenarios
 {
-    /**
-     * This scenario shows step-by-step the submission of a document
-     * to the signer instance where there's a signing rule for it.
-     * A signing rule is a modality where multiples participants are
-     * assigned to the document but just an arbitrary number of them 
-     * are needed to sign in order to complete the flow.
-     */
     public class CreateDocumentWithSigningRuleScenario : Scenario
     {
+        /**
+         * This scenario demonstrates the creation of a document
+         * that will be signed by a sign rule.
+         * In a signing rule multiples users are assigned to the 
+         * same action but just an arbitrary number of them are 
+         * required to sign in order to complete that action.
+         */
         public override async Task RunAsync()
         {
             // 1. The file's bytes must be read by the application and uploaded
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-            var uploadModel = await signerClient.UploadFileAsync(fileName, file, "application/pdf");
+            var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Define the name of the document which will be visible in the application
             var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Signing Rule Sample" };
 
-            // 3. For each participant on the flow, create one instance of ParticipantUserModel.
+            // 3. For each participant on the flow, create one instance of ParticipantUserModel
             var participantUserOne = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
@@ -63,7 +62,7 @@ namespace Console.Scenarios
                 Files = new List<FileUploadModel>() { fileUploadModel },
                 FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModelSigningRule }
             };
-            var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
+            var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 
             System.Console.WriteLine($"Document {result.DocumentId} created");
         }

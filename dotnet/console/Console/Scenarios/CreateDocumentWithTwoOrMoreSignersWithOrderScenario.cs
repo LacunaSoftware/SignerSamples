@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,9 +12,8 @@ namespace Console.Scenarios
     public class CreateDocumentWithTwoOrMoreSignersWithOrderScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
-         * to the signer instance where there are two participant in the role
-         * of signatories and the there's a required order for the signatures.
+         * This scenario demonstrates the creation of a document with 
+         * two signers and there's a required order for the signatures.
          */
         public override async Task RunAsync()
         {
@@ -23,12 +21,12 @@ namespace Console.Scenarios
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-            var uploadModel = await signerClient.UploadFileAsync(fileName, file, "application/pdf");
+            var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Define the name of the document which will be visible in the application
             var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Two Signers With Order Sample" };
 
-            // 3. For each participant on the flow, create one instance of ParticipantUserModel.
+            // 3. For each participant on the flow, create one instance of ParticipantUserModel
             var participantUserOne = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
@@ -43,11 +41,10 @@ namespace Console.Scenarios
                 Identifier = "95588148061"
             };
 
-            // 4. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
-            //    created in the previous step. The FlowActionCreateModel is responsible for holding
-            //    the personal data of the participant and the type of action that it will peform on the flow.
-            //    In the case of order for the flow actions it's necessary to assign values to the `Step` propertie
-            //    of the instances, smaller numbers represents action that comes first.
+            // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
+            //    This object is responsible for defining the personal data of the participant, the type of 
+            //    action that he will peform on the flow and the order in which this action will take place
+            //    (Step property)
             var flowActionCreateModelOne = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
@@ -72,7 +69,7 @@ namespace Console.Scenarios
                     flowActionCreateModelTwo
                 }
             };
-            var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
+            var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 
             System.Console.WriteLine($"Document {result.DocumentId} created");
         }

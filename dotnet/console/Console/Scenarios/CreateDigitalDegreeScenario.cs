@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Console.Scenarios
     public class CreateDigitalDegreeScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of an digital diplom.
+         * This scenario demonstrates the creation of a digital degree compliant with "PORTARIA Nº 554, DE 11 DE MARÇO DE 2019".
          */
         public override async Task RunAsync()
         {
@@ -21,24 +20,42 @@ namespace Console.Scenarios
             var filePath = "sample-degree.xml";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-
-            // 1.1 Set the correct mime type for XML files
-            var uploadModel = await signerClient.UploadFileAsync(fileName, file, "application/xml");
+            var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/xml");
 
             // 2. Define the name of the document which will be visible in the application
             var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Digital Degree Sample" };
 
-            // 3. For each participant on the flow, create one instance of ParticipantUserModel.
-            var participantUser = new ParticipantUserModel()
+            // 3. For each participant on the flow, create one instance of ParticipantUserModel
+            var participantUserOne = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
-            // 4. A XML file requires a XadexOptionsModel specifying the signature type. 
-            //    Provide the fields that must be signed in the following way:
-            var xadesOptionsDiplomData = new XadesOptionsModel
+            var participantUserTwo = new ParticipantUserModel()
+            {
+                Name = "James Bond",
+                Email = "james.bond@mailinator.com",
+                Identifier = "95588148061"
+            };
+
+            var ParticipantUserThree = new ParticipantUserModel()
+            {
+                Name = "Gary Eggsy",
+                Email = "gary.eggsy@mailinator.com",
+                Identifier = "87657257008"
+            };
+
+            // 4. Specify the element that holds the namespace of the issuer
+            var xmlNamespacesModel = new XmlNamespaceModel()
+            {
+                Prefix = "dip",
+                Uri = @"http://portal.mec.gov.br/diplomadigital/arquivos-em-xsd"
+            };
+
+            // 5. The fields 'DadosDiploma' and 'DadosRegistro' and the entire XML file must be signed
+            var xadesOptionsDegreeData = new XadesOptionsModel()
             {
                 SignatureType = XadesSignatureTypes.XmlElement,
                 ElementToSignIdentifierType = XadesElementIdentifierTypes.XPath,
@@ -46,7 +63,7 @@ namespace Console.Scenarios
                 InsertionOption = XadesInsertionOptions.AppendChild
             };
 
-            var xadesOptionsModelRegisterData = new XadesOptionsModel
+            var xadesOptionsModelRegisterData = new XadesOptionsModel()
             {
                 SignatureType = XadesSignatureTypes.XmlElement,
                 ElementToSignIdentifierType = XadesElementIdentifierTypes.XPath,
@@ -54,43 +71,46 @@ namespace Console.Scenarios
                 InsertionOption = XadesInsertionOptions.AppendChild
             };
 
-            // 5. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
-            //    This object is responsible for defining the personal data of the participant and the type of 
-            //    action that he will peform on the flow.
-            var flowActionCreateModelDiplomData = new FlowActionCreateModel()
+            var xadesOptionsModelFull = new XadesOptionsModel()
             {
-                Type = FlowActionType.Signer,
-                User = participantUser,
-                XadesOptions = xadesOptionsDiplomData
+                SignatureType = XadesSignatureTypes.FullXml
             };
 
-            var flowActionCreateModelRegisterData = new FlowActionCreateModel()
+            // 6. Each signature requires its own flow action
+            var degreeDataAction = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
-                User = participantUser,
+                User = participantUserOne,
+                XadesOptions = xadesOptionsDegreeData
+            };
+
+            var registerDataAction = new FlowActionCreateModel()
+            {
+                Type = FlowActionType.Signer,
+                User = participantUserTwo,
                 XadesOptions = xadesOptionsModelRegisterData
             };
 
-            // 6. Specify the element that holds the namespace of the issuer.
-            var xmlNamespacesModel = new XmlNamespaceModel()
+            var flowActionCreateModelFull = new FlowActionCreateModel()
             {
-                Prefix = "dip",
-                Uri = @"http://portal.mec.gov.br/diplomadigital/arquivos-em-xsd"
+                Type = FlowActionType.Signer,
+                User = ParticipantUserThree,
+                XadesOptions = xadesOptionsModelFull
             };
 
             // 7. Send the document create request
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
+                XmlNamespaces = new List<XmlNamespaceModel>() { xmlNamespacesModel },
                 FlowActions = new List<FlowActionCreateModel>() 
                 {
-                    flowActionCreateModelDiplomData,
-                    flowActionCreateModelRegisterData
+                    degreeDataAction,
+                    registerDataAction,
+                    flowActionCreateModelFull 
                 },
-                XmlNamespaces = new List<XmlNamespaceModel>() { xmlNamespacesModel }
             };
-
-            var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
+            var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 
             System.Console.WriteLine($"Document {result.DocumentId} created");
         }

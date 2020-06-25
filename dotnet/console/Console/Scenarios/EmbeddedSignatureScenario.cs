@@ -2,7 +2,6 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,9 +12,9 @@ namespace Console.Scenarios
     public class EmbeddedSignatureScenario : Scenario
     {
         /**
-         * This scenario shows step-by-step the submission of a document
-         * and the extraction of it's action url for embed signature purposes, 
-         * also, it shows executes a redirection to the signature web page.
+         * This scenario demonstrates the creation of a document
+         * and the generation of an action URL for the embedded signature 
+         * integration.
          */
         public override async Task RunAsync()
         {
@@ -23,12 +22,12 @@ namespace Console.Scenarios
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
-            var uploadModel = await signerClient.UploadFileAsync(fileName, file, "application/pdf");
+            var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Define the name of the document which will be visible in the application
             var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Embedded Signature Sample" };
 
-            // 3. For each participant on the flow, create one instance of ParticipantUserModel.
+            // 3. For each participant on the flow, create one instance of ParticipantUserModel
             var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
@@ -38,7 +37,7 @@ namespace Console.Scenarios
 
             // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
             //    This object is responsible for defining the personal data of the participant and the type of 
-            //    action that he will peform on the flow.
+            //    action that he will peform on the flow
             var flowActionCreateModel = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
@@ -51,16 +50,16 @@ namespace Console.Scenarios
                 Files = new List<FileUploadModel>() { fileUploadModel },
                 FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel }
             };
-            var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
+            var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 
             // 6. Get the embed URL for the participant
             var actionUrlRequest = new ActionUrlRequest()
             {
                 Identifier = participantUser.Identifier
             };
-            var actionUrlResponse = await signerClient.GetActionUrlAsync(result.DocumentId, actionUrlRequest);
+            var actionUrlResponse = await SignerClient.GetActionUrlAsync(result.DocumentId, actionUrlRequest);
 
-            // 7. Load the embed URL using the LacunaSignerWidget as described in 
+            // 7. Load the embed URL in your own application using the LacunaSignerWidget as described in 
             //    https://docs.lacunasoftware.com/pt-br/articles/signer/embedded-signature.html
             System.Console.WriteLine(actionUrlResponse.EmbedUrl);
         }

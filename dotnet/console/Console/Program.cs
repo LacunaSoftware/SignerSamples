@@ -8,7 +8,7 @@ namespace Console
 		static void Main(string[] args)
 		{
 			// Modify the line below to run different scenarios in folder 'Scenarios'.
-			var scenario = new EmbeddedSignatureScenario();
+			var scenario = new CreateDocumentInExistingFolderScenario();
 
             Task.Run(() => scenario.RunAsync()).GetAwaiter().GetResult();
 		}

@@ -6,13 +6,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Lacuna.Signer.Api.Folders;
+using Lacuna.Spa.Api;
+using System;
 
 namespace Console.Scenarios
 {
-    public class CreateDocumentWithOneSignerScenario : Scenario
+    public class CreateDocumentInExistingFolderScenario : Scenario
     {
         /**
-         * This scenario demonstrates the creation of a document with one signer.
+         * This scenario demonstrates the creation of a document into an existing folder.
          */
         public override async Task RunAsync()
         {
@@ -23,7 +26,7 @@ namespace Console.Scenarios
             var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Define the name of the document which will be visible in the application
-            var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "One Signer Sample" };
+            var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Document in Folder Sample" };
 
             // 3. For each participant on the flow, create one instance of ParticipantUserModel
             var participantUser = new ParticipantUserModel()
@@ -42,11 +45,22 @@ namespace Console.Scenarios
                 User = participantUser
             };
 
-            // 5. Send the document create request
+            // 5. Search a folder by it's name
+            var paginatedSearchParams = new PaginatedSearchParams() { Q = "Sample Folder" };
+            var paginatedSearchResult = await SignerClient.ListFoldersPaginatedAsync(paginatedSearchParams, null);
+            var folder = paginatedSearchResult.Items.FirstOrDefault();
+
+            if (folder == null)
+            {
+                throw new Exception("Folder was not found");
+            }
+
+            // 6. Send the document create request setting the FolderId property
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
-                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel }
+                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel },
+                FolderId = folder.Id
             };
             var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 
