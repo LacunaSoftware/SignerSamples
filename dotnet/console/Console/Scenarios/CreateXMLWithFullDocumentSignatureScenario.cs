@@ -12,24 +12,22 @@ namespace Console.Scenarios
     public class CreateXMLWithFullDocumentSignatureScenario : Scenario
     {
         /**
-         * This scenario shows step by step the creation of a document
-         * to the signer instance where the document is a XML file and the
-         * whole document must signed.
+         * This scenario demonstrates the creation of a document
+         * that needs to be signed using the XAdES format for 
+         * the full XML file.
          */
         public override async Task RunAsync()
         {
-            // 1. The file's bytes must be read by the application and uploaded using the method UploadFileAsync.
+            // 1. The file's bytes must be read by the application and uploaded
             var filePath = "sample.xml";
             var fileName = Path.GetFileName(filePath);
             var file = File.ReadAllBytes(filePath);
+            var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/xml");
 
-            // 1.1 The mimeType for a xml file is "application/xml".
-            var uploadModel = await signerClient.UploadFileAsync(fileName, file, "application/xml");
-
-            // 2. Signer's server expects a FileUploadModel's list to create a document.
+            // 2. Define the name of the document which will be visible in the application
             var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "XML Full Signature Sample" };
 
-            // 3. Foreach participant on the flow, you'll need to create an instance of ParticipantUserModel.
+            // 3. For each participant on the flow, create one instance of ParticipantUserModel
             var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
@@ -37,18 +35,15 @@ namespace Console.Scenarios
                 Identifier = "75502846369"
             };
 
-            // 4. For a XML file it's necessary to provide for the FlowActionCreateModel a XadexOptionsModel
-            //    specifying the signature type. In this case, it's only necessary to specify that the signature type
-            //    it's FullXML.
+            // 4. Specify the signature type
             var xadesOptionsModel = new XadesOptionsModel()
             {
                 SignatureType = XadesSignatureTypes.FullXml
             };
 
-            // 5. You'll need to create a FlowActionCreateModel's instance foreach ParticipantUserModel
-            //    created in the previous step. The FlowActionCreateModel is responsible for holding
-            //    the personal data of the participant and the type of action that it will peform on the flow.
-            //    Also, it's necessary to instantiate the propertie 'XadexOptions' with the previously created instance XadexOptionsModel.
+            // 5. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
+            //    This object is responsible for defining the personal data of the participant and the type of 
+            //    action that he will peform on the flow.
             var flowActionCreateModel = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
@@ -62,7 +57,7 @@ namespace Console.Scenarios
                 Files = new List<FileUploadModel>() { fileUploadModel },
                 FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel }
             };
-            var result = (await signerClient.CreateDocumentAsync(documentRequest)).First();
+            var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 
             System.Console.WriteLine($"Document {result.DocumentId} created");
         }

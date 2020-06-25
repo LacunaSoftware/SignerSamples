@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
-    <Compile Include="Scenarios\CreateDocumentInFolderScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
     <Compile Include="Scenarios\EmbeddedSignatureScenario.cs" />
     <Compile Include="Scenarios\CreateDigitalDegreeScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithApproversScenario.cs" />
@@ -76,6 +76,8 @@
     <Compile Include="Scenarios\CreateDocumentWithSigningRuleScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithTwoOrMoreSignersWithOrderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.cs" />
+    <Compile Include="Scenarios\InvoiceWebhookHandlingScenario.cs" />
+    <Compile Include="Scenarios\IWebhookHandlerScenario.cs" />
     <Compile Include="Scenarios\NotifyFlowParticipantsScenario.cs" />
     <Compile Include="Scenarios\Scenario.cs" />
     <Compile Include="Program.cs" />
