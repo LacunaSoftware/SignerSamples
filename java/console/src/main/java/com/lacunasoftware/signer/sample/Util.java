@@ -21,8 +21,6 @@ public class Util {
 	}
 
 	public byte[] getResourceFile(String location) throws IOException {
-		byte[] content;
-
 		ClassLoader classLoader = getClass().getClassLoader();
 		URL resource = classLoader.getResource(String.format("static/%s", location));
 		if (resource == null) {
