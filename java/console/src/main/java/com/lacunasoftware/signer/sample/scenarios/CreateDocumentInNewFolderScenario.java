@@ -13,10 +13,9 @@ import com.lacunasoftware.signer.RestException;
 import com.lacunasoftware.signer.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
 
-public class CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario extends Scenario {
+public class CreateDocumentInNewFolderScenario extends Scenario {
     /**
-    * This scenario demonstrates the creation of a document with 
-    * two signers and without a particular order for the signatures.
+    * This scenario demonstrates the creation of a document into a new folder.
     */
     @Override
     public void Run() throws IOException, RestException {
@@ -26,34 +25,24 @@ public class CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario extends Scen
 
         // 2. Define the name of the document which will be visible in the application
         FileUploadModel fileUploadModel = new FileUploadModel(uploadModel);
-        fileUploadModel.setDisplayName("Two Signers Without Order Sample");
+        fileUploadModel.setDisplayName("Document in Folder Sample");
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
-        ParticipantUserModel participantUserOne = new ParticipantUserModel();
-		participantUserOne.setName("Jack Bauer");
-		participantUserOne.setEmail("jack.bauer@mailinator.com");
-        participantUserOne.setIdentifier("75502846369");
+        ParticipantUserModel user = new ParticipantUserModel();
+		user.setName("Jack Bauer");
+		user.setEmail("jack.bauer@mailinator.com");
+        user.setIdentifier("75502846369");
         
-		ParticipantUserModel participantUserTwo = new ParticipantUserModel();
-		participantUserTwo.setName("James Bond");
-		participantUserTwo.setEmail("james.bond@mailinator.com");
-        participantUserTwo.setIdentifier("95588148061");
-
         // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
-        //    This object is responsible for defining the personal data of the participant, the type of 
-        //    action that he will peform on the flow and the order in which this action will take place
-        //    (Step property). If the Step property of all action are the same or not specified they 
-        //    may be executed at any time
-        FlowActionCreateModel flowActionCreateModelOne = new FlowActionCreateModel();
-        flowActionCreateModelOne.setType(FlowActionType.SIGNER);
-        flowActionCreateModelOne.setUser(participantUserOne);
+        //    This object is responsible for defining the personal data of the participant and the type of 
+        //    action that he will peform on the flow
+        FlowActionCreateModel flowActionCreateModel = new FlowActionCreateModel();
+        flowActionCreateModel.setType(FlowActionType.SIGNER);
+        flowActionCreateModel.setUser(user);
 
-        FlowActionCreateModel flowActionCreateModelTwo = new FlowActionCreateModel();
-        flowActionCreateModelTwo.setType(FlowActionType.SIGNER);
-        flowActionCreateModelTwo.setUser(participantUserTwo);
-
-        // 5. Send the document create request
-        CreateDocumentRequest documentRequest = new CreateDocumentRequest();
+        // 5. Send the document create request. Set the NewFolderName property to create a folder for the document.
+        CreateDocumentRequest documentRequest = new CreateDocumentRequest(); 
+        documentRequest.setNewFolderName("New Folder");
         documentRequest.setFiles(new ArrayList<FileUploadModel>() {
             private static final long serialVersionUID = 1L;
             {
@@ -63,8 +52,7 @@ public class CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario extends Scen
         documentRequest.setFlowActions(new ArrayList<FlowActionCreateModel>() {
             private static final long serialVersionUID = 1L;
             {
-                add(flowActionCreateModelOne);
-                add(flowActionCreateModelTwo);
+                add(flowActionCreateModel);
             }
         });
         CreateDocumentResult result = signerClient.createDocument(documentRequest).get(0);
