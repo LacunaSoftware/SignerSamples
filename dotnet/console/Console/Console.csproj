@@ -40,17 +40,17 @@
     <Reference Include="Lacuna.RestClient, Version=1.13.0.0, Culture=neutral, PublicKeyToken=bf845f78aead27bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Lacuna.RestClient.1.13.0\lib\net45\Lacuna.RestClient.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.Signer.Api, Version=0.35.0.0, Culture=neutral, PublicKeyToken=8225298eb60dc292, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.Signer.Api.0.35.0\lib\net45\Lacuna.Signer.Api.dll</HintPath>
+    <Reference Include="Lacuna.Signer.Api, Version=1.6.0.0, Culture=neutral, PublicKeyToken=8225298eb60dc292, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.Signer.Api.1.6.0\lib\net45\Lacuna.Signer.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.Signer.Client, Version=1.2.1.0, Culture=neutral, PublicKeyToken=70561e3996a211da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.Signer.Client.1.2.1\lib\net45\Lacuna.Signer.Client.dll</HintPath>
+    <Reference Include="Lacuna.Signer.Client, Version=1.8.0.0, Culture=neutral, PublicKeyToken=70561e3996a211da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.Signer.Client.1.8.0\lib\net45\Lacuna.Signer.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.Spa.Api, Version=0.14.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.Spa.Api.0.14.0\lib\net45\Lacuna.Spa.Api.dll</HintPath>
+    <Reference Include="Lacuna.Spa.Api, Version=1.2.1.0, Culture=neutral, PublicKeyToken=25c2a1cfa2593877, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.Spa.Api.1.2.1\lib\net45\Lacuna.Spa.Api.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -67,8 +67,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
+    <Compile Include="Scenarios\EmbeddedSignatureScenario.cs" />
+    <Compile Include="Scenarios\CreateDigitalDegreeScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithApproversScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithOneSignerScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithSigningRuleScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithTwoOrMoreSignersWithOrderScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.cs" />
+    <Compile Include="Scenarios\InvoiceWebhookHandlingScenario.cs" />
+    <Compile Include="Scenarios\IWebhookHandlerScenario.cs" />
+    <Compile Include="Scenarios\NotifyFlowParticipantsScenario.cs" />
+    <Compile Include="Scenarios\Scenario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenarios\CreateXMLWithElementSignatureScenario.cs" />
+    <Compile Include="Scenarios\CreatePDFDocumentWithCadesSignatureScenario.cs" />
+    <Compile Include="Scenarios\CreateXMLWithFullDocumentSignatureScenario.cs" />
+    <Compile Include="Scenarios\CheckDocumentStatusScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -76,6 +93,14 @@
     <None Include="sample.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sample-degree.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sample.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

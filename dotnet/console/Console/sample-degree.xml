@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Diploma>
+  <infDiploma id="VDip59416548998435454981298298465465461651642454" versao="1.00">
+    <DadosDiploma id="Dip59416548998435454981298298465465461651642454">
+      <Diplomado>
+        <ID>123456789</ID>
+        <Nome>Jack Bauer</Nome>
+        <Sexo>M</Sexo>
+        <Nacionalidade>Brasil</Nacionalidade>
+        <DataNascimento>1967-06-19</DataNascimento>
+      </Diplomado>
+    </DadosDiploma>
+    <DadosRegistro id="RDip59416548998435454981298298465465461651642454">
+      <IesRegistradora>
+        <Nome>UNIVERSIDADE FEDERAL DE SANTA CATARINA</Nome>
+        <CodigoMEC>585</CodigoMEC>
+        <CNPJ>83899526000182</CNPJ>
+        <Endereco>
+          <Logradouro>Campus Universitário</Logradouro>
+          <Numero>s/n</Numero>
+          <Bairro>Trindade</Bairro>
+          <CodigoMunicipio>4205407</CodigoMunicipio>
+          <NomeMunicipio>Florianópolis</NomeMunicipio>
+          <UF>SC</UF>
+          <CEP>88040090</CEP>
+        </Endereco>
+      </IesRegistradora>
+      <LivroRegistro>
+        <LivroRegistro>123</LivroRegistro>
+        <NumeroFolhaDoDiploma>456</NumeroFolhaDoDiploma>
+        <NumeroSequenciaDoDiploma>789</NumeroSequenciaDoDiploma>
+      </LivroRegistro>
+      <IdDocumentacaoAcademica>ReqDip59416548998435454981298298465465461651642454</IdDocumentacaoAcademica>
+      <Seguranca>
+        <CodigoValidacao>123456</CodigoValidacao>
+      </Seguranca>
+    </DadosRegistro>
+  </infDiploma>
+</Diploma>
