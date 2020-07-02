@@ -3,15 +3,16 @@ package com.lacunasoftware.signer.sample.scenarios;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.lacunasoftware.signer.CreateDocumentRequest;
-import com.lacunasoftware.signer.CreateDocumentResult;
+import com.lacunasoftware.signer.documents.CreateDocumentRequest;
+import com.lacunasoftware.signer.documents.CreateDocumentResult;
 import com.lacunasoftware.signer.FileUploadModel;
-import com.lacunasoftware.signer.FlowActionCreateModel;
+import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
 import com.lacunasoftware.signer.FlowActionType;
-import com.lacunasoftware.signer.ParticipantUserModel;
-import com.lacunasoftware.signer.RestException;
-import com.lacunasoftware.signer.UploadModel;
+import com.lacunasoftware.signer.users.ParticipantUserModel;
+import com.lacunasoftware.signer.reserveds.RestException;
+import com.lacunasoftware.signer.reserveds.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
+import com.lacunasoftware.signer.reserveds.FileUploadModelBuilder;
 
 public class CreateDocumentWithSigningRuleScenario extends Scenario {
     /**
@@ -22,15 +23,14 @@ public class CreateDocumentWithSigningRuleScenario extends Scenario {
     * required to sign in order to complete that action.
     */
     @Override
-    @Deprecated
     public void Run() throws IOException, RestException {
         // 1. The file's bytes must be read by the application and uploaded
         byte[] content = Util.getInstance().getResourceFile("sample.pdf");
 		UploadModel uploadModel = signerClient.uploadFile("sample.pdf", content, "application/pdf");
 
         // 2. Define the name of the document which will be visible in the application
-        FileUploadModel fileUploadModel = new FileUploadModel(uploadModel);
-        fileUploadModel.setDisplayName("Signing Rule Sample");
+        FileUploadModelBuilder fileUploadModelBuilder = new FileUploadModelBuilder(uploadModel);
+        fileUploadModelBuilder.setDisplayName("Signing Rule Sample");
         
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         ParticipantUserModel participantUserOne = new ParticipantUserModel();
@@ -49,7 +49,7 @@ public class CreateDocumentWithSigningRuleScenario extends Scenario {
         //    The number of required signatures from this list of participants is represented by
         //    the property `NumberRequiredSignatures`.
         FlowActionCreateModel flowActionCreateModelSigningRule = new FlowActionCreateModel();
-        flowActionCreateModelSigningRule.setType(FlowActionType.SIGN_RULE);
+        flowActionCreateModelSigningRule.setType(FlowActionType.SIGNRULE);
         flowActionCreateModelSigningRule.setNumberRequiredSignatures(1);
         flowActionCreateModelSigningRule.setSignRuleUsers(new ArrayList<ParticipantUserModel>() {
             private static final long serialVersionUID = 1L;
@@ -64,7 +64,7 @@ public class CreateDocumentWithSigningRuleScenario extends Scenario {
         documentRequest.setFiles(new ArrayList<FileUploadModel>() {
             private static final long serialVersionUID = 1L;
             {
-                add(fileUploadModel);
+                add(fileUploadModelBuilder.toModel());
             }
         });
         documentRequest.setFlowActions(new ArrayList<FlowActionCreateModel>() {

@@ -3,20 +3,24 @@ package com.lacunasoftware.signer.sample.scenarios;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.lacunasoftware.signer.documents.CreateDocumentRequest;
-import com.lacunasoftware.signer.documents.CreateDocumentResult;
-import com.lacunasoftware.signer.FileUploadModel;
-import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
-import com.lacunasoftware.signer.FlowActionType;
-import com.lacunasoftware.signer.users.ParticipantUserModel;
 import com.lacunasoftware.signer.reserveds.RestException;
 import com.lacunasoftware.signer.reserveds.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
+import com.lacunasoftware.signer.users.ParticipantUserModel;
+import com.lacunasoftware.signer.FileUploadModel;
+import com.lacunasoftware.signer.FlowActionType;
+import com.lacunasoftware.signer.documents.ActionUrlRequest;
+import com.lacunasoftware.signer.documents.ActionUrlResponse;
+import com.lacunasoftware.signer.documents.CreateDocumentRequest;
+import com.lacunasoftware.signer.documents.CreateDocumentResult;
+import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
 import com.lacunasoftware.signer.reserveds.FileUploadModelBuilder;
 
-public class CreateDocumentWithOneSignerScenario extends Scenario {
+public class EmbeddedSignatureScenario extends Scenario {
     /**
-    * This scenario demonstrates the creation of a document with one signer.
+    * This scenario demonstrates the creation of a document
+    * and the generation of an action URL for the embedded signature 
+    * integration.
     */
     @Override
     public void Run() throws IOException, RestException {
@@ -26,7 +30,7 @@ public class CreateDocumentWithOneSignerScenario extends Scenario {
 
         // 2. Define the name of the document which will be visible in the application
         FileUploadModelBuilder fileUploadModelBuilder = new FileUploadModelBuilder(uploadModel);
-        fileUploadModelBuilder.setDisplayName("One Signer Sample");
+        fileUploadModelBuilder.setDisplayName("Embedded Signature Sample");
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         ParticipantUserModel user = new ParticipantUserModel();
@@ -57,6 +61,13 @@ public class CreateDocumentWithOneSignerScenario extends Scenario {
         });
         CreateDocumentResult result = signerClient.createDocument(documentRequest).get(0);
         
-        System.out.println(String.format("Document %s created", result.getDocumentId().toString()));
+        // 6. Get the embed URL for the participant
+        ActionUrlRequest actionUrlRequest = new ActionUrlRequest();
+        actionUrlRequest.setIdentifier(user.getIdentifier());
+        ActionUrlResponse actionUrlResponse = signerClient.getActionUrl(result.getDocumentId(), actionUrlRequest);
+
+        // 7. Load the embed URL in your own application using the LacunaSignerWidget as described in 
+        //    https://docs.lacunasoftware.com/pt-br/articles/signer/embedded-signature.html
+        System.out.println(actionUrlResponse.getEmbedUrl());
     }
 }

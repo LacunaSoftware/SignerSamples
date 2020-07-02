@@ -2,11 +2,12 @@ package com.lacunasoftware.signer.sample.scenarios;
 
 import java.io.IOException;
 
-import com.lacunasoftware.signer.CreateDocumentResult;
-import com.lacunasoftware.signer.DocumentModel;
-import com.lacunasoftware.signer.FlowActionModel;
-import com.lacunasoftware.signer.RestException;
+import com.lacunasoftware.signer.documents.CreateDocumentResult;
+import com.lacunasoftware.signer.documents.DocumentModel;
+import com.lacunasoftware.signer.flowactions.FlowActionModel;
+import com.lacunasoftware.signer.reserveds.RestException;
 
+@Deprecated
 public class NotifyFlowParticipantsScenario extends Scenario {
     /**
     * This scenario demonstrates how to notify participants 

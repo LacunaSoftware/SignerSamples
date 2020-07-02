@@ -3,15 +3,16 @@ package com.lacunasoftware.signer.sample.scenarios;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.lacunasoftware.signer.CreateDocumentRequest;
-import com.lacunasoftware.signer.CreateDocumentResult;
+import com.lacunasoftware.signer.documents.CreateDocumentRequest;
+import com.lacunasoftware.signer.documents.CreateDocumentResult;
 import com.lacunasoftware.signer.FileUploadModel;
-import com.lacunasoftware.signer.FlowActionCreateModel;
+import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
 import com.lacunasoftware.signer.FlowActionType;
-import com.lacunasoftware.signer.ParticipantUserModel;
-import com.lacunasoftware.signer.RestException;
-import com.lacunasoftware.signer.UploadModel;
+import com.lacunasoftware.signer.users.ParticipantUserModel;
+import com.lacunasoftware.signer.reserveds.RestException;
+import com.lacunasoftware.signer.reserveds.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
+import com.lacunasoftware.signer.reserveds.FileUploadModelBuilder;
 
 public class CreateDocumentWithApproversScenario extends Scenario {
     /**
@@ -25,8 +26,8 @@ public class CreateDocumentWithApproversScenario extends Scenario {
 		UploadModel uploadModel = signerClient.uploadFile("sample.pdf", content, "application/pdf");
 
         // 2. Define the name of the document which will be visible in the application
-        FileUploadModel fileUploadModel = new FileUploadModel(uploadModel);
-        fileUploadModel.setDisplayName("Approval Sample");
+        FileUploadModelBuilder fileUploadModelBuilder = new FileUploadModelBuilder(uploadModel);
+        fileUploadModelBuilder.setDisplayName("Approval Sample");
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         ParticipantUserModel user = new ParticipantUserModel();
@@ -46,7 +47,7 @@ public class CreateDocumentWithApproversScenario extends Scenario {
         documentRequest.setFiles(new ArrayList<FileUploadModel>() {
             private static final long serialVersionUID = 1L;
             {
-                add(fileUploadModel);
+                add(fileUploadModelBuilder.toModel());
             }
         });
         documentRequest.setFlowActions(new ArrayList<FlowActionCreateModel>() {
