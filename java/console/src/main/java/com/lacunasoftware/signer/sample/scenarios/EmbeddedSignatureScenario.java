@@ -3,8 +3,8 @@ package com.lacunasoftware.signer.sample.scenarios;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.lacunasoftware.signer.reserveds.RestException;
-import com.lacunasoftware.signer.reserveds.UploadModel;
+import com.lacunasoftware.signer.javaclient.exceptions.RestException;
+import com.lacunasoftware.signer.javaclient.models.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
 import com.lacunasoftware.signer.users.ParticipantUserModel;
 import com.lacunasoftware.signer.FileUploadModel;
@@ -14,7 +14,7 @@ import com.lacunasoftware.signer.documents.ActionUrlResponse;
 import com.lacunasoftware.signer.documents.CreateDocumentRequest;
 import com.lacunasoftware.signer.documents.CreateDocumentResult;
 import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
-import com.lacunasoftware.signer.reserveds.FileUploadModelBuilder;
+import com.lacunasoftware.signer.javaclient.builders.FileUploadModelBuilder;
 
 public class EmbeddedSignatureScenario extends Scenario {
     /**

@@ -8,10 +8,10 @@ import com.lacunasoftware.signer.FileUploadModel;
 import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
 import com.lacunasoftware.signer.FlowActionType;
 import com.lacunasoftware.signer.folders.FolderInfoModel;
-import com.lacunasoftware.signer.reserveds.PaginatedSearchParams;
+import com.lacunasoftware.signer.javaclient.params.PaginatedSearchParams;
 import com.lacunasoftware.signer.users.ParticipantUserModel;
-import com.lacunasoftware.signer.reserveds.UploadModel;
-import com.lacunasoftware.signer.reserveds.FileUploadModelBuilder;
+import com.lacunasoftware.signer.javaclient.models.UploadModel;
+import com.lacunasoftware.signer.javaclient.builders.FileUploadModelBuilder;
 import com.lacunasoftware.signer.sample.Util;
 
 public class CreateDocumentInExistingFolder extends Scenario {

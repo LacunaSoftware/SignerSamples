@@ -8,11 +8,10 @@ import com.lacunasoftware.signer.documents.DocumentModel;
 
 import com.lacunasoftware.signer.flowactions.FlowActionModel;
 
-import com.lacunasoftware.signer.reserveds.RestException;
+import com.lacunasoftware.signer.javaclient.exceptions.RestException;
 import com.lacunasoftware.signer.webhooks.DocumentConcludedModel;
 import com.lacunasoftware.signer.webhooks.WebhookModel;
 
-@Deprecated
 public class CheckDocumentStatusScenario extends Scenario implements IWebhookHandlerScenario {
     /**
      * This scenario demonstrates how to check if a document is concluded and the
@@ -24,7 +23,7 @@ public class CheckDocumentStatusScenario extends Scenario implements IWebhookHan
 
         // 1. Get the document's details by it's id
         DocumentModel details = signerClient.getDocumentDetails(result.getDocumentId());
-
+   
         // 2. Check if the whole flow is concluded
         if (details.isIsConcluded()) {
 
