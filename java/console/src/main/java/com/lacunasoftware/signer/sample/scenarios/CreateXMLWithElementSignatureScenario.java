@@ -1,35 +1,37 @@
 package com.lacunasoftware.signer.sample.scenarios;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import com.lacunasoftware.signer.javaclient.models.UploadModel;
+import com.lacunasoftware.signer.FileUploadModel;
+import com.lacunasoftware.signer.FlowActionType;
+import com.lacunasoftware.signer.XadesElementIdentifierTypes;
+import com.lacunasoftware.signer.XadesSignatureTypes;
 import com.lacunasoftware.signer.documents.CreateDocumentRequest;
 import com.lacunasoftware.signer.documents.CreateDocumentResult;
-import com.lacunasoftware.signer.FileUploadModel;
 import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
-import com.lacunasoftware.signer.FlowActionType;
-import com.lacunasoftware.signer.folders.FolderInfoModel;
-import com.lacunasoftware.signer.javaclient.params.PaginatedSearchParams;
-import com.lacunasoftware.signer.users.ParticipantUserModel;
-import com.lacunasoftware.signer.javaclient.models.UploadModel;
+import com.lacunasoftware.signer.flowactions.XadesOptionsModel;
 import com.lacunasoftware.signer.javaclient.builders.FileUploadModelBuilder;
 import com.lacunasoftware.signer.sample.Util;
+import com.lacunasoftware.signer.users.ParticipantUserModel;
+import com.lacunasoftware.signer.javaclient.exceptions.RestException;
 
-public class CreateDocumentInExistingFolder extends Scenario {
+public class CreateXMLWithElementSignatureScenario extends Scenario {
     /**
-     * This scenario demonstrates the creation of a document into an existing
-     * folder.
-     * 
-     * @throws Exception
-     */
+    * This scenario demonstrates the creation of a document
+    * that needs to be signed using the XAdES format for a
+    * specific XML element.
+    */
     @Override
-    public void Run() throws Exception {
+    public void Run() throws IOException, RestException, Exception {
         // 1. The file's bytes must be read by the application and uploaded
-        byte[] content = Util.getInstance().getResourceFile("sample.pdf");
-		UploadModel uploadModel = signerClient.uploadFile("sample.pdf", content, "application/pdf");
-
+        byte[] content = Util.getInstance().getResourceFile("sample.xml");
+        UploadModel uploadModel = signerClient.uploadFile("sample.xml", content, "application/xml");
+        
         // 2. Define the name of the document which will be visible in the application
         FileUploadModelBuilder fileUploadModelBuilder = new FileUploadModelBuilder(uploadModel);
-        fileUploadModelBuilder.setDisplayName("Document in Existing Folder Sample");
+        fileUploadModelBuilder.setDisplayName("XML Element Sign Sample");
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         ParticipantUserModel user = new ParticipantUserModel();
@@ -37,27 +39,22 @@ public class CreateDocumentInExistingFolder extends Scenario {
 		user.setEmail("jack.bauer@mailinator.com");
         user.setIdentifier("75502846369");
 
-        // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
+        // 4. Specify the type of the element (Id is used below) and the value of the identifier
+        XadesOptionsModel xadesOptionsModel = new XadesOptionsModel();
+        xadesOptionsModel.setSignatureType(XadesSignatureTypes.XMLELEMENT);
+        xadesOptionsModel.setElementToSignIdentifierType(XadesElementIdentifierTypes.ID);
+        xadesOptionsModel.setElementToSignIdentifier("NFe35141214314050000662550010001084271182362300");
+
+        // 5. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
         //    This object is responsible for defining the personal data of the participant and the type of 
-        //    action that he will peform on the flow
+        //    action that he will peform on the flow.
         FlowActionCreateModel flowActionCreateModel = new FlowActionCreateModel();
         flowActionCreateModel.setType(FlowActionType.SIGNER);
         flowActionCreateModel.setUser(user);
-
-        // 5. Search a folder by it's name
-        PaginatedSearchParams paginatedSearchParams = new PaginatedSearchParams();
-        paginatedSearchParams.setQ("Sample Folder");
-        FolderInfoModel folder = 
-            signerClient.listFoldersPaginated(paginatedSearchParams, null).getTotalCount() > 0 ? 
-                signerClient.listFoldersPaginated(paginatedSearchParams, null).getItems().get(0) : null; 
-
-        if (folder == null) {
-            throw new Exception("Folder was not found");
-        }
+        flowActionCreateModel.setXadesOptions(xadesOptionsModel);
 
         // 6. Send the document create request
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();
-        documentRequest.setFolderId(folder.getId());
         documentRequest.setFiles(new ArrayList<FileUploadModel>() {
             private static final long serialVersionUID = 1L;
             {
@@ -74,5 +71,4 @@ public class CreateDocumentInExistingFolder extends Scenario {
         
         System.out.println(String.format("Document %s created", result.getDocumentId().toString()));
     }
-    
 }

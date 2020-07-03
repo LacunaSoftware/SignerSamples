@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.lacunasoftware.signer:signer-client:1.0.1'
+    implementation 'com.lacunasoftware.signer:signer-client:2.0.0'
 }
 
 mainClassName = 'com.lacunasoftware.signer.sample.App'
