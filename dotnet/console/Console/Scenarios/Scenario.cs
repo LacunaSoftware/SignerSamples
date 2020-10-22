@@ -2,6 +2,7 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Folders;
+using Lacuna.Signer.Api.Invoices;
 using Lacuna.Signer.Api.Users;
 using Lacuna.Signer.Client;
 using System;
@@ -57,6 +58,12 @@ namespace Console.Scenarios
             };
 
             return (await SignerClient.CreateDocumentAsync(documentRequest)).First();
+        }
+
+        protected async Task updateInvoiceStatusAsync(int invoiceId, bool isPaid)
+        {
+            var invoicePaymentStatusRequest = new UpdateInvoicePaymentStatusRequest { IsPaid = isPaid };
+            await SignerClient.UpdateInvoiceStatusAsync(invoiceId, invoicePaymentStatusRequest);
         }
     }
 }
