@@ -1,5 +1,7 @@
 ﻿using Lacuna.Signer.Api;
+using Lacuna.Signer.Api.Invoices;
 using Lacuna.Signer.Api.Webhooks;
+using Lacuna.Signer.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,17 @@ namespace Console.Scenarios
 {
     public class InvoiceWebhookHandlingScenario : IWebhookHandlerScenario
     {
+        protected SignerClient SignerClient;
+
+        public InvoiceWebhookHandlingScenario()
+        {
+            // Homologation instance
+            var domain = "https://signer-lac.azurewebsites.net";
+            // Application credentials token.
+            var token = "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99";
+            SignerClient = new SignerClient(domain, token);
+        }
+
         public void HandleWebhook(WebhookModel webhook)
         {
             if (webhook != null)
@@ -36,6 +49,12 @@ namespace Console.Scenarios
                     }
                 }
             }
+        }
+
+        protected async Task UpdateInvoiceStatusAsync(int invoiceId, bool isPaid)
+        {
+            var invoicePaymentStatusRequest = new UpdateInvoicePaymentStatusRequest { IsPaid = isPaid };
+            await SignerClient.UpdateInvoiceStatusAsync(invoiceId, invoicePaymentStatusRequest);
         }
     }
 }

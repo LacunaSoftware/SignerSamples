@@ -29,7 +29,7 @@ namespace Console.Scenarios
         public abstract Task RunAsync();
 
         // Creates a generic document, useful for certain scenarios.
-        protected async Task<CreateDocumentResult> createDocumentAsync()
+        protected async Task<CreateDocumentResult> CreateDocumentAsync()
         {
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
@@ -58,12 +58,6 @@ namespace Console.Scenarios
             };
 
             return (await SignerClient.CreateDocumentAsync(documentRequest)).First();
-        }
-
-        protected async Task updateInvoiceStatusAsync(int invoiceId, bool isPaid)
-        {
-            var invoicePaymentStatusRequest = new UpdateInvoicePaymentStatusRequest { IsPaid = isPaid };
-            await SignerClient.UpdateInvoiceStatusAsync(invoiceId, invoicePaymentStatusRequest);
         }
     }
 }

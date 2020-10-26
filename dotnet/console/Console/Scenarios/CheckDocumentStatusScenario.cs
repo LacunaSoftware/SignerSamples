@@ -12,7 +12,7 @@ namespace Console.Scenarios
          */
         public override async Task RunAsync()
         {
-            var result = await createDocumentAsync();
+            var result = await CreateDocumentAsync();
 
             // 1. Get the document's details by it's id
             var details = await SignerClient.GetDocumentDetailsAsync(result.DocumentId);
