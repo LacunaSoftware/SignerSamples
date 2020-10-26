@@ -2,6 +2,7 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Folders;
+using Lacuna.Signer.Api.Invoices;
 using Lacuna.Signer.Api.Users;
 using Lacuna.Signer.Client;
 using System;
@@ -28,7 +29,7 @@ namespace Console.Scenarios
         public abstract Task RunAsync();
 
         // Creates a generic document, useful for certain scenarios.
-        protected async Task<CreateDocumentResult> createDocumentAsync()
+        protected async Task<CreateDocumentResult> CreateDocumentAsync()
         {
             var filePath = "sample.pdf";
             var fileName = Path.GetFileName(filePath);
