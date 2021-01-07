@@ -53,8 +53,22 @@ namespace Console.Scenarios
                 if (webhook.Type == WebhookTypes.DocumentConcluded)
                 {
                     var concludedDocument = (DocumentConcludedModel)webhook.Data;
-
                     System.Console.WriteLine($"Document {concludedDocument.Id} is concluded!");
+                } 
+                else if (webhook.Type == WebhookTypes.DocumentRefused) 
+                {
+                    var refusedDocument = (DocumentRefusedModel)webhook.Data;
+                    System.Console.WriteLine($"Document {refusedDocument.Id} is refused!");
+                }
+                else if (webhook.Type == WebhookTypes.DocumentApproved)
+                {
+                    var approvedDocument = (DocumentApprovedModel)webhook.Data;
+                    System.Console.WriteLine($"Document {approvedDocument.Id} is approved!");
+                }
+                else if (webhook.Type == WebhookTypes.DocumentSigned)
+                {
+                    var signedDocument = (DocumentConcludedModel)webhook.Data;
+                    System.Console.WriteLine($"Document {signedDocument.Id} is signed!");
                 }
             }
         }
