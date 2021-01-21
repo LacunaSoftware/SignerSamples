@@ -24,17 +24,16 @@ namespace Console.Scenarios
             var ticketDownload = await SignerClient.GetDocumentDownloadTicketAsync(result.DocumentId, DocumentTicketType.Original);
 
 
-            // 3. Get the document by passing it's Id and the Ticket type (This is a direct download and It already calls the method above)
+            // 3. Get the document by passing it's Id and the Ticket type
             // Be sure to select the exact DocumentTicketType to download the type of document you want. 
             // Chek the available types by ispecting DocumentTicketType's ENUM.
             var documentVersion = await SignerClient.GetDocumentContentAsync(result.DocumentId, DocumentDownloadTypes.Original);
 
-            // 4. You can also download a specific version type of the document encoded in Base 64 format.
-            var documentVersionBytes = await SignerClient.GetDocumentBytesAsync(result.DocumentId, DocumentTicketType.Signatures);
-
-
             this.SaveFileStream("downloadversionExample.pdf", documentVersion);
 
+            // 4. You can also get the bytes directly instead of a Stream for a specific version type of the document
+            var documentVersionBytes = await SignerClient.GetDocumentBytesAsync(result.DocumentId, DocumentTicketType.Signatures);
+            
 
         }
 
