@@ -16,13 +16,10 @@ namespace Console.Scenarios
             //1 - define the arguments to list the documents according to your requirements
             var searchParams = new DocumentListParameters
             {
-                FilterByDocumentType = true, //Filter documents by type if its true
-                DocumentType = DocumentTypes.Deed, // Define the document type
-                Order = PaginationOrders.Asc, //Order the list: Ascending = Oldest on top / Descending = Newest on top
-                OrganizationType = OrganizationType.Normal, //Define the organization type:  Normal, Personal , SharedWithMe
-                Limit = 2, //Define the number of Documents that you want to list 
+                Order = PaginationOrders.Desc, //Order the list: Ascending = Oldest on top / Descending = Newest on top
+                Limit = 10, //Define the number of Documents that you want to list 
                 IsConcluded = false, // List concluded documnets if it's "true"
-
+                Q = "TesteDocumentName" //Retrieve the document list by name
             };
 
             //2 - Call the ListDocument method and pass "searchParams" as a parameter 
