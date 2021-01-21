@@ -23,6 +23,7 @@ namespace Console.Scenarios
             //2. You can get a ticket to a specific version of the document. The ticket is a temporary URL that allows you to download that version. 
             var ticketDownload = await SignerClient.GetDocumentDownloadTicketAsync(result.DocumentId, DocumentTicketType.Original);
 
+
             // 3. Get the document by passing it's Id and the Ticket type (This is a direct download and It already calls the method above)
             // Be sure to select the exact DocumentTicketType to download the type of document you want. 
             // Chek the available types by ispecting DocumentTicketType's ENUM.
