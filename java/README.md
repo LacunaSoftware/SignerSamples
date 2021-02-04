@@ -75,9 +75,9 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 		</repository>
 	</repositories>
 	
-> [!NOTE]
+**NOTE:**
 > If you are willing to not use `GET` and ` POST` requests available in Lacuna's Signer libraries and decided to use Jackson library for data serialization:
-> be sure that your request is not sending our models' parameters that were initialized with `null` values.
+> be sure that your request is not sending our models' parameters that were initialized with `null` values following the example bellow.
 ```java
  	ObjectMapper objectMapper = new ObjectMapper();
 	//Responsible for generating Json strings without null parameters presented in Signer models
