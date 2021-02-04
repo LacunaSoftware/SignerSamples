@@ -31,8 +31,8 @@ public class ListDocumentsScenario extends  Scenario{
         PaginatedSearchResponse<DocumentListModel> response = signerClient.listDocuments(searchParams);
 
 
-        for (DocumentListModel teste: response.getItems()) {
-          System.out.println(teste.getName());
+        for (DocumentListModel test: response.getItems()) {
+          System.out.println(test.getName());
         }
 
     }
