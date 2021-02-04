@@ -74,6 +74,16 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 			<url>http://dl.bintray.com/lacunasoftware/maven</url>
 		</repository>
 	</repositories>
+	
+> [!NOTE]
+> If you are willing to not use `GET` and ` POST` requests available in Lacuna's Signer libraries and decided to use Jackson library for data serialization:
+> be sure that your request is not sending our models' parameters that were initialized with `null` values.
+```java
+ 	ObjectMapper objectMapper = new ObjectMapper();
+	//Responsible for generating Json strings without null parameters presented in Signer models
+	objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); 
+	String Json = objectMapper.writeValueAsString(request);
+```
 
 If your project uses another tool for dependency resolution (e.g. Ivy), please visit the
 [package page on BinTray](https://bintray.com/lacunasoftware/maven/signer-client) and click on
