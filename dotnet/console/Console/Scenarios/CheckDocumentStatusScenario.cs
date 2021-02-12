@@ -1,5 +1,6 @@
 ﻿using Lacuna.Signer.Api;
 using Lacuna.Signer.Api.Webhooks;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Console.Scenarios
@@ -52,22 +53,22 @@ namespace Console.Scenarios
             {
                 if (webhook.Type == WebhookTypes.DocumentConcluded)
                 {
-                    var concludedDocument = (DocumentConcludedModel)webhook.Data;
+                    var concludedDocument = JsonConvert.DeserializeObject<DocumentConcludedModel>(webhook.Data.ToString());
                     System.Console.WriteLine($"Document {concludedDocument.Id} is concluded!");
                 } 
                 else if (webhook.Type == WebhookTypes.DocumentRefused) 
                 {
-                    var refusedDocument = (DocumentRefusedModel)webhook.Data;
+                    var refusedDocument = JsonConvert.DeserializeObject<DocumentRefusedModel>(webhook.Data.ToString());
                     System.Console.WriteLine($"Document {refusedDocument.Id} is refused!");
                 }
                 else if (webhook.Type == WebhookTypes.DocumentApproved)
                 {
-                    var approvedDocument = (DocumentApprovedModel)webhook.Data;
+                    var approvedDocument = JsonConvert.DeserializeObject<DocumentApprovedModel>(webhook.Data.ToString());
                     System.Console.WriteLine($"Document {approvedDocument.Id} is approved!");
                 }
                 else if (webhook.Type == WebhookTypes.DocumentSigned)
                 {
-                    var signedDocument = (DocumentSignedModel)webhook.Data;
+                    var signedDocument = JsonConvert.DeserializeObject<DocumentSignedModel>(webhook.Data.ToString());
                     System.Console.WriteLine($"Document {signedDocument.Id} is signed!");
                 }
             }
