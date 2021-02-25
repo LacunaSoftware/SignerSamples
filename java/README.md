@@ -52,7 +52,7 @@ be seen in the file [build.gradle](console/build.gradle) of each sample:
 	} 
 
 	dependencies {
-		compile("com.lacunasoftware.signer:signer-client:1.0.1")
+		compile("com.lacunasoftware.signer:signer-client:2.1.2")
 	}
 
 If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) instead:
@@ -62,7 +62,7 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 		<dependency>
 			<groupId>com.lacunasoftware.signer</groupId>
 			<artifactId>signer-client</artifactId>
-			<version>1.0.1</version>
+			<version>2.1.2</version>
 		</dependency>
 		...
 	</dependencies>
@@ -84,6 +84,9 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 	objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); 
 	String Json = objectMapper.writeValueAsString(request);
 ```
+>We have two specific methods, `signerClient.getGson()` and `signerClient.getJackson()`, to access a instance of Gson or Jackson directly from our library.
+>They are already took care of the proper configuration to deserialize OffsetDateOfTime and serialize/deserialize NULL fields to `GET`/` POST`.
+>If you want to see what you need to do to setup your deserializer, please, visit our [Java Libray](https://github.com/LacunaSoftware/SignerJavaClient/blob/8b7a536c6758967189d9293ef63a40ebce3ddae1/src/main/java/com/lacunasoftware/signer/javaclient/RestClient.java#L369-L412):
 
 If your project uses another tool for dependency resolution (e.g. Ivy), please visit the
 [package page on BinTray](https://bintray.com/lacunasoftware/maven/signer-client) and click on
