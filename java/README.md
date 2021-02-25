@@ -76,17 +76,10 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 	</repositories>
 	
 **NOTE:**
-> If you are willing to not use `GET` and ` POST` requests available in Lacuna's Signer libraries and decided to use Jackson library for data serialization:
-> be sure that your request is not sending our models' parameters that were initialized with `null` values following the example bellow.
-```java
- 	ObjectMapper objectMapper = new ObjectMapper();
-	//Responsible for generating Json strings without null parameters presented in Signer models
-	objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); 
-	String Json = objectMapper.writeValueAsString(request);
-```
->We have two specific methods, `signerClient.getGson()` and `signerClient.getJackson()`, to access a instance of Gson or Jackson directly from our library.
->They are already took care of the proper configuration to deserialize OffsetDateOfTime and serialize/deserialize NULL fields to `GET`/` POST`.
->If you want to see what you need to do to setup your deserializer, please, visit our [Java Libray](https://github.com/LacunaSoftware/SignerJavaClient/blob/8b7a536c6758967189d9293ef63a40ebce3ddae1/src/main/java/com/lacunasoftware/signer/javaclient/RestClient.java#L369-L412):
+>If you wish to send the requests using your own client instead of the client provided in this library, please make sure to adopt 
+>appropriate handling of null values and datetime serialization (see [RestClient](https://github.com/LacunaSoftware/SignerJavaClient/blob/8b7a536c6758967189d9293ef63a40ebce3ddae1/src/main/java/com/lacunasoftware/signer/javaclient/RestClient.java#L369-L412) for more information). You may accomplish this by using the methods `signerClient.getGson()` 
+>and `signerClient.getJackson()` to get pre-configured instances of [Gson](https://github.com/google/gson) or [Jackson](https://github.com/FasterXML/jackson) respectively.
+
 
 If your project uses another tool for dependency resolution (e.g. Ivy), please visit the
 [package page on BinTray](https://bintray.com/lacunasoftware/maven/signer-client) and click on
