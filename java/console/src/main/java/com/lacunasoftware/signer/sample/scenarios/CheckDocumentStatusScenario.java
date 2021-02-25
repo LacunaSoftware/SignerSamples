@@ -54,14 +54,22 @@ public class CheckDocumentStatusScenario extends Scenario implements IWebhookHan
 
     @Override
 	public void HandleWebhook(WebhookModel webhook) {
-        //Be aware when deserializing OffsetDateOfTime using another Json library, you must pay attention to it's data type
-        //We have a specific method to deserialize OffsetDateOfTime fields using signerClient:
+        //Be aware when deserializing OffsetDateOfTime using another Json library, you must pay attention to it's data type setup
+        //We have two specific methods, getGson() and getJackson(), to access a instance of Gson or Jackson.
+        //They are already took care of the proper configuration to deserialize OffsetDateOfTime fields and to use them you must
+        // follow the steps bellow:
+
+        //1 - After passing the webhook model to your method (in this case, "webhook" was deserialized before calling
+        // "HandleWebhook" method) you need to get a instance of your selected Json library
         Gson gson = signerClient.getGson();
 
         if (webhook != null) {
-            // We parse webhook.data to json again to deserialize it properly
+
+            // 2 - We parse webhook.data to json again to deserialize it properly
            String webhookData = gson.toJson(webhook.getData());
+
             if (webhook.getType() == WebhookTypes.DOCUMENTCONCLUDED) {
+                //3 - Now we are able to deserialize webhookData and use the related Document model type to store and use it's specifics
                 DocumentConcludedModel documentConcludedModel = gson.fromJson(webhookData, DocumentConcludedModel.class);
                 System.out.println(String.format("Document %s is concluded", documentConcludedModel.getId()));
             }
@@ -78,5 +86,12 @@ public class CheckDocumentStatusScenario extends Scenario implements IWebhookHan
                 System.out.println(String.format("Document %s is Signed", documentSignedModel.getId()));
             }
         }
+        /**
+         * NOTE:
+         * If you want to setup your own Json deserializer/serializer instance take a look inside our library,
+         * more specifically, inside RestClient.class to see which are the pre-sets that you need to use in your serializer.
+         *
+         */
+
 	}
 }
