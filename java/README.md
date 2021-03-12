@@ -52,7 +52,7 @@ be seen in the file [build.gradle](console/build.gradle) of each sample:
 	} 
 
 	dependencies {
-		compile("com.lacunasoftware.signer:signer-client:1.0.1")
+		compile("com.lacunasoftware.signer:signer-client:2.1.2")
 	}
 
 If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) instead:
@@ -62,7 +62,7 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 		<dependency>
 			<groupId>com.lacunasoftware.signer</groupId>
 			<artifactId>signer-client</artifactId>
-			<version>1.0.1</version>
+			<version>2.1.2</version>
 		</dependency>
 		...
 	</dependencies>
@@ -76,14 +76,10 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 	</repositories>
 	
 **NOTE:**
-> If you are willing to not use `GET` and ` POST` requests available in Lacuna's Signer libraries and decided to use Jackson library for data serialization:
-> be sure that your request is not sending our models' parameters that were initialized with `null` values following the example bellow.
-```java
- 	ObjectMapper objectMapper = new ObjectMapper();
-	//Responsible for generating Json strings without null parameters presented in Signer models
-	objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); 
-	String Json = objectMapper.writeValueAsString(request);
-```
+>If you wish to send the requests using your own client instead of the client provided in this library, please make sure to adopt 
+>appropriate handling of null values and datetime serialization (see [RestClient](https://github.com/LacunaSoftware/SignerJavaClient/blob/8b7a536c6758967189d9293ef63a40ebce3ddae1/src/main/java/com/lacunasoftware/signer/javaclient/RestClient.java#L369-L412) for more information). You may accomplish this by using the methods `signerClient.getGson()` 
+>and `signerClient.getJackson()` to get pre-configured instances of [Gson](https://github.com/google/gson) or [Jackson](https://github.com/FasterXML/jackson) respectively.
+
 
 If your project uses another tool for dependency resolution (e.g. Ivy), please visit the
 [package page on BinTray](https://bintray.com/lacunasoftware/maven/signer-client) and click on

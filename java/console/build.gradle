@@ -23,6 +23,8 @@ repositories {
 
 dependencies {
     implementation 'com.lacunasoftware.signer:signer-client:2.1.2'
+    implementation 'com.google.code.gson:gson:2.8.1'
+
 }
 
 mainClassName = 'com.lacunasoftware.signer.sample.App'

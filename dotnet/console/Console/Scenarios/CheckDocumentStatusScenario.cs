@@ -1,5 +1,6 @@
 ﻿using Lacuna.Signer.Api;
 using Lacuna.Signer.Api.Webhooks;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Console.Scenarios
@@ -7,7 +8,7 @@ namespace Console.Scenarios
     public class CheckDocumentStatusScenario : Scenario, IWebhookHandlerScenario
     {
         /**
-         * This scenario demonstrates how to check if a document is concluded 
+         * This scenario demonstrates how to check if a document is concluded, approved, refused or signed 
          * and the status of it's flow actions.
          */
         public override async Task RunAsync()
@@ -35,8 +36,8 @@ namespace Console.Scenarios
             /**
              * NOTE: 
              * 
-             * The best way to know the exact time a document's flow is concluded is by enabling a webhook in your organization on the
-             * application. Whenever the flow of a document is completed, the application will fire a Webhook event by
+             * The best way to know the exact time a document's flow is concluded, signed, approved or refused is by enabling a webhook in your organization on the
+             * application. Whenever the flow of a document has one of these steps done, the application will fire a Webhook event by
              * sending a POST request to a registered URL.
              * 
              * You can find below an example of the handling logic of a webhook event.
@@ -52,9 +53,23 @@ namespace Console.Scenarios
             {
                 if (webhook.Type == WebhookTypes.DocumentConcluded)
                 {
-                    var concludedDocument = (DocumentConcludedModel)webhook.Data;
-
+                    var concludedDocument = JsonConvert.DeserializeObject<DocumentConcludedModel>(webhook.Data.ToString());
                     System.Console.WriteLine($"Document {concludedDocument.Id} is concluded!");
+                } 
+                else if (webhook.Type == WebhookTypes.DocumentRefused) 
+                {
+                    var refusedDocument = JsonConvert.DeserializeObject<DocumentRefusedModel>(webhook.Data.ToString());
+                    System.Console.WriteLine($"Document {refusedDocument.Id} is refused!");
+                }
+                else if (webhook.Type == WebhookTypes.DocumentApproved)
+                {
+                    var approvedDocument = JsonConvert.DeserializeObject<DocumentApprovedModel>(webhook.Data.ToString());
+                    System.Console.WriteLine($"Document {approvedDocument.Id} is approved!");
+                }
+                else if (webhook.Type == WebhookTypes.DocumentSigned)
+                {
+                    var signedDocument = JsonConvert.DeserializeObject<DocumentSignedModel>(webhook.Data.ToString());
+                    System.Console.WriteLine($"Document {signedDocument.Id} is signed!");
                 }
             }
         }
