@@ -67,9 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Scenarios\CreateDocumentWithPositionedSignatures.cs" />
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithPositionedSignaturesScenario.cs" />
     <Compile Include="Scenarios\DownloadDocumentVersionScenario.cs" />
     <Compile Include="Scenarios\EmbeddedSignatureScenario.cs" />
     <Compile Include="Scenarios\CreateDigitalDegreeScenario.cs" />
