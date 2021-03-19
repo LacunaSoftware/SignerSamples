@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
+    <Compile Include="Scenarios\DeleteDocumentScenario.cs" />
     <Compile Include="Scenarios\DownloadDocumentVersionScenario.cs" />
     <Compile Include="Scenarios\EmbeddedSignatureScenario.cs" />
     <Compile Include="Scenarios\CreateDigitalDegreeScenario.cs" />
