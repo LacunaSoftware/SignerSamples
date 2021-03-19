@@ -1,4 +1,4 @@
-﻿using Console.Scenarios;
+using Console.Scenarios;
 using System.Threading.Tasks;
 
 namespace Console

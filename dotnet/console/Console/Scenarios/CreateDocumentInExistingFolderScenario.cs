@@ -38,7 +38,7 @@ namespace Console.Scenarios
 
             // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
             //    This object is responsible for defining the personal data of the participant and the type of 
-            //    action that he will peform on the flow
+            //    action that he will perform on the flow
             var flowActionCreateModel = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,

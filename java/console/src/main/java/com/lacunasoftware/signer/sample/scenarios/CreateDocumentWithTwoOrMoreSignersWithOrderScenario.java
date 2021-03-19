@@ -42,7 +42,7 @@ public class CreateDocumentWithTwoOrMoreSignersWithOrderScenario extends Scenari
 
         // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
         //    This object is responsible for defining the personal data of the participant, the type of 
-        //    action that he will peform on the flow and the order in which this action will take place
+        //    action that he will perform on the flow and the order in which this action will take place
         //    (Step property)
         FlowActionCreateModel flowActionCreateModelOne = new FlowActionCreateModel();
         flowActionCreateModelOne.setType(FlowActionType.SIGNER);
