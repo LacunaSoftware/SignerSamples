@@ -40,8 +40,8 @@
     <Reference Include="Lacuna.RestClient, Version=1.14.1.0, Culture=neutral, PublicKeyToken=bf845f78aead27bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Lacuna.RestClient.1.14.1\lib\net45\Lacuna.RestClient.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.Signer.Api, Version=1.23.0.0, Culture=neutral, PublicKeyToken=8225298eb60dc292, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.Signer.Api.1.23.0\lib\net45\Lacuna.Signer.Api.dll</HintPath>
+    <Reference Include="Lacuna.Signer.Api, Version=1.26.1.0, Culture=neutral, PublicKeyToken=8225298eb60dc292, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.Signer.Api.1.26.1\lib\net45\Lacuna.Signer.Api.dll</HintPath>
     </Reference>
     <Reference Include="Lacuna.Signer.Client, Version=1.15.0.0, Culture=neutral, PublicKeyToken=70561e3996a211da, processorArchitecture=MSIL">
       <HintPath>..\packages\Lacuna.Signer.Client.1.15.0\lib\net45\Lacuna.Signer.Client.dll</HintPath>
@@ -70,6 +70,7 @@
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithPositionedSignaturesScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithAttachmentScenario.cs" />
     <Compile Include="Scenarios\DownloadDocumentVersionScenario.cs" />
     <Compile Include="Scenarios\EmbeddedSignatureScenario.cs" />
     <Compile Include="Scenarios\CreateDigitalDegreeScenario.cs" />
