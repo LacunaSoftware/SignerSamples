@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDocumentWithPositionedSignatures extends Scenario {
+public class CreateDocumentWithPositionedSignaturesScenario extends Scenario {
 
     /**
      * This scenario demonstrates the creation of a document with
