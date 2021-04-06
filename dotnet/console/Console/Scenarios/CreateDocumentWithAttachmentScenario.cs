@@ -25,6 +25,7 @@ namespace Console.Scenarios
             var file = File.ReadAllBytes(filePath);
             var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/pdf");
             var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "One Signer Sample" };
+            
 
             // Repeat the same steps above but now for the attachment
             var attachmentPath = "sample.pdf";
@@ -33,7 +34,10 @@ namespace Console.Scenarios
             var attachmentUpload = await SignerClient.UploadFileAsync(attachmentName, attachment, "application/pdf");
 
             // 2. Define the name of the attachment which will be visible in the application using "AttachmentUploadModel"
-            var attachmentUploadModel = new AttachmentUploadModel(attachmentUpload) { DisplayName = "One Attachment Sample" };
+            var attachmentUploadModel = new AttachmentUploadModel(attachmentUpload) { 
+                DisplayName = "One Attachment Sample",
+                IsPrivate = true
+            };
 
 
             // 3. For each participant on the flow, create one instance of ParticipantUserModel
