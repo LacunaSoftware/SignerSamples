@@ -72,6 +72,7 @@
     <Compile Include="Scenarios\CreateDocumentWithDescriptionScenario.cs" />
     <Compile Include="Scenarios\DeleteDocumentScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithPositionedSignaturesScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithAttachmentScenario.cs" />
     <Compile Include="Scenarios\DownloadDocumentVersionScenario.cs" />
     <Compile Include="Scenarios\EmbeddedSignatureScenario.cs" />
     <Compile Include="Scenarios\CreateDigitalDegreeScenario.cs" />
