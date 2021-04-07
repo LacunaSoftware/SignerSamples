@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
+    <Compile Include="Scenarios\CreateDocumentWithDescriptionScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithPositionedSignaturesScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithAttachmentScenario.cs" />
     <Compile Include="Scenarios\DownloadDocumentVersionScenario.cs" />
