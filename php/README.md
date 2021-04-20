@@ -1,3 +1,5 @@
-para rodar os exemplos, utilize o comando:
+Para rodar os exemplos:
 
-php index.php
+- Entre no arquivo index.php
+- Instancie a classe referente ao scenario desejado
+- Rode o comando "php index.php" para ver o resultado
