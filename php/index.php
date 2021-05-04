@@ -1,6 +1,7 @@
 
 <?php
 
+use Lacuna\Scenarios\CreateDocumentWithApproversScenario;
 use Lacuna\Scenarios\CreateDocumentWithOneSignerScenario;
 use Lacuna\Scenarios\DeleteDocumentScenario;
 use Lacuna\Scenarios\CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario;
@@ -11,7 +12,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 
-$signerSample = new ListDocumentsScenario();
+$signerSample = new CreateDocumentWithApproversScenario();
 
 $signerSample->Init();
 $signerSample->run();

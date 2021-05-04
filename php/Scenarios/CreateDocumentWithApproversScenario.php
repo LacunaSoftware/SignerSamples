@@ -12,12 +12,13 @@ use Lacuna\Signer\Model\UsersParticipantUserModel;
 use Lacuna\Signer\PhpClient\Builders\FileUploadBuilder;
 use Lacuna\Signer\PhpClient\Models\UploadModel;
 
-/**
- * This scenario demonstrates the creation of a document
- * with one approver.
- */
+
 class CreateDocumentWithApproversScenario extends Scenario
 {
+    /**
+     * This scenario demonstrates the creation of a document
+     * with one approver.
+     */
     function run()
     {   // 1. The file's bytes must be read by the application and uploaded
         $filePath = "sample.pdf";
