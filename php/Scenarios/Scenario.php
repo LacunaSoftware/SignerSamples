@@ -64,9 +64,8 @@ abstract class Scenario
 
 
 
-        $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest->__toString()));
+        return new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
 
-        echo "Document " .  $docResult->getDocumentId() ." created";
 
     }
 

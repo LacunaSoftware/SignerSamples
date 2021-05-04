@@ -14,13 +14,14 @@ use Lacuna\Signer\PhpClient\Models\UploadModel;
 
 class CreateDocumentWithOneSignerScenario extends Scenario
 {
-    function run (){
+    function run()
+    {
         $filePath = "sample.pdf";
         $fileName = basename($filePath);
 
         $file = fopen($filePath, "r");
 
-        $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf" ));
+        $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
 
 
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
@@ -36,19 +37,15 @@ class CreateDocumentWithOneSignerScenario extends Scenario
         $flowActionCreateModel->setType(FlowActionType::SIGNER);
         $flowActionCreateModel->setUser($user);
 
+
         $documentRequest = new DocumentsCreateDocumentRequest();
-
-
         $documentRequest->setFiles(array($fileUploadModelBuilder->toModel()));
-
-
         $documentRequest->setFlowActions(array($flowActionCreateModel));
-
 
 
         $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest->__toString()));
 
-        echo "Document " .  $docResult->getDocumentId() ." created\n";
+        echo "Document " . $docResult->getDocumentId() . " created\n";
 
     }
 

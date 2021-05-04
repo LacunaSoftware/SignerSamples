@@ -15,14 +15,14 @@
   "repositories": [
     {
       "type": "path",
-      "url": "C:\\Users\\Jean\\PhpstormProjects\\SignerPhpClient"
+      "url": "C:\\Projetos\\SignerPhpClient\\SignerPhpClient"
     }
   ],
   "require": {
     "tecnickcom/tcpdf": "6.3.5",
     "php": ">=5.5.0",
     "guzzlehttp/guzzle": "^6.0",
-    "lacuna/signer-client": "dev-master",
+    "lacuna/signer-client": "dev-main",
     "ext-json": "*"
   },
   "config": {
