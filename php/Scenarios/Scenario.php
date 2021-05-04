@@ -1,4 +1,5 @@
 <?php
+
 namespace Lacuna\Scenarios;
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -22,49 +23,63 @@ abstract class Scenario
 
     }
 
-    public  function  Init(){
+    public function Init()
+    {
         $this->endPoint = "https://signer-lac.azurewebsites.net";
         $this->apiKey = "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99";
-        $this->signerClient = new SignerClient( $this->endPoint, $this->apiKey);
+        $this->signerClient = new SignerClient($this->endPoint, $this->apiKey);
     }
-
 
 
     abstract protected function Run();
 
-    protected function createDocument(){
+    protected function createDocument()
+    {
         $filePath = "sample.pdf";
         $fileName = basename($filePath);
 
         $file = fopen($filePath, "r");
 
-        $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf" ));
+        $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
 
 
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
         $fileUploadModelBuilder->setDisplayName("One Signer Sample");
 
-        $user = new UsersParticipantUserModel();
-        $user->setName("Jack Bauer");
-        $user->setEmail("jack.bauer@mailinator.com");
-        $user->setIdentifier("75502846369");
-        
-        $flowActionCreateModel = new FlowActionsFlowActionCreateModel();
-        $flowActionCreateModel->setType(FlowActionType::SIGNER);
-        $flowActionCreateModel->setUser($user);
+        // 3. For each participant on the flow, create one instance of ParticipantUserModel
+        $participantUserOne = new UsersParticipantUserModel();
+        $participantUserOne->setName("Jack Bauer");
+        $participantUserOne->setEmail("jack.bauer@mailinator.com");
+        $participantUserOne->setIdentifier("75502846369");
 
+        $participantUserTwo = new UsersParticipantUserModel();
+        $participantUserTwo->setName("James Bond");
+        $participantUserTwo->setEmail("james.bond@mailinator.com");
+        $participantUserTwo->setIdentifier("95588148061");
+
+        // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
+        //    This object is responsible for defining the personal data of the participant, the type of
+        //    action that he will perform on the flow and the order in which this action will take place
+        //    (Step property). If the Step property of all action are the same or not specified they
+        //    may be executed at any time
+        $flowActionCreateModelOne = new FlowActionsFlowActionCreateModel();
+        $flowActionCreateModelOne->setType(FlowActionType::SIGNER);
+        $flowActionCreateModelOne->setUser($participantUserOne);
+
+        $flowActionCreateModelTwo = new FlowActionsFlowActionCreateModel();
+        $flowActionCreateModelTwo->setType(FlowActionType::SIGNER);
+        $flowActionCreateModelTwo->setUser($participantUserTwo);
+
+        // 5. Send the document create request
         $documentRequest = new DocumentsCreateDocumentRequest();
-
-
-        $documentRequest->setFiles(array($fileUploadModelBuilder->toModel()));
-
-
-        $documentRequest->setFlowActions(array($flowActionCreateModel));
-
-
+        $documentRequest->setFiles(
+            array($fileUploadModelBuilder->toModel())
+        );
+        $documentRequest->setFlowActions(
+            array($flowActionCreateModelOne, $flowActionCreateModelTwo)
+        );
 
         return new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
-
 
     }
 

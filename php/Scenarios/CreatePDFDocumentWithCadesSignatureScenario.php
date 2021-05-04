@@ -12,15 +12,15 @@ use Lacuna\Signer\Model\UsersParticipantUserModel;
 use Lacuna\Signer\PhpClient\Builders\FileUploadBuilder;
 use Lacuna\Signer\PhpClient\Models\UploadModel;
 
-
-class CreateDocumentWithApproversScenario extends Scenario
+class CreatePDFDocumentWithCadesSignatureScenario extends Scenario
 {
     /**
-     * This scenario demonstrates the creation of a document
-     * with one approver.
+     * This scenario demonstrates the creation of a PDF document
+     * that needs to be signed using the CAdES format.
      */
     function run()
-    {   // 1. The file's bytes must be read by the application and uploaded
+    {
+        // 1. The file's bytes must be read by the application and uploaded
         $filePath = "sample.pdf";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
@@ -28,7 +28,7 @@ class CreateDocumentWithApproversScenario extends Scenario
 
         // 2. Define the name of the document which will be visible in the application
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
-        $fileUploadModelBuilder->setDisplayName("Approval Sample");
+        $fileUploadModelBuilder->setDisplayName("One Signer With Cades Sample");
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         $user = new UsersParticipantUserModel();
@@ -41,10 +41,11 @@ class CreateDocumentWithApproversScenario extends Scenario
         //    This object is responsible for defining the personal data of the participant and the type of
         //    action that he will perform on the flow
         $flowActionCreateModel = new FlowActionsFlowActionCreateModel();
-        $flowActionCreateModel->setType(FlowActionType::APPROVER);
+        $flowActionCreateModel->setType(FlowActionType::SIGNER);
         $flowActionCreateModel->setUser($user);
 
-        // 5. Send the document create request
+        // 5. Send the document create request specifying that it requires CAdES signatures, since PAdES is
+        //    the default for PDF files.
         $documentRequest = new DocumentsCreateDocumentRequest();
         $documentRequest->setFiles(
             array($fileUploadModelBuilder->toModel())
@@ -52,8 +53,9 @@ class CreateDocumentWithApproversScenario extends Scenario
         $documentRequest->setFlowActions(
             array($flowActionCreateModel)
         );
+        $documentRequest->setForceCadesSignature(true);
 
-        // 6. Result
+
         $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
 
         echo "Document " . $docResult->getDocumentId() . " created\n";

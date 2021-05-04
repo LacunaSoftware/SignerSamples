@@ -54,7 +54,7 @@ class CreateDocumentWithOneSignerScenario extends Scenario
         );
 
 
-        $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest->__toString()));
+        $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
 
         echo "Document " . $docResult->getDocumentId() . " created\n";
 
