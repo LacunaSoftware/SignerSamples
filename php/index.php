@@ -15,9 +15,9 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 
-$signerSample = new CheckDocumentStatusScenario();
+$signerSample = new DeleteDocumentScenario();
 
-$signerSample->Init();
+$signerSample->init();
 $signerSample->run();
 
 
