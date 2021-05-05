@@ -2,18 +2,20 @@
 using Lacuna.Signer.Api.Documents;
 using Lacuna.Signer.Api.FlowActions;
 using Lacuna.Signer.Api.Users;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Console.Scenarios
 {
-    public class CreateDocumentWithTwoOrMoreSignersWithOrderScenario : Scenario
+    class CreateDocumentWithDescriptionScenario : Scenario
     {
         /**
-         * This scenario demonstrates the creation of a document with 
-         * two signers and there's a required order for the signatures.
+         * This scenario demonstrates the creation of a document with description
+         * 
          */
         public override async Task RunAsync()
         {
@@ -24,50 +26,29 @@ namespace Console.Scenarios
             var uploadModel = await SignerClient.UploadFileAsync(fileName, file, "application/pdf");
 
             // 2. Define the name of the document which will be visible in the application
-            var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "Two Signers With Order Sample" };
+            var fileUploadModel = new FileUploadModel(uploadModel) { DisplayName = "One Description Sample" };
 
             // 3. For each participant on the flow, create one instance of ParticipantUserModel
-            var participantUserOne = new ParticipantUserModel()
+            var participantUser = new ParticipantUserModel()
             {
                 Name = "Jack Bauer",
                 Email = "jack.bauer@mailinator.com",
                 Identifier = "75502846369"
             };
 
-            var participantUserTwo = new ParticipantUserModel()
-            {
-                Name = "James Bond",
-                Email = "james.bond@mailinator.com",
-                Identifier = "95588148061"
-            };
-
             // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
-            //    This object is responsible for defining the personal data of the participant, the type of 
-            //    action that he will perform on the flow and the order in which this action will take place
-            //    (Step property)
-            var flowActionCreateModelOne = new FlowActionCreateModel()
+            var flowActionCreateModel = new FlowActionCreateModel()
             {
                 Type = FlowActionType.Signer,
-                User = participantUserOne,
-                Step = 1
+                User = participantUser
             };
 
-            var flowActionCreateModelTwo = new FlowActionCreateModel()
-            {
-                Type = FlowActionType.Signer,
-                User = participantUserTwo,
-                Step = 2
-            };
-
-            // 5. Send the document create request
+            // 5. Send the document create request writing the description as a string 
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
-                FlowActions = new List<FlowActionCreateModel>() 
-                {
-                    flowActionCreateModelOne,
-                    flowActionCreateModelTwo
-                }
+                Description = "Some Description Sample", 
+                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel }
             };
             var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 

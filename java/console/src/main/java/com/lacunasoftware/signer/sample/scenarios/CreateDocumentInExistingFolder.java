@@ -39,7 +39,7 @@ public class CreateDocumentInExistingFolder extends Scenario {
 
         // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
         //    This object is responsible for defining the personal data of the participant and the type of 
-        //    action that he will peform on the flow
+        //    action that he will perform on the flow
         FlowActionCreateModel flowActionCreateModel = new FlowActionCreateModel();
         flowActionCreateModel.setType(FlowActionType.SIGNER);
         flowActionCreateModel.setUser(user);
