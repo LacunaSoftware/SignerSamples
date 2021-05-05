@@ -12,12 +12,6 @@
 
     ]
   },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "C:\\Projetos\\SignerPhpClient\\SignerPhpClient"
-    }
-  ],
   "require": {
     "tecnickcom/tcpdf": "6.3.5",
     "php": ">=5.5.0",

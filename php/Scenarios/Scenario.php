@@ -23,7 +23,7 @@ abstract class Scenario
 
     }
 
-    public function Init()
+    public function init()
     {
         $this->endPoint = "https://signer-lac.azurewebsites.net";
         $this->apiKey = "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99";
@@ -31,7 +31,7 @@ abstract class Scenario
     }
 
 
-    abstract protected function Run();
+    abstract protected function run();
 
     protected function createDocument()
     {
