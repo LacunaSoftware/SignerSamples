@@ -27,7 +27,7 @@ class CreateDocumentWithDescriptionScenario extends Scenario
 
         // 2. Define the name of the document which will be visible in the application
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
-        $fileUploadModelBuilder->setDisplayName("One Signer Sample");
+        $fileUploadModelBuilder->setDisplayName("One Description Sample");
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         $user = new UsersParticipantUserModel();
