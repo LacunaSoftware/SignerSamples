@@ -50,21 +50,22 @@ public class CreateDocumentWithPositionedSignaturesScenario extends Scenario {
         flowActionCreateModel.setType(FlowActionType.SIGNER);
         flowActionCreateModel.setUser(user);
 
+        // 5.  Create the mark atributes
         PrePositionedDocumentMarkModel mark = new PrePositionedDocumentMarkModel()
                 .type(DocumentMarkType.SIGNATUREVISUALREPRESENTATION) //This is the attribute responsible for defining the Type of signature you are going to use
                 .uploadId(fileUploadModelBuilder.getId()) //Document id
                 .topLeftX(395.0) //Signature position, in pixels, over the X axis
                 .topLeftY(560.0) //Signature position, in pixels, over the Y axis
-                .width(170.0)    //Width of the rectangular where signature will be placed in (It already has a default value)
-                .height(94.0)    //Height of the rectangular where signature will be placed in (It already has a default value)
+                .width(170.0)    //Width of the rectangle where signature will be placed in (It already has a default value)
+                .height(94.0)    //Height of the rectangle where signature will be placed in (It already has a default value)
                 .pageNumber(1);  //Page where the signature wil be placed
 
-        //Adding the mark attributes to the list (you can preposition marks to different documents)
+        //Adding the mark attributes to the list (you can preposition marks on different documents)
         List<PrePositionedDocumentMarkModel> listMark = new ArrayList<>();
         listMark.add(mark);
 
         flowActionCreateModel.setPrePositionedMarks(listMark);
-        // 5. Send the document create request
+        // 6. Send the document create request
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();
         documentRequest.setFiles(new ArrayList<FileUploadModel>() {
             private static final long serialVersionUID = 1L;
