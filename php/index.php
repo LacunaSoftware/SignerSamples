@@ -15,7 +15,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 
-$signerSample = new DeleteDocumentScenario();
+$signerSample = new CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario();
 
 $signerSample->init();
 $signerSample->run();
