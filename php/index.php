@@ -3,6 +3,7 @@
 
 use Lacuna\Scenarios\CheckDocumentStatusScenario;
 use Lacuna\Scenarios\CreateDocumentWithApproversScenario;
+use Lacuna\Scenarios\CreateDocumentWithDescriptionScenario;
 use Lacuna\Scenarios\CreateDocumentWithOneSignerScenario;
 use Lacuna\Scenarios\CreateDocumentWithTwoOrMoreSignersWithOrderScenario;
 use Lacuna\Scenarios\CreatePDFDocumentWithCadesSignatureScenario;
