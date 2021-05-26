@@ -2,6 +2,8 @@
 <?php
 
 use Lacuna\Scenarios\CheckDocumentStatusScenario;
+use Lacuna\Scenarios\CreateDocumentInExistingFolder;
+use Lacuna\Scenarios\CreateDocumentInNewFolderScenario;
 use Lacuna\Scenarios\CreateDocumentWithApproversScenario;
 use Lacuna\Scenarios\CreateDocumentWithAttachmentScenario;
 use Lacuna\Scenarios\CreateDocumentWithDescriptionScenario;
@@ -18,7 +20,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 
-$signerSample = new ListDocumentsScenario();
+$signerSample = new CreateDocumentWithOneSignerScenario();
 
 $signerSample->init();
 $signerSample->run();
