@@ -25,11 +25,10 @@ abstract class Scenario
 
     public function init()
     {
-        $this->endPoint = "https://signer-lac.azurewebsites.net";
-        $this->apiKey = "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99";
+        $this->endPoint = "http://localhost:56500";
+        $this->apiKey = "App|7acf40871bcea149843d91c37bed89bfc1cc05f01d17239d4996cfec713c0d93";
         $this->signerClient = new SignerClient($this->endPoint, $this->apiKey);
     }
-
 
     abstract protected function run();
 
@@ -79,7 +78,7 @@ abstract class Scenario
             array($flowActionCreateModelOne, $flowActionCreateModelTwo)
         );
 
-        return new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
+        return $this->signerClient->createDocument($documentRequest)[0];
 
     }
 

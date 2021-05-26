@@ -56,7 +56,7 @@ class CreatePDFDocumentWithCadesSignatureScenario extends Scenario
         $documentRequest->setForceCadesSignature(true);
 
 
-        $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
+        $docResult = $this->signerClient->createDocument($documentRequest)[0];
 
         echo "Document " . $docResult->getDocumentId() . " created\n";
 

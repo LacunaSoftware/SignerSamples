@@ -42,12 +42,11 @@ class CreateDocumentWithAttachmentScenario extends Scenario
         $attachmentUploadModel->setDisplayName("One Attachment Sample");
 
 
-
         // 4. For each participant on the flow, create one instance of ParticipantUserModel
         $user = new UsersParticipantUserModel();
         $user->setName("Jack Bauer");
         $user->setEmail("jack.bauer@mailinator.com");
-        $user->setIdentifier("05819884183");
+        $user->setIdentifier("75502846369");
 
 
         // 5. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
@@ -70,7 +69,7 @@ class CreateDocumentWithAttachmentScenario extends Scenario
         );
 
         // 7. Result
-        $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
+        $docResult = $this->signerClient->createDocument($documentRequest)[0];
 
         echo "Document " . $docResult->getDocumentId() . " created\n";
 
