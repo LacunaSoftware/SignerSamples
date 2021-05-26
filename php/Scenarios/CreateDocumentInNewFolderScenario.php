@@ -42,11 +42,9 @@ class CreateDocumentInNewFolderScenario extends Scenario
         $flowActionCreateModel = new FlowActionsFlowActionCreateModel();
         $flowActionCreateModel->setType(FlowActionType::SIGNER);
         $flowActionCreateModel->setUser($user);
-
-
+        
         // 5. Send the document create request. Set the NewFolderName property to create a folder for the document.
         $documentRequest = new DocumentsCreateDocumentRequest();
-
         $documentRequest->setNewFolderName("New Folder");
 
         $documentRequest->setFiles(
