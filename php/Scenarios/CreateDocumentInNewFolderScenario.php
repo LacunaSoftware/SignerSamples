@@ -5,20 +5,17 @@ namespace Lacuna\Scenarios;
 
 
 use Lacuna\Signer\Model\DocumentsCreateDocumentRequest;
-use Lacuna\Signer\Model\DocumentsCreateDocumentResult;
 use Lacuna\Signer\Model\FlowActionsFlowActionCreateModel;
 use Lacuna\Signer\Model\FlowActionType;
-use Lacuna\Signer\Model\FoldersFolderInfoModel;
 use Lacuna\Signer\Model\UsersParticipantUserModel;
 use Lacuna\Signer\PhpClient\Builders\FileUploadBuilder;
 use Lacuna\Signer\PhpClient\Models\UploadModel;
 use Lacuna\Signer\PhpClient\Params\PaginatedSearchParams;
 
-class CreateDocumentInExistingFolder extends Scenario
+class CreateDocumentInNewFolderScenario extends Scenario
 {
     /**
-     * This scenario demonstrates the creation of a document into an existing
-     * folder.
+     * This scenario demonstrates the creation of a document into a new folder.
      */
     function run()
     {
@@ -46,18 +43,12 @@ class CreateDocumentInExistingFolder extends Scenario
         $flowActionCreateModel->setType(FlowActionType::SIGNER);
         $flowActionCreateModel->setUser($user);
 
-        // 5. Search a folder by it's name
-        $paginatedSearchParams = new PaginatedSearchParams();
-        $paginatedSearchParams->setQ("New Folder");
 
-        $folders = $this->signerClient->listFoldersPaginated($paginatedSearchParams, null);
-        $folder = $folders->getItems()[0];
-
-
-        // 6. Send the document create request
+        // 5. Send the document create request. Set the NewFolderName property to create a folder for the document.
         $documentRequest = new DocumentsCreateDocumentRequest();
 
-        $documentRequest->setFolderId($folder->getId());
+        $documentRequest->setNewFolderName("New Folder");
+
         $documentRequest->setFiles(
             array($fileUploadModelBuilder->toModel())
         );
