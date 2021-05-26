@@ -64,7 +64,7 @@ class CreateDocumentWithTwoOrMoreSignersWithOrderScenario extends Scenario
             array($flowActionCreateModelOne, $flowActionCreateModelTwo)
         );
 
-        $docResult = new DocumentsCreateDocumentResult($this->signerClient->createDocument($documentRequest));
+        $docResult = $this->signerClient->createDocument($documentRequest)[0];
 
         echo "Document " . $docResult->getDocumentId() . " created\n";
     }

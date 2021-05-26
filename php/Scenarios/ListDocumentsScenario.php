@@ -23,11 +23,10 @@ class ListDocumentsScenario extends Scenario
         $searchParams->setQ("One Signer Sample");
 
         //2 - Call the ListDocuments method and pass "searchParams" as a parameter
-        $response = new PaginatedSearchResponseDocumentsDocumentListModel($this->signerClient->listDocuments($searchParams));
-
+        $response = $this->signerClient->listDocuments($searchParams);
 
         foreach ($response->getItems() as $item) {
-            echo $item['name'] . "\n";
+            echo $item->getName() . "\n";
         }
 
     }
