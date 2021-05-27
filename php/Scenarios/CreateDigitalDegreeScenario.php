@@ -87,7 +87,7 @@ class CreateDigitalDegreeScenario extends Scenario
         $flowActionCreateModelFull = new FlowActionsFlowActionCreateModel();
         $flowActionCreateModelFull->setType(FlowActionType::SIGNER);
         $flowActionCreateModelFull->setUser($participantUserThree);
-        $flowActionCreateModelFull->setXadesOptions($xadesOptionsDegreeData);
+        $flowActionCreateModelFull->setXadesOptions($xadesOptionsModelFull);
 
         // 6. Send the document create request
         $documentRequest = new DocumentsCreateDocumentRequest();
