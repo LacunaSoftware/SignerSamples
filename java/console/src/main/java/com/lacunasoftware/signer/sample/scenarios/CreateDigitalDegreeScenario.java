@@ -21,8 +21,8 @@ import com.lacunasoftware.signer.users.ParticipantUserModel;
 
 public class CreateDigitalDegreeScenario extends Scenario {
     /**
-    * This scenario demonstrates the creation of a digital degree compliant with "PORTARIA Nº 554, DE 11 DE MARÇO DE 2019".
-    */
+     * This scenario demonstrates the creation of a digital degree compliant with "PORTARIA Nº 554, DE 11 DE MARÇO DE 2019".
+     */
     @Override
     public void Run() throws IOException, RestException, Exception {
         // 1. The file's bytes must be read by the application and uploaded
@@ -35,19 +35,19 @@ public class CreateDigitalDegreeScenario extends Scenario {
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         ParticipantUserModel participantUserOne  = new ParticipantUserModel();
-		participantUserOne.setName("Jack Bauer");
-		participantUserOne.setEmail("jack.bauer@mailinator.com");
+        participantUserOne.setName("Jack Bauer");
+        participantUserOne.setEmail("jack.bauer@mailinator.com");
         participantUserOne.setIdentifier("75502846369");
 
         ParticipantUserModel participantUserTwo  = new ParticipantUserModel();
-		participantUserTwo.setName("James Bond");
-		participantUserTwo.setEmail("james.bond@mailinator.com");
+        participantUserTwo.setName("James Bond");
+        participantUserTwo.setEmail("james.bond@mailinator.com");
         participantUserTwo.setIdentifier("95588148061");
 
-        ParticipantUserModel ParticipantUserThree  = new ParticipantUserModel();
-		ParticipantUserThree.setName("Garry Eggsy");
-		ParticipantUserThree.setEmail("garry.eggsy@mailinator.com");
-        ParticipantUserThree.setIdentifier("87657257008");
+        ParticipantUserModel participantUserThree  = new ParticipantUserModel();
+        participantUserThree.setName("Garry Eggsy");
+        participantUserThree.setEmail("garry.eggsy@mailinator.com");
+        participantUserThree.setIdentifier("87657257008");
 
         // 4. Specify the element that holds the namespace of the issuer
         XmlNamespaceModel xmlNamespaceModel = new XmlNamespaceModel();
@@ -78,12 +78,12 @@ public class CreateDigitalDegreeScenario extends Scenario {
 
         FlowActionCreateModel registerDataAction  = new FlowActionCreateModel();
         registerDataAction.setType(FlowActionType.SIGNER);
-        registerDataAction.setUser(participantUserOne);
+        registerDataAction.setUser(participantUserTwo);
         registerDataAction.setXadesOptions(xadesOptionsModelRegisterData);
 
         FlowActionCreateModel flowActionCreateModelFull = new FlowActionCreateModel();
         flowActionCreateModelFull.setType(FlowActionType.SIGNER);
-        flowActionCreateModelFull.setUser(participantUserOne);
+        flowActionCreateModelFull.setUser(participantUserThree);
         flowActionCreateModelFull.setXadesOptions(xadesOptionsDegreeData);
 
         // 6. Send the document create request
@@ -103,8 +103,8 @@ public class CreateDigitalDegreeScenario extends Scenario {
             }
         });
         CreateDocumentResult result = signerClient.createDocument(documentRequest).get(0);
-        
+
         System.out.println(String.format("Document %s created", result.getDocumentId().toString()));
     }
-    
+
 }
