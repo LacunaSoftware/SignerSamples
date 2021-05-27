@@ -36,7 +36,7 @@ class CreateDocumentWithSigningRuleScenario extends Scenario
         $participantUserOne = new UsersParticipantUserModel();
         $participantUserOne->setName("Jack Bauer");
         $participantUserOne->setEmail("jack.bauer@mailinator.com");
-        $participantUserOne->setIdentifier("05819884183");
+        $participantUserOne->setIdentifier("75502846369");
 
         $participantUserTwo = new UsersParticipantUserModel();
         $participantUserTwo->setName("James Bond");
