@@ -30,7 +30,7 @@ class EmbeddedSignatureScenario extends Scenario
 
         // 2. Define the name of the document which will be visible in the application
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
-        $fileUploadModelBuilder->setDisplayName("One Signer Sample");
+        $fileUploadModelBuilder->setDisplayName("Embedded Signature Sample");
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         $user = new UsersParticipantUserModel();
@@ -38,13 +38,13 @@ class EmbeddedSignatureScenario extends Scenario
         $user->setEmail("jack.bauer@mailinator.com");
         $user->setIdentifier("75502846369");
 
-
         // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
         //    This object is responsible for defining the personal data of the participant and the type of
         //    action that he will perform on the flow
         $flowActionCreateModel = new FlowActionsFlowActionCreateModel();
         $flowActionCreateModel->setType(FlowActionType::SIGNER);
         $flowActionCreateModel->setUser($user);
+
 
         // 5. Send the document create request
         $documentRequest = new DocumentsCreateDocumentRequest();
@@ -54,7 +54,6 @@ class EmbeddedSignatureScenario extends Scenario
         $documentRequest->setFlowActions(
             array($flowActionCreateModel)
         );
-
 
         $docResult = $this->signerClient->createDocument($documentRequest)[0];
 
