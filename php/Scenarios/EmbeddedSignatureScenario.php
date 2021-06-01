@@ -36,7 +36,7 @@ class EmbeddedSignatureScenario extends Scenario
         $user = new UsersParticipantUserModel();
         $user->setName("Jack Bauer");
         $user->setEmail("jack.bauer@mailinator.com");
-        $user->setIdentifier("05819884183");
+        $user->setIdentifier("75502846369");
 
         // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
         //    This object is responsible for defining the personal data of the participant and the type of
