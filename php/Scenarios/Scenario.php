@@ -34,7 +34,7 @@ abstract class Scenario
 
     protected function createDocument()
     {
-        $filePath = "sample.pdf";
+        $filePath = "resources/sample.pdf";
         $fileName = basename($filePath);
 
         $file = fopen($filePath, "r");

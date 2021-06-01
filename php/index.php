@@ -14,8 +14,11 @@ use Lacuna\Scenarios\CreateDocumentWithSigningRuleScenario;
 use Lacuna\Scenarios\CreateDocumentWithTwoOrMoreSignersWithOrderScenario;
 use Lacuna\Scenarios\CreatePDFDocumentWithCadesSignatureScenario;
 use Lacuna\Scenarios\CreateXMLWithElementSignatureScenario;
+use Lacuna\Scenarios\CreateXmlWithFullDocumentSignatureScenario;
 use Lacuna\Scenarios\DeleteDocumentScenario;
 use Lacuna\Scenarios\CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario;
+use Lacuna\Scenarios\DownloadDocumentVersionScenario;
+use Lacuna\Scenarios\EmbeddedSignatureScenario;
 use Lacuna\Scenarios\ListDocumentsScenario;
 use Lacuna\Scenarios\Scenario;
 

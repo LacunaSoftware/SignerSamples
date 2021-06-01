@@ -24,7 +24,7 @@ class CreateXMLWithElementSignatureScenario extends Scenario
     function run()
     {
         // 1. The file's bytes must be read by the application and uploaded
-        $filePath = "sample.xml";
+        $filePath = "resources/sample.xml";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/xml"));
@@ -54,6 +54,7 @@ class CreateXMLWithElementSignatureScenario extends Scenario
         $flowActionCreateModel->setUser($user);
         $flowActionCreateModel->setXadesOptions($xadesOptionsModel);
 
+        // 6. Send the document create request
         $documentRequest = new DocumentsCreateDocumentRequest();
         $documentRequest->setFiles(
             array($fileUploadModelBuilder->toModel())
