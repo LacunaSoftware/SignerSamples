@@ -14,6 +14,9 @@ import java.nio.file.StandardCopyOption;
 
 public class DownloadDocumentVersionScenario extends Scenario{
 
+    /**
+     * This scenario describes how to download documents.
+     */
     @Override
     public void Run() throws IOException, RestException {
 
