@@ -22,7 +22,7 @@ class CreateDocumentWithAttachmentScenario extends Scenario
      */
     function run()
     {   // 1. The file's bytes must be read by the application and uploaded
-        $filePath = "sample.pdf";
+        $filePath = "resources/sample.pdf";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
@@ -32,7 +32,7 @@ class CreateDocumentWithAttachmentScenario extends Scenario
         $fileUploadModelBuilder->setDisplayName("One Signer Sample");
 
         // Repeat the same steps above but now for the attachment
-        $attachmentPath = "sample.pdf";
+        $attachmentPath = "resources/sample.pdf";
         $attachmentName = basename($filePath);
         $attachment = fopen($attachmentPath, "r");
         $attachmentUpload = new UploadModel($this->signerClient->uploadFile($attachmentName, $attachment, "application/pdf"));

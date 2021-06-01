@@ -23,7 +23,7 @@ class EmbeddedSignatureScenario extends Scenario
     function run()
     {
         // 1. The file's bytes must be read by the application and uploaded
-        $filePath = "sample.pdf";
+        $filePath = "resources/sample.pdf";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
@@ -36,7 +36,7 @@ class EmbeddedSignatureScenario extends Scenario
         $user = new UsersParticipantUserModel();
         $user->setName("Jack Bauer");
         $user->setEmail("jack.bauer@mailinator.com");
-        $user->setIdentifier("75502846369");
+        $user->setIdentifier("05819884183");
 
         // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.
         //    This object is responsible for defining the personal data of the participant and the type of

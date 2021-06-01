@@ -25,7 +25,7 @@ class CreateDigitalDegreeScenario extends Scenario
     function run()
     {
         // 1. The file's bytes must be read by the application and uploaded
-        $filePath = "sample-degree.xml";
+        $filePath = "resources/sample-degree.xml";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/xml"));

@@ -21,7 +21,7 @@ class CreatePDFDocumentWithCadesSignatureScenario extends Scenario
     function run()
     {
         // 1. The file's bytes must be read by the application and uploaded
-        $filePath = "sample.pdf";
+        $filePath = "resources/sample.pdf";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
