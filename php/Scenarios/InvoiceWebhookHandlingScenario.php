@@ -72,6 +72,6 @@ class InvoiceWebhookHandlingScenario extends Scenario implements IWebhookHandler
     {
         $invoicePaymentStatusRequest = new InvoicesUpdateInvoicePaymentStatusRequest();
         $invoicePaymentStatusRequest->setIsPaid($isPaid);
-        $this->signerClient->UpdateInvoiceStatus($invoiceId, $invoicePaymentStatusRequest);
+        var_dump($this->signerClient->UpdateInvoiceStatus($invoiceId, $invoicePaymentStatusRequest));
     }
 }
