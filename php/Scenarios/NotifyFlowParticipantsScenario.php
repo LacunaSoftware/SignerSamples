@@ -25,7 +25,6 @@ class NotifyFlowParticipantsScenario extends Scenario
         //    Note: Only participants with pending actions are notified.
         foreach ($details->getFlowActions() as $item) {
             $flowAction = new FlowActionsFlowActionModel($item);
-            var_dump($flowAction);
             $this->signerClient->sendFlowActionReminder($result->getDocumentId(), $flowAction->getId());
         }
 
