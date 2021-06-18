@@ -16,7 +16,7 @@
     "tecnickcom/tcpdf": "6.3.5",
     "php": ">=5.5.0",
     "guzzlehttp/guzzle": "^6.0",
-    "lacuna/signer-client": "1.2.0",
+    "lacuna/signer-client": "1.2.1",
     "ext-json": "*"
   },
   "config": {
