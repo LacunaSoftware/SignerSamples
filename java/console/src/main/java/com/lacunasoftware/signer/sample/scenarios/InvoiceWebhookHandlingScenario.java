@@ -67,14 +67,14 @@ public class InvoiceWebhookHandlingScenario extends Scenario implements IWebhook
     /// </summary>
     /// <returns></returns>
     @Override
-    public void Run() throws IOException, RestException, Exception {
-        int invoiceId = 1;//sample value, replace with actual ID
+    public void Run() throws Exception {
+        int invoiceId = 16;//sample value, replace with actual ID
         this.UpdateInvoiceStatus(invoiceId, true);
 
     }
 
 
-    protected void UpdateInvoiceStatus(int invoiceId, boolean isPaid) throws RestException, IOException {
+    protected void UpdateInvoiceStatus(int invoiceId, boolean isPaid) throws IOException {
         InvoicesUpdateInvoicePaymentStatusRequest invoicePaymentStatusRequest = new InvoicesUpdateInvoicePaymentStatusRequest().isPaid(isPaid);
         try {
             this.signerClient.UpdateInvoiceStatus(invoiceId, invoicePaymentStatusRequest);
