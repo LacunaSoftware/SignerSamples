@@ -76,6 +76,10 @@ public class InvoiceWebhookHandlingScenario extends Scenario implements IWebhook
 
     protected void UpdateInvoiceStatus(int invoiceId, boolean isPaid) throws RestException, IOException {
         InvoicesUpdateInvoicePaymentStatusRequest invoicePaymentStatusRequest = new InvoicesUpdateInvoicePaymentStatusRequest().isPaid(isPaid);
-        System.out.println(this.signerClient.UpdateInvoiceStatus(invoiceId, invoicePaymentStatusRequest));
+        try {
+            this.signerClient.UpdateInvoiceStatus(invoiceId, invoicePaymentStatusRequest);
+        }catch (RestException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
