@@ -25,7 +25,7 @@ abstract class Scenario
 
     public function init()
     {
-        $this->endPoint = "https://signer-lac.azurewebsites.net";
+        $this->endPoint = "https://signer-lac.azurewebsites.net/";
         $this->apiKey = "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99";
         $this->signerClient = new SignerClient($this->endPoint, $this->apiKey);
     }
@@ -38,9 +38,8 @@ abstract class Scenario
         $fileName = basename($filePath);
 
         $file = fopen($filePath, "r");
-
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
-
+        fclose($file);
 
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
         $fileUploadModelBuilder->setDisplayName("One Signer Sample");
