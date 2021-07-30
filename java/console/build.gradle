@@ -17,12 +17,12 @@ java {
 repositories {
     mavenCentral()
     maven {
-        url "http://dl.bintray.com/lacunasoftware/maven"
+        url "https://s01.oss.sonatype.org/content/groups/public"
     }
 }
 
 dependencies {
-    implementation 'com.lacunasoftware.signer:signer-client:2.1.5'
+    implementation 'com.lacunasoftware.signer:signer-client:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.1'
 
 }
