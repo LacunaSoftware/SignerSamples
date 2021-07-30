@@ -10,12 +10,11 @@ use Lacuna\Signer\Model\FlowActionType;
 use Lacuna\Signer\Model\UsersParticipantUserModel;
 use Lacuna\Signer\PhpClient\Builders\FileUploadBuilder;
 use Lacuna\Signer\PhpClient\Models\UploadModel;
-use Lacuna\Signer\PhpClient\Params\PaginatedSearchParams;
 
-class CreateDocumentInNewFolderScenario extends Scenario
+class CreateDocumentWithEnvelopeScenario extends Scenario
 {
     /**
-     * This scenario demonstrates the creation of a document into a new folder.
+     * This scenario demonstrates the creation of a document with envelope.
      */
     function run()
     {
@@ -26,9 +25,18 @@ class CreateDocumentInNewFolderScenario extends Scenario
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
         fclose($file);
 
+        $file = fopen($filePath, "r");
+        $uploadModelTwo = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
+        fclose($file);
+
         // 2. Define the name of the document which will be visible in the application
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
-        $fileUploadModelBuilder->setDisplayName("One Signer Sample");
+        $fileUploadModelBuilder->setDisplayName("One Envelope Sample");
+
+        // 2. Define the name of the document which will be visible in the application
+        $fileUploadModelBuilderTwo = new FileUploadBuilder($uploadModelTwo);
+        $fileUploadModelBuilderTwo->setDisplayName("One Envelope Sample");
+
 
         // 3. For each participant on the flow, create one instance of ParticipantUserModel
         $user = new UsersParticipantUserModel();
@@ -43,21 +51,24 @@ class CreateDocumentInNewFolderScenario extends Scenario
         $flowActionCreateModel = new FlowActionsFlowActionCreateModel();
         $flowActionCreateModel->setType(FlowActionType::SIGNER);
         $flowActionCreateModel->setUser($user);
-        
-        // 5. Send the document create request. Set the NewFolderName property to create a folder for the document.
+
+        // 5. Send the document create request setting up the attribute "isEnvelope" as "true" and you MUST give a name to this envelope "envelopeName"
         $documentRequest = new DocumentsCreateDocumentRequest();
-        $documentRequest->setNewFolderName("New Folder");
+        $documentRequest->setEnvelopeName("Envelope Sample");
+        $documentRequest->setIsEnvelope(true);
 
         $documentRequest->setFiles(
-            array($fileUploadModelBuilder->toModel())
+            array($fileUploadModelBuilder->toModel(), $fileUploadModelBuilderTwo->toModel())
         );
         $documentRequest->setFlowActions(
             array($flowActionCreateModel)
         );
+
 
         $docResult = $this->signerClient->createDocument($documentRequest)[0];
 
         echo "Document " . $docResult->getDocumentId() . " created\n";
 
     }
+
 }
