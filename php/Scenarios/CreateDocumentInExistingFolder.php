@@ -27,6 +27,7 @@ class CreateDocumentInExistingFolder extends Scenario
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
+        fclose($file);
 
         // 2. Define the name of the document which will be visible in the application
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
