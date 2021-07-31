@@ -35,7 +35,7 @@ public abstract class Scenario {
         UploadModel uploadModel = signerClient.uploadFile("sample.pdf", content, "application/pdf");
         
         FileUploadModelBuilder fileUploadModelBuilder = new FileUploadModelBuilder(uploadModel);
-        fileUploadModelBuilder.setDisplayName("Check Status Samples");
+        fileUploadModelBuilder.setDisplayName("Simple Document");
 
         ParticipantUserModel user = new ParticipantUserModel();
 		user.setName("Jack Bauer");
