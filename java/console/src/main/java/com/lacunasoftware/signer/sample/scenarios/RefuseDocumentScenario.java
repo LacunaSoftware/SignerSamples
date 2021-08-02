@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class RefuseDocumentScenario extends Scenario {
     /**
-     * This scenario demonstrates how refuse a document as an organization application.
+     * This scenario demonstrates how to refuse a document as an organization application.
      */
     @Override
     public void Run() throws IOException, RestException {
