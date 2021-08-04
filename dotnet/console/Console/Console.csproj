@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <ItemGroup>
-	<Compile Include="Scenarios\CancelDocumentScenario.cs" />
+    <Compile Include="Scenarios\CancelDocumentScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithDescriptionScenario.cs" />
