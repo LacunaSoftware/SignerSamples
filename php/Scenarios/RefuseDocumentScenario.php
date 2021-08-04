@@ -9,7 +9,7 @@ use Lacuna\Signer\Model\RefusalRefusalRequest;
 class RefuseDocumentScenario extends Scenario
 {
     /**
-     * This scenario demonstrates how to delete a document using it's ID.
+     * This scenario demonstrates how to refuse a document as an organization application.
      */
     function run()
     {
@@ -17,14 +17,12 @@ class RefuseDocumentScenario extends Scenario
         $document = $this->createDocument();
         $documentId = $document->getDocumentId();
 
-        //2. Call the api method to delete the document and pass the document Id as parameter
+        //2 - Create a refusal request and give it a reason
         $refuseDocument = new RefusalRefusalRequest();
         $refuseDocument->setReason("This is a document refusal");
 
-        //3. If you want to very the document status use the method bellow
-         $this->signerClient->refuseDocument($documentId, $refuseDocument);
+        //3 - Send the refusal request
+        $this->signerClient->refuseDocument($documentId, $refuseDocument);
 
-         echo "teste";
     }
-
 }

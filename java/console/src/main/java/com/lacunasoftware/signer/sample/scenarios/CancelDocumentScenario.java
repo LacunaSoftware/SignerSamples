@@ -19,11 +19,11 @@ public class CancelDocumentScenario extends Scenario {
         UUID docId = document.getDocumentId();
 
         //2 - Create a cancellation request and give it a reason
-        CancelDocumentRequest refuseDocument = new CancelDocumentRequest().reason("This is a document cancellation");
+        CancelDocumentRequest cancelDocument = new CancelDocumentRequest().reason("This is a document cancellation");
 
         //3 - Send the cancellation request
         try {
-            signerClient.cancelDocument(docId, refuseDocument);
+            signerClient.cancelDocument(docId, cancelDocument);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
