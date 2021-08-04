@@ -67,7 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ItemGroup>
     <Compile Include="Scenarios\CancelDocumentScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
@@ -96,7 +95,6 @@
     <Compile Include="Scenarios\CreatePDFDocumentWithCadesSignatureScenario.cs" />
     <Compile Include="Scenarios\CreateXMLWithFullDocumentSignatureScenario.cs" />
     <Compile Include="Scenarios\CheckDocumentStatusScenario.cs" />
-  </ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
