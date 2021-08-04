@@ -22,6 +22,8 @@ use Lacuna\Scenarios\DownloadDocumentVersionScenario;
 use Lacuna\Scenarios\EmbeddedSignatureScenario;
 use Lacuna\Scenarios\InvoiceWebhookHandlingScenario;
 use Lacuna\Scenarios\ListDocumentsScenario;
+use Lacuna\Scenarios\NotifyFlowParticipantsScenario;
+use Lacuna\Scenarios\RefuseDocumentScenario;
 use Lacuna\Scenarios\Scenario;
 
 require __DIR__ . '/vendor/autoload.php';
