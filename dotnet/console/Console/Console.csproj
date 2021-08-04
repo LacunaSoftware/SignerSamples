@@ -37,20 +37,20 @@
     <Reference Include="Lacuna.DataAnnotations, Version=1.2.0.0, Culture=neutral, PublicKeyToken=5a78866d7d68b0f7, processorArchitecture=MSIL">
       <HintPath>..\packages\Lacuna.DataAnnotations.1.2.0\lib\net45\Lacuna.DataAnnotations.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.RestClient, Version=1.15.0.0, Culture=neutral, PublicKeyToken=bf845f78aead27bc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.RestClient.1.15.0\lib\net45\Lacuna.RestClient.dll</HintPath>
+    <Reference Include="Lacuna.RestClient, Version=1.14.1.0, Culture=neutral, PublicKeyToken=bf845f78aead27bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.RestClient.1.14.1\lib\net45\Lacuna.RestClient.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.Signer.Api, Version=1.33.0.0, Culture=neutral, PublicKeyToken=8225298eb60dc292, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.Signer.Api.1.33.0\lib\net45\Lacuna.Signer.Api.dll</HintPath>
+    <Reference Include="Lacuna.Signer.Api, Version=1.26.1.0, Culture=neutral, PublicKeyToken=8225298eb60dc292, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.Signer.Api.1.26.1\lib\net45\Lacuna.Signer.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.Signer.Client, Version=1.17.0.0, Culture=neutral, PublicKeyToken=70561e3996a211da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.Signer.Client.1.17.0\lib\net45\Lacuna.Signer.Client.dll</HintPath>
+    <Reference Include="Lacuna.Signer.Client, Version=1.15.0.0, Culture=neutral, PublicKeyToken=70561e3996a211da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.Signer.Client.1.15.0\lib\net45\Lacuna.Signer.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Lacuna.Spa.Api, Version=2.3.1.0, Culture=neutral, PublicKeyToken=25c2a1cfa2593877, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lacuna.Spa.Api.2.3.1\lib\net45\Lacuna.Spa.Api.dll</HintPath>
+    <Reference Include="Lacuna.Spa.Api, Version=2.3.0.0, Culture=neutral, PublicKeyToken=25c2a1cfa2593877, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lacuna.Spa.Api.2.3.0\lib\net45\Lacuna.Spa.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ItemGroup>
 	<Compile Include="Scenarios\CancelDocumentScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Scenarios\CreatePDFDocumentWithCadesSignatureScenario.cs" />
     <Compile Include="Scenarios\CreateXMLWithFullDocumentSignatureScenario.cs" />
     <Compile Include="Scenarios\CheckDocumentStatusScenario.cs" />
+  </ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
