@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scenarios\CancelDocumentScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentWithDescriptionScenario.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Scenarios\IWebhookHandlerScenario.cs" />
     <Compile Include="Scenarios\ListDocumentsScenario.cs" />
     <Compile Include="Scenarios\NotifyFlowParticipantsScenario.cs" />
+    <Compile Include="Scenarios\RefuseDocumentScenario.cs" />
     <Compile Include="Scenarios\Scenario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
