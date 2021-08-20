@@ -36,7 +36,7 @@ Signer's client lib
 The recommended way to install **Signer client lib** is through [Composer](http://getcomposer.org):
 
     "require": {
-        "lacuna/signer-client" : "1.3.0"
+        "lacuna/signer-client" : "1.3.2"
     }
 
 This library depends on the GuzzleHttp package, which in turn requires PHP 5.5 or greater.
