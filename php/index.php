@@ -1,6 +1,7 @@
 
 <?php
 
+use Lacuna\Scenarios\AddNewDocumentVersionScenario;
 use Lacuna\Scenarios\CheckDocumentStatusScenario;
 use Lacuna\Scenarios\CreateDigitalDegreeScenario;
 use Lacuna\Scenarios\CreateDocumentInExistingFolder;
