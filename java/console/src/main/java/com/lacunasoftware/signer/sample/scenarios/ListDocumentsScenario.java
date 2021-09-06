@@ -1,5 +1,6 @@
 package com.lacunasoftware.signer.sample.scenarios;
 
+import com.lacunasoftware.signer.DocumentFilterStatus;
 import com.lacunasoftware.signer.PaginationOrders;
 import com.lacunasoftware.signer.documents.DocumentListModel;
 import com.lacunasoftware.signer.documents.DocumentModel;
@@ -24,7 +25,7 @@ public class ListDocumentsScenario extends  Scenario{
         DocumentListParameters searchParams = new DocumentListParameters();
             searchParams.setOrder(PaginationOrders.DESC); //Order the list: Ascending = Oldest on top / Descending = Newest on top
             searchParams.setLimit(10); //Define the number of Documents that you want to list
-            searchParams.setIsConcluded(false); // List concluded documents if it's "true"
+            searchParams.setDocumentFilterStatus(DocumentFilterStatus.CONCLUDED); // List documents according to it's status (isConcluded is deprecated)
             searchParams.setQ("Doc1"); //Retrieve the document list by name
 
         //2 - Call the ListDocuments method and pass "searchParams" as a parameter
