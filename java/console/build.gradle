@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.lacunasoftware.signer:signer-client:2.2.4'
+    implementation 'com.lacunasoftware.signer:signer-client:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.1'
 
 }
