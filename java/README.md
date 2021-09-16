@@ -52,7 +52,7 @@ be seen in the file [build.gradle](console/build.gradle) of each sample:
 	} 
 
 	dependencies {
-		compile("com.lacunasoftware.signer:signer-client:2.5.0")
+		compile("com.lacunasoftware.signer:signer-client:2.5.2")
 	}
 
 If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) instead:
@@ -62,7 +62,7 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 		<dependency>
 			<groupId>com.lacunasoftware.signer</groupId>
 			<artifactId>signer-client</artifactId>
-			<version>2.5.0</version>
+			<version>2.5.2</version>
 		</dependency>
 		...
 	</dependencies>
