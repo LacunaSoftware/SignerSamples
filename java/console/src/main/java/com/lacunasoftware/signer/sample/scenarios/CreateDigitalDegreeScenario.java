@@ -2,6 +2,7 @@ package com.lacunasoftware.signer.sample.scenarios;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lacunasoftware.signer.FileUploadModel;
 import com.lacunasoftware.signer.FlowActionType;
@@ -102,6 +103,11 @@ public class CreateDigitalDegreeScenario extends Scenario {
                 add(flowActionCreateModelFull);
             }
         });
+
+        List<XmlNamespaceModel> xmlNamespaceModelList = new ArrayList<>();
+        xmlNamespaceModelList.add(xmlNamespaceModel);
+        documentRequest.setXmlNamespaces(xmlNamespaceModelList);
+        
         CreateDocumentResult result = signerClient.createDocument(documentRequest).get(0);
 
         System.out.println(String.format("Document %s created", result.getDocumentId().toString()));
