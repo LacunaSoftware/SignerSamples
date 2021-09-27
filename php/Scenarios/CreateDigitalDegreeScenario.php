@@ -101,6 +101,10 @@ class CreateDigitalDegreeScenario extends Scenario
             array($degreeDataAction, $registerDataAction, $flowActionCreateModelFull )
         );
 
+        $documentRequest->setXmlNamespaces(
+          array($xmlNamespaceModel)
+        );
+
         $docResult = $this->signerClient->createDocument($documentRequest)[0];
 
         echo "Document " . $docResult->getDocumentId() . " created\n";

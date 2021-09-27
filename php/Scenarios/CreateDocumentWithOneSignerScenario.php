@@ -11,6 +11,7 @@ use Lacuna\Signer\Model\FlowActionType;
 use Lacuna\Signer\Model\UsersParticipantUserModel;
 use Lacuna\Signer\PhpClient\Builders\FileUploadBuilder;
 use Lacuna\Signer\PhpClient\Models\UploadModel;
+use Lacuna\Signer\Model\CertificateTypes;
 
 
 class CreateDocumentWithOneSignerScenario extends Scenario
