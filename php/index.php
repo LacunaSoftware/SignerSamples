@@ -32,9 +32,13 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 $signerSample = new CreateDocumentWithOneSignerScenario();
-
 $signerSample->init();
 $signerSample->run();
+
+// $generateSample = new CreateXMLWithElementSignatureScenario();
+// $generateSample->init();
+// $generateSample->run();
+
 
 
 
