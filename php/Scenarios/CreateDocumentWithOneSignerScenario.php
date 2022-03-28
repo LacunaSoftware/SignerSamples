@@ -26,6 +26,7 @@ class CreateDocumentWithOneSignerScenario extends Scenario
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
+        echo "Document pdf " . $uploadModel->getName() . " created\n";
         fclose($file);
 
         // 2. Define the name of the document which will be visible in the application
@@ -59,7 +60,5 @@ class CreateDocumentWithOneSignerScenario extends Scenario
         $docResult = $this->signerClient->createDocument($documentRequest)[0];
 
         echo "Document " . $docResult->getDocumentId() . " created\n";
-
     }
-
 }
