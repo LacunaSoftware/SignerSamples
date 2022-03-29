@@ -1,11 +1,12 @@
 <?php
 
-namespace Lacuna\Signer\Model;
+namespace Lacuna\Scenarios\DocumentGeneration;
 
 use \ArrayAccess;
 use \Lacuna\Signer\ObjectSerializer;
+use \Lacuna\Signer\Model\ModelInterface;
 
-class DocumentGenerationDocumentModel implements ModelInterface, ArrayAccess
+class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -31,8 +32,8 @@ class DocumentGenerationDocumentModel implements ModelInterface, ArrayAccess
 'notaryType' => '\Lacuna\Signer\Model\NotaryTypes',
 'expirationDate' => '\DateTime',    
 'notifiedEmails' => 'string[]',
-'dataFile' => '\Lacuna\Signer\Model\AttachmentsAttachmentUploadModel[]',
-'templateFile' => '\Lacuna\Signer\Model\AttachmentsAttachmentUploadModel[]'
+'dataFile' => '\Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel',
+'templateFile' => '\Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel'
 ];
 
   /**
@@ -526,7 +527,7 @@ class DocumentGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Gets files
      *
-     * @return \Lacuna\Signer\Model\FileUploadModel[]
+     * @return \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel
      */
     public function getDataFile()
     {
@@ -536,7 +537,7 @@ class DocumentGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Sets files
      *
-     * @param \Lacuna\Signer\Model\FileUploadModel[] $files The files to submit. Each file will create a document.
+     * @param \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel $files The files to submit. Each file will create a document.
      *
      * @return $this
      */
@@ -550,7 +551,7 @@ class DocumentGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Gets files
      *
-     * @return \Lacuna\Signer\Model\FileUploadModel[]
+     * @return \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel
      */
     public function getTemplateFile()
     {
@@ -560,7 +561,7 @@ class DocumentGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Sets files
      *
-     * @param \Lacuna\Signer\Model\FileUploadModel[] $files The files to submit. Each file will create a document.
+     * @param \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel $files The files to submit. Each file will create a document.
      *
      * @return $this
      */
