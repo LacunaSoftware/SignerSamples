@@ -11,6 +11,7 @@ use Lacuna\Scenarios\CreateDocumentWithAttachmentScenario;
 use Lacuna\Scenarios\CreateDocumentWithDescriptionScenario;
 use Lacuna\Scenarios\CreateDocumentWithEnvelopeScenario;
 use Lacuna\Scenarios\CreateDocumentWithOneSignerScenario;
+use Lacuna\Scenarios\GenerateDocumentWithTwoOrMoreSignersScenario;
 use Lacuna\Scenarios\CreateDocumentWithPositionedSignaturesScenario;
 use Lacuna\Scenarios\CreateDocumentWithSigningRuleScenario;
 use Lacuna\Scenarios\CreateDocumentWithTwoOrMoreSignersWithOrderScenario;
@@ -35,6 +36,9 @@ $signerSample = new CreateDocumentWithOneSignerScenario();
 $signerSample->init();
 $signerSample->run();
 
+$signerGeneration = new GenerateDocumentWithTwoOrMoreSignersScenario();
+$signerGeneration->init();
+$signerGeneration->run();
 
 
 
