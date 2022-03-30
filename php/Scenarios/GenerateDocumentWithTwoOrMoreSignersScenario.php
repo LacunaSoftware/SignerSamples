@@ -5,7 +5,7 @@ namespace Lacuna\Scenarios;
 
 use Lacuna\Scenarios\DocumentGeneration\DocumentsGenerationDocumentModel;
 use Lacuna\Scenarios\DocumentGeneration\GenerateUploadModel;
-use Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel;
+use Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel;
 use Lacuna\Signer\Model\DocumentsCreateDocumentRequest;
 use Lacuna\Signer\Model\DocumentsCreateDocumentResult;
 use Lacuna\Signer\Model\FlowActionsFlowActionCreateModel;
@@ -31,7 +31,7 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          fclose($file);
  
          // 2. Define the name of the document which will be visible in the application
-         $templateFileUploadModelBuilder = new UploadGenerateModel($templateUploadModel);
+         $templateFileUploadModelBuilder = new DocumentGenerationModel($templateUploadModel);
          $templateFileUploadModelBuilder->setDisplayName("fase1modelo.pdf");
          $templateFileUploadModelBuilder->setSize(941650);
          $templateFileUploadModelBuilder->setPercentDone(100);
@@ -45,13 +45,14 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          fclose($file);
 
           // 4. Define the name of the data document which will be visible in the application
-         $dataFileUploadModelBuilder = new UploadGenerateModel($templateUploadModel);
+         $dataFileUploadModelBuilder = new DocumentGenerationModel($dataUploadModel);
          $dataFileUploadModelBuilder->setDisplayName("fase1_dados.csv");
          $dataFileUploadModelBuilder->setSize(37);
          $dataFileUploadModelBuilder->setPercentDone(100);
 
-         echo 'templateFile('. json_encode( $templateFileUploadModelBuilder ) .')'. "\n\n";
-         echo 'dataFile('. json_encode( $dataFileUploadModelBuilder ) .')'. "\n";
+        // DEBUG
+        //  echo 'templateFile('. json_encode( $templateFileUploadModelBuilder ) .')'. "\n\n";
+        //  echo 'dataFile('. json_encode( $dataFileUploadModelBuilder ) .')'. "\n";
 
          // 5. For each participant on the flow, create one instance of ParticipantUserModel
          $participantUserOne = new UsersParticipantUserModel();
@@ -82,11 +83,11 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
         $generationRequest = new DocumentsGenerationDocumentModel();
         // 7.2. Set Data File
         $generationRequest->setTemplateFile(
-            array($templateFileUploadModelBuilder->toModel())
+            $templateFileUploadModelBuilder->toModel()
         );
         // 7.2. Set Data File
         $generationRequest->setDataFile(
-            array($dataFileUploadModelBuilder->toModel())
+            $dataFileUploadModelBuilder->toModel()
         );
         // 7.3. Set flow actions
         $generationRequest->setFlowActions(
@@ -94,20 +95,22 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
         );
 
         // 7.4 Set other parameters
-        $generationRequest->setObservers(null);
-        $generationRequest->setFolderId(null);
-        $generationRequest->setNewFolderName(null);
-        $generationRequest->setOrganizationId(null);
-        $generationRequest->setType(null);
+        $generationRequest->setObservers(array());
+        $generationRequest->setFolderId("");
+        $generationRequest->setNewFolderName("new folder");
+        $generationRequest->setOrganizationId("");
+        $generationRequest->setType("Deed");
         $generationRequest->setNotaryType(null);
-        $generationRequest->setExpirationDate(null);
-        $generationRequest->setNotifiedEmails(null);
+        $generationRequest->setExpirationDate("2099-12-12");
+        $generationRequest->setNotifiedEmails(array());
 
-        // $docResult = $this->signerClient->generateDocument($generationRequest);
-        
-        // $json = json_encode($docResult, JSON_PRETTY_PRINT);
+        // DEBUG
+        // echo $generationRequest . "\n";
 
-        // // Display the output
-        // echo($json);
+        $docResult = $this->signerClient->generateDocument($generationRequest);
+        $json = json_encode($docResult, JSON_PRETTY_PRINT);
+
+        // Display the output
+        echo($json);
     }
 }

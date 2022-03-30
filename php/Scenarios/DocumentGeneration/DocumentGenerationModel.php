@@ -5,7 +5,7 @@ namespace Lacuna\Scenarios\DocumentGeneration;
 use Lacuna\Signer\PhpClient\Models\UploadModel;
 use Lacuna\Signer\Model\FileUploadModel;
 
-class UploadGenerateModel extends UploadModel
+class DocumentGenerationModel extends UploadModel
 {   
   
   public $percentDone;
@@ -48,11 +48,13 @@ class UploadGenerateModel extends UploadModel
 
   function toModel()
   {
-      $model = new FileUploadModel();
+      $model = new DocumentGenerationRequest();
       $model->setId($this->id);
       $model->setName($this->name);
       $model->setContentType($this->contentType);
       $model->setDisplayName($this->displayName);
+      $model->setPercentDone($this->percentDone);
+      $model->setSize($this->size);
       return $model;
   }
     

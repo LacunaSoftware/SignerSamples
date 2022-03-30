@@ -32,8 +32,8 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
 'notaryType' => '\Lacuna\Signer\Model\NotaryTypes',
 'expirationDate' => '\DateTime',    
 'notifiedEmails' => 'string[]',
-'dataFile' => '\Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel',
-'templateFile' => '\Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel'
+'dataFile' => '\Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel',
+'templateFile' => '\Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel'
 ];
 
   /**
@@ -527,7 +527,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Gets files
      *
-     * @return \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel
+     * @return \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel
      */
     public function getDataFile()
     {
@@ -537,7 +537,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Sets files
      *
-     * @param \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel $files The files to submit. Each file will create a document.
+     * @param \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel $files The files to submit. Each file will create a document.
      *
      * @return $this
      */
@@ -551,7 +551,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Gets files
      *
-     * @return \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel
+     * @return \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel
      */
     public function getTemplateFile()
     {
@@ -561,7 +561,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
     /**
      * Sets files
      *
-     * @param \Lacuna\Scenarios\DocumentGeneration\UploadGenerateModel $files The files to submit. Each file will create a document.
+     * @param \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel $files The files to submit. Each file will create a document.
      *
      * @return $this
      */
