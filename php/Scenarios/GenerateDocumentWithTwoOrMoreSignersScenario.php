@@ -35,7 +35,7 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          $fileName = basename($dataFilePath);
          $file = fopen($dataFilePath, "r");
          $dataUploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "text/csv"));
-         echo "Document pdf " . $dataUploadModel->getName() . " created\n";
+         echo "Document Csv " . $dataUploadModel->getName() . " created\n";
          fclose($file);
          $dataFileUploadModelBuilder = new FileUploadBuilder($dataUploadModel);
          
@@ -81,9 +81,12 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          $generationRequest->setFlowActions(
              array($flowActionCreateModelOne, $flowActionCreateModelTwo)
          );
+         //echo $generationRequest;
          
         // 7. Send the document generate request
          $docResult = $this->signerClient->generateDocument($generationRequest);
+
+         //echo $docResult;
          
         // 8. While the document is being generated, create a 10 second delay
          sleep(10);
@@ -95,6 +98,7 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          if($docResult->getStatus() == "Done"){
              echo "Document " .$docResult->getId()." generated successfully!";
          }
+         
              
     }
 }
