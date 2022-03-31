@@ -5,8 +5,9 @@ namespace Lacuna\Scenarios\DocumentGeneration;
 use \ArrayAccess;
 use \Lacuna\Signer\ObjectSerializer;
 use \Lacuna\Signer\Model\ModelInterface;
+use Lacuna\Signer\PhpClient\Models\UploadModel;
 
-class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
+class GenerateDocumentRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -32,8 +33,8 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
 'notaryType' => '\Lacuna\Signer\Model\NotaryTypes',
 'expirationDate' => '\DateTime',    
 'notifiedEmails' => 'string[]',
-'dataFile' => '\Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel',
-'templateFile' => '\Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel'
+'dataFile' => 'Lacuna\Signer\PhpClient\Models\UploadModel',
+'templateFile' => 'Lacuna\Signer\PhpClient\Models\UploadModel'
 ];
 
   /**
@@ -42,20 +43,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
       * @var string[]
       */
       protected static $swaggerFormats = [
-//         'files' => null,
-// 'attachments' => null,
-// 'xmlNamespaces' => null,
-// 'isEnvelope' => null,
-// 'envelopeName' => null,
-// 'folderId' => 'uuid',
-// 'description' => null,
-// 'flowActions' => null,
-// 'observers' => null,
-// 'disablePendingActionNotifications' => null,
-// 'newFolderName' => null,
-// 'forceCadesSignature' => null,
-// 'notifiedEmails' => null,
-// 'expirationDate' => 'date-time'    
+    
 'flowActions' => 'null',
 'observers' => 'null',
 'folderId' => 'null',
@@ -96,20 +84,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-//         'files' => 'files',
-// 'attachments' => 'attachments',
-// 'xmlNamespaces' => 'xmlNamespaces',
-// 'isEnvelope' => 'isEnvelope',
-// 'envelopeName' => 'envelopeName',
-// 'folderId' => 'folderId',
-// 'description' => 'description',
-// 'flowActions' => 'flowActions',
-// 'observers' => 'observers',
-// 'disablePendingActionNotifications' => 'disablePendingActionNotifications',
-// 'newFolderName' => 'newFolderName',
-// 'forceCadesSignature' => 'forceCadesSignature',
-// 'notifiedEmails' => 'notifiedEmails',
-// 'expirationDate' => 'expirationDate'
+
 'flowActions' => 'flowActions',
 'observers' => 'observers',
 'folderId' => 'folderId',
@@ -129,20 +104,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-//         'files' => 'setFiles',
-// 'attachments' => 'setAttachments',
-// 'xmlNamespaces' => 'setXmlNamespaces',
-// 'isEnvelope' => 'setIsEnvelope',
-// 'envelopeName' => 'setEnvelopeName',
-// 'folderId' => 'setFolderId',
-// 'description' => 'setDescription',
-// 'flowActions' => 'setFlowActions',
-// 'observers' => 'setObservers',
-// 'disablePendingActionNotifications' => 'setDisablePendingActionNotifications',
-// 'newFolderName' => 'setNewFolderName',
-// 'forceCadesSignature' => 'setForceCadesSignature',
-// 'notifiedEmails' => 'setNotifiedEmails',
-// 'expirationDate' => 'setExpirationDate'    
+   
 'flowActions' => 'setFlowActions',
 'observers' => 'setObservers',
 'folderId' => 'setFolderId',
@@ -162,20 +124,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-//         'files' => 'getFiles',
-// 'attachments' => 'getAttachments',
-// 'xmlNamespaces' => 'getXmlNamespaces',
-// 'isEnvelope' => 'getIsEnvelope',
-// 'envelopeName' => 'getEnvelopeName',
-// 'folderId' => 'getFolderId',
-// 'description' => 'getDescription',
-// 'flowActions' => 'getFlowActions',
-// 'observers' => 'getObservers',
-// 'disablePendingActionNotifications' => 'getDisablePendingActionNotifications',
-// 'newFolderName' => 'getNewFolderName',
-// 'forceCadesSignature' => 'getForceCadesSignature',
-// 'notifiedEmails' => 'getNotifiedEmails',
-// 'expirationDate' => 'getExpirationDate'    
+    
 'flowActions' => 'getFlowActions',
 'observers' => 'getObservers',
 'folderId' => 'getFolderId',
@@ -247,20 +196,7 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        // $this->container['files'] = isset($data['files']) ? $data['files'] : null;
-        // $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
-        // $this->container['xmlNamespaces'] = isset($data['xmlNamespaces']) ? $data['xmlNamespaces'] : null;
-        // $this->container['isEnvelope'] = isset($data['isEnvelope']) ? $data['isEnvelope'] : null;
-        // $this->container['envelopeName'] = isset($data['envelopeName']) ? $data['envelopeName'] : null;
-        // $this->container['folderId'] = isset($data['folderId']) ? $data['folderId'] : null;
-        // $this->container['description'] = isset($data['description']) ? $data['description'] : null;
-        // $this->container['flowActions'] = isset($data['flowActions']) ? $data['flowActions'] : null;
-        // $this->container['observers'] = isset($data['observers']) ? $data['observers'] : null;
-        // $this->container['disablePendingActionNotifications'] = isset($data['disablePendingActionNotifications']) ? $data['disablePendingActionNotifications'] : null;
-        // $this->container['newFolderName'] = isset($data['newFolderName']) ? $data['newFolderName'] : null;
-        // $this->container['forceCadesSignature'] = isset($data['forceCadesSignature']) ? $data['forceCadesSignature'] : null;
-        // $this->container['notifiedEmails'] = isset($data['notifiedEmails']) ? $data['notifiedEmails'] : null;
-        // $this->container['expirationDate'] = isset($data['expirationDate']) ? $data['expirationDate'] : null;
+      
         $this->container['flowActions'] = isset($data['flowActions']) ? $data['flowActions'] : null;
         $this->container['observers'] = isset($data['observers']) ? $data['observers'] : null;
         $this->container['folderId'] = isset($data['folderId']) ? $data['folderId'] : null;
@@ -524,23 +460,14 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
         return $this;
     }
 
-    /**
-     * Gets files
-     *
-     * @return \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel
-     */
+    
+   
     public function getDataFile()
     {
         return $this->container['dataFile'];
     }
     
-    /**
-     * Sets files
-     *
-     * @param \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel $files The files to submit. Each file will create a document.
-     *
-     * @return $this
-     */
+    
     public function setDataFile($dataFile)
     {
         $this->container['dataFile'] = $dataFile;
@@ -548,23 +475,13 @@ class DocumentsGenerationDocumentModel implements ModelInterface, ArrayAccess
         return $this;
     }
 
-    /**
-     * Gets files
-     *
-     * @return \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel
-     */
+   
     public function getTemplateFile()
     {
         return $this->container['templateFile'];
     }
     
-    /**
-     * Sets files
-     *
-     * @param \Lacuna\Scenarios\DocumentGeneration\DocumentGenerationModel $files The files to submit. Each file will create a document.
-     *
-     * @return $this
-     */
+   
     public function setTemplateFile($templateFile)
     {
         $this->container['templateFile'] = $templateFile;

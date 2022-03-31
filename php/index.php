@@ -30,9 +30,9 @@ use Lacuna\Scenarios\Scenario;
 
 require __DIR__ . '/vendor/autoload.php';
 
-// $signerSample = new CreateDocumentWithOneSignerScenario();
+ //$signerSample = new CreateDocumentWithOneSignerScenario();
 // $signerSample->init();
-// $signerSample->run();
+ //$signerSample->run();
 
 $signerGeneration = new GenerateDocumentWithTwoOrMoreSignersScenario();
 $signerGeneration->init();
