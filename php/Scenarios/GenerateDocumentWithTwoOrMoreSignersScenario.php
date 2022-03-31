@@ -22,7 +22,7 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
      function run()
     {
          // 1. The Pdf form template bytes must be read by the application and uploaded.
-         $modelFilePath = "resources/fase1modelo.pdf";
+         $modelFilePath = "resources/Contrato-Servicos.pdf";
          $fileName = basename($modelFilePath);
          $file = fopen($modelFilePath, "r");
          $templateUploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
@@ -31,7 +31,7 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          $templateFileUploadModelBuilder = new FileUploadBuilder($templateUploadModel);
  
          // 2. Create a Csv data file which contains the data for the template.
-         $dataFilePath = "resources/fase1_dados.csv";
+         $dataFilePath = "resources/Contrato-Servicos.csv";
          $fileName = basename($dataFilePath);
          $file = fopen($dataFilePath, "r");
          $dataUploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "text/csv"));
