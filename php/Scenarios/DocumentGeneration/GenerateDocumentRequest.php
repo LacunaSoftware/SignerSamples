@@ -16,7 +16,7 @@ class GenerateDocumentRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'Documents.CreateDocumentRequest';
+    protected static $swaggerModelName = 'Documents.GenerationRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -35,6 +35,7 @@ class GenerateDocumentRequest implements ModelInterface, ArrayAccess
 'notifiedEmails' => 'string[]',
 'dataFile' => 'Lacuna\Signer\PhpClient\Models\UploadModel',
 'templateFile' => 'Lacuna\Signer\PhpClient\Models\UploadModel'
+
 ];
 
   /**
