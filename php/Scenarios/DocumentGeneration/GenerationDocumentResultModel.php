@@ -15,21 +15,24 @@ class GenerationDocumentResultModel
   public $completedCount;
   public $status;
 
-
-
-  function toModel()
-  {
-      // $model = new UploadGenerateBuilder();
-      // $model->setId($this->id);
-      // $model->setName($this->name);
-      // $model->setContentType($this->contentType);
-      // $model->setDisplayName($this->displayName);
-      // $model->setPercentDone($this->percentDone);
-      // $model->setSize($this->size);
-      // return $model;
-  }
+ 
+ 
   
   public function __construct($model){
+       
+    
+    
+    $this->folderId = $model->folderId;
+    $this->subscriptionId = $model->subscriptionId;
+    $this->id = $model->id;
+    $this->type = $model->type;
+    $this->agentId = $model->agentId;
+    $this->totalDocumentsCount = $model->totalDocumentsCount;
+    $this->initializedCount = $model->initializedCount;
+    $this->completedCount = $model->completedCount ;
+    $this->status = $model->status;
+  
+    
 
   }
 
@@ -212,5 +215,20 @@ class GenerationDocumentResultModel
     $this->id = $id;
 
     return $this;
+  }
+  function toModel(){
+
+    $model = new GenerationDocumentResult();
+    $model->setFolderId($this->folderId);
+    $model->setSubscriptionId($this->subscriptionId);
+    $model->setId($this->id);
+    $model->setType($this->type);
+    $model->setAgentId($this->agentId);
+    $model->setTotalDocumentsCount($this->totalDocumentsCount);
+    $model->setInitializedCount($this->initializedCount);
+    $model->setCompletedCount($this->completedCount);
+    $model->setStatus($this->status);
+    return $model;
+    
   }
 }
