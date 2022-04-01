@@ -3,7 +3,6 @@
 namespace Lacuna\Signer\PhpClient;
 
 use Exception;
-use GuzzleHttp\Psr7\Response;
 use Lacuna\Signer\Model\DocumentsCancelDocumentRequest;
 use Lacuna\Signer\Model\DocumentsCreateDocumentResult;
 use Lacuna\Signer\Model\DocumentsDocumentAddVersionRequest;
@@ -13,14 +12,14 @@ use Lacuna\Signer\Model\NotificationsCreateFlowActionReminderRequest;
 use Lacuna\Signer\Model\PaginatedSearchResponseDocumentsDocumentListModel;
 use Lacuna\Signer\Model\PaginatedSearchResponseFoldersFolderInfoModel;
 use Lacuna\Signer\Model\RefusalRefusalRequest;
+use Lacuna\Signer\Model\DocumentGenerateResult;
+use Lacuna\Signer\Model\DocumentGenerationModel;
 use Lacuna\Signer\Model\TicketModel;
 use Lacuna\Signer\PhpClient\Params\DocumentListParameters;
 use Lacuna\Signer\PhpClient\Params\PaginatedSearchParams;
 use Lacuna\Signer\PhpClient\RestClient;
 use ReflectionClass;
 use ReflectionProperty;
-use Lacuna\Scenarios\DocumentGeneration\GenerationDocumentResult;
-
 
 
 /**
@@ -57,30 +56,11 @@ class SignerClient
 
     }
 
-   
-    function generateDocument($request)
-    {
-        $response = $this->getRestClient()->post("/api/documents/generation", $request);
-        $result = new GenerationDocumentResult($response);
-       
-        return $result;
-    }
-    
-    function generateDocumentId($id)
-    {
-        $response = $this->getRestClient()->get("/api/documents/generation/{$id}");
-        $result = new GenerationDocumentResult($response);
-       
-        return $result;
-    }
- 
- 
     /**
      * @param string $request
      * @return DocumentsCreateDocumentResult[]
      * @throws Exception
      */
-
     function createDocument($request)
     {
         $response = $this->getRestClient()->post("/api/documents", $request);
@@ -258,6 +238,23 @@ class SignerClient
 
         return $response;
     }
+  
+    function generateDocument($request)
+    {
+        $response = $this->getRestClient()->post("/api/documents/generation", $request);
+        $result = new DocumentGenerationModel($response);
+       
+        return $result;
+    }
+    
+    function getGenerationStatus($id)
+    {
+        $response = $this->getRestClient()->get("/api/documents/generation/{$id}");
+        $result = new DocumentGenerationModel($response);
+       
+        return $result;
+    }
+ 
 
     // region NOTIFICATIONS
 
