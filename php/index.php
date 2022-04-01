@@ -28,15 +28,16 @@ use Lacuna\Scenarios\NotifyFlowParticipantsScenario;
 use Lacuna\Scenarios\RefuseDocumentScenario;
 use Lacuna\Scenarios\Scenario;
 
-require __DIR__ . '/vendor/autoload.php';
 
- //$signerSample = new CreateDocumentWithOneSignerScenario();
-// $signerSample->init();
- //$signerSample->run();
 
-$signerGeneration = new GenerateDocumentWithTwoOrMoreSignersScenario();
-$signerGeneration->init();
-$signerGeneration->run();
+
+ require __DIR__ . '/vendor/autoload.php';
+
+ $signerSample = new CreateDocumentWithOneSignerScenario();
+ 
+ $signerSample->init();
+ $signerSample->run();
+
 
 
 

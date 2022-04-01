@@ -105,21 +105,5 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          }
          
     }
-}
-         
-         
- 
-         
-         
-         
-
-
-
     
-
-
-
-
-       
-
-        
+}
