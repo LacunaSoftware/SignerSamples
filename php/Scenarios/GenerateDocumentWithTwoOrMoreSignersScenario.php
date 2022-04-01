@@ -3,12 +3,18 @@
 
 namespace Lacuna\Scenarios;
 
-use Lacuna\Scenarios\DocumentGeneration\GenerateDocumentRequest;
+
+use Lacuna\Signer\Model\GenerateDocumentRequest;
+use Lacuna\Signer\Model\DocumentBatchStatus;
 use Lacuna\Signer\Model\FlowActionsFlowActionCreateModel;
 use Lacuna\Signer\Model\FlowActionType;
+use Lacuna\Signer\Model\GenerationDocumentResult;
 use Lacuna\Signer\Model\UsersParticipantUserModel;
 use Lacuna\Signer\PhpClient\Builders\FileUploadBuilder;
 use Lacuna\Signer\PhpClient\Models\UploadModel;
+use Lacuna\Signer\PhpClient;
+
+
 
 
 class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
@@ -26,16 +32,16 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          $fileName = basename($modelFilePath);
          $file = fopen($modelFilePath, "r");
          $templateUploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
-         echo "Document pdf " . $templateUploadModel->getName() . " created\n";
+         echo "Pdf File " . $templateUploadModel->getName() . " uploaded\n";
          fclose($file);
          $templateFileUploadModelBuilder = new FileUploadBuilder($templateUploadModel);
  
-         // 2. Create a Csv data file which contains the data for the template.
+         // 2. Upload the Csv data file which contains the data for the template.
          $dataFilePath = "resources/Contrato-Servicos.csv";
          $fileName = basename($dataFilePath);
          $file = fopen($dataFilePath, "r");
          $dataUploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "text/csv"));
-         echo "Document Csv " . $dataUploadModel->getName() . " created\n";
+         echo "Csv File " . $dataUploadModel->getName() . " uploaded\n";
          fclose($file);
          $dataFileUploadModelBuilder = new FileUploadBuilder($dataUploadModel);
          
@@ -92,14 +98,12 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          sleep(10);
          
         // 9. Create a new request to check the document current status
-         $docResult = $this->signerClient->generateDocumentId($docResult->getId());
+         $docResult = $this->signerClient->getGenerationStatus($docResult->getId());
          
-         
-         if($docResult->getStatus() == "Done"){
+         if($docResult->getStatus() == DocumentBatchStatus::DONE){
              echo "Document " .$docResult->getId()." generated successfully!";
          }
          
-             
     }
 }
          
