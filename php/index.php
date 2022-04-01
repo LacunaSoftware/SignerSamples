@@ -11,6 +11,7 @@ use Lacuna\Scenarios\CreateDocumentWithAttachmentScenario;
 use Lacuna\Scenarios\CreateDocumentWithDescriptionScenario;
 use Lacuna\Scenarios\CreateDocumentWithEnvelopeScenario;
 use Lacuna\Scenarios\CreateDocumentWithOneSignerScenario;
+use Lacuna\Scenarios\GenerateDocumentWithTwoOrMoreSignersScenario;
 use Lacuna\Scenarios\CreateDocumentWithPositionedSignaturesScenario;
 use Lacuna\Scenarios\CreateDocumentWithSigningRuleScenario;
 use Lacuna\Scenarios\CreateDocumentWithTwoOrMoreSignersWithOrderScenario;
@@ -27,14 +28,15 @@ use Lacuna\Scenarios\NotifyFlowParticipantsScenario;
 use Lacuna\Scenarios\RefuseDocumentScenario;
 use Lacuna\Scenarios\Scenario;
 
-require __DIR__ . '/vendor/autoload.php';
 
 
 
-$signerSample = new CreateDocumentWithOneSignerScenario();
+ require __DIR__ . '/vendor/autoload.php';
 
-$signerSample->init();
-$signerSample->run();
+ $signerSample = new CreateDocumentWithOneSignerScenario();
+ 
+ $signerSample->init();
+ $signerSample->run();
 
 
 
