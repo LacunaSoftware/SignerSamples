@@ -61,5 +61,5 @@ class CreateDocumentWithOneSignerScenario extends Scenario
         echo "Document " . $docResult->getDocumentId() . " created\n";
 
     }
-
+    
 }
