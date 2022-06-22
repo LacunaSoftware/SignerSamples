@@ -26,23 +26,19 @@ use Lacuna\Scenarios\InvoiceWebhookHandlingScenario;
 use Lacuna\Scenarios\ListDocumentsScenario;
 use Lacuna\Scenarios\NotifyFlowParticipantsScenario;
 use Lacuna\Scenarios\RefuseDocumentScenario;
+use Lacuna\Scenarios\DocumentFlowEditRequestScenario;
 use Lacuna\Scenarios\Scenario;
-
 
 
 
  require __DIR__ . '/vendor/autoload.php';
 
- $signerSample = new CreateDocumentWithOneSignerScenario();
+//  $signerSample = new CreateDocumentWithOneSignerScenario();
  
- $signerSample->init();
- $signerSample->run();
+//  $signerSample->init();
+//  $docId = $signerSample->run();
 
-
-
-
-
-
-
-
-
+$signerSample = new DocumentFlowEditRequestScenario();
+$signerSample->init();
+$result = $signerSample->run();
+print_r($result);
