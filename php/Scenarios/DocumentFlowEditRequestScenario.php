@@ -27,13 +27,10 @@ class DocumentFlowEditRequestScenario extends Scenario
     
         // 2. Create FlowActionEditModel
         $documentEdit = new FlowActionsFlowActionEditModel();
-        // 3. Input the ongoing flowActionId to be able to change parameters and the
-        foreach($details->getFlowActions() as $item){
-            $flowAction = new FlowActionsFlowActionModel($item);
-            $documentEdit->setFlowActionId($flowAction->getId());
-            print_r($flowAction);
-            
-        };
+        // 3. Input the ongoing flowActionId to be able to change previously defined FlowActions
+        $flowActionArray = $details->getFlowActions(); 
+        $flowAction = new FlowActionsFlowActionModel($flowActionArray[0]);
+        $documentEdit->setFlowActionId($flowAction->getId());
         // 4. Line below changes email address of participants in the current flow action (set by flowActionId)
         $documentEdit->setParticipantEmailAddress("michael.douglas@mailinator.com");
         $documentEdit->setStep(1);
