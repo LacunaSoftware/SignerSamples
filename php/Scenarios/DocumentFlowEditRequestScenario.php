@@ -9,7 +9,6 @@ use Lacuna\Signer\Model\FlowActionsFlowActionEditModel;
 use Lacuna\Signer\Model\DocumentsDocumentModel;
 use Lacuna\Signer\Model\FlowActionsFlowActionModel;
 use Lacuna\Signer\Model\FlowActionsDocumentFlowEditResponse;
-use Lacuna\Signer\Model\FlowActionType;
 
 class DocumentFlowEditRequestScenario extends Scenario
 {
@@ -48,19 +47,8 @@ class DocumentFlowEditRequestScenario extends Scenario
         $documentFlowEditRequest->setEditedFlowActions(
             array($documentEdit)
         );
-        // 7. (OPTIONAL) There are additional options to set inside the DocumentsDocumentFlowEditRequest object
-        // $documentFlowEditRequest->setAddedFlowActions();
-        // $documentFlowEditRequest->setDeletedFlowActionIds();
-        // $documentFlowEditRequest->setAddedObservers();
-        // $documentFlowEditRequest->setEditedObservers();
-        // $documentFlowEditRequest->setDeletedObserverIds();
-
-        $result = new FlowActionsDocumentFlowEditResponse();
-        $result->setRectifiedParticipants($this->signerClient->editFlow($docId, $documentFlowEditRequest));
-
-        //echo $result->getRectifiedParticipants();
-        //print_r();
-      
-        echo json_encode($result->getRectifiedParticipants());
+        
+        // 7. Pass the parameters to the editflow function to perform the request
+        $this->signerClient->editFlow($docId, $documentFlowEditRequest);    
     }
 }
