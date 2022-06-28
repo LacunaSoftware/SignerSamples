@@ -33,12 +33,7 @@ use Lacuna\Scenarios\Scenario;
 
  require __DIR__ . '/vendor/autoload.php';
 
-//  $signerSample = new CreateDocumentWithOneSignerScenario();
+$signerSample = new CreateDocumentWithOneSignerScenario();
  
-//  $signerSample->init();
-//  $docId = $signerSample->run();
-
-$signerSample = new DocumentFlowEditRequestScenario();
-$signerSample->init();
-$result = $signerSample->run();
-print_r($result);
+signerSample->init();
+$docId = $signerSample->run();
