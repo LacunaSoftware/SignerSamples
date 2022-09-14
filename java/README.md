@@ -46,13 +46,10 @@ be seen in the file [build.gradle](console/build.gradle) of each sample:
 
 	repositories {
 		mavenCentral()
-		maven {
-			url  "http://dl.bintray.com/lacunasoftware/maven" 
-		}
-	} 
+	}
 
 	dependencies {
-		compile("com.lacunasoftware.signer:signer-client:2.5.3")
+		compile("com.lacunasoftware.signer:signer-client:2.6.0")
 	}
 
 If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) instead:
@@ -62,7 +59,7 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 		<dependency>
 			<groupId>com.lacunasoftware.signer</groupId>
 			<artifactId>signer-client</artifactId>
-			<version>2.5.3</version>
+			<version>2.6.0</version>
 		</dependency>
 		...
 	</dependencies>
@@ -71,13 +68,13 @@ If you project uses Maven, please refer to the file [pom.xml](console/pom.xml) i
 		<repository>
 			<id>lacuna.repository</id>
 			<name>lacuna repository</name>
-			<url>http://dl.bintray.com/lacunasoftware/maven</url>
+			<url>https://search.maven.org/artifact/com.lacunasoftware.signer/signer-client</url>
 		</repository>
 	</repositories>
-	
+
 **NOTE:**
->If you wish to send the requests using your own client instead of the client provided in this library, please make sure to adopt 
->appropriate handling of null values and datetime serialization (see [RestClient](https://github.com/LacunaSoftware/SignerJavaClient/blob/8b7a536c6758967189d9293ef63a40ebce3ddae1/src/main/java/com/lacunasoftware/signer/javaclient/RestClient.java#L369-L412) for more information). You may accomplish this by using the methods `signerClient.getGson()` 
+>If you wish to send the requests using your own client instead of the client provided in this library, please make sure to adopt
+>appropriate handling of null values and datetime serialization (see [RestClient](https://github.com/LacunaSoftware/SignerJavaClient/blob/8b7a536c6758967189d9293ef63a40ebce3ddae1/src/main/java/com/lacunasoftware/signer/javaclient/RestClient.java#L369-L412) for more information). You may accomplish this by using the methods `signerClient.getGson()`
 >and `signerClient.getJackson()` to get pre-configured instances of [Gson](https://github.com/google/gson) or [Jackson](https://github.com/FasterXML/jackson) respectively.
 
 
