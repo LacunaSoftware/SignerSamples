@@ -34,6 +34,6 @@ use Lacuna\Scenarios\Scenario;
  require __DIR__ . '/vendor/autoload.php';
 
 $signerSample = new CreateDocumentWithOneSignerScenario();
- 
-signerSample->init();
+
+$signerSample->init();
 $docId = $signerSample->run();
