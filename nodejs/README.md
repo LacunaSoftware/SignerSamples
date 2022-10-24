@@ -1,7 +1,6 @@
-# test-signer-node-client
-This repository will be used to test functionalities of the recently published Signer library for Node.js
+# Samples for the Nodejs signer client library
 
-# How to test a sample
+## How to test a sample
 First, select a sample, in order to run it, you need to execute
 ```
 node [sample-name].js
