@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "form-data": "^4.0.0",
+    "signer-node-client": "^0.9.2-rc5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint": "^8.25.0"
+  }
+}
