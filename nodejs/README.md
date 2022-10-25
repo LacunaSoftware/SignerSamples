@@ -5,7 +5,7 @@ These samples were tested with Node v.19.0.0
 First, run `npm install` to install the client library and other dependencies on this folder
 
 ## How to test a sample
-First, select a sample, in order to run it, you need to execute
+First, select a sample, in order to run it, navigate to the `scenarios` folder and execute
 ```
 node [sample-name].js
 ```
