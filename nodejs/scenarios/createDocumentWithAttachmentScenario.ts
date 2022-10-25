@@ -72,7 +72,7 @@ uploadApi
             flowActions: [flowAction],
           })
           .then((res) => {
-            // 6. Print result
+            // 7. Print result
             console.log("Document ", res.data[0].documentId, "created");
           });
       });
