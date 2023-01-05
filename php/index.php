@@ -27,6 +27,8 @@ use Lacuna\Scenarios\ListDocumentsScenario;
 use Lacuna\Scenarios\NotifyFlowParticipantsScenario;
 use Lacuna\Scenarios\RefuseDocumentScenario;
 use Lacuna\Scenarios\DocumentFlowEditRequestScenario;
+use Lacuna\Scenarios\CreateLargeDocumentScenario;
+use Lacuna\Scenarios\CreateBase64DocumentScenario;
 use Lacuna\Scenarios\Scenario;
 
 
