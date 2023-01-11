@@ -23,6 +23,7 @@ class CreateLargeDocumentScenario extends Scenario
     {
         // 1. The file's bytes must be read by the application and uploaded
         // Attention: the file must be larger than 10 MB
+        // Please upload a file to the resources folder when using this sample scenario
         $filePath = "resources/bigsample.pdf";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
