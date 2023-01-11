@@ -26,8 +26,10 @@ class CreateLargeDocumentScenario extends Scenario
         $filePath = "resources/bigsample.pdf";
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
-        $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf", $filePath));
+        echo "Uploading document, this may take a while...\n";
+        $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
         fclose($file);
+        echo "Document uploaded!\n";
 
         // 2. Define the name of the document which will be visible in the application
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
