@@ -9,7 +9,7 @@ import {
 } from "signer-node-client";
 import { config } from "./scenario";
 
-const filePath = "../samples/sample.pdf";
+const filePath = "../../samples/sample.pdf";
 const fileName = "sample.pdf";
 
 const uploadApi = new UploadApi(config);

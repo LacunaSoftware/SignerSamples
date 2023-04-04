@@ -4,7 +4,7 @@ const signer_node_client_1 = require("signer-node-client");
 const scenario_1 = require("./scenario");
 const uploadApi = new signer_node_client_1.UploadApi(scenario_1.config);
 const documentsApi = new signer_node_client_1.DocumentsApi(scenario_1.config);
-const filepath = "../samples/sample.pdf";
+const filepath = "../../samples/sample.pdf";
 const filename = "sample.pdf";
 // 1. The file's bytes must be read by the application and uploaded
 uploadApi.apiUploadsBytesPost({ bytes: (0, signer_node_client_1.getBase64)(filepath) }).then((res) => {

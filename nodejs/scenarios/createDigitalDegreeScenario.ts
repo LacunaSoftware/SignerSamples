@@ -16,7 +16,7 @@ import {
 import { config } from "./scenario";
 
 
-const filePath = "../samples/sample-degree.xml";
+const filePath = "../../samples/sample-degree.xml";
 const filename = "sample-degree.xml";
 const file = getBase64(filePath);
 

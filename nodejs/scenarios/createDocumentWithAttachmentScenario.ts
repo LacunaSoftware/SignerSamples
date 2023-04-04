@@ -14,7 +14,7 @@ import { config } from "./scenario";
  * This scenario demonstrates the creation of a document with Attachment.
  */
 
-const filePath = "../samples/sample.pdf";
+const filePath = "../../samples/sample.pdf";
 const fileName = "sample.pdf";
 
 const uploadApi = new UploadApi(config);

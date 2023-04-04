@@ -39,7 +39,7 @@ CreateDocument().then(async (res) => {
 });
 
 function saveFileStream(stream) {
-  fs.writeFileSync("../samples/sample-copy.pdf", stream, {
+  fs.writeFileSync("../../samples/sample-copy.pdf", stream, {
     encoding: "utf8",
     flag: "w",
   });

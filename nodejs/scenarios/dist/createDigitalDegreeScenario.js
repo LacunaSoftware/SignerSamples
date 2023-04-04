@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const signer_node_client_1 = require("signer-node-client");
 const scenario_1 = require("./scenario");
-const filePath = "../samples/sample-degree.xml";
+const filePath = "../../samples/sample-degree.xml";
 const filename = "sample-degree.xml";
 const file = (0, signer_node_client_1.getBase64)(filePath);
 const uploadApi = new signer_node_client_1.UploadApi(scenario_1.config);

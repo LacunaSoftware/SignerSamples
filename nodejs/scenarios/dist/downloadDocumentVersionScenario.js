@@ -50,7 +50,7 @@ const documentsApi = new signer_node_client_1.DocumentsApi(scenario_1.config);
     const documentVersionBytes = (yield documentsApi.apiDocumentsIdContentB64Get(docId, signer_node_client_1.DocumentDownloadTypes.Original)).data;
 }));
 function saveFileStream(stream) {
-    fs.writeFileSync("../samples/sample-copy.pdf", stream, {
+    fs.writeFileSync("../../samples/sample-copy.pdf", stream, {
         encoding: "utf8",
         flag: "w",
     });

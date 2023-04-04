@@ -5,7 +5,7 @@ const scenario_1 = require("./scenario");
 /**
  * This scenario demonstrates the creation of a document with description.
  */
-const filePath = "../samples/sample.pdf";
+const filePath = "../../samples/sample.pdf";
 const fileName = "sample.pdf";
 const uploadApi = new signer_node_client_1.UploadApi(scenario_1.config);
 const documentsApi = new signer_node_client_1.DocumentsApi(scenario_1.config);

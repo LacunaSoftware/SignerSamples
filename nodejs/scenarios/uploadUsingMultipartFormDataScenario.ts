@@ -3,7 +3,7 @@ import { config } from "./scenario";
 import fs from 'fs';
 
 const uploadApi = new UploadApi(config);
-const filepath = "..\\samples\\sample.pdf"
+const filepath = "..\\..\\samples\\sample.pdf"
 const fileName = "sample.pdf"
 
 const file = fs.readFileSync(filepath);

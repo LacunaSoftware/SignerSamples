@@ -14,7 +14,7 @@ import { config } from "./scenario";
 const uploadApi = new UploadApi(config);
 const foldersApi = new FoldersApi(config);
 const documentsApi = new DocumentsApi(config);
-const filePath = "../samples/sample.pdf";
+const filePath = "../../samples/sample.pdf";
 const fileName = "sample.pdf";
 
 // 1. The file's bytes must be read by the application and uploaded
