@@ -20,7 +20,7 @@ class DeleteDocumentScenario extends Scenario
         //2. Call the api method to delete the document and pass the document Id as parameter
         $this->signerClient->deleteDocument($documentId);
 
-        //3. If you want to very the document status use the method bellow
+        //3. If you want to verify the document status use the method bellow
         echo $this->signerClient->getDocumentDetails($documentId)['message'];
     }
 
