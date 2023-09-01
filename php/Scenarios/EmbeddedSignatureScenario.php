@@ -67,6 +67,7 @@ class EmbeddedSignatureScenario extends Scenario
         // 7. Load the embed URL in your own application using the LacunaSignerWidget as described in
         //    https://docs.lacunasoftware.com/pt-br/articles/signer/embedded-signature.html
         echo ($actionUrlResponse->getEmbedUrl());
+        echo ("\n");
 
     }
 

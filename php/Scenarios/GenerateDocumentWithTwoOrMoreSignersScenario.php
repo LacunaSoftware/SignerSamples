@@ -101,7 +101,7 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          $docResult = $this->signerClient->getGenerationStatus($docResult->getId());
          
          if($docResult->getStatus() == DocumentBatchStatus::DONE){
-             echo "Document " .$docResult->getId()." generated successfully!";
+             echo "Document " .$docResult->getId()." generated successfully! \n";
          }
          
     }
