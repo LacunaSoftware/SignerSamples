@@ -48,8 +48,8 @@ public class CreateDocumentInExistingFolder extends Scenario {
         PaginatedSearchParams paginatedSearchParams = new PaginatedSearchParams();
         paginatedSearchParams.setQ("Sample Folder");
         FolderInfoModel folder = 
-            signerClient.listFoldersPaginated(paginatedSearchParams, null).getTotalCount() > 0 ? 
-                signerClient.listFoldersPaginated(paginatedSearchParams, null).getItems().get(0) : null; 
+            signerClient.listFoldersPaginated(paginatedSearchParams, null, false, null).getTotalCount() > 0 ? 
+                signerClient.listFoldersPaginated(paginatedSearchParams, null, false, null).getItems().get(0) : null; 
 
         if (folder == null) {
             throw new Exception("Folder was not found");
