@@ -9,7 +9,7 @@ use Lacuna\Signer\Model\FlowActionsFlowActionCreateModel;
 use Lacuna\Signer\Model\FlowActionType;
 use Lacuna\Signer\Model\UsersParticipantUserModel;
 
-class DocumentAddFlowActionRequestScenario extends Scenario
+class AddSignerToExistingDocumentScenario extends Scenario
 {
 
     /**
