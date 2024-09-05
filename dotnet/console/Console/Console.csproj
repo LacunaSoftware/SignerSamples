@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scenarios\AddSignerToExistingDocumentScenario.cs" />
     <Compile Include="Scenarios\CancelDocumentScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInExistingFolderScenario.cs" />
     <Compile Include="Scenarios\CreateDocumentInNewFolderScenario.cs" />
