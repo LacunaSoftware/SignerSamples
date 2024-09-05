@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateDocument = exports.config = void 0;
+exports.config = void 0;
+exports.CreateDocument = CreateDocument;
 const signer_node_client_1 = require("signer-node-client");
 exports.config = {
     apiKey: "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99",
@@ -48,4 +49,3 @@ function CreateDocument() {
         return result.data[0];
     });
 }
-exports.CreateDocument = CreateDocument;
