@@ -15,11 +15,15 @@ java {
 }
 
 repositories {
+    // Uncomment to use prerelease Lacuna packages
+    // maven {
+    //     url "https://s01.oss.sonatype.org/content/groups/staging/"
+    // }
     mavenCentral()
 }
 
 dependencies {
-    implementation 'com.lacunasoftware.signer:signer-client:2.7.0'
+    implementation 'com.lacunasoftware.signer:signer-client:2.9.0'
     implementation 'com.google.code.gson:gson:2.8.1'
 
 }
