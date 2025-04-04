@@ -3,6 +3,7 @@ package com.lacunasoftware.signer.sample.scenarios;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -10,6 +11,7 @@ import java.util.regex.Pattern;
 
 import com.lacunasoftware.signer.FileUploadModel;
 import com.lacunasoftware.signer.FlowActionType;
+import com.lacunasoftware.signer.documentmark.DocumentMarkPositionModel;
 import com.lacunasoftware.signer.documents.ActionUrlRequest;
 import com.lacunasoftware.signer.documents.ActionUrlResponse;
 import com.lacunasoftware.signer.documents.CreateDocumentRequest;
@@ -18,6 +20,7 @@ import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
 import com.lacunasoftware.signer.javaclient.builders.FileUploadModelBuilder;
 import com.lacunasoftware.signer.javaclient.exceptions.RestException;
 import com.lacunasoftware.signer.javaclient.models.UploadModel;
+import com.lacunasoftware.signer.javaclient.positions.PdfMarkPosition;
 import com.lacunasoftware.signer.javaclient.requests.ElectronicSignatureRequest;
 import com.lacunasoftware.signer.sample.Util;
 import com.lacunasoftware.signer.uploads.ImageUploadModel;
@@ -42,8 +45,6 @@ public class ElectronicSignatureWithSignatureImageScenario extends Scenario {
 
         // 2 Extract document key and ticket from previous string
         Map<String, String> nMap = extractKeyAndTicket(actionUrlResponse.getEmbedUrl());
-        System.out.println(nMap.get("key"));
-        System.out.println(nMap.get("ticket"));
 
         // 3 Upload the user's signature using the Upload API in the same way it is done for the document.
         String signatureUploadId = uploadSignatureAndGetId("signature-pic");
@@ -53,13 +54,31 @@ public class ElectronicSignatureWithSignatureImageScenario extends Scenario {
         ElectronicSignatureRequest electronicSignatureRequest = new ElectronicSignatureRequest();
         electronicSignatureRequest.setTicket(nMap.get("ticket"));
         electronicSignatureRequest.setDisableNotifications(false);
-        electronicSignatureRequest.setSignaturePosition(null);
+
+        PdfMarkPosition position = new PdfMarkPosition();
+        position.setTopLeftX(395.0); //Signature position, in pixels, over the X axis
+        position.setTopLeftY(560.0); //Signature position, in pixels, over the Y axis
+        position.setWidth(170.0);    //Width of the rectangle where signature will be placed in (It already has a default value);
+        position.setHeight(94.0);    //Height of the rectangle where signature will be placed in (It already has a default value)
+        position.setPage(1);  //Page where the signature will be placed
+        electronicSignatureRequest.setSignaturePosition(position);
         
         ImageUploadModel initialsImageModel = new ImageUploadModel();
         initialsImageModel.setId(signatureUploadId);
         initialsImageModel.setContentType("image/png");
-        initialsImageModel.setSave(false); // in case you wanna save the signature image, set this to true
+        initialsImageModel.setSave(true); // in case you wanna save the signature image, set this to true
         electronicSignatureRequest.setInitialsImage(initialsImageModel);
+
+        List<DocumentMarkPositionModel> documentMarkList = new ArrayList<DocumentMarkPositionModel>();
+        DocumentMarkPositionModel initialPositionModel = new DocumentMarkPositionModel();
+        initialPositionModel.setTopLeftX(395.0); //Signature position, in pixels, over the X axis
+        initialPositionModel.setTopLeftY(560.0); //Signature position, in pixels, over the Y axis
+        initialPositionModel.setWidth(170.0);    //Width of the rectangle where signature will be placed in (It already has a default value);
+        initialPositionModel.setHeight(94.0);    //Height of the rectangle where signature will be placed in (It already has a default value)
+        initialPositionModel.setPageNumber(2);  //Page where the signature will be placed
+        documentMarkList.add(initialPositionModel);
+
+        electronicSignatureRequest.setSignatureInitialsPositions(documentMarkList);
 
         // Fill in only if you want to provide geolocation information. Otherwise, leave it as null.
         electronicSignatureRequest.setEvidences(null);
@@ -68,12 +87,12 @@ public class ElectronicSignatureWithSignatureImageScenario extends Scenario {
         //This offset is the difference from UTC to the user's time, that is, if the user's timezone is UTC-3 this offset should be -180.
         electronicSignatureRequest.setUserTimeZoneOffset(-180);
 
-        signerClient.signElectronically(UUID.fromString(nMap.get("ticket")), electronicSignatureRequest);
+        signerClient.signElectronicallyWithKey(nMap.get("key"), electronicSignatureRequest);
     }
 
     private String uploadSignatureAndGetId(String location) throws IOException, RestException {
-        byte[] content = Util.getInstance().getResourceFile("signature-pic.png");
-        UploadModel uploadModel = signerClient.uploadFile("signature-pic.png", content, "image/png");
+        byte[] content = Util.getInstance().getResourceFile("signature-img.png");
+        UploadModel uploadModel = signerClient.uploadFile("signature-img.png", content, "image/png");
 
         return uploadModel.getId();
     }
@@ -114,6 +133,7 @@ public class ElectronicSignatureWithSignatureImageScenario extends Scenario {
         FlowActionCreateModel flowActionCreateModel = new FlowActionCreateModel();
         flowActionCreateModel.setType(FlowActionType.SIGNER);
         flowActionCreateModel.setUser(user);
+        flowActionCreateModel.allowElectronicSignature(true);
 
         // 5. Send the document create request
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();
