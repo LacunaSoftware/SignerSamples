@@ -3,6 +3,7 @@ package com.lacunasoftware.signer.sample.scenarios;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -10,6 +11,7 @@ import java.util.regex.Pattern;
 
 import com.lacunasoftware.signer.FileUploadModel;
 import com.lacunasoftware.signer.FlowActionType;
+import com.lacunasoftware.signer.documentmark.DocumentMarkPositionModel;
 import com.lacunasoftware.signer.documents.ActionUrlRequest;
 import com.lacunasoftware.signer.documents.ActionUrlResponse;
 import com.lacunasoftware.signer.documents.CreateDocumentRequest;
@@ -67,6 +69,17 @@ public class ElectronicSignatureWithSignatureImageScenario extends Scenario {
         initialsImageModel.setSave(true); // in case you wanna save the signature image, set this to true
         electronicSignatureRequest.setInitialsImage(initialsImageModel);
 
+        List<DocumentMarkPositionModel> documentMarkList = new ArrayList<DocumentMarkPositionModel>();
+        DocumentMarkPositionModel initialPositionModel = new DocumentMarkPositionModel();
+        initialPositionModel.setTopLeftX(395.0); //Signature position, in pixels, over the X axis
+        initialPositionModel.setTopLeftY(560.0); //Signature position, in pixels, over the Y axis
+        initialPositionModel.setWidth(170.0);    //Width of the rectangle where signature will be placed in (It already has a default value);
+        initialPositionModel.setHeight(94.0);    //Height of the rectangle where signature will be placed in (It already has a default value)
+        initialPositionModel.setPageNumber(2);  //Page where the signature will be placed
+        documentMarkList.add(initialPositionModel);
+
+        electronicSignatureRequest.setSignatureInitialsPositions(documentMarkList);
+
         // Fill in only if you want to provide geolocation information. Otherwise, leave it as null.
         electronicSignatureRequest.setEvidences(null);
 
@@ -78,8 +91,8 @@ public class ElectronicSignatureWithSignatureImageScenario extends Scenario {
     }
 
     private String uploadSignatureAndGetId(String location) throws IOException, RestException {
-        byte[] content = Util.getInstance().getResourceFile("signature-pic.png");
-        UploadModel uploadModel = signerClient.uploadFile("signature-pic.png", content, "image/png");
+        byte[] content = Util.getInstance().getResourceFile("signature-img.png");
+        UploadModel uploadModel = signerClient.uploadFile("signature-img.png", content, "image/png");
 
         return uploadModel.getId();
     }
