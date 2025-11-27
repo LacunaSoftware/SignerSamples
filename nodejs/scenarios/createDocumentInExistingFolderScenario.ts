@@ -1,9 +1,9 @@
 import {
-  UploadApi,
+  DocumentsApi,
   FlowActionType,
   FoldersApi,
-  DocumentsApi,
-  getBase64
+  getBase64,
+  UploadApi
 } from "signer-node-client";
 import { config } from "./scenario";
 
@@ -75,4 +75,6 @@ uploadApi
         console.log("Folder not found");
       }
     );
+  }).catch(err => {
+    console.error(err);
   });

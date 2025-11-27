@@ -58,4 +58,6 @@ uploadApi
     }, () => {
         console.log("Folder not found");
     });
+}).catch(err => {
+    console.error(err);
 });
