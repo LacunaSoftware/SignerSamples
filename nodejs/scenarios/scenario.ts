@@ -1,14 +1,14 @@
-import { Configuration, DocumentsCreateDocumentResult, UploadApi, FileUploadModel, UsersParticipantUserModel, FlowActionsFlowActionCreateModel, FlowActionType, DocumentsCreateDocumentRequest, DocumentsApi, getBase64 } from "signer-node-client";
+import {Configuration, DocumentsCreateDocumentResult, UploadApi, FileUploadModel, UsersParticipantUserModel, FlowActionsFlowActionCreateModel, FlowActionType, DocumentsCreateDocumentRequest, DocumentsApi, getBase64 } from "signer-node-client";
 
-export const config: Configuration = { // set your configs here!
+export const config = new Configuration({ // set your configs here!
     apiKey: "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99",
-    basePath: "https://signer-lac.azurewebsites.net"
-}
+    basePath: "https://signer-lac.azurewebsites.net",
+})
 
-const uploadApi = new UploadApi(config);
+const uploadApi = new UploadApi(config)
 const documentApi = new DocumentsApi(config);
-const filepath = "..\\samples\\sample.pdf"
-const fileName = "sample.pdf"
+const filepath = "..\\samples\\bigSample.pdf"
+const fileName = "bigSample.pdf"
 
 export async function CreateDocument(): Promise<DocumentsCreateDocumentResult> {
     const response = await uploadApi.apiUploadsBytesPost({bytes: getBase64(filepath)});
