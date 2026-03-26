@@ -1,10 +1,7 @@
 package com.lacunasoftware.signer.sample.scenarios;
 
 import com.lacunasoftware.signer.documents.CreateDocumentResult;
-import com.lacunasoftware.signer.documents.DocumentModel;
-import com.lacunasoftware.signer.flowactions.FlowActionModel;
 import com.lacunasoftware.signer.javaclient.exceptions.RestException;
-import com.lacunasoftware.signer.refusal.RefusalModel;
 import com.lacunasoftware.signer.refusal.RefusalRequest;
 
 import java.io.IOException;
