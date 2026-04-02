@@ -1,19 +1,13 @@
 package com.lacunasoftware.signer.sample.scenarios;
 
-import com.lacunasoftware.signer.FileUploadModel;
-import com.lacunasoftware.signer.FlowActionType;
-import com.lacunasoftware.signer.documents.CreateDocumentRequest;
 import com.lacunasoftware.signer.documents.CreateDocumentResult;
 import com.lacunasoftware.signer.documents.DocumentAddVersionRequest;
-import com.lacunasoftware.signer.flowactions.FlowActionCreateModel;
 import com.lacunasoftware.signer.javaclient.builders.FileUploadModelBuilder;
 import com.lacunasoftware.signer.javaclient.exceptions.RestException;
 import com.lacunasoftware.signer.javaclient.models.UploadModel;
 import com.lacunasoftware.signer.sample.Util;
-import com.lacunasoftware.signer.users.ParticipantUserModel;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class AddNewDocumentVersionScenario extends Scenario {

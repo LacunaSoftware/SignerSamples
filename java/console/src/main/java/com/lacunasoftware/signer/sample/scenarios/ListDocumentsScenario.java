@@ -3,14 +3,11 @@ package com.lacunasoftware.signer.sample.scenarios;
 import com.lacunasoftware.signer.DocumentFilterStatus;
 import com.lacunasoftware.signer.PaginationOrders;
 import com.lacunasoftware.signer.documents.DocumentListModel;
-import com.lacunasoftware.signer.documents.DocumentModel;
 import com.lacunasoftware.signer.javaclient.exceptions.RestException;
 import com.lacunasoftware.signer.javaclient.params.DocumentListParameters;
 import com.lacunasoftware.signer.javaclient.responses.PaginatedSearchResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ListDocumentsScenario extends  Scenario{
 
