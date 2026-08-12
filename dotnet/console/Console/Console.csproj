@@ -87,6 +87,7 @@
     <Compile Include="Scenarios\IWebhookHandlerScenario.cs" />
     <Compile Include="Scenarios\ListDocumentsScenario.cs" />
     <Compile Include="Scenarios\NotifyFlowParticipantsScenario.cs" />
+    <Compile Include="Scenarios\PublicSignatureScenario.cs" />
     <Compile Include="Scenarios\RefuseDocumentScenario.cs" />
     <Compile Include="Scenarios\Scenario.cs" />
     <Compile Include="Program.cs" />
