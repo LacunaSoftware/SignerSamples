@@ -82,8 +82,7 @@ Per-project notes:
   every scenario file in it (`AddNewDocumentVersionScenario.cs` is missing). Public signature
   expects `56072386105.pfx` next to the executable.
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
-  the supported build (`signer-client` 2.13.0); `pom.xml` is unsupported and out of date (client
-  1.0.0, Bintray). Gradle 5.2.1 needs JDK 8 to 11.
+  the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
 - **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in
   `samples` through `__dirname`. No compiled JS is committed (`scenarios/dist` is git-ignored).
   `typescript` is pinned to 5.x because ts-node 10 cannot load TypeScript 7. Type-check all
@@ -150,7 +149,8 @@ is one of `Pending`, `FlowConcluded` (all actions done, final processing still r
 `Concluded`, `Refused`, `Canceled` or `Expired`. Each flow action's `status` is one of `Created`
 (waiting for an earlier step), `Pending`, `Completed` or `Refused`. The docs say not to poll in
 production. To list documents (`GET /api/documents`), filter with `Status`
-(`DocumentFilterStatus`, as the Java sample does); the `IsConcluded` filter is legacy.
+(`DocumentFilterStatus`, as the .NET and Java samples do); `IsConcluded` is deprecated. The PHP
+sample still uses it: `lacuna/signer-client` (up to 1.4.10) cannot send `Status`.
 
 A webhook is registered per organization (**Organization → Integration**, or
 `POST /api/organizations/{orgId}/webhooks` with `url`, `authType`, `token`). Signer `POST`s

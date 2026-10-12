@@ -18,7 +18,7 @@ namespace Console.Scenarios
             {
                 Order = PaginationOrders.Desc, //Order the list: Ascending = Oldest on top / Descending = Newest on top
                 Limit = 10, //Define the number of Documents that you want to list 
-                IsConcluded = false, // List concluded documents if it's "true"
+                Status = DocumentFilterStatus.Pending, // List documents according to their status (IsConcluded is deprecated)
                 Q = "TestDocumentName" //Retrieve the document list by name
             };
 

@@ -28,7 +28,7 @@ other languages. Before changing anything, read [AGENTS.md](../../AGENTS.md).
 | Sign without leaving your page (embedded signature)<br>`embedded-signature` | Embedded signing | [EmbeddedSignatureScenario.cs](Console/Scenarios/EmbeddedSignatureScenario.cs) | `current` |
 | Check a document's status and its participants' actions<br>`check-document-status` | Track and list documents | [CheckDocumentStatusScenario.cs](Console/Scenarios/CheckDocumentStatusScenario.cs) | `current` |
 | Send reminders to participants with pending actions<br>`send-signing-reminders` | Track and list documents | [NotifyFlowParticipantsScenario.cs](Console/Scenarios/NotifyFlowParticipantsScenario.cs) | `current` |
-| List documents<br>`list-documents` | Track and list documents | [ListDocumentsScenario.cs](Console/Scenarios/ListDocumentsScenario.cs) | `legacy` |
+| List documents<br>`list-documents` | Track and list documents | [ListDocumentsScenario.cs](Console/Scenarios/ListDocumentsScenario.cs) | `current` |
 | Handle document webhooks (signed, approved, refused, concluded)<br>`webhook-document-events` | Webhooks | [CheckDocumentStatusScenario.cs](Console/Scenarios/CheckDocumentStatusScenario.cs) | `current` |
 | Handle the invoice-closed billing webhook<br>`webhook-invoice-closed` | Webhooks | [InvoiceWebhookHandlingScenario.cs](Console/Scenarios/InvoiceWebhookHandlingScenario.cs) | `current` |
 | Mark an invoice as paid<br>`mark-invoice-paid` | Billing | [InvoiceWebhookHandlingScenario.cs](Console/Scenarios/InvoiceWebhookHandlingScenario.cs) | `current` |
