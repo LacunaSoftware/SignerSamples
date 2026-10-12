@@ -78,8 +78,7 @@ sandbox and another for production.
 Per-project notes:
 
 - **.NET**: input files are copied to the output folder. `Console.csproj` does not glob, so list
-  every scenario file in it (`AddNewDocumentVersionScenario.cs` is missing). Public signature
-  expects `56072386105.pfx` next to the executable.
+  every scenario file in it. Public signature expects `56072386105.pfx` next to the executable.
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
   the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
 - **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in
@@ -210,8 +209,8 @@ date fields.
 9. **Public signature.** The certificate's identifier (CPF/CNPJ) must match the participant's
    `identifier`. The PFX here is a test shortcut; in production the hash is signed on the
    user's device (smart card, token, browser).
-10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the .NET
-    add-document-version sample, which `Console.csproj` does not compile.
+10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the PHP large-file
+    sample, whose `bigsample.pdf` is not in the repository.
 
 ## 6. Conventions for adding or changing a sample
 
