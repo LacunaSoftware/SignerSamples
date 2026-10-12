@@ -38,7 +38,8 @@ const receivedEvents = new Set<string>();
 const documentsApi = new DocumentsApi(config);
 
 const server = http.createServer((req, res) => {
-  if (req.method !== "POST" || req.url !== webhookPath) {
+  const path = new URL(req.url ?? "/", "http://localhost").pathname;
+  if (req.method !== "POST" || path !== webhookPath) {
     res.writeHead(404).end();
     return;
   }
@@ -53,15 +54,19 @@ const server = http.createServer((req, res) => {
   req.on("data", (chunk: Buffer) => chunks.push(chunk));
   req.on("end", () => {
     // The body is { "type": "...", "data": { ... } }, with camelCase fields.
-    const webhook = parseWebhook(Buffer.concat(chunks).toString("utf8"));
-    if (!webhook) {
+    let webhook: WebhooksWebhookModel;
+    let key: string;
+    try {
+      webhook = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+      key = getEventKey(webhook);
+    } catch {
+      // Not JSON, or not shaped like a webhook.
       res.writeHead(400).end();
       return;
     }
 
     // 3. Answer 200 to an event already received, so that Signer stops sending it, but don't
     //    process it again.
-    const key = getEventKey(webhook);
     if (receivedEvents.has(key)) {
       console.log(`Ignored a repeated event: ${key}`);
       res.writeHead(200).end();
@@ -91,22 +96,18 @@ function isAuthorized(authorization: string | undefined): boolean {
   return crypto.timingSafeEqual(hash(authorization ?? ""), hash(expectedAuthorization));
 }
 
-function parseWebhook(body: string): WebhooksWebhookModel | undefined {
-  try {
-    const value = JSON.parse(body);
-    return typeof value === "object" && value !== null ? value : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
 // The key of an event: its type, the document id and, for an event about one participant's
-// action, the flow action id (a document gets one DocumentSigned per signer).
+// action, the flow action id (a document gets one DocumentSigned per signer). Throws if the body
+// has no type.
 function getEventKey(webhook: WebhooksWebhookModel): string {
+  if (typeof webhook?.type !== "string") {
+    throw new Error("The body has no type");
+  }
   const data = webhook.data ?? {};
   // DocumentsCreated and DocumentDeleted carry a list of documents instead of one id.
+  const documents = Array.isArray(data.documents) ? data.documents : [];
   const documentId: string =
-    data.id ?? (data.documents ?? []).map((document: { id: string }) => document.id).join(",");
+    data.id ?? documents.map((document: { id?: string } | null) => document?.id).join(",");
   const action = data.signature ?? data.approval ?? data.refusal;
   return [webhook.type, documentId, action?.flowActionId].filter((part) => part).join(":");
 }

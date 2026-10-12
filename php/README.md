@@ -143,7 +143,9 @@ for PHP's built-in web server, with [`webhook.php`](webhook.php) as the router s
    call to Signer.
 
 It then passes the body to `CheckDocumentStatusScenario::HandleWebhook`, which switches on `type`,
-and writes what it echoes to the server's console.
+and writes what it echoes to the server's console. It needs PHP 7.0 or later. PHP's built-in
+server handles one request at a time, which is enough for local tests; in production, run the
+endpoint under PHP-FPM.
 
 To test it without Signer, run `composer install && php -S localhost:8080 webhook.php` from this
 folder, and post a `DocumentSigned` event from bash (Git Bash on Windows):

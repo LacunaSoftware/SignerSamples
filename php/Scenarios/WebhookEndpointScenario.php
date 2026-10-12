@@ -55,7 +55,8 @@ class WebhookEndpointScenario extends Scenario
         // The body is { "type": "...", "data": { ... } }, with camelCase fields.
         $body = file_get_contents('php://input');
         $webhook = json_decode($body, true);
-        if (!is_array($webhook)) {
+        if (!is_array($webhook) || !is_string($webhook['type'] ?? null) || $webhook['type'] === '') {
+            // Not JSON, or not shaped like a webhook.
             http_response_code(400);
             return;
         }
@@ -111,14 +112,15 @@ class WebhookEndpointScenario extends Scenario
     // the flow action id (a document gets one DocumentSigned per signer).
     private function getEventKey($webhook)
     {
-        $data = $webhook['data'] ?? [];
+        $data = is_array($webhook['data'] ?? null) ? $webhook['data'] : [];
         // DocumentsCreated and DocumentDeleted carry a list of documents instead of one id.
-        $documentId = $data['id'] ?? implode(',', array_column($data['documents'] ?? [], 'id'));
+        $documents = is_array($data['documents'] ?? null) ? $data['documents'] : [];
+        $documentId = $data['id'] ?? implode(',', array_column($documents, 'id'));
         $flowActionId = $data['signature']['flowActionId']
             ?? $data['approval']['flowActionId']
             ?? $data['refusal']['flowActionId']
             ?? null;
-        return implode(':', array_filter([$webhook['type'] ?? null, $documentId, $flowActionId]));
+        return implode(':', array_filter([$webhook['type'], $documentId, $flowActionId]));
     }
 
     // Records the key of an event, and returns false if it was already recorded. PHP keeps nothing in

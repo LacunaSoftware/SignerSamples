@@ -1,6 +1,5 @@
 using Lacuna.Signer.Api;
 using Lacuna.Signer.Api.Webhooks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Concurrent;
@@ -90,26 +89,23 @@ namespace Console.Scenarios
                 try
                 {
                     webhook = JObject.Parse(body);
+                    key = GetEventKey(webhook);
                 }
-                catch (JsonReaderException)
+                catch (Exception)
                 {
+                    // Not JSON, or not shaped like a webhook.
                     Respond(response, 400);
                     return;
                 }
 
                 // 3. Answer 200 to an event already received, so that Signer stops sending it, but don't
                 //    process it again.
-                key = GetEventKey(webhook);
                 if (!receivedEvents.TryAdd(key, true))
                 {
                     System.Console.WriteLine($"Ignored a repeated event: {key}");
                     Respond(response, 200);
                     return;
                 }
-
-                // 2. Answer now, then process the event.
-                Respond(response, 200);
-                System.Console.WriteLine($"Accepted: {key}");
             }
             catch (Exception ex)
             {
@@ -117,6 +113,18 @@ namespace Console.Scenarios
                 response.Abort();
                 return;
             }
+
+            // 2. Answer now, then process the event. Process it even if the answer fails: the copy that
+            //    Signer sends again will be ignored as a repeat.
+            try
+            {
+                Respond(response, 200);
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine($"Could not answer {key}: {ex.Message}");
+            }
+            System.Console.WriteLine($"Accepted: {key}");
 
             try
             {
@@ -166,17 +174,22 @@ namespace Console.Scenarios
         }
 
         // The key of an event: its type, the document id and, for an event about one participant's action,
-        // the flow action id (a document gets one DocumentSigned per signer).
+        // the flow action id (a document gets one DocumentSigned per signer). Throws if the body has no type.
         private static string GetEventKey(JObject webhook)
         {
+            var type = (string)webhook["type"];
+            if (string.IsNullOrEmpty(type))
+            {
+                throw new FormatException("The body has no type");
+            }
             var data = webhook["data"] as JObject ?? new JObject();
             // DocumentsCreated and DocumentDeleted carry a list of documents instead of one id.
             var documentId = (string)data["id"]
-                ?? string.Join(",", (data["documents"] as JArray ?? new JArray()).Select(document => (string)document["id"]));
+                ?? string.Join(",", (data["documents"] as JArray ?? new JArray()).Select(document => (string)document.SelectToken("id")));
             var flowActionId = (string)(data.SelectToken("signature.flowActionId")
                 ?? data.SelectToken("approval.flowActionId")
                 ?? data.SelectToken("refusal.flowActionId"));
-            return string.Join(":", new[] { (string)webhook["type"], documentId, flowActionId }.Where(part => !string.IsNullOrEmpty(part)));
+            return string.Join(":", new[] { type, documentId, flowActionId }.Where(part => !string.IsNullOrEmpty(part)));
         }
 
         private static void Respond(HttpListenerResponse response, int statusCode)

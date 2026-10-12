@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -83,25 +84,33 @@ public class WebhookEndpointScenario extends Scenario {
         }
 
         // The body is { "type": "...", "data": { ... } }, with camelCase fields.
-        JsonElement body = readJson(exchange);
-        if (body == null || !body.isJsonObject()) {
+        JsonElement body;
+        String key;
+        try (InputStreamReader reader = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8)) {
+            body = gson.fromJson(reader, JsonElement.class);
+            key = getEventKey(gson.fromJson(body, Event.class));
+        } catch (JsonParseException e) {
+            // Not JSON, or not shaped like a webhook.
             respond(exchange, 400);
             return;
         }
 
         // 3. Answer 200 to an event already received, so that Signer stops sending it, but don't
         //    process it again.
-        String key = getEventKey(gson.fromJson(body, Event.class));
         if (!receivedEvents.add(key)) {
             System.out.println("Ignored a repeated event: " + key);
             respond(exchange, 200);
             return;
         }
 
-        // 2. Answer now, then process the event.
-        respond(exchange, 200);
-        System.out.println("Accepted: " + key);
-        processor.execute(() -> processEvent(body, key));
+        // 2. Answer now, then process the event. Process it even if the answer fails: the copy that
+        //    Signer sends again will be ignored as a repeat.
+        try {
+            respond(exchange, 200);
+        } finally {
+            System.out.println("Accepted: " + key);
+            processor.execute(() -> processEvent(body, key));
+        }
     }
 
     private void processEvent(JsonElement body, String key) {
@@ -139,21 +148,20 @@ public class WebhookEndpointScenario extends Scenario {
                 EXPECTED_AUTHORIZATION.getBytes(StandardCharsets.UTF_8));
     }
 
-    private JsonElement readJson(HttpExchange exchange) {
-        try (InputStreamReader reader = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8)) {
-            return gson.fromJson(reader, JsonElement.class);
-        } catch (JsonParseException | IOException e) {
-            return null;
-        }
-    }
-
     // The key of an event: its type, the document id and, for an event about one participant's
-    // action, the flow action id (a document gets one DocumentSigned per signer).
+    // action, the flow action id (a document gets one DocumentSigned per signer). Throws if the body
+    // has no type.
     private static String getEventKey(Event event) {
+        if (event == null || event.type == null || event.type.isEmpty()) {
+            throw new JsonParseException("The body has no type");
+        }
         EventData data = event.data != null ? event.data : new EventData();
         String documentId = data.id;
         if (documentId == null && data.documents != null) {
-            documentId = data.documents.stream().map(document -> document.id).collect(Collectors.joining(","));
+            documentId = data.documents.stream()
+                    .filter(Objects::nonNull)
+                    .map(document -> document.id)
+                    .collect(Collectors.joining(","));
         }
         FlowAction action = data.signature != null ? data.signature : data.approval != null ? data.approval : data.refusal;
         String flowActionId = action != null ? action.flowActionId : null;
