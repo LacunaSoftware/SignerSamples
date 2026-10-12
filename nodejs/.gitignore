@@ -3,3 +3,4 @@ package-lock.json
 .eslintrc.json
 scenarios/dist/
 samples/sample-copy.pdf
+samples/downloaded-*

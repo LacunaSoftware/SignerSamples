@@ -36,3 +36,6 @@
 ### LOGGING ###
 apostil.log
 apostil.log.*
+
+### Files saved by DownloadDocumentVersionScenario ###
+/downloaded-*

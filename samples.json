@@ -2117,7 +2117,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
-    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` and gets the `Signatures` (signed) version's bytes.",
+    "description": "Gets a download ticket (a temporary URL), saves `Original` and fetches its bytes with `GetDocumentBytesAsync`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `downloaded-*.pdf` in the working folder. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`), so it reads `HasSignature` and `Status` first and skips `Signatures` for canceled, refused and expired documents. Set `SignedDocumentId` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
     "language": "dotnet",
@@ -2139,7 +2139,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
-    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only.",
+    "description": "Gets a download ticket (a temporary URL), saves `Original` and fetches its bytes with `getDocumentBytes`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `downloaded-*.pdf` in `java/console`. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`, which `getDocumentContent` reports as a `RestUnreachableException` without the code), so it reads `isHasSignature()` and `getStatus()` first and skips `Signatures` for canceled, refused and expired documents. Set `SIGNED_DOCUMENT_ID` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
     "language": "java",
@@ -2162,7 +2162,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
-    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only; gets the bytes from `GET /api/documents/{id}/content-b64`. It saves the content to `nodejs/samples/sample-copy.pdf`. Caveat: the content is requested without `responseType: 'arraybuffer'`, so axios decodes the PDF as text and the saved copy is corrupted; pass that option before saving.",
+    "description": "Gets a download ticket (a temporary URL), saves `Original` and fetches its bytes from `GET /api/documents/{id}/content-b64`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `nodejs/samples/downloaded-*.pdf`. It passes `responseType: 'arraybuffer'` to `apiDocumentsIdContentGet` so axios keeps the bytes unchanged. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`), so it reads `hasSignature` and `status` first and skips `Signatures` for canceled, refused and expired documents. Set `signedDocumentId` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
     "language": "nodejs",
@@ -2184,7 +2184,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
-    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only.",
+    "description": "Gets a download ticket (a temporary URL), saves `Original` and its bytes from `GET /api/documents/{id}/content-b64`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `php/resources/downloaded-*.pdf`. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`, and `getDocumentContent` returns that error JSON instead of throwing), so it reads `getHasSignature()` and `getStatus()` first and skips `Signatures` for canceled, refused and expired documents. Set `SIGNED_DOCUMENT_ID` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
     "language": "php",
