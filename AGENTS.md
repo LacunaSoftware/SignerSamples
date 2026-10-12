@@ -223,7 +223,7 @@ date fields.
   files with `path.join(__dirname, "..", "samples", ...)` and run with ts-node (commit no JS); PHP
   `Scenarios/<Name>Scenario.php` in namespace `Lacuna\Scenarios`, with a `use` line in `index.php`.
 - **Every sample needs a catalog entry** in `samples.json`, one per language, with an `area` from
-  `AREAS` in the generator. Then regenerate and validate; validation must pass:
+  `AREAS` in the generator. Regenerate and validate; CI runs the validator on every pull request:
 
   ```bash
   python scripts/generate-samples-md.py
