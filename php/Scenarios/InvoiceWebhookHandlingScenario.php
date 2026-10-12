@@ -4,9 +4,14 @@
 namespace Lacuna\Scenarios;
 
 
+use Lacuna\Signer\Model\BillingBillingInformationModel;
+use Lacuna\Signer\Model\BillingCompanyBillingInformationModel;
+use Lacuna\Signer\Model\BillingIndividualBillingInformationModel;
 use Lacuna\Signer\Model\BillingInformationTypes;
 use Lacuna\Signer\Model\InvoicesInvoiceTotalModel;
 use Lacuna\Signer\Model\InvoicesUpdateInvoicePaymentStatusRequest;
+use Lacuna\Signer\Model\OrganizationsOrganizationInfoModel;
+use Lacuna\Signer\Model\OrganizationsOrganizationOwnerInfoModel;
 use Lacuna\Signer\Model\WebhooksInvoiceClosedModel;
 use Lacuna\Signer\Model\WebhooksWebhookModel;
 use Lacuna\Signer\Model\WebhookTypes;
@@ -22,34 +27,40 @@ class InvoiceWebhookHandlingScenario extends Scenario implements IWebhookHandler
             if ($webhook->getType() == WebhookTypes::INVOICE_CLOSED) {
                 $invoice = new WebhooksInvoiceClosedModel($webhook->getData());
 
-                echo "Invoice " . $invoice->getId() . " for year " . $invoice->getYear() . " and month" . $invoice->getMonth() . "is closed";
-                echo "The standing value is" . $invoice->getValue();
+                // The client's models keep nested objects as plain arrays, so wrap each one in its model
+                // before calling its getters.
+                echo "Invoice " . $invoice->getId() . " for " . $invoice->getYear() . "-" . $invoice->getMonth() . " is closed\n";
+                echo "The standing value is " . $invoice->getValue() . "\n";
 
-                if ($invoice->getOrganization()->getOwner() != null) {
-                    echo "This is a personal account invoice for " . $invoice->getOrganization()->getOwner()->getName();
+                $organization = new OrganizationsOrganizationInfoModel($invoice->getOrganization());
+                if ($organization->getOwner() != null) {
+                    $owner = new OrganizationsOrganizationOwnerInfoModel($organization->getOwner());
+                    echo "This is a personal account invoice for " . $owner->getName() . "\n";
                 } else {
-                    echo "This is a personal account invoice for " . $invoice->getOrganization()->getName();
+                    echo "This is an organization invoice for " . $organization->getName() . "\n";
                 }
 
                 foreach ($invoice->getInvoiceTotals() as $item) {
                     $total = new InvoicesInvoiceTotalModel($item);
-                    //check the total.Price property for additional info on the pricing for that type
-                    echo $total->getTotal() . " transactions of type" . $total->getTransactionType() . "equals {total.Value}";
+                    // Check the price property for additional info on the pricing for that type
+                    echo $total->getTotal() . " transactions of type " . $total->getTransactionType() . " equals " . $total->getValue() . "\n";
                 }
 
                 if ($invoice->getBillingInformation() != null) {
-                    $info = $invoice->getBillingInformation();
-                    echo "Contact information: " . $info->getContactName() . $info->getEmail() . $info->getPhone();
+                    $info = new BillingBillingInformationModel($invoice->getBillingInformation());
+                    echo "Contact information: " . $info->getContactName() . " - " . $info->getEmail() . " - " . $info->getPhone() . "\n";
 
                     if ($info->getType() == BillingInformationTypes::INDIVIDUAL) {
-                        echo "Individual information: " . $info->getIndividual()->getName() . " - " . $info->getIndividual()->getIdentifier();
+                        $individual = new BillingIndividualBillingInformationModel($info->getIndividual());
+                        echo "Individual information: " . $individual->getName() . " - " . $individual->getIdentifier() . "\n";
                     } else {
-                        echo "Company information: " . $info->getCompany()->getName() . " - " . $info->getCompany()->getIdentifier();
+                        $company = new BillingCompanyBillingInformationModel($info->getCompany());
+                        echo "Company information: " . $company->getName() . " - " . $company->getIdentifier() . "\n";
                     }
 
-                    echo "Address: " . $info->getStreetAddress() . " - " . $info->getAddressNumber() . " - " . $info->getAdditionalAddressInfo();
-                    echo $info->getNeighborhood() . " - " . $info->getZipCode();
-                    echo $info->getCity() . " - " . $info->getState();
+                    echo "Address: " . $info->getStreetAddress() . " - " . $info->getAddressNumber() . " - " . $info->getAdditionalAddressInfo() . "\n";
+                    echo $info->getNeighborhood() . " - " . $info->getZipCode() . "\n";
+                    echo $info->getCity() . " - " . $info->getState() . "\n";
                 }
             }
         }

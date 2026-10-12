@@ -25,7 +25,10 @@ class AddNewDocumentVersionScenario extends Scenario
         $fileName = basename($filePath);
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
-        fclose($file);
+        // Guzzle closes the stream once it has sent it, and fclose() on a closed stream throws on PHP 8.
+        if (is_resource($file)) {
+            fclose($file);
+        }
 
         // 3. Define the name of the document which will be visible in the application
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);

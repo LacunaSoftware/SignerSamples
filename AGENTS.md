@@ -83,7 +83,8 @@ Per-project notes:
   `samples` through `__dirname`. No compiled JS is committed (`scenarios/dist` is git-ignored).
   `typescript` is pinned to 5.x because ts-node 10 cannot load TypeScript 7. Type-check all
   scenarios, without running them, with `npx tsc --noEmit -p scenarios`.
-- **PHP**: run from `php/`; scenarios open `resources/...` relative to it.
+- **PHP**: run from `php/`; scenarios open `resources/...` relative to it. `lacuna/signer-client`
+  1.4.10 brings in Guzzle 7, so PHP 7.2.5 or later; `composer install` needs no extra flags.
 
 ## 4. The Signer integration model, as the samples show it
 
@@ -145,7 +146,7 @@ is one of `Pending`, `FlowConcluded` (all actions done, final processing still r
 (waiting for an earlier step), `Pending`, `Completed` or `Refused`. The docs say not to poll in
 production. To list documents (`GET /api/documents`), filter with `Status`
 (`DocumentFilterStatus`, as the .NET, Java and Node.js samples do); `IsConcluded` is deprecated.
-The PHP sample still uses it: `lacuna/signer-client` (up to 1.4.10) cannot send `Status`.
+The PHP sample still uses it: `lacuna/signer-client` 1.4.10, the latest, cannot send `Status`.
 
 A webhook is registered per organization (**Organization → Integration**, or
 `POST /api/organizations/{orgId}/webhooks` with `url`, `authType`, `token`). Signer `POST`s
