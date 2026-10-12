@@ -177,8 +177,12 @@ The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `dat
 - Types: `Signatures` is the signed file (a PDF with the signatures embedded, or a `.p7s` for
   CAdES). `PrinterFriendlyVersion` is a PDF with the signatures manifest. The others are
   `Original`, `OriginalWithMarks`, `SignaturesManifest`, `SignatureMarks` and `SigningTags`.
-- Canceled, expired or refused documents download only as `Original` or `PrinterFriendlyVersion`.
-  Only the .NET sample downloads `Signatures`; none downloads `PrinterFriendlyVersion`.
+- Until someone signs, `Signatures` and `PrinterFriendlyVersion` answer 422
+  `DocumentHasNoSignatures` (a ticket is still issued; its URL fails). Before `Concluded`,
+  `Signatures` holds the signatures so far. Canceled, expired or refused documents download only
+  as `Original` or `PrinterFriendlyVersion`. The samples check `hasSignature` and `status` first:
+  on a 422, Java's client drops the code and PHP's `getDocumentContent` returns the error JSON as
+  the file. Node.js needs `responseType: 'arraybuffer'`, or axios decodes the file as text.
 
 ## 5. Pitfalls agents get wrong
 
@@ -202,8 +206,8 @@ The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `dat
 9. **Public signature.** The certificate's identifier (CPF/CNPJ) must match the participant's
    `identifier`. The PFX here is a test shortcut; in production the hash is signed on the
    user's device (smart card, token, browser).
-10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the Node.js download
-    sample, which saves a corrupted copy of the PDF.
+10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the .NET
+    add-document-version sample, which `Console.csproj` does not compile.
 
 ## 6. Conventions for adding or changing a sample
 

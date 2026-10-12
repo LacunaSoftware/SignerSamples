@@ -59,7 +59,7 @@ Compiled JavaScript is not committed, and `scenarios/dist` is git-ignored: compi
 would look for `samples` in the wrong folder, so run the `.ts` files with ts-node. Every run
 creates real documents on the configured Signer instance, and Signer e-mails the sample
 participants (made-up `@mailinator.com` addresses). `downloadDocumentVersionScenario` saves the
-downloaded file as `samples/sample-copy.pdf`, which is also git-ignored.
+downloaded files as `samples/downloaded-*.pdf`, which are also git-ignored.
 
 ## Configuration
 
