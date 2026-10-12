@@ -1,15 +1,24 @@
-# Samples for the Nodejs signer client library
-These samples were tested with Node v.19.0.0
+# Signer samples for Node.js
 
-## Building
-First, run `npm install` on this folder to install the client library, TypeScript and ts-node.
+This folder contains a **Node.js sample project**, written in TypeScript, demonstrating the usage
+of [Signer](https://www.dropsigner.com/).
 
-## How to test a sample
+For other languages, please visit the [repository root](https://github.com/LacunaSoftware/SignerSamples).
+
+## Installing
+
+Run `npm install` in this folder to install the client library, TypeScript and ts-node. The
+samples were last type-checked with Node.js 24.
+
+## How to run a sample
+
 Each scenario is a TypeScript script that runs with ts-node; nothing is compiled ahead of time.
-From this folder, run
+From this folder, run:
+
+```bash
+npx ts-node scenarios/<scenario>.ts
 ```
-npx ts-node scenarios/[sample-name].ts
-```
+
 The scenarios open their input files in [`samples`](samples) relative to their own folder
 (`__dirname`), so they find them whatever the working directory is.
 To type-check every scenario without running any, run `npx tsc --noEmit -p scenarios`.
