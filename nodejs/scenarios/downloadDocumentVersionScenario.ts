@@ -5,6 +5,7 @@ import {
 } from "signer-node-client";
 import { config, CreateDocument } from "./scenario";
 import * as fs from "fs";
+import * as path from "path";
 
 const documentsApi = new DocumentsApi(config);
 CreateDocument().then(async (res) => {
@@ -39,7 +40,7 @@ CreateDocument().then(async (res) => {
 });
 
 function saveFileStream(stream) {
-  fs.writeFileSync("../../samples/sample-copy.pdf", stream, {
+  fs.writeFileSync(path.join(__dirname, "..", "samples", "sample-copy.pdf"), stream, {
     encoding: "utf8",
     flag: "w",
   });

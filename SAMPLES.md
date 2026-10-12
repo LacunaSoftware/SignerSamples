@@ -20,7 +20,7 @@ Every project is a console program that runs one scenario per execution, against
 |---|---|---|---|---|
 | [`dotnet/console`](dotnet/console) | .NET Framework 4.8 console app, NuGet `packages.config` | Open `Console.sln` in Visual Studio and press F5 | [Program.cs](dotnet/console/Console/Program.cs) | [Scenario.cs](dotnet/console/Console/Scenarios/Scenario.cs) |
 | [`java/console`](java/console) | Java 8 console app, Gradle wrapper | `./gradlew run` (`gradlew.bat run` on Windows) | [App.java](java/console/src/main/java/com/lacunasoftware/signer/sample/App.java) | [Scenario.java](java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java) |
-| [`nodejs`](nodejs) | TypeScript scripts, compiled output in `scenarios/dist` | `npm install`, then `node <scenario>.js` from `scenarios/dist` | each scenario is its own script | [scenario.ts](nodejs/scenarios/scenario.ts) |
+| [`nodejs`](nodejs) | TypeScript scripts, run with ts-node | `npm install && npx ts-node scenarios/<scenario>.ts` | each scenario is its own script | [scenario.ts](nodejs/scenarios/scenario.ts) |
 | [`php`](php) | PHP command-line script, Composer | `composer install && php index.php` | [index.php](php/index.php) | [Scenario.php](php/Scenarios/Scenario.php) |
 
 ## Areas

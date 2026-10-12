@@ -89,8 +89,8 @@ PROJECTS = OrderedDict([
         "config": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
     }),
     ("nodejs", {
-        "stack": "TypeScript scripts, compiled output in `scenarios/dist`",
-        "command": "`npm install`, then `node <scenario>.js` from `scenarios/dist`",
+        "stack": "TypeScript scripts, run with ts-node",
+        "command": "`npm install && npx ts-node scenarios/<scenario>.ts`",
         "pick": None,
         "config": "nodejs/scenarios/scenario.ts",
     }),

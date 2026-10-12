@@ -14,17 +14,14 @@ import {
  * application. Whenever the flow of a document has one of these steps done, the application will fire a Webhook event by
  * sending a POST request to a registered URL.
  *
- * You can find below an example of the handling logic of a webhook event.
+ * You can find below an example of the handling logic of a webhook event. Call handleWebhook from your own endpoint
+ * with the parsed JSON body of the POST request, which is already { "type": "...", "data": { ... } }.
  *
  * Access the following link for information on available Webhook events:
  * https://dropsigner.com/swagger
  */
 
-function handleWebhook(webhookModel: WebhooksWebhookModel) {
-  const webhook: WebhooksWebhookModel = {
-    data: webhookModel,
-  };
-
+export function handleWebhook(webhook: WebhooksWebhookModel) {
   if (webhook != null) {
     if (webhook.type == WebhookTypes.DocumentConcluded) {
       const documentConcludedModel: WebhooksDocumentConcludedModel =

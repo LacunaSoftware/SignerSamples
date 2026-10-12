@@ -9,10 +9,11 @@ import {
   getBase64
 } from "signer-node-client";
 import { config } from "./scenario";
+import * as path from "path";
 
 const uploadApi = new UploadApi(config);
 const documentsApi = new DocumentsApi(config);
-const filepath = "../../samples/sample.pdf";
+const filepath = path.join(__dirname, "..", "samples", "sample.pdf");
 const filename = "sample.pdf";
 
 // 1. The file's bytes must be read by the application and uploaded
