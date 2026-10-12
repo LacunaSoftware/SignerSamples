@@ -30,8 +30,13 @@ class WebhookEndpointScenario extends Scenario
     const WEBHOOK_PATH = '/webhook';
 
     // The token registered with the webhook under Organization > Integration, with the auth type
-    // "Bearer": Signer then sends "Authorization: Bearer <token>". Use a long random value of your own.
-    const EXPECTED_AUTHORIZATION = 'Bearer my-webhook-token';
+    // "Bearer": Signer then sends "Authorization: Bearer <token>". Set SIGNER_WEBHOOK_TOKEN to a long
+    // random value of your own; without it, the sample expects "my-webhook-token". (The port is the
+    // one in the php -S command.)
+    private static function expectedAuthorization()
+    {
+        return 'Bearer ' . self::getEnvOrDefault('SIGNER_WEBHOOK_TOKEN', 'my-webhook-token');
+    }
 
     function run()
     {
@@ -47,7 +52,7 @@ class WebhookEndpointScenario extends Scenario
 
         // 1. Check the auth header before reading the body. hash_equals compares in constant time, so
         //    the response time doesn't reveal how much of the token matched.
-        if (!hash_equals(self::EXPECTED_AUTHORIZATION, $_SERVER['HTTP_AUTHORIZATION'] ?? '')) {
+        if (!hash_equals(self::expectedAuthorization(), $_SERVER['HTTP_AUTHORIZATION'] ?? '')) {
             http_response_code(401);
             return;
         }

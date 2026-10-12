@@ -14,7 +14,7 @@ Every Lacuna Signer sample in this repository, grouped by feature area and task,
 
 ## How to run each project
 
-Every project is a console program that runs one scenario per execution, against the Signer instance and API key hard-coded in its config file. Read [AGENTS.md](AGENTS.md) before running one: each run creates real documents on that instance.
+Every project is a console program that runs one scenario per execution. Its base class reads the Signer instance URL and API key from the `SIGNER_ENDPOINT` and `SIGNER_API_KEY` environment variables and, when they are unset, uses the sandbox and a shared sample key. Read [AGENTS.md](AGENTS.md) before running one: each run creates real documents on that instance.
 
 | Project | Stack | Command | Pick the scenario in | Signer URL and API key |
 |---|---|---|---|---|

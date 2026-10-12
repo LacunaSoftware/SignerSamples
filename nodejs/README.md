@@ -64,13 +64,30 @@ downloaded files as `samples/downloaded-*.pdf`, which are also git-ignored.
 
 ## Configuration
 
-The Signer instance URL and API key are hard-coded in
-[`scenarios/scenario.ts`](scenarios/scenario.ts) (`basePath` and `apiKey` in the exported
-`config`). They point to the Signer sandbox, `https://signer-lac.azurewebsites.net`, with a
-shared sample key. The sandbox is where you should develop and test: to use your own organization
-there, replace the key with one of yours. For production, change the URL and the key together.
-[`.env.example`](.env.example) lists every value the project uses; it is documentation only,
-because nothing loads it.
+[`scenarios/scenario.ts`](scenarios/scenario.ts) builds the exported `config` from two
+environment variables: `SIGNER_ENDPOINT` (`basePath`, the Signer instance URL) and
+`SIGNER_API_KEY` (`apiKey`). When a variable is unset or empty, it falls back to the Signer
+sandbox, `https://signer-lac.azurewebsites.net`, and a shared sample key, so the samples run as
+they are. The sandbox is where you should develop and test: to use your own organization there,
+set `SIGNER_API_KEY` to one of your keys. For production, set both variables together.
+[`.env.example`](.env.example) lists every value the project uses, including the webhook
+endpoint's; nothing loads that file automatically.
+
+Set the variables in the shell that runs ts-node. In bash, quoting the key because of its `|`:
+
+```bash
+export SIGNER_ENDPOINT=https://signer-lac.azurewebsites.net
+export SIGNER_API_KEY='your-application|your-key'
+npx ts-node scenarios/createDocumentWithOneSignerScenario.ts
+```
+
+In PowerShell:
+
+```powershell
+$env:SIGNER_ENDPOINT = "https://signer-lac.azurewebsites.net"
+$env:SIGNER_API_KEY = "your-application|your-key"
+npx ts-node scenarios/createDocumentWithOneSignerScenario.ts
+```
 
 Prerequisites of some scenarios:
 
@@ -82,11 +99,13 @@ Prerequisites of some scenarios:
 ## Receive webhooks locally
 
 [`webhookEndpointScenario.ts`](scenarios/webhookEndpointScenario.ts) is a minimal webhook
-endpoint built on Node's `http` module. It listens on `http://localhost:8080/webhook` and follows
-the [webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
+endpoint built on Node's `http` module. It listens on `http://localhost:8080/webhook` (set
+`SIGNER_WEBHOOK_PORT` for another port) and follows the
+[webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
 
 1. It answers 401 unless the `Authorization` header is `Bearer <token>` with the token you
-   registered (`expectedAuthorization`), because Signer does not sign the body.
+   registered, set in `SIGNER_WEBHOOK_TOKEN` (default `my-webhook-token`), because Signer does not
+   sign the body.
 2. It answers 200 at once and processes the event afterwards. Signer retries a non-2xx answer or a
    connection error, up to 10 times by default.
 3. It ignores an event it has already received, keyed on `type`, the document `id` and, when there
@@ -100,7 +119,7 @@ It then passes the body to `handleWebhook`, exported by
 `type` and reads `data` as the matching model.
 
 To test it without Signer, run `npx ts-node scenarios/webhookEndpointScenario.ts`, and post a
-`DocumentSigned` event from bash (Git Bash on Windows):
+`DocumentSigned` event with the default token from bash (Git Bash on Windows):
 
 ```bash
 curl -i http://localhost:8080/webhook \
@@ -122,7 +141,7 @@ To receive real events:
    `ngrok http 8080`, because Signer calls the endpoint from its own servers.
 2. In Signer, under **Organization → Integration**, register `https://<tunnel host>/webhook` with
    the auth type `Bearer` and a long random token, or call
-   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Put the same
-   token in `expectedAuthorization`.
+   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Set
+   `SIGNER_WEBHOOK_TOKEN` to the same token (see Configuration).
 3. Webhooks belong to an organization (personal organizations have none), so register it in your
    own organization and create the documents there, with its API key (see Configuration).

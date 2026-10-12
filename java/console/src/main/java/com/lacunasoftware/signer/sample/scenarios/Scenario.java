@@ -22,9 +22,18 @@ public abstract class Scenario {
     protected SignerClient signerClient;
 
     public void Init() throws URISyntaxException {
-        String domain = "https://signer-lac.azurewebsites.net";
-        String token = "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99";
+        // Signer instance URL. Without SIGNER_ENDPOINT, the samples use Lacuna's Signer sandbox.
+        String domain = getEnvOrDefault("SIGNER_ENDPOINT", "https://signer-lac.azurewebsites.net");
+        // Application credentials token, "<application name>|<key>". Without SIGNER_API_KEY, the
+        // samples use a shared key of the sandbox.
+        String token = getEnvOrDefault("SIGNER_API_KEY", "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99");
 		signerClient = new SignerClient(domain, token);
+    }
+
+    // Returns the value of an environment variable, or the fallback when it is unset or empty.
+    protected static String getEnvOrDefault(String name, String fallback) {
+        String value = System.getenv(name);
+        return value == null || value.isEmpty() ? fallback : value;
     }
 
     // Creates a generic document, useful for certain scenarios.
