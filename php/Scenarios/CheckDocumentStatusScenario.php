@@ -8,7 +8,10 @@ use Lacuna\Signer\Model\ActionStatus;
 use Lacuna\Signer\Model\DocumentsDocumentModel;
 use Lacuna\Signer\Model\FlowActionsFlowActionModel;
 use Lacuna\Signer\Model\UsersParticipantUserModel;
+use Lacuna\Signer\Model\WebhooksDocumentApprovedModel;
 use Lacuna\Signer\Model\WebhooksDocumentConcludedModel;
+use Lacuna\Signer\Model\WebhooksDocumentRefusedModel;
+use Lacuna\Signer\Model\WebhooksDocumentSignedModel;
 use Lacuna\Signer\Model\WebhooksWebhookModel;
 use Lacuna\Signer\Model\WebhookTypes;
 
@@ -65,16 +68,16 @@ class CheckDocumentStatusScenario extends Scenario implements IWebhookHandlerSce
                 echo "Document " . $documentConcludedModel->getId() . " is concluded";
             }
             if ($webhook->getType() == WebhookTypes::DOCUMENT_REFUSED) {
-                $documentConcludedModel = new WebhooksDocumentConcludedModel($webhook->getData());
-                echo "Document " . $documentConcludedModel->getId() . " is Refused";
+                $documentRefusedModel = new WebhooksDocumentRefusedModel($webhook->getData());
+                echo "Document " . $documentRefusedModel->getId() . " is Refused";
             }
             if ($webhook->getType() == WebhookTypes::DOCUMENT_APPROVED) {
-                $documentConcludedModel = new WebhooksDocumentConcludedModel($webhook->getData());
-                echo "Document " . $documentConcludedModel->getId() . " is Approved";
+                $documentApprovedModel = new WebhooksDocumentApprovedModel($webhook->getData());
+                echo "Document " . $documentApprovedModel->getId() . " is Approved";
             }
             if ($webhook->getType() == WebhookTypes::DOCUMENT_SIGNED) {
-                $documentConcludedModel = new WebhooksDocumentConcludedModel($webhook->getData());
-                echo "Document " . $documentConcludedModel->getId() . " is Signed";
+                $documentSignedModel = new WebhooksDocumentSignedModel($webhook->getData());
+                echo "Document " . $documentSignedModel->getId() . " is Signed";
             }
         }
     }

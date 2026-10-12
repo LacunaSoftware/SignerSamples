@@ -94,7 +94,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
-    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `IsPrivate = true`.",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `IsPrivate = false`.",
     "product": "signer",
     "area": "documents",
     "language": "dotnet",
@@ -163,7 +163,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
-    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Caveat: this PHP file gives the participant an `Approver` action, where the other languages use `Signer`.",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate` to false.",
     "product": "signer",
     "area": "documents",
     "language": "php",
@@ -647,7 +647,7 @@
   {
     "id": "create-document-ordered-flow-signer",
     "title": "Create a document with signers in a fixed order",
-    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs. Caveat: this PHP file calls `setStep(2)` on the first action instead of the second, so the order is not what the title says; copy the step assignment from another language.",
+    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
     "product": "signer",
     "area": "flows",
     "language": "php",
@@ -946,7 +946,7 @@
   {
     "id": "add-signer-to-existing-document-signer",
     "title": "Add a signer to an existing document",
-    "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step.",
     "product": "signer",
     "area": "flows",
     "language": "php",
@@ -1291,7 +1291,7 @@
   {
     "id": "create-digital-degree-signer",
     "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
-    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML. Caveat: the third action reuses the `DadosDiploma` options instead of the `FullXml` ones it builds; copy that action from another language.",
+    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML.",
     "product": "signer",
     "area": "signature-formats",
     "language": "java",
@@ -1866,7 +1866,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
-    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Takes the raw JSON body. Caveat: it reads every event's `data` as `WebhooksDocumentConcludedModel`; use the model that matches the event type.",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Takes the raw JSON body.",
     "product": "signer",
     "area": "webhooks",
     "language": "php",

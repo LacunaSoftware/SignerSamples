@@ -41,6 +41,8 @@ class CreateDocumentWithAttachmentScenario extends Scenario
         // 3. Define the name of the document which will be visible in the application
         $attachmentUploadModel = new AttachmentUploadBuilder($attachmentUpload);
         $attachmentUploadModel->setDisplayName("One Attachment Sample");
+        //here you can define if the attachment will be restrict to the organization participants (true) or to everyone in the document flow (false)
+        $attachmentUploadModel->setIsPrivate(false);
 
 
         // 4. For each participant on the flow, create one instance of ParticipantUserModel
@@ -54,7 +56,7 @@ class CreateDocumentWithAttachmentScenario extends Scenario
         //    This object is responsible for defining the personal data of the participant and the type of
         //    action that he will perform on the flow
         $flowActionCreateModel = new FlowActionsFlowActionCreateModel();
-        $flowActionCreateModel->setType(FlowActionType::APPROVER);
+        $flowActionCreateModel->setType(FlowActionType::SIGNER);
         $flowActionCreateModel->setUser($user);
 
         // 6. Send the document create request with whith the attachment attribute
