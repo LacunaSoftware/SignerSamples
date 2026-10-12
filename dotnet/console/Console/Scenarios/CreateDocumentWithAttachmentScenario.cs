@@ -36,7 +36,8 @@ namespace Console.Scenarios
             // 2. Define the name of the attachment which will be visible in the application using "AttachmentUploadModel"
             var attachmentUploadModel = new AttachmentUploadModel(attachmentUpload) { 
                 DisplayName = "One Attachment Sample",
-                IsPrivate = true
+                //here you can define if the attachment will be restrict to the organization participants (true) or to everyone in the document flow (false)
+                IsPrivate = false
             };
 
 

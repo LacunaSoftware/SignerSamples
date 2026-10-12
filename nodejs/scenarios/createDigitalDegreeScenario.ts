@@ -14,9 +14,10 @@ import {
   getBase64,
 } from "signer-node-client";
 import { config } from "./scenario";
+import * as path from "path";
 
 
-const filePath = "../../samples/sample-degree.xml";
+const filePath = path.join(__dirname, "..", "samples", "sample-degree.xml");
 const filename = "sample-degree.xml";
 const file = getBase64(filePath);
 

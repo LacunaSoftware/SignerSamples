@@ -85,7 +85,7 @@ public class CreateDigitalDegreeScenario extends Scenario {
         FlowActionCreateModel flowActionCreateModelFull = new FlowActionCreateModel();
         flowActionCreateModelFull.setType(FlowActionType.SIGNER);
         flowActionCreateModelFull.setUser(participantUserThree);
-        flowActionCreateModelFull.setXadesOptions(xadesOptionsDegreeData);
+        flowActionCreateModelFull.setXadesOptions(xadesOptionsModelFull);
 
         // 6. Send the document create request
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();

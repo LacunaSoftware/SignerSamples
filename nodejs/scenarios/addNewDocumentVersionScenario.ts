@@ -5,6 +5,7 @@ import {
   DocumentsDocumentAddVersionRequest,
 } from "signer-node-client";
 import { config, CreateDocument } from "./scenario";
+import * as path from "path";
 import { getBase64 } from "signer-node-client";
 
 const uploadApi = new UploadApi(config);
@@ -15,7 +16,7 @@ CreateDocument().then((res) => {
   const docId = res.documentId;
 
   // 2. The file's bytes must be read by the application and uploaded
-  const filepath = "..\\samples\\sample.pdf";
+  const filepath = path.join(__dirname, "..", "samples", "sample.pdf");
   const fileName = "sample.pdf";
   const base64File = getBase64(filepath);
 
