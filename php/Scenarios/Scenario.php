@@ -49,7 +49,10 @@ abstract class Scenario
 
         $file = fopen($filePath, "r");
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
-        fclose($file);
+        // Guzzle closes the stream once it has sent it, and fclose() on a closed stream throws on PHP 8.
+        if (is_resource($file)) {
+            fclose($file);
+        }
 
         $fileUploadModelBuilder = new FileUploadBuilder($uploadModel);
         $fileUploadModelBuilder->setDisplayName("One Signer Sample");

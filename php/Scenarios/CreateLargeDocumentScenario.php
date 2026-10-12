@@ -29,7 +29,11 @@ class CreateLargeDocumentScenario extends Scenario
         $file = fopen($filePath, "r");
         echo "Uploading document, this may take a while...\n";
         $uploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
-        fclose($file);
+        // A file of 10 MB or more goes up in segments and stays open; Guzzle closes a smaller one, and
+        // fclose() on a closed stream throws on PHP 8.
+        if (is_resource($file)) {
+            fclose($file);
+        }
         echo "Document uploaded!\n";
 
         // 2. Define the name of the document which will be visible in the application

@@ -33,7 +33,10 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          $file = fopen($modelFilePath, "r");
          $templateUploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "application/pdf"));
          echo "Pdf File " . $templateUploadModel->getName() . " uploaded\n";
-         fclose($file);
+         // Guzzle closes the stream once it has sent it, and fclose() on a closed stream throws on PHP 8.
+         if (is_resource($file)) {
+             fclose($file);
+         }
          $templateFileUploadModelBuilder = new FileUploadBuilder($templateUploadModel);
  
          // 2. Upload the Csv data file which contains the data for the template.
@@ -42,7 +45,10 @@ class GenerateDocumentWithTwoOrMoreSignersScenario extends Scenario
          $file = fopen($dataFilePath, "r");
          $dataUploadModel = new UploadModel($this->signerClient->uploadFile($fileName, $file, "text/csv"));
          echo "Csv File " . $dataUploadModel->getName() . " uploaded\n";
-         fclose($file);
+         // Guzzle closes the stream once it has sent it, and fclose() on a closed stream throws on PHP 8.
+         if (is_resource($file)) {
+             fclose($file);
+         }
          $dataFileUploadModelBuilder = new FileUploadBuilder($dataUploadModel);
          
          // 4. For each participant on the flow, create one instance of ParticipantUserModel
