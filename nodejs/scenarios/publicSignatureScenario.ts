@@ -42,11 +42,8 @@ const user: UsersParticipantUserModel = {
   email: "alan.turing@mailinator.com",
 };
 
-// Paths: from scenarios/ (ts-node) use ../samples; from scenarios/dist/ (node) use ../../samples
-const samplesDir = path.join(
-  __dirname,
-  ...(__dirname.endsWith("dist") ? ["..", "..", "samples"] : ["..", "samples"])
-);
+// Input files live in nodejs/samples, next to this scenarios folder
+const samplesDir = path.join(__dirname, "..", "samples");
 const pfxPath = path.join(samplesDir, `${user.identifier}.pfx`);
 
 // Sample PDF to sign

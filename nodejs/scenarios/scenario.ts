@@ -1,4 +1,5 @@
 import {Configuration, DocumentsCreateDocumentResult, UploadApi, FileUploadModel, UsersParticipantUserModel, FlowActionsFlowActionCreateModel, FlowActionType, DocumentsCreateDocumentRequest, DocumentsApi, getBase64 } from "signer-node-client";
+import * as path from "path";
 
 export const config = new Configuration({ // set your configs here!
     apiKey: "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99",
@@ -7,8 +8,8 @@ export const config = new Configuration({ // set your configs here!
 
 const uploadApi = new UploadApi(config)
 const documentApi = new DocumentsApi(config);
-const filepath = "..\\samples\\bigSample.pdf"
-const fileName = "bigSample.pdf"
+const filepath = path.join(__dirname, "..", "samples", "sample.pdf")
+const fileName = "sample.pdf"
 
 export async function CreateDocument(): Promise<DocumentsCreateDocumentResult> {
     const response = await uploadApi.apiUploadsBytesPost({bytes: getBase64(filepath)});
@@ -22,7 +23,7 @@ export async function CreateDocument(): Promise<DocumentsCreateDocumentResult> {
     }
     const participant: UsersParticipantUserModel = {
         name: "Jack Bauer",
-        email: "jack.bauer@mailnator.com",
+        email: "jack.bauer@mailinator.com",
         identifier: "75502846369"
     }
     const flowAction: FlowActionsFlowActionCreateModel = {
