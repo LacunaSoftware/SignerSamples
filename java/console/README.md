@@ -56,9 +56,9 @@ other languages. Before changing anything, read [AGENTS.md](../../AGENTS.md).
 
    On Windows, use `gradlew.bat run`. The wrapper is Gradle 5.2.1, which runs on JDK 8 to 11.
 
-Gradle is the supported build. `pom.xml` is unsupported: it still references `signer-client`
-1.0.0 and a Bintray repository that no longer exists. Every run creates real documents on the configured Signer instance, and Signer
-e-mails the sample participants (made-up `@mailinator.com` addresses).
+Gradle is the only supported build; there is no Maven build. Every run creates real documents on
+the configured Signer instance, and Signer e-mails the sample participants (made-up
+`@mailinator.com` addresses).
 
 ## Configuration
 

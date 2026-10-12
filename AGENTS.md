@@ -82,8 +82,7 @@ Per-project notes:
   every scenario file in it (`AddNewDocumentVersionScenario.cs` is missing). Public signature
   expects `56072386105.pfx` next to the executable.
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
-  the supported build (`signer-client` 2.13.0); `pom.xml` is unsupported and out of date (client
-  1.0.0, Bintray). Gradle 5.2.1 needs JDK 8 to 11.
+  the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
 - **Node.js**: files open relative to the working directory, so most scenarios run from
   `scenarios/dist`, and the six that call the shared `CreateDocument()` helper from `scenarios`
   (`node dist/<x>.js`, Windows only). Run `publicSignatureScenario.ts`, which isn't compiled, with
