@@ -34,10 +34,11 @@ It is **not** a production template. Copy the API calls, not the scaffolding:
   [`schema/samples.schema.json`](schema/samples.schema.json) shared with PkiSuiteSamples.
 - **[`SAMPLES.md`](SAMPLES.md)**: the same data as tables per language. Generated; never edit it.
 
-Each entry has: `id` (`<task>-signer`), `title`, `description`, `product` (`signer`), `area`,
-`language`, `framework` (`console`), `path` (the scenario file), `related_files` (the scenario
-picker, the base class with the config and shared helpers, and input files), `status`,
-`docs_url`, `demo_url`, and `run` (`cwd`, `command`; `url` is null, as nothing serves a page).
+Each entry has: `id` (`<task>-signer`), `title` (and `title_pt`, in Brazilian Portuguese),
+`description`, `product` (`signer`), `area`, `language`, `framework` (`console`), `path` (the
+scenario file), `related_files` (the scenario picker, the base class with the config and shared
+helpers, and input files), `status`, `docs_url`, `demo_url`, and `run` (`cwd`, `command`; `url`
+is null, as nothing serves a page).
 Areas: `documents`, `flows`, `signature-formats`, `signing`, `embedded-signing`, `tracking`,
 `webhooks`, `downloads`, `lifecycle`, `folders`, `billing`.
 

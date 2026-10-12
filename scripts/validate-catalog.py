@@ -10,7 +10,7 @@ Checks:
   2. Every `path`, every `related_files` entry and every `run.cwd` exists.
   3. `path` lives inside `run.cwd`.
   4. (id, language, framework) is unique, and `id` ends with `-<product>`.
-  5. Entries that share an `id` share `title`, `product` and `area`.
+  5. Entries that share an `id` share `title`, `title_pt`, `product` and `area`.
   6. Every entry has an `area` that scripts/generate-samples-md.py knows (AREAS), and
      every `run.cwd` is a project it describes (PROJECTS).
   7. SAMPLES.md, and the generated blocks in the READMEs, are what
@@ -142,7 +142,7 @@ def check_disk_and_consistency(catalog, generator, errors):
                 errors.append(f"{name}: '{rel}' is both path and a related file")
 
         first = by_id.setdefault(e.get("id"), e)
-        for field in ("title", "product", "area"):
+        for field in ("title", "title_pt", "product", "area"):
             if first.get(field) != e.get(field):
                 errors.append(f"{name}: {field} {e.get(field)!r} differs from other '{e.get('id')}' entries ({first.get(field)!r})")
 
