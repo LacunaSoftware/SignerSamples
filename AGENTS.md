@@ -90,9 +90,8 @@ Per-project notes:
 ## 4. The Signer integration model, as the samples show it
 
 **Authentication.** Every call sends `X-Api-Key: <application-name>|<key>`. The client libraries
-take the instance URL and key in their constructor (`SignerClient(domain, token)`; Node.js
-`new Configuration({ apiKey, basePath })`). A key sees and creates its own organization's
-documents only.
+take the instance URL and key in their constructor (`SignerClient(domain, token)`; Node.js `new
+Configuration({ apiKey, basePath })`). A key sees and creates its own organization's documents only.
 
 **A document is created in two calls: upload, then create.**
 
@@ -209,8 +208,7 @@ throws: deserialize it again (Java: with `signerClient.getGson()`, which reads t
 9. **Public signature.** The certificate's identifier (CPF/CNPJ) must match the participant's
    `identifier`. The PFX here is a test shortcut; in production the hash is signed on the
    user's device (smart card, token, browser).
-10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the PHP large-file
-    sample, whose `bigsample.pdf` is not in the repository.
+10. **Copying a defect.** Read the catalog's "Caveat:" notes (section 1) before copying a sample.
 
 ## 6. Conventions for adding or changing a sample
 
@@ -242,11 +240,10 @@ throws: deserialize it again (Java: with `signerClient.getGson()`, which reads t
   [Webhooks](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks),
   [Embedded signature](https://docs.lacunasoftware.com/en-us/articles/signer/embedded-signature).
 - API reference (Swagger): https://www.dropsigner.com/swagger
-- Demo site:
-  - [Sign a document](https://try.lacunasoftware.com/en/signer/sign-a-document)
-    ([notes for agents](https://try.lacunasoftware.com/en/signer/sign-a-document.md))
-  - [Sign without leaving your page](https://try.lacunasoftware.com/en/signer/embedded-signature)
-    ([notes for agents](https://try.lacunasoftware.com/en/signer/embedded-signature.md))
+- Demo site: [Sign a document](https://try.lacunasoftware.com/en/signer/sign-a-document)
+  ([notes for agents](https://try.lacunasoftware.com/en/signer/sign-a-document.md)) and
+  [Sign without leaving your page](https://try.lacunasoftware.com/en/signer/embedded-signature)
+  ([notes for agents](https://try.lacunasoftware.com/en/signer/embedded-signature.md)).
 - PKI Suite samples (same catalog format): https://github.com/LacunaSoftware/PkiSuiteSamples
 - Client libraries: NuGet `Lacuna.Signer.Client`, Maven `signer-client`, npm `signer-node-client`.
   Composer: `lacuna/signer-client`.
