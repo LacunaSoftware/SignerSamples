@@ -14,8 +14,8 @@ To run it with [Composer](https://getcomposer.org):
 1. [Download the repository](https://github.com/LacunaSoftware/SignerSamples/archive/master.zip)
    or clone it.
 
-1. In a command prompt, go to this `php` folder and run `composer install` (if it stops, see
-   Signer's client lib below).
+1. In a command prompt, go to this `php` folder and run `composer install`. It needs PHP 7.2.5
+   or later.
 
 1. In `index.php`, set the scenario to run, then run `php index.php`.
 
@@ -28,23 +28,21 @@ The samples use the `lacuna/signer-client` client lib, installed with Composer a
 [`composer.json`](composer.json):
 
     "require": {
-        "lacuna/signer-client": "1.4.8"
+        "php": ">=7.2.5",
+        "lacuna/signer-client": "1.4.10"
     }
 
-`lacuna/signer-client` 1.4.8 depends on Guzzle 6 and `jms/serializer` 1.x, and `composer.json`
-also pins TCPDF 6.3.5. On PHP 8 or with a recent Composer, `composer install` stops on these checks:
-
-- `jms/serializer` 1.x declares PHP 5.5 to 7.x, so on PHP 8 add `--ignore-platform-req=php`. On
-  PHP 8.1 and later, the client lib's models then print `Deprecated` notices.
-- Recent Composer versions (2.10, for example) refuse to install Guzzle 6 and TCPDF 6.3.5, which
-  have published security advisories. To try the samples on your machine, setting
-  `COMPOSER_NO_SECURITY_BLOCKING=1` lifts that check for one install. Don't ship those versions in
-  your own application.
+`lacuna/signer-client` 1.4.10 brings in Guzzle 7 and `jms/serializer` 3, so the project needs PHP
+7.2.5 or later, Guzzle 7's minimum. The samples call the client lib only, never Guzzle directly.
+`composer install` needs no extra flags or environment variables, on PHP 8 too. To check the
+installed packages against published security advisories, run `composer audit`. On PHP 8.4 and
+later, the client lib's models print `Deprecated` notices about implicitly nullable parameters;
+they are harmless.
 
 ## Samples in this project
 
 Each file in [`Scenarios`](Scenarios) is one Lacuna Signer integration task, calling the Signer
-API through the `lacuna/signer-client` Composer package (1.4.8 in [`composer.json`](composer.json)).
+API through the `lacuna/signer-client` Composer package (1.4.10 in [`composer.json`](composer.json)).
 The table is generated from the repository's catalog ([samples.json](../samples.json), also shown
 as [SAMPLES.md](../SAMPLES.md)), where each slug has its docs link and the same task in other
 languages. Before changing anything, read [AGENTS.md](../AGENTS.md).
@@ -162,9 +160,8 @@ port in that command) and follows the
    call to Signer.
 
 It then passes the body to `CheckDocumentStatusScenario::HandleWebhook`, which switches on `type`,
-and writes what it echoes to the server's console. It needs PHP 7.0 or later. PHP's built-in
-server handles one request at a time, which is enough for local tests; in production, run the
-endpoint under PHP-FPM.
+and writes what it echoes to the server's console. PHP's built-in server handles one request at a
+time, which is enough for local tests; in production, run the endpoint under PHP-FPM.
 
 To test it without Signer, run `composer install && php -S localhost:8080 webhook.php` from this
 folder, and post a `DocumentSigned` event with the default token from bash (Git Bash on Windows):
@@ -182,7 +179,7 @@ The answer is `200`, and the server's console prints `Accepted: ...` and `Docume
 Post it again and the console prints `Ignored a repeated event`; change the token and the answer is
 `401`. A `DocumentConcluded` body, `{"type":"DocumentConcluded","data":{"id":"<document id>"}}`,
 makes the endpoint read that document from Signer after answering; with a made-up id, that call
-fails. On PHP 8.1 and later, the client library's models also print `Deprecated` notices there;
+fails. On PHP 8.4 and later, the client library's models also print `Deprecated` notices there;
 they are harmless.
 
 To receive real events:
