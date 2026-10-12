@@ -55,13 +55,41 @@ participants (made-up `@mailinator.com` addresses).
 
 ## Configuration
 
-The Signer instance URL and API key are hard-coded in the constructor of
-[`Console/Scenarios/Scenario.cs`](Console/Scenarios/Scenario.cs) (`domain` and `token`). They
-point to the Signer sandbox, `https://signer-lac.azurewebsites.net`, with a shared sample key.
-The sandbox is where you should develop and test: to use your own organization there, replace the
-key with one of yours. For production, change the URL and the key together.
-[`.env.example`](.env.example) lists every value the project uses; it is documentation only,
-because nothing loads it.
+The constructor of [`Console/Scenarios/Scenario.cs`](Console/Scenarios/Scenario.cs) reads the
+Signer instance URL from the `SIGNER_ENDPOINT` environment variable and the API key from
+`SIGNER_API_KEY`. When a variable is unset or empty, it falls back to the Signer sandbox,
+`https://signer-lac.azurewebsites.net`, and a shared sample key, so the samples run as they are.
+The sandbox is where you should develop and test: to use your own organization there, set
+`SIGNER_API_KEY` to one of your keys. For production, set both variables together.
+[`.env.example`](.env.example) lists every value the project uses, including the webhook
+endpoint's; nothing loads that file automatically.
+
+The program inherits the variables from whatever starts it. A .NET Framework project's debug
+settings have no environment variables, so set them for your Windows user and then restart Visual
+Studio, from PowerShell:
+
+```powershell
+[Environment]::SetEnvironmentVariable("SIGNER_API_KEY", "your-application|your-key", "User")
+```
+
+Or set them for one shell, and run `Console.exe` from its output folder, where the input files
+are. In PowerShell:
+
+```powershell
+$env:SIGNER_ENDPOINT = "https://signer-lac.azurewebsites.net"
+$env:SIGNER_API_KEY = "your-application|your-key"
+cd Console\bin\Debug
+.\Console.exe
+```
+
+In bash (Git Bash on Windows), quoting the key because of its `|`:
+
+```bash
+export SIGNER_ENDPOINT=https://signer-lac.azurewebsites.net
+export SIGNER_API_KEY='your-application|your-key'
+cd Console/bin/Debug
+./Console.exe
+```
 
 Prerequisites of some scenarios:
 
@@ -75,11 +103,13 @@ Prerequisites of some scenarios:
 ## Receive webhooks locally
 
 [`WebhookEndpointScenario`](Console/Scenarios/WebhookEndpointScenario.cs) is a minimal webhook
-endpoint built on `System.Net.HttpListener`. It listens on `http://localhost:8080/webhook` and
-follows the [webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
+endpoint built on `System.Net.HttpListener`. It listens on `http://localhost:8080/webhook` (set
+`SIGNER_WEBHOOK_PORT` for another port) and follows the
+[webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
 
 1. It answers 401 unless the `Authorization` header is `Bearer <token>` with the token you
-   registered (`ExpectedAuthorization`), because Signer does not sign the body.
+   registered, set in `SIGNER_WEBHOOK_TOKEN` (default `my-webhook-token`), because Signer does not
+   sign the body.
 2. It answers 200 at once and processes the event afterwards. Signer retries a non-2xx answer or a
    connection error, up to 10 times by default.
 3. It ignores an event it has already received, keyed on `type`, the document `id` and, when there
@@ -91,7 +121,8 @@ follows the [webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signe
 It then passes the event to `CheckDocumentStatusScenario.HandleWebhook`, which switches on `type`.
 
 To test it without Signer, set `var scenario = new WebhookEndpointScenario();` in `Program.cs`,
-press F5, and post a `DocumentSigned` event from bash (Git Bash on Windows):
+press F5, and post a `DocumentSigned` event with the default token from bash (Git Bash on
+Windows):
 
 ```bash
 curl -i http://localhost:8080/webhook \
@@ -114,8 +145,8 @@ To receive real events:
    rewrite it, for example `ngrok http 8080 --host-header=rewrite`.
 2. In Signer, under **Organization → Integration**, register `https://<tunnel host>/webhook` with
    the auth type `Bearer` and a long random token, or call
-   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Put the same
-   token in `ExpectedAuthorization`.
+   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Set
+   `SIGNER_WEBHOOK_TOKEN` to the same token (see Configuration).
 3. Webhooks belong to an organization (personal organizations have none), so register it in your
    own organization and create the documents there, with its API key (see Configuration).
 

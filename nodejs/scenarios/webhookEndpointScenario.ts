@@ -6,12 +6,12 @@ import {
   WebhooksWebhookModel,
   WebhookTypes,
 } from "signer-node-client";
-import { config } from "./scenario";
+import { config, envOrDefault } from "./scenario";
 import { handleWebhook } from "./checkDocumentStatusScenario";
 
 /**
  * A minimal webhook endpoint, built on Node's http module (no web framework). It listens on
- * http://localhost:8080/webhook and follows the rules of
+ * http://localhost:8080/webhook (SIGNER_WEBHOOK_PORT changes the port) and follows the rules of
  * https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices:
  *
  * 1. Check the auth header registered with the webhook: Signer does not sign the body.
@@ -24,12 +24,14 @@ import { handleWebhook } from "./checkDocumentStatusScenario";
  * with curl, and how to receive real events through an HTTPS tunnel.
  */
 
-const port = 8080;
+// The port to listen on: SIGNER_WEBHOOK_PORT, or 8080.
+const port = Number(envOrDefault("SIGNER_WEBHOOK_PORT", "8080"));
 const webhookPath = "/webhook";
 
 // The token registered with the webhook under Organization > Integration, with the auth type
-// "Bearer": Signer then sends "Authorization: Bearer <token>". Use a long random value of your own.
-const expectedAuthorization = "Bearer my-webhook-token";
+// "Bearer": Signer then sends "Authorization: Bearer <token>". Set SIGNER_WEBHOOK_TOKEN to a long
+// random value of your own; without it, the sample expects "my-webhook-token".
+const expectedAuthorization = "Bearer " + envOrDefault("SIGNER_WEBHOOK_TOKEN", "my-webhook-token");
 
 // Keys of the events already received. A sample can keep them in memory; production needs durable
 // storage, for example a table with a unique index on the key, shared by every instance of the app.

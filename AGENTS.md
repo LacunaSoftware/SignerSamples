@@ -13,12 +13,11 @@ URLs, downloads files, or shows how to handle a webhook.
 
 It is **not** a production template. Copy the API calls, not the scaffolding:
 
-- The Signer URL and API key are hard-coded in each project's base `Scenario` class (section 3).
-  No sample reads a config file or an environment variable.
-- The committed key, `API Sample App|…`, belongs to Lacuna's **sandbox**,
-  `https://signer-lac.azurewebsites.net`, the instance clients should develop and test against.
-  Do not edit, move, rotate or "clean up" the key. Your client needs their own key, created in
-  their own organization (**Applications → Keys**); it is shown only once.
+- The Signer URL and API key come from the `SIGNER_ENDPOINT` and `SIGNER_API_KEY` environment
+  variables (section 3). Unset, they default to Lacuna's **sandbox**,
+  `https://signer-lac.azurewebsites.net`, where clients should develop and test, and the committed
+  key `API Sample App|…`; do not edit, move, rotate or "clean up" that key. Your client needs their
+  own key, created in their own organization (**Applications → Keys**); it is shown only once.
 - **Running a scenario creates real documents** on that instance, and Signer e-mails the
   participants. The samples use made-up people at `@mailinator.com` with test CPFs such as
   `75502846369`. Never put a real person's data in a sample run.
@@ -59,21 +58,20 @@ python -c "import json;[print(e['id'],e['path']) for e in json.load(open('sample
 | `nodejs` | TypeScript, run with ts-node | `nodejs` | `npm install && npx ts-node scenarios/<scenario>.ts` | each file is its own script |
 | `php` | PHP CLI, Composer | `php` | `composer install && php index.php` | `index.php` (`new XScenario()`) |
 
-The Signer URL and API key are set in (the public-signature scenarios also hard-code a PFX):
+Each base class reads `SIGNER_ENDPOINT` and `SIGNER_API_KEY` (unset or empty: sandbox values):
 
-| Project | File | Values |
+| Project | Base class | Read into |
 |---|---|---|
 | .NET | `dotnet/console/Console/Scenarios/Scenario.cs` | `domain`, `token` (constructor) |
 | Java | `java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java` | `domain`, `token` in `Init()` |
-| Node.js | `nodejs/scenarios/scenario.ts` | `apiKey`, `basePath` in the exported `config` |
+| Node.js | `nodejs/scenarios/scenario.ts` | `basePath`, `apiKey` in the exported `config` |
 | PHP | `php/Scenarios/Scenario.php` | `$this->endPoint`, `$this->apiKey` in `init()` |
 
-Each project folder has a `.env.example` listing these values with placeholders. **No project
-loads it**; it is documentation only. The samples use the sandbox,
-`https://signer-lac.azurewebsites.net`, where clients should also develop and test. Production is
-Dropsigner SaaS, `https://www.dropsigner.com` (the docs' examples use it), or the client's own
-on-premises URL. Each instance has its own database and keys, so a client needs one key for the
-sandbox and another for production.
+The webhook endpoints also read `SIGNER_WEBHOOK_TOKEN` (default `my-webhook-token`) and, except
+PHP, `SIGNER_WEBHOOK_PORT` (default 8080); the public-signature PFX stays hard-coded. Each
+`.env.example` lists the variables, but **no project loads it**: set them in the shell (or as
+Windows user variables for Visual Studio). Production, with its own key, is Dropsigner SaaS,
+`https://www.dropsigner.com`, or the client's own URL.
 
 Per-project notes:
 
@@ -189,7 +187,7 @@ throws: deserialize it again (Java: with `signerClient.getGson()`, which reads t
 ## 5. Pitfalls agents get wrong
 
 1. **The URL and the key don't match.** A sandbox key fails on `www.dropsigner.com`, and the
-   reverse fails too. Change both values together in the base class.
+   reverse fails too. Set `SIGNER_ENDPOINT` and `SIGNER_API_KEY` together.
 2. **Calling a document signed too early.** `DocumentSigned` fires once per participant, and a
    `Completed` flow action covers one participant only. The document is finished when its
    `status` is `Concluded` or `DocumentConcluded` arrives. The widget's `documentSigned` event is

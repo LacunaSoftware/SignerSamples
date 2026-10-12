@@ -63,14 +63,33 @@ the configured Signer instance, and Signer e-mails the sample participants (made
 
 ## Configuration
 
-The Signer instance URL and API key are hard-coded in `Init()` of
+`Init()` of
 [`scenarios/Scenario.java`](src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java)
-(`domain` and `token`). They point to the Signer sandbox, `https://signer-lac.azurewebsites.net`,
-with a shared sample key. The sandbox is where you should develop and test: to use your own
-organization there, replace the key with one of yours. For production, change the URL and the key
-together. [`.env.example`](.env.example) lists every value the project uses; it is documentation
-only, because nothing loads it. Input files live in
+reads the Signer instance URL from the `SIGNER_ENDPOINT` environment variable and the API key from
+`SIGNER_API_KEY`. When a variable is unset or empty, it falls back to the Signer sandbox,
+`https://signer-lac.azurewebsites.net`, and a shared sample key, so the samples run as they are.
+The sandbox is where you should develop and test: to use your own organization there, set
+`SIGNER_API_KEY` to one of your keys. For production, set both variables together.
+[`.env.example`](.env.example) lists every value the project uses, including the webhook
+endpoint's; nothing loads that file automatically. Input files live in
 [`src/main/resources/static`](src/main/resources/static).
+
+Set the variables in the shell that runs Gradle, which passes them on to the program. In bash,
+quoting the key because of its `|`:
+
+```bash
+export SIGNER_ENDPOINT=https://signer-lac.azurewebsites.net
+export SIGNER_API_KEY='your-application|your-key'
+./gradlew run
+```
+
+In PowerShell:
+
+```powershell
+$env:SIGNER_ENDPOINT = "https://signer-lac.azurewebsites.net"
+$env:SIGNER_API_KEY = "your-application|your-key"
+.\gradlew.bat run
+```
 
 Prerequisites of some scenarios:
 
@@ -85,11 +104,12 @@ Prerequisites of some scenarios:
 
 [`WebhookEndpointScenario`](src/main/java/com/lacunasoftware/signer/sample/scenarios/WebhookEndpointScenario.java)
 is a minimal webhook endpoint built on the JDK's `com.sun.net.httpserver.HttpServer`. It listens on
-`http://localhost:8080/webhook` and follows the
+`http://localhost:8080/webhook` (set `SIGNER_WEBHOOK_PORT` for another port) and follows the
 [webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
 
 1. It answers 401 unless the `Authorization` header is `Bearer <token>` with the token you
-   registered (`EXPECTED_AUTHORIZATION`), because Signer does not sign the body.
+   registered, set in `SIGNER_WEBHOOK_TOKEN` (default `my-webhook-token`), because Signer does not
+   sign the body.
 2. It answers 200 at once and processes the event afterwards, on another thread. Signer retries a
    non-2xx answer or a connection error, up to 10 times by default.
 3. It ignores an event it has already received, keyed on `type`, the document `id` and, when there
@@ -102,7 +122,8 @@ It then reads the body into a `WebhookModel` with `signerClient.getGson()`, whic
 API's enums and dates, and passes it to `CheckDocumentStatusScenario.HandleWebhook`.
 
 To test it without Signer, set `Scenario scenario = new WebhookEndpointScenario();` in `App.java`,
-run `./gradlew run`, and post a `DocumentSigned` event from bash (Git Bash on Windows):
+run `./gradlew run`, and post a `DocumentSigned` event with the default token from bash (Git Bash
+on Windows):
 
 ```bash
 curl -i http://localhost:8080/webhook \
@@ -124,8 +145,8 @@ To receive real events:
    `ngrok http 8080`, because Signer calls the endpoint from its own servers.
 2. In Signer, under **Organization → Integration**, register `https://<tunnel host>/webhook` with
    the auth type `Bearer` and a long random token, or call
-   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Put the same
-   token in `EXPECTED_AUTHORIZATION`.
+   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Set
+   `SIGNER_WEBHOOK_TOKEN` to the same token (see Configuration).
 3. Webhooks belong to an organization (personal organizations have none), so register it in your
    own organization and create the documents there, with its API key (see Configuration).
 

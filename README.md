@@ -23,10 +23,11 @@ which also records each sample's related files, run command, docs link and statu
 | `legacy` | Works and is still supported, but prefer the `current` alternative for new code. |
 | `deprecated` | Kept for reference only. Do not copy into new code. |
 
-Every sample runs against the Signer sandbox, `https://signer-lac.azurewebsites.net`, with a
-shared sample key. Develop and test your own integration against the sandbox too, with your
-organization's own key, and switch the URL and key together for production. Each project's
-README explains how to run it and where to put your own instance URL and API key.
+By default, every sample runs against the Signer sandbox, `https://signer-lac.azurewebsites.net`,
+with a shared sample key. Develop and test your own integration against the sandbox too, with your
+organization's own key, and switch the URL and key together for production. Each project reads
+them from the `SIGNER_ENDPOINT` and `SIGNER_API_KEY` environment variables, and its README
+explains how to run it and how to set them.
 
 ## Using this repo with an AI coding agent
 

@@ -25,9 +25,19 @@ abstract class Scenario
 
     public function init()
     {
-        $this->endPoint = "https://signer-lac.azurewebsites.net/";
-        $this->apiKey = "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99";
+        // Signer instance URL. Without SIGNER_ENDPOINT, the samples use Lacuna's Signer sandbox.
+        $this->endPoint = self::getEnvOrDefault("SIGNER_ENDPOINT", "https://signer-lac.azurewebsites.net/");
+        // Application credentials token, "<application name>|<key>". Without SIGNER_API_KEY, the
+        // samples use a shared key of the sandbox.
+        $this->apiKey = self::getEnvOrDefault("SIGNER_API_KEY", "API Sample App|43fc0da834e48b4b840fd6e8c37196cf29f919e5daedba0f1a5ec17406c13a99");
         $this->signerClient = new SignerClient($this->endPoint, $this->apiKey);
+    }
+
+    // Returns the value of an environment variable, or the fallback when it is unset or empty.
+    protected static function getEnvOrDefault($name, $fallback)
+    {
+        $value = getenv($name);
+        return $value === false || $value === '' ? $fallback : $value;
     }
 
     abstract protected function run();
