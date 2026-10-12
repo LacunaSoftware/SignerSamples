@@ -2,6 +2,7 @@
   {
     "id": "sign-a-document-signer",
     "title": "Sign a document: create it with one signer",
+    "title_pt": "Assinar um documento: criá-lo com um signatário",
     "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
     "product": "signer",
     "area": "documents",
@@ -25,6 +26,7 @@
   {
     "id": "sign-a-document-signer",
     "title": "Sign a document: create it with one signer",
+    "title_pt": "Assinar um documento: criá-lo com um signatário",
     "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
     "product": "signer",
     "area": "documents",
@@ -49,6 +51,7 @@
   {
     "id": "sign-a-document-signer",
     "title": "Sign a document: create it with one signer",
+    "title_pt": "Assinar um documento: criá-lo com um signatário",
     "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
     "product": "signer",
     "area": "documents",
@@ -71,6 +74,7 @@
   {
     "id": "sign-a-document-signer",
     "title": "Sign a document: create it with one signer",
+    "title_pt": "Assinar um documento: criá-lo com um signatário",
     "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
     "product": "signer",
     "area": "documents",
@@ -94,6 +98,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
+    "title_pt": "Criar um documento com um anexo",
     "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `IsPrivate = false`.",
     "product": "signer",
     "area": "documents",
@@ -117,6 +122,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
+    "title_pt": "Criar um documento com um anexo",
     "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate` to false.",
     "product": "signer",
     "area": "documents",
@@ -141,6 +147,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
+    "title_pt": "Criar um documento com um anexo",
     "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate: false`.",
     "product": "signer",
     "area": "documents",
@@ -163,6 +170,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
+    "title_pt": "Criar um documento com um anexo",
     "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate` to false.",
     "product": "signer",
     "area": "documents",
@@ -186,6 +194,7 @@
   {
     "id": "create-document-with-description-signer",
     "title": "Create a document with a description",
+    "title_pt": "Criar um documento com uma descrição",
     "description": "Creates a one-signer document and sets its `description` text.",
     "product": "signer",
     "area": "documents",
@@ -209,6 +218,7 @@
   {
     "id": "create-document-with-description-signer",
     "title": "Create a document with a description",
+    "title_pt": "Criar um documento com uma descrição",
     "description": "Creates a one-signer document and sets its `description` text.",
     "product": "signer",
     "area": "documents",
@@ -233,6 +243,7 @@
   {
     "id": "create-document-with-description-signer",
     "title": "Create a document with a description",
+    "title_pt": "Criar um documento com uma descrição",
     "description": "Creates a one-signer document and sets its `description` text.",
     "product": "signer",
     "area": "documents",
@@ -255,6 +266,7 @@
   {
     "id": "create-document-with-description-signer",
     "title": "Create a document with a description",
+    "title_pt": "Criar um documento com uma descrição",
     "description": "Creates a one-signer document and sets its `description` text.",
     "product": "signer",
     "area": "documents",
@@ -278,6 +290,7 @@
   {
     "id": "create-envelope-signer",
     "title": "Merge several PDFs into one document (envelope)",
+    "title_pt": "Mesclar vários PDFs em um único documento (envelope)",
     "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
     "product": "signer",
     "area": "documents",
@@ -301,6 +314,7 @@
   {
     "id": "create-envelope-signer",
     "title": "Merge several PDFs into one document (envelope)",
+    "title_pt": "Mesclar vários PDFs em um único documento (envelope)",
     "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
     "product": "signer",
     "area": "documents",
@@ -325,6 +339,7 @@
   {
     "id": "create-envelope-signer",
     "title": "Merge several PDFs into one document (envelope)",
+    "title_pt": "Mesclar vários PDFs em um único documento (envelope)",
     "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
     "product": "signer",
     "area": "documents",
@@ -347,6 +362,7 @@
   {
     "id": "create-envelope-signer",
     "title": "Merge several PDFs into one document (envelope)",
+    "title_pt": "Mesclar vários PDFs em um único documento (envelope)",
     "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
     "product": "signer",
     "area": "documents",
@@ -370,6 +386,7 @@
   {
     "id": "upload-file-base64-signer",
     "title": "Upload a file as Base64",
+    "title_pt": "Fazer upload de um arquivo em Base64",
     "description": "Reads a PDF, sends its Base64 bytes to the Base64 upload API (`POST /api/uploads/bytes`) and creates a one-signer document from the returned upload id. Uses `uploadFileBytes` with an `UploadsUploadBytesRequest`, then builds the `UploadModel` by hand.",
     "product": "signer",
     "area": "documents",
@@ -393,6 +410,7 @@
   {
     "id": "upload-file-multipart-signer",
     "title": "Upload a file as multipart/form-data",
+    "title_pt": "Fazer upload de um arquivo como multipart/form-data",
     "description": "Uploads a PDF with the multipart upload API (`POST /api/uploads`) and prints the result, whose `id` is the upload id that document creation takes. Uses `UploadApi.apiUploadsPost`.",
     "product": "signer",
     "area": "documents",
@@ -415,6 +433,7 @@
   {
     "id": "create-document-large-file-signer",
     "title": "Create a document from a large file",
+    "title_pt": "Criar um documento a partir de um arquivo grande",
     "description": "Uploads a large PDF with the client's file upload (the comment asks for a file over 10 MB), then creates a one-signer document from it. Caveat: it reads `resources/bigsample.pdf`, which is not in the repository; add your own large PDF there.",
     "product": "signer",
     "area": "documents",
@@ -437,6 +456,7 @@
   {
     "id": "generate-document-from-template-signer",
     "title": "Generate a document from a PDF form template and CSV data",
+    "title_pt": "Gerar um documento a partir de um modelo de formulário PDF e de dados em CSV",
     "description": "Uploads a PDF form template and a CSV data file, then calls the document generation API with both files and two `Signer` actions. Prints the generation id and does not wait for the generation to finish.",
     "product": "signer",
     "area": "documents",
@@ -462,6 +482,7 @@
   {
     "id": "generate-document-from-template-signer",
     "title": "Generate a document from a PDF form template and CSV data",
+    "title_pt": "Gerar um documento a partir de um modelo de formulário PDF e de dados em CSV",
     "description": "Uploads a PDF form template and a CSV data file, then calls the document generation API with both files and two `Signer` actions. Waits 10 seconds, then checks `getGenerationStatus` for `DONE`.",
     "product": "signer",
     "area": "documents",
@@ -486,6 +507,7 @@
   {
     "id": "create-document-multiple-signers-signer",
     "title": "Create a document with two or more signers, in any order",
+    "title_pt": "Criar um documento com dois ou mais signatários, em qualquer ordem",
     "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
     "product": "signer",
     "area": "flows",
@@ -509,6 +531,7 @@
   {
     "id": "create-document-multiple-signers-signer",
     "title": "Create a document with two or more signers, in any order",
+    "title_pt": "Criar um documento com dois ou mais signatários, em qualquer ordem",
     "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
     "product": "signer",
     "area": "flows",
@@ -533,6 +556,7 @@
   {
     "id": "create-document-multiple-signers-signer",
     "title": "Create a document with two or more signers, in any order",
+    "title_pt": "Criar um documento com dois ou mais signatários, em qualquer ordem",
     "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
     "product": "signer",
     "area": "flows",
@@ -555,6 +579,7 @@
   {
     "id": "create-document-multiple-signers-signer",
     "title": "Create a document with two or more signers, in any order",
+    "title_pt": "Criar um documento com dois ou mais signatários, em qualquer ordem",
     "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
     "product": "signer",
     "area": "flows",
@@ -578,6 +603,7 @@
   {
     "id": "create-document-ordered-flow-signer",
     "title": "Create a document with signers in a fixed order",
+    "title_pt": "Criar um documento com signatários em uma ordem fixa",
     "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
     "product": "signer",
     "area": "flows",
@@ -601,6 +627,7 @@
   {
     "id": "create-document-ordered-flow-signer",
     "title": "Create a document with signers in a fixed order",
+    "title_pt": "Criar um documento com signatários em uma ordem fixa",
     "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
     "product": "signer",
     "area": "flows",
@@ -625,6 +652,7 @@
   {
     "id": "create-document-ordered-flow-signer",
     "title": "Create a document with signers in a fixed order",
+    "title_pt": "Criar um documento com signatários em uma ordem fixa",
     "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
     "product": "signer",
     "area": "flows",
@@ -647,6 +675,7 @@
   {
     "id": "create-document-ordered-flow-signer",
     "title": "Create a document with signers in a fixed order",
+    "title_pt": "Criar um documento com signatários em uma ordem fixa",
     "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
     "product": "signer",
     "area": "flows",
@@ -670,6 +699,7 @@
   {
     "id": "create-document-with-approver-signer",
     "title": "Create a document with an approver",
+    "title_pt": "Criar um documento com um aprovador",
     "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
     "product": "signer",
     "area": "flows",
@@ -693,6 +723,7 @@
   {
     "id": "create-document-with-approver-signer",
     "title": "Create a document with an approver",
+    "title_pt": "Criar um documento com um aprovador",
     "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
     "product": "signer",
     "area": "flows",
@@ -717,6 +748,7 @@
   {
     "id": "create-document-with-approver-signer",
     "title": "Create a document with an approver",
+    "title_pt": "Criar um documento com um aprovador",
     "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
     "product": "signer",
     "area": "flows",
@@ -739,6 +771,7 @@
   {
     "id": "create-document-with-approver-signer",
     "title": "Create a document with an approver",
+    "title_pt": "Criar um documento com um aprovador",
     "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
     "product": "signer",
     "area": "flows",
@@ -762,6 +795,7 @@
   {
     "id": "create-document-with-signing-rule-signer",
     "title": "Create a document with a signing rule (any N of a group)",
+    "title_pt": "Criar um documento com uma regra de assinatura (quaisquer N de um grupo)",
     "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
     "product": "signer",
     "area": "flows",
@@ -785,6 +819,7 @@
   {
     "id": "create-document-with-signing-rule-signer",
     "title": "Create a document with a signing rule (any N of a group)",
+    "title_pt": "Criar um documento com uma regra de assinatura (quaisquer N de um grupo)",
     "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
     "product": "signer",
     "area": "flows",
@@ -809,6 +844,7 @@
   {
     "id": "create-document-with-signing-rule-signer",
     "title": "Create a document with a signing rule (any N of a group)",
+    "title_pt": "Criar um documento com uma regra de assinatura (quaisquer N de um grupo)",
     "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
     "product": "signer",
     "area": "flows",
@@ -831,6 +867,7 @@
   {
     "id": "create-document-with-signing-rule-signer",
     "title": "Create a document with a signing rule (any N of a group)",
+    "title_pt": "Criar um documento com uma regra de assinatura (quaisquer N de um grupo)",
     "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
     "product": "signer",
     "area": "flows",
@@ -854,6 +891,7 @@
   {
     "id": "create-document-with-positioned-signatures-signer",
     "title": "Pre-position a signature on the document",
+    "title_pt": "Pré-posicionar uma assinatura no documento",
     "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file. The class in this file is named `CreateDocumentWithPositionedSignatures`, without the `Scenario` suffix.",
     "product": "signer",
     "area": "flows",
@@ -877,6 +915,7 @@
   {
     "id": "create-document-with-positioned-signatures-signer",
     "title": "Pre-position a signature on the document",
+    "title_pt": "Pré-posicionar uma assinatura no documento",
     "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
     "product": "signer",
     "area": "flows",
@@ -901,6 +940,7 @@
   {
     "id": "create-document-with-positioned-signatures-signer",
     "title": "Pre-position a signature on the document",
+    "title_pt": "Pré-posicionar uma assinatura no documento",
     "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
     "product": "signer",
     "area": "flows",
@@ -923,6 +963,7 @@
   {
     "id": "create-document-with-positioned-signatures-signer",
     "title": "Pre-position a signature on the document",
+    "title_pt": "Pré-posicionar uma assinatura no documento",
     "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
     "product": "signer",
     "area": "flows",
@@ -946,6 +987,7 @@
   {
     "id": "add-signer-to-existing-document-signer",
     "title": "Add a signer to an existing document",
+    "title_pt": "Adicionar um signatário a um documento existente",
     "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step.",
     "product": "signer",
     "area": "flows",
@@ -969,6 +1011,7 @@
   {
     "id": "edit-flow-action-signer",
     "title": "Change a participant in an ongoing flow",
+    "title_pt": "Trocar um participante de um fluxo em andamento",
     "description": "Creates a document, reads its flow actions, then edits the flow (`POST /api/documents/{id}/flow`) with an `editedFlowActions` entry that changes the e-mail address of the first action's participant.",
     "product": "signer",
     "area": "flows",
@@ -992,6 +1035,7 @@
   {
     "id": "create-pdf-with-cades-signature-signer",
     "title": "Require a CAdES signature on a PDF",
+    "title_pt": "Exigir uma assinatura CAdES em um PDF",
     "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
     "product": "signer",
     "area": "signature-formats",
@@ -1015,6 +1059,7 @@
   {
     "id": "create-pdf-with-cades-signature-signer",
     "title": "Require a CAdES signature on a PDF",
+    "title_pt": "Exigir uma assinatura CAdES em um PDF",
     "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
     "product": "signer",
     "area": "signature-formats",
@@ -1039,6 +1084,7 @@
   {
     "id": "create-pdf-with-cades-signature-signer",
     "title": "Require a CAdES signature on a PDF",
+    "title_pt": "Exigir uma assinatura CAdES em um PDF",
     "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
     "product": "signer",
     "area": "signature-formats",
@@ -1061,6 +1107,7 @@
   {
     "id": "create-pdf-with-cades-signature-signer",
     "title": "Require a CAdES signature on a PDF",
+    "title_pt": "Exigir uma assinatura CAdES em um PDF",
     "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
     "product": "signer",
     "area": "signature-formats",
@@ -1084,6 +1131,7 @@
   {
     "id": "create-xml-full-signature-signer",
     "title": "Sign a whole XML file (XAdES)",
+    "title_pt": "Assinar um arquivo XML inteiro (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
     "product": "signer",
     "area": "signature-formats",
@@ -1107,6 +1155,7 @@
   {
     "id": "create-xml-full-signature-signer",
     "title": "Sign a whole XML file (XAdES)",
+    "title_pt": "Assinar um arquivo XML inteiro (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
     "product": "signer",
     "area": "signature-formats",
@@ -1131,6 +1180,7 @@
   {
     "id": "create-xml-full-signature-signer",
     "title": "Sign a whole XML file (XAdES)",
+    "title_pt": "Assinar um arquivo XML inteiro (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
     "product": "signer",
     "area": "signature-formats",
@@ -1153,6 +1203,7 @@
   {
     "id": "create-xml-full-signature-signer",
     "title": "Sign a whole XML file (XAdES)",
+    "title_pt": "Assinar um arquivo XML inteiro (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
     "product": "signer",
     "area": "signature-formats",
@@ -1176,6 +1227,7 @@
   {
     "id": "create-xml-element-signature-signer",
     "title": "Sign one element of an XML file (XAdES)",
+    "title_pt": "Assinar um elemento de um arquivo XML (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
     "product": "signer",
     "area": "signature-formats",
@@ -1199,6 +1251,7 @@
   {
     "id": "create-xml-element-signature-signer",
     "title": "Sign one element of an XML file (XAdES)",
+    "title_pt": "Assinar um elemento de um arquivo XML (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
     "product": "signer",
     "area": "signature-formats",
@@ -1223,6 +1276,7 @@
   {
     "id": "create-xml-element-signature-signer",
     "title": "Sign one element of an XML file (XAdES)",
+    "title_pt": "Assinar um elemento de um arquivo XML (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
     "product": "signer",
     "area": "signature-formats",
@@ -1245,6 +1299,7 @@
   {
     "id": "create-xml-element-signature-signer",
     "title": "Sign one element of an XML file (XAdES)",
+    "title_pt": "Assinar um elemento de um arquivo XML (XAdES)",
     "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
     "product": "signer",
     "area": "signature-formats",
@@ -1268,6 +1323,7 @@
   {
     "id": "create-digital-degree-signer",
     "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "title_pt": "Assinar um diploma digital (XAdES, Portaria MEC 554/2019)",
     "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML.",
     "product": "signer",
     "area": "signature-formats",
@@ -1291,6 +1347,7 @@
   {
     "id": "create-digital-degree-signer",
     "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "title_pt": "Assinar um diploma digital (XAdES, Portaria MEC 554/2019)",
     "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML.",
     "product": "signer",
     "area": "signature-formats",
@@ -1315,6 +1372,7 @@
   {
     "id": "create-digital-degree-signer",
     "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "title_pt": "Assinar um diploma digital (XAdES, Portaria MEC 554/2019)",
     "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML.",
     "product": "signer",
     "area": "signature-formats",
@@ -1337,6 +1395,7 @@
   {
     "id": "create-digital-degree-signer",
     "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "title_pt": "Assinar um diploma digital (XAdES, Portaria MEC 554/2019)",
     "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML. Also puts the document in a new folder named \"New Folder\".",
     "product": "signer",
     "area": "signature-formats",
@@ -1360,6 +1419,7 @@
   {
     "id": "public-signature-with-certificate-signer",
     "title": "Sign with a digital certificate through the API (public signature)",
+    "title_pt": "Assinar com um certificado digital pela API (assinatura pública)",
     "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Loads the certificate and key from `56072386105.pfx` (a Lacuna test certificate, password `1234`, kept in `nodejs/samples`), which you must copy next to the executable; handles RSA or ECDSA keys and SHA-1 to SHA-512.",
     "product": "signer",
     "area": "signing",
@@ -1384,6 +1444,7 @@
   {
     "id": "public-signature-with-certificate-signer",
     "title": "Sign with a digital certificate through the API (public signature)",
+    "title_pt": "Assinar com um certificado digital pela API (assinatura pública)",
     "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Deprecated until it is fixed: `performSignature` is a stub that throws, the `certificate.cer` it loads is not in the repository, and it does not send the ticket; use the .NET or Node.js sample as the reference.",
     "product": "signer",
     "area": "signing",
@@ -1408,6 +1469,7 @@
   {
     "id": "public-signature-with-certificate-signer",
     "title": "Sign with a digital certificate through the API (public signature)",
+    "title_pt": "Assinar com um certificado digital pela API (assinatura pública)",
     "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Loads the test PFX with node-forge, handles SHA-256 hashes only, and prints the document's validation URL.",
     "product": "signer",
     "area": "signing",
@@ -1431,6 +1493,7 @@
   {
     "id": "electronic-signature-with-signature-image-signer",
     "title": "Sign electronically with an uploaded signature image",
+    "title_pt": "Assinar eletronicamente com uma imagem de assinatura enviada",
     "description": "Creates a document with `allowElectronicSignature`, gets the action URL, takes the document key and ticket from it, uploads a PNG, and calls `signElectronicallyWithKey` (`POST /api/documents/keys/{key}/electronic-signature`) with the signature position, the image as initials, and the user's time zone offset.",
     "product": "signer",
     "area": "signing",
@@ -1456,6 +1519,7 @@
   {
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
+    "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
     "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
@@ -1479,6 +1543,7 @@
   {
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
+    "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
     "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
@@ -1503,6 +1568,7 @@
   {
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
+    "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
     "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
@@ -1525,6 +1591,7 @@
   {
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
+    "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
     "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
@@ -1548,6 +1615,7 @@
   {
     "id": "check-document-status-signer",
     "title": "Check a document's status and its participants' actions",
+    "title_pt": "Verificar o status de um documento e as ações dos participantes",
     "description": "Creates a document, reads it back with the document details call, and checks whether the whole flow is concluded and the `status` of each flow action. The comments recommend a webhook instead of polling.",
     "product": "signer",
     "area": "tracking",
@@ -1571,6 +1639,7 @@
   {
     "id": "check-document-status-signer",
     "title": "Check a document's status and its participants' actions",
+    "title_pt": "Verificar o status de um documento e as ações dos participantes",
     "description": "Creates a document, reads it back with the document details call, and checks whether the whole flow is concluded and the `status` of each flow action. The comments recommend a webhook instead of polling.",
     "product": "signer",
     "area": "tracking",
@@ -1595,6 +1664,7 @@
   {
     "id": "check-document-status-signer",
     "title": "Check a document's status and its participants' actions",
+    "title_pt": "Verificar o status de um documento e as ações dos participantes",
     "description": "Creates a document, reads it back with the document details call, and checks whether the whole flow is concluded and the `status` of each flow action. The comments recommend a webhook instead of polling. Prints the participants whose action is still `Pending`.",
     "product": "signer",
     "area": "tracking",
@@ -1618,6 +1688,7 @@
   {
     "id": "send-signing-reminders-signer",
     "title": "Send reminders to participants with pending actions",
+    "title_pt": "Enviar lembretes aos participantes com ações pendentes",
     "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
     "product": "signer",
     "area": "tracking",
@@ -1641,6 +1712,7 @@
   {
     "id": "send-signing-reminders-signer",
     "title": "Send reminders to participants with pending actions",
+    "title_pt": "Enviar lembretes aos participantes com ações pendentes",
     "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
     "product": "signer",
     "area": "tracking",
@@ -1665,6 +1737,7 @@
   {
     "id": "send-signing-reminders-signer",
     "title": "Send reminders to participants with pending actions",
+    "title_pt": "Enviar lembretes aos participantes com ações pendentes",
     "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
     "product": "signer",
     "area": "tracking",
@@ -1687,6 +1760,7 @@
   {
     "id": "send-signing-reminders-signer",
     "title": "Send reminders to participants with pending actions",
+    "title_pt": "Enviar lembretes aos participantes com ações pendentes",
     "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
     "product": "signer",
     "area": "tracking",
@@ -1710,6 +1784,7 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
+    "title_pt": "Listar documentos",
     "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a status filter. Filters with `Status = DocumentFilterStatus.Pending` (the `Status` parameter), which is the current way to filter; `IsConcluded` is deprecated.",
     "product": "signer",
     "area": "tracking",
@@ -1732,6 +1807,7 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
+    "title_pt": "Listar documentos",
     "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `DocumentFilterStatus.CONCLUDED` (the `Status` parameter), which is the current way to filter.",
     "product": "signer",
     "area": "tracking",
@@ -1755,6 +1831,7 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
+    "title_pt": "Listar documentos",
     "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a status filter. Calls `DocumentsApi.apiDocumentsGet`, whose 16 parameters are positional (`undefined` for unused filters), with `status` set to `DocumentFilterStatus.Pending`, which is the current way to filter; `isConcluded` is deprecated.",
     "product": "signer",
     "area": "tracking",
@@ -1776,6 +1853,7 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
+    "title_pt": "Listar documentos",
     "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Legacy: it filters with `setIsConcluded(false)` because `lacuna/signer-client` 1.4.10, the latest release, cannot send `Status`: `listDocuments` builds a query with `IsConcluded` only. The .NET, Java and Node.js samples filter with `Status` (`DocumentFilterStatus`), the current way.",
     "product": "signer",
     "area": "tracking",
@@ -1798,6 +1876,7 @@
   {
     "id": "list-document-flows-signer",
     "title": "List saved document flows",
+    "title_pt": "Listar os fluxos de documento salvos",
     "description": "Lists the organization's saved document flows (`GET /api/document-flows`) with a name filter, page size, offset and order, and prints the result. Despite its file name, it does not list documents (`listDocumentsScenario.ts` does). Uses `FlowsApi.apiDocumentFlowsGet`.",
     "product": "signer",
     "area": "tracking",
@@ -1819,6 +1898,7 @@
   {
     "id": "webhook-endpoint-signer",
     "title": "Receive webhooks with a minimal HTTP endpoint",
+    "title_pt": "Receber webhooks com um endpoint HTTP mínimo",
     "description": "Listens on `http://localhost:8080/webhook` (`SIGNER_WEBHOOK_PORT` changes the port) with `System.Net.HttpListener`. It answers 401 unless the `Authorization` header matches the token registered with the webhook (`SIGNER_WEBHOOK_TOKEN`), answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. Keeps the event keys in memory, then calls `CheckDocumentStatusScenario.HandleWebhook`. `HttpListener` accepts only the `localhost` Host header, so a tunnel must rewrite it (ngrok `--host-header=rewrite`).",
     "product": "signer",
     "area": "webhooks",
@@ -1842,6 +1922,7 @@
   {
     "id": "webhook-endpoint-signer",
     "title": "Receive webhooks with a minimal HTTP endpoint",
+    "title_pt": "Receber webhooks com um endpoint HTTP mínimo",
     "description": "Listens on `http://localhost:8080/webhook` (`SIGNER_WEBHOOK_PORT` changes the port) with the JDK's `com.sun.net.httpserver.HttpServer`. It answers 401 unless the `Authorization` header matches the token registered with the webhook (`SIGNER_WEBHOOK_TOKEN`), answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. Keeps the event keys in memory and processes events on a separate thread, then calls `CheckDocumentStatusScenario.HandleWebhook`.",
     "product": "signer",
     "area": "webhooks",
@@ -1865,6 +1946,7 @@
   {
     "id": "webhook-endpoint-signer",
     "title": "Receive webhooks with a minimal HTTP endpoint",
+    "title_pt": "Receber webhooks com um endpoint HTTP mínimo",
     "description": "Listens on `http://localhost:8080/webhook` (`SIGNER_WEBHOOK_PORT` changes the port) with Node's `http` module. It answers 401 unless the `Authorization` header matches the token registered with the webhook (`SIGNER_WEBHOOK_TOKEN`), answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. Keeps the event keys in memory, then calls `handleWebhook` from `checkDocumentStatusScenario.ts`.",
     "product": "signer",
     "area": "webhooks",
@@ -1887,6 +1969,7 @@
   {
     "id": "webhook-endpoint-signer",
     "title": "Receive webhooks with a minimal HTTP endpoint",
+    "title_pt": "Receber webhooks com um endpoint HTTP mínimo",
     "description": "Answers on `http://localhost:8080/webhook` under PHP's built-in web server, with `webhook.php` as the router script. It answers 401 unless the `Authorization` header matches the token registered with the webhook (`SIGNER_WEBHOOK_TOKEN`), answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. PHP keeps nothing in memory between requests, so each event key is recorded as a file in the temp folder. Then it passes the body to `CheckDocumentStatusScenario::HandleWebhook`.",
     "product": "signer",
     "area": "webhooks",
@@ -1910,6 +1993,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "title_pt": "Tratar os webhooks de documentos (assinado, aprovado, recusado, concluído)",
     "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint. Deserializes `data` with Newtonsoft.Json.",
     "product": "signer",
     "area": "webhooks",
@@ -1933,6 +2017,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "title_pt": "Tratar os webhooks de documentos (assinado, aprovado, recusado, concluído)",
     "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint. Re-reads `data` with `signerClient.getGson()`, which is configured for the API's date fields.",
     "product": "signer",
     "area": "webhooks",
@@ -1957,6 +2042,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "title_pt": "Tratar os webhooks de documentos (assinado, aprovado, recusado, concluído)",
     "description": "The exported `handleWebhook` function takes the received webhook body (`{ type, data }`), switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint.",
     "product": "signer",
     "area": "webhooks",
@@ -1978,6 +2064,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "title_pt": "Tratar os webhooks de documentos (assinado, aprovado, recusado, concluído)",
     "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint. Takes the raw JSON body.",
     "product": "signer",
     "area": "webhooks",
@@ -2001,6 +2088,7 @@
   {
     "id": "webhook-invoice-closed-signer",
     "title": "Handle the invoice-closed billing webhook",
+    "title_pt": "Tratar o webhook de fechamento de fatura",
     "description": "A `HandleWebhook` method handles `InvoiceClosed`: it prints the invoice period and value, the totals per transaction type, and the billing information. This event comes from the instance billing webhook, which the system administrator configures, not from an organization webhook.",
     "product": "signer",
     "area": "webhooks",
@@ -2024,6 +2112,7 @@
   {
     "id": "webhook-invoice-closed-signer",
     "title": "Handle the invoice-closed billing webhook",
+    "title_pt": "Tratar o webhook de fechamento de fatura",
     "description": "A `HandleWebhook` method handles `InvoiceClosed`: it prints the invoice period and value, the totals per transaction type, and the billing information. This event comes from the instance billing webhook, which the system administrator configures, not from an organization webhook.",
     "product": "signer",
     "area": "webhooks",
@@ -2048,6 +2137,7 @@
   {
     "id": "webhook-invoice-closed-signer",
     "title": "Handle the invoice-closed billing webhook",
+    "title_pt": "Tratar o webhook de fechamento de fatura",
     "description": "A `HandleWebhook` method handles `InvoiceClosed`: it prints the invoice period and value, the totals per transaction type, and the billing information. This event comes from the instance billing webhook, which the system administrator configures, not from an organization webhook.",
     "product": "signer",
     "area": "webhooks",
@@ -2071,6 +2161,7 @@
   {
     "id": "mark-invoice-paid-signer",
     "title": "Mark an invoice as paid",
+    "title_pt": "Marcar uma fatura como paga",
     "description": "Updates an invoice's payment status with `isPaid = true` for a hard-coded invoice id. The comment says this needs an API key with billing administration privileges.",
     "product": "signer",
     "area": "billing",
@@ -2093,6 +2184,7 @@
   {
     "id": "mark-invoice-paid-signer",
     "title": "Mark an invoice as paid",
+    "title_pt": "Marcar uma fatura como paga",
     "description": "Updates an invoice's payment status with `isPaid = true` for a hard-coded invoice id. The comment says this needs an API key with billing administration privileges.",
     "product": "signer",
     "area": "billing",
@@ -2116,6 +2208,7 @@
   {
     "id": "mark-invoice-paid-signer",
     "title": "Mark an invoice as paid",
+    "title_pt": "Marcar uma fatura como paga",
     "description": "Updates an invoice's payment status with `isPaid = true` for a hard-coded invoice id. The comment says this needs an API key with billing administration privileges.",
     "product": "signer",
     "area": "billing",
@@ -2138,6 +2231,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
+    "title_pt": "Baixar as versões de um documento",
     "description": "Gets a download ticket (a temporary URL), saves `Original` and fetches its bytes with `GetDocumentBytesAsync`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `downloaded-*.pdf` in the working folder. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`), so it reads `HasSignature` and `Status` first and skips `Signatures` for canceled, refused and expired documents. Set `SignedDocumentId` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
@@ -2160,6 +2254,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
+    "title_pt": "Baixar as versões de um documento",
     "description": "Gets a download ticket (a temporary URL), saves `Original` and fetches its bytes with `getDocumentBytes`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `downloaded-*.pdf` in `java/console`. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`, which `getDocumentContent` reports as a `RestUnreachableException` without the code), so it reads `isHasSignature()` and `getStatus()` first and skips `Signatures` for canceled, refused and expired documents. Set `SIGNED_DOCUMENT_ID` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
@@ -2183,6 +2278,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
+    "title_pt": "Baixar as versões de um documento",
     "description": "Gets a download ticket (a temporary URL), saves `Original` and fetches its bytes from `GET /api/documents/{id}/content-b64`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `nodejs/samples/downloaded-*.pdf`. It passes `responseType: 'arraybuffer'` to `apiDocumentsIdContentGet` so axios keeps the bytes unchanged. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`), so it reads `hasSignature` and `status` first and skips `Signatures` for canceled, refused and expired documents. Set `signedDocumentId` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
@@ -2205,6 +2301,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
+    "title_pt": "Baixar as versões de um documento",
     "description": "Gets a download ticket (a temporary URL), saves `Original` and its bytes from `GET /api/documents/{id}/content-b64`, then saves the signed file (`Signatures`) and the `PrinterFriendlyVersion`, as `php/resources/downloaded-*.pdf`. Both need at least one signature (until then the API answers 422 `DocumentHasNoSignatures`, and `getDocumentContent` returns that error JSON instead of throwing), so it reads `getHasSignature()` and `getStatus()` first and skips `Signatures` for canceled, refused and expired documents. Set `SIGNED_DOCUMENT_ID` to a signed document's id; while it is null, the sample creates an unsigned document and saves only `Original`.",
     "product": "signer",
     "area": "downloads",
@@ -2227,6 +2324,7 @@
   {
     "id": "cancel-document-signer",
     "title": "Cancel a document",
+    "title_pt": "Cancelar um documento",
     "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2250,6 +2348,7 @@
   {
     "id": "cancel-document-signer",
     "title": "Cancel a document",
+    "title_pt": "Cancelar um documento",
     "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2274,6 +2373,7 @@
   {
     "id": "cancel-document-signer",
     "title": "Cancel a document",
+    "title_pt": "Cancelar um documento",
     "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2296,6 +2396,7 @@
   {
     "id": "cancel-document-signer",
     "title": "Cancel a document",
+    "title_pt": "Cancelar um documento",
     "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2319,6 +2420,7 @@
   {
     "id": "refuse-document-signer",
     "title": "Refuse a document as the organization",
+    "title_pt": "Recusar um documento em nome da organização",
     "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2342,6 +2444,7 @@
   {
     "id": "refuse-document-signer",
     "title": "Refuse a document as the organization",
+    "title_pt": "Recusar um documento em nome da organização",
     "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2366,6 +2469,7 @@
   {
     "id": "refuse-document-signer",
     "title": "Refuse a document as the organization",
+    "title_pt": "Recusar um documento em nome da organização",
     "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2388,6 +2492,7 @@
   {
     "id": "refuse-document-signer",
     "title": "Refuse a document as the organization",
+    "title_pt": "Recusar um documento em nome da organização",
     "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2411,6 +2516,7 @@
   {
     "id": "delete-document-signer",
     "title": "Delete a document",
+    "title_pt": "Excluir um documento",
     "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2434,6 +2540,7 @@
   {
     "id": "delete-document-signer",
     "title": "Delete a document",
+    "title_pt": "Excluir um documento",
     "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2458,6 +2565,7 @@
   {
     "id": "delete-document-signer",
     "title": "Delete a document",
+    "title_pt": "Excluir um documento",
     "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2480,6 +2588,7 @@
   {
     "id": "delete-document-signer",
     "title": "Delete a document",
+    "title_pt": "Excluir um documento",
     "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
     "product": "signer",
     "area": "lifecycle",
@@ -2503,6 +2612,7 @@
   {
     "id": "add-document-version-signer",
     "title": "Upload a new version of a document",
+    "title_pt": "Enviar uma nova versão de um documento",
     "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
     "product": "signer",
     "area": "lifecycle",
@@ -2526,6 +2636,7 @@
   {
     "id": "add-document-version-signer",
     "title": "Upload a new version of a document",
+    "title_pt": "Enviar uma nova versão de um documento",
     "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
     "product": "signer",
     "area": "lifecycle",
@@ -2550,6 +2661,7 @@
   {
     "id": "add-document-version-signer",
     "title": "Upload a new version of a document",
+    "title_pt": "Enviar uma nova versão de um documento",
     "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
     "product": "signer",
     "area": "lifecycle",
@@ -2572,6 +2684,7 @@
   {
     "id": "add-document-version-signer",
     "title": "Upload a new version of a document",
+    "title_pt": "Enviar uma nova versão de um documento",
     "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
     "product": "signer",
     "area": "lifecycle",
@@ -2595,6 +2708,7 @@
   {
     "id": "create-document-in-new-folder-signer",
     "title": "Create a document in a new folder",
+    "title_pt": "Criar um documento em uma nova pasta",
     "description": "Creates a one-signer document with `newFolderName`, which creates the folder together with the document.",
     "product": "signer",
     "area": "folders",
@@ -2618,6 +2732,7 @@
   {
     "id": "create-document-in-new-folder-signer",
     "title": "Create a document in a new folder",
+    "title_pt": "Criar um documento em uma nova pasta",
     "description": "Creates a one-signer document with `newFolderName`, which creates the folder together with the document.",
     "product": "signer",
     "area": "folders",
@@ -2642,6 +2757,7 @@
   {
     "id": "create-document-in-new-folder-signer",
     "title": "Create a document in a new folder",
+    "title_pt": "Criar um documento em uma nova pasta",
     "description": "Creates a one-signer document with `newFolderName`, which creates the folder together with the document.",
     "product": "signer",
     "area": "folders",
@@ -2665,6 +2781,7 @@
   {
     "id": "create-document-in-existing-folder-signer",
     "title": "Create a document in an existing folder",
+    "title_pt": "Criar um documento em uma pasta existente",
     "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
     "product": "signer",
     "area": "folders",
@@ -2688,6 +2805,7 @@
   {
     "id": "create-document-in-existing-folder-signer",
     "title": "Create a document in an existing folder",
+    "title_pt": "Criar um documento em uma pasta existente",
     "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
     "product": "signer",
     "area": "folders",
@@ -2712,6 +2830,7 @@
   {
     "id": "create-document-in-existing-folder-signer",
     "title": "Create a document in an existing folder",
+    "title_pt": "Criar um documento em uma pasta existente",
     "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample folder\" with `FoldersApi.apiFoldersGet`.",
     "product": "signer",
     "area": "folders",
@@ -2734,6 +2853,7 @@
   {
     "id": "create-document-in-existing-folder-signer",
     "title": "Create a document in an existing folder",
+    "title_pt": "Criar um documento em uma pasta existente",
     "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
     "product": "signer",
     "area": "folders",
