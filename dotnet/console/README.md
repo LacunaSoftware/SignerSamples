@@ -56,10 +56,11 @@ participants (made-up `@mailinator.com` addresses).
 
 The Signer instance URL and API key are hard-coded in the constructor of
 [`Console/Scenarios/Scenario.cs`](Console/Scenarios/Scenario.cs) (`domain` and `token`). They
-point to Lacuna's homologation (test) instance, `https://signer-lac.azurewebsites.net`, with a
-shared sample key. To use your own organization, replace both values with your instance URL and
-an API key from that same instance. [`.env.example`](.env.example) lists every value the project
-uses; it is documentation only, because nothing loads it.
+point to the Signer sandbox, `https://signer-lac.azurewebsites.net`, with a shared sample key.
+The sandbox is where you should develop and test: to use your own organization there, replace the
+key with one of yours. For production, change the URL and the key together.
+[`.env.example`](.env.example) lists every value the project uses; it is documentation only,
+because nothing loads it.
 
 Prerequisites of some scenarios:
 

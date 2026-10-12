@@ -72,13 +72,13 @@ documents on the configured Signer instance, and Signer e-mails the sample parti
 
 ## Configuration
 
-The Signer instance URL and API key are hard-coded in [`scenarios/scenario.ts`](scenarios/scenario.ts)
-(`basePath` and `apiKey` in the exported `config`), and again in the compiled
-`scenarios/dist/scenario.js`. They point to Lacuna's homologation (test) instance,
-`https://signer-lac.azurewebsites.net`, with a shared sample key. To use your own organization,
-replace both values with your instance URL and an API key from that same instance.
-[`.env.example`](.env.example) lists every value the project uses; it is documentation only,
-because nothing loads it.
+The Signer instance URL and API key are hard-coded in
+[`scenarios/scenario.ts`](scenarios/scenario.ts) (`basePath` and `apiKey` in the exported
+`config`), and again in the compiled `scenarios/dist/scenario.js`. They point to the Signer
+sandbox, `https://signer-lac.azurewebsites.net`, with a shared sample key. The sandbox is where
+you should develop and test: to use your own organization there, replace the key with one of
+yours. For production, change the URL and the key together. [`.env.example`](.env.example) lists
+every value the project uses; it is documentation only, because nothing loads it.
 
 Prerequisites of some scenarios:
 

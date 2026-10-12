@@ -15,10 +15,10 @@ It is **not** a production template. Copy the API calls, not the scaffolding:
 
 - The Signer URL and API key are hard-coded in each project's base `Scenario` class (section 3).
   No sample reads a config file or an environment variable.
-- The committed key, `API Sample App|…`, belongs to Lacuna's **homologation** (test) instance,
-  `https://signer-lac.azurewebsites.net`. Do not edit, move, rotate or "clean up" it. Your client
-  needs their own key, created in their own organization (**Applications → Keys**); it is shown
-  only once.
+- The committed key, `API Sample App|…`, belongs to Lacuna's **sandbox**,
+  `https://signer-lac.azurewebsites.net`, the instance clients should develop and test against.
+  Do not edit, move, rotate or "clean up" the key. Your client needs their own key, created in
+  their own organization (**Applications → Keys**); it is shown only once.
 - **Running a scenario creates real documents** on that instance, and Signer e-mails the
   participants. The samples use made-up people at `@mailinator.com` (some files misspell it
   `@mailnator.com`; fix that first) with test CPFs such as `75502846369`. Never put a real
@@ -70,11 +70,11 @@ The Signer URL and API key are set in (the public-signature scenarios also hard-
 | PHP | `php/Scenarios/Scenario.php` | `$this->endPoint`, `$this->apiKey` in `init()` |
 
 Each project folder has a `.env.example` listing these values with placeholders. **No project
-loads it**; it is documentation only. The samples use the homologation instance,
-`https://signer-lac.azurewebsites.net`. Production is Dropsigner SaaS,
-`https://www.dropsigner.com` (the docs' examples use it), or the client's own on-premises URL.
-Each instance has its own database, and a key belongs to one organization in one instance, so a
-key works only against the instance it was created on.
+loads it**; it is documentation only. The samples use the sandbox,
+`https://signer-lac.azurewebsites.net`, where clients should also develop and test. Production is
+Dropsigner SaaS, `https://www.dropsigner.com` (the docs' examples use it), or the client's own
+on-premises URL. Each instance has its own database and keys, so a client needs one key for the
+sandbox and another for production.
 
 Per-project notes:
 
@@ -182,7 +182,7 @@ The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `dat
 
 ## 5. Pitfalls agents get wrong
 
-1. **The URL and the key don't match.** A homologation key fails on `www.dropsigner.com`, and the
+1. **The URL and the key don't match.** A sandbox key fails on `www.dropsigner.com`, and the
    reverse fails too. Change both values together in the base class.
 2. **Calling a document signed too early.** `DocumentSigned` fires once per participant, and a
    `Completed` flow action covers one participant only. The document is finished when its
