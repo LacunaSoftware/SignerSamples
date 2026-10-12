@@ -1,5 +1,6 @@
 package com.lacunasoftware.signer.sample.scenarios;
 
+import com.google.gson.Gson;
 import com.lacunasoftware.signer.BillingInformationTypes;
 import com.lacunasoftware.signer.InvoicesUpdateInvoicePaymentStatusRequest;
 import com.lacunasoftware.signer.WebhookTypes;
@@ -19,7 +20,11 @@ public class InvoiceWebhookHandlingScenario extends Scenario implements IWebhook
         {
             if (webhook.getType() == WebhookTypes.INVOICECLOSED)
             {
-                InvoiceClosedModel invoice = (InvoiceClosedModel)webhook.getData();
+                // WebhookModel.getData() returns an Object: Gson leaves it as a map, never an InvoiceClosedModel,
+                // so a cast would throw. Serialize it back to JSON and deserialize it with signerClient.getGson(),
+                // which reads the API's dates.
+                Gson gson = signerClient.getGson();
+                InvoiceClosedModel invoice = gson.fromJson(gson.toJson(webhook.getData()), InvoiceClosedModel.class);
 
                 System.out.println(String.format("Invoice %s for year %s and month %s is closed", invoice.getId().toString(), invoice.getYear(), invoice.getMonth()));
                 System.out.println(String.format("The standing value is %s", invoice.getValue()));

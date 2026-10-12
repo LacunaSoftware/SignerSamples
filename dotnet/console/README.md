@@ -97,8 +97,6 @@ Prerequisites of some scenarios:
 - `PublicSignatureScenario`: copy [`nodejs/samples/56072386105.pfx`](../../nodejs/samples/56072386105.pfx)
   (a Lacuna test certificate, password `1234`) next to `Console.exe`, for example to
   `Console/bin/Debug`.
-- `AddNewDocumentVersionScenario`: the file is not listed in `Console.csproj`, so add it to the
-  project before selecting it.
 - `InvoiceWebhookHandlingScenario.RunAsync`: needs an API key with billing administration
   privileges and a real invoice id.
 
