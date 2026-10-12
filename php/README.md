@@ -1,46 +1,45 @@
-This folder contains **PHP sample projects** demonstrating the usage of [Signer](https://www.dropsigner.com/).
+# Signer samples for PHP
+
+This folder contains a **PHP sample project** demonstrating the usage of [Signer](https://www.dropsigner.com/).
 
 For other languages, please visit the [repository root](https://github.com/LacunaSoftware/SignerSamples).
 
-## Default sample
+## Console application
 
-A sample **console application** can be fond in the in the index.php file
+The project is this `php` folder: a **console application** whose entry point is
+[`index.php`](index.php), with one scenario class per integration task in [`Scenarios`](Scenarios).
 
-You can user the following tool to run the application:
+To run it with [Composer](https://getcomposer.org):
 
-**Using [Composer](http://getcomposer.org)**
+1. [Download the repository](https://github.com/LacunaSoftware/SignerSamples/archive/master.zip)
+   or clone it.
 
-1. [Download the project](https://github.com/LacunaSoftware/SignerSamples/archive/master.zip)
-   or clone the repository
+1. In a command prompt, go to this `php` folder and run `composer install` (if it stops, see
+   Signer's client lib below).
 
-1. In a command prompt, navigate to the folder `console` and run the command
-   `composer install`.
-   
+1. In `index.php`, set the scenario to run, then run `php index.php`.
 
-Opening the samples
-----------------------
-
-The samples are located in the folder Scenarios, and you can test each one by calling them in the index.php file.
-
-Running samples
-----------------------
-
-Use the command prompt and run the command bellow to execute the example:
-
-php index.php
-
+[Run a scenario](#run-a-scenario) has the details.
 
 Signer's client lib
 ---------------------
 
-The recommended way to install **Signer client lib** is through [Composer](http://getcomposer.org):
+The samples use the `lacuna/signer-client` client lib, installed with Composer as in
+[`composer.json`](composer.json):
 
     "require": {
-        "lacuna/signer-client" : "1.4.5"
+        "lacuna/signer-client": "1.4.8"
     }
 
-This library depends on the GuzzleHttp package, which in turn requires PHP 5.5 or greater.
+`lacuna/signer-client` 1.4.8 depends on Guzzle 6 and `jms/serializer` 1.x, and `composer.json`
+also pins TCPDF 6.3.5. On PHP 8 or with a recent Composer, `composer install` stops on these checks:
 
+- `jms/serializer` 1.x declares PHP 5.5 to 7.x, so on PHP 8 add `--ignore-platform-req=php`. On
+  PHP 8.1 and later, the client lib's models then print `Deprecated` notices.
+- Recent Composer versions (2.10, for example) refuse to install Guzzle 6 and TCPDF 6.3.5, which
+  have published security advisories. To try the samples on your machine, setting
+  `COMPOSER_NO_SECURITY_BLOCKING=1` lifts that check for one install. Don't ship those versions in
+  your own application.
 
 ## Samples in this project
 

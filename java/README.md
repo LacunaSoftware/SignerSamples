@@ -1,48 +1,52 @@
-This folder contains **Java sample projects** demonstrating the usage of [Signer](https://www.dropsigner.com/).
+# Signer samples for Java
+
+This folder contains a **Java sample project** demonstrating the usage of [Signer](https://www.dropsigner.com/).
 
 > **Note:** Gradle is the only supported build; there is no Maven build. See [console/README.md](console/README.md) for current instructions.
 
 For other languages, please visit the [repository root](https://github.com/LacunaSoftware/SignerSamples).
 
-## Default sample (Console application)
+## Console application
 
-A sample **console application** can be fond in the folder [console](console/).
+A Java 8 **console application** is in the folder [console](console/), with one scenario class
+per integration task.
 
-You can use the following tool to run the application:
+To run it with Gradle:
 
-**Using Gradle**
+1. [Download the repository](https://github.com/LacunaSoftware/SignerSamples/archive/master.zip)
+   or clone it.
 
-1. [Download the project](https://github.com/LacunaSoftware/SignerSamples/archive/master.zip)
-   or clone the repository
-   
-1. In a command prompt, navigate to the folder `console` and run the command
-   `gradlew run` (on Linux `./gradlew run`).
-   
-> If you are on Linux, you may have to add the execution permission to *gradrew* file by executing
-the command `chmod +x gradlew`.
+1. In [`App.java`](console/src/main/java/com/lacunasoftware/signer/sample/App.java), set the
+   scenario to run.
 
-Opening the samples on Eclipse or IDEA
---------------------------------------
+1. In a command prompt, go to the folder `console` and run `gradlew run` on Windows, or
+   `./gradlew run` on Linux and macOS. The wrapper is Gradle 5.2.1, which needs JDK 8 to 11.
 
-To open one of the samples on Eclipse, run `gradlew eclipse` on the sample's folder and then
-then import the project from Eclipse.
+> On Linux and macOS, you may have to make the *gradlew* file executable first, with
+> `chmod +x gradlew`.
 
-To open one of the samples on IntelliJ IDEA, run `gradlew idea` on the sample's folder
-and then use the "Open" funcionality inside IDEA (works better than "Import").
+Opening the sample in Eclipse or IntelliJ IDEA
+----------------------------------------------
+
+To open the sample in Eclipse, run `gradlew eclipse` in the `console` folder, then import the
+project in Eclipse.
+
+To open the sample in IntelliJ IDEA, run `gradlew idea` in the `console` folder, then use IDEA's
+"Open" command (it works better than "Import").
 
 Signer's client lib
 ---------------------
 
-The samples use a client lib which encapsulates the API calls to Signer. This library
-supports **Java 8 or greater**. The lib should be **referenced as a dependency**, as can
-be seen in the file [build.gradle](console/build.gradle) of each sample:
+The sample uses a client lib which encapsulates the API calls to Signer. This library supports
+**Java 8 or greater**. It is **referenced as a dependency** from Maven Central, as can be seen in
+the file [build.gradle](console/build.gradle):
 
 	repositories {
 		mavenCentral()
 	}
 
 	dependencies {
-		compile("com.lacunasoftware.signer:signer-client:2.9.0")
+		implementation 'com.lacunasoftware.signer:signer-client:2.13.0'
 	}
 
 **NOTE:**

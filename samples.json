@@ -1755,7 +1755,28 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
-    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Legacy: it filters with `setIsConcluded(false)` because `lacuna/signer-client` (1.4.8 here, and up to 1.4.10) cannot send `Status`: `listDocuments` builds a query with `IsConcluded` only. The .NET and Java samples filter with `Status` (`DocumentFilterStatus`), the current way.",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a status filter. Calls `DocumentsApi.apiDocumentsGet`, whose 16 parameters are positional (`undefined` for unused filters), with `status` set to `DocumentFilterStatus.Pending`, which is the current way to filter; `isConcluded` is deprecated.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/listDocumentsScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#list-documents",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/listDocumentsScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "list-documents-signer",
+    "title": "List documents",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Legacy: it filters with `setIsConcluded(false)` because `lacuna/signer-client` (1.4.8 here, and up to 1.4.10) cannot send `Status`: `listDocuments` builds a query with `IsConcluded` only. The .NET, Java and Node.js samples filter with `Status` (`DocumentFilterStatus`), the current way.",
     "product": "signer",
     "area": "tracking",
     "language": "php",
@@ -1777,7 +1798,7 @@
   {
     "id": "list-document-flows-signer",
     "title": "List saved document flows",
-    "description": "Lists the organization's saved document flows (`GET /api/document-flows`) with a name filter, page size, offset and order, and prints the result. Despite its file name, it does not list documents. Uses `FlowsApi.apiDocumentFlowsGet`.",
+    "description": "Lists the organization's saved document flows (`GET /api/document-flows`) with a name filter, page size, offset and order, and prints the result. Despite its file name, it does not list documents (`listDocumentsScenario.ts` does). Uses `FlowsApi.apiDocumentFlowsGet`.",
     "product": "signer",
     "area": "tracking",
     "language": "nodejs",
@@ -2482,7 +2503,7 @@
   {
     "id": "add-document-version-signer",
     "title": "Upload a new version of a document",
-    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset. Caveat: this file is not listed in `Console.csproj`, so it is not compiled; add it to the project before selecting it in `Program.cs`.",
+    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
     "product": "signer",
     "area": "lifecycle",
     "language": "dotnet",

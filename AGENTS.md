@@ -78,8 +78,7 @@ sandbox and another for production.
 Per-project notes:
 
 - **.NET**: input files are copied to the output folder. `Console.csproj` does not glob, so list
-  every scenario file in it (`AddNewDocumentVersionScenario.cs` is missing). Public signature
-  expects `56072386105.pfx` next to the executable.
+  every scenario file in it. Public signature expects `56072386105.pfx` next to the executable.
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
   the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
 - **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in
@@ -91,9 +90,8 @@ Per-project notes:
 ## 4. The Signer integration model, as the samples show it
 
 **Authentication.** Every call sends `X-Api-Key: <application-name>|<key>`. The client libraries
-take the instance URL and key in their constructor (`SignerClient(domain, token)`; Node.js
-`new Configuration({ apiKey, basePath })`). A key sees and creates its own organization's
-documents only.
+take the instance URL and key in their constructor (`SignerClient(domain, token)`; Node.js `new
+Configuration({ apiKey, basePath })`). A key sees and creates its own organization's documents only.
 
 **A document is created in two calls: upload, then create.**
 
@@ -148,8 +146,8 @@ is one of `Pending`, `FlowConcluded` (all actions done, final processing still r
 `Concluded`, `Refused`, `Canceled` or `Expired`. Each flow action's `status` is one of `Created`
 (waiting for an earlier step), `Pending`, `Completed` or `Refused`. The docs say not to poll in
 production. To list documents (`GET /api/documents`), filter with `Status`
-(`DocumentFilterStatus`, as the .NET and Java samples do); `IsConcluded` is deprecated. The PHP
-sample still uses it: `lacuna/signer-client` (up to 1.4.10) cannot send `Status`.
+(`DocumentFilterStatus`, as the .NET, Java and Node.js samples do); `IsConcluded` is deprecated.
+The PHP sample still uses it: `lacuna/signer-client` (up to 1.4.10) cannot send `Status`.
 
 A webhook is registered per organization (**Organization → Integration**, or
 `POST /api/organizations/{orgId}/webhooks` with `url`, `authType`, `token`). Signer `POST`s
@@ -168,8 +166,8 @@ billing webhook. A webhook handler must:
 The `webhook-endpoint-signer` samples do all four with each platform's built-in HTTP server, then
 call `HandleWebhook`, which switches on `type`. `DocumentsCreated` and `DocumentDeleted` carry a
 `documents` list instead of an `id`; .NET's `WebhookTypes` (Lacuna.Signer.Api 1.47.0) lacks both.
-In Java, read `data` with `signerClient.getGson()` (or `getJackson()`), which handles the API's
-date fields.
+`WebhookModel` types `data` as `object`/`Object` in .NET and Java, so a cast to the event's model
+throws: deserialize it again (Java: with `signerClient.getGson()`, which reads the API's dates).
 
 **Getting the files.**
 
@@ -210,8 +208,7 @@ date fields.
 9. **Public signature.** The certificate's identifier (CPF/CNPJ) must match the participant's
    `identifier`. The PFX here is a test shortcut; in production the hash is signed on the
    user's device (smart card, token, browser).
-10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the .NET
-    add-document-version sample, which `Console.csproj` does not compile.
+10. **Copying a defect.** Read the catalog's "Caveat:" notes (section 1) before copying a sample.
 
 ## 6. Conventions for adding or changing a sample
 
@@ -243,11 +240,10 @@ date fields.
   [Webhooks](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks),
   [Embedded signature](https://docs.lacunasoftware.com/en-us/articles/signer/embedded-signature).
 - API reference (Swagger): https://www.dropsigner.com/swagger
-- Demo site:
-  - [Sign a document](https://try.lacunasoftware.com/en/signer/sign-a-document)
-    ([notes for agents](https://try.lacunasoftware.com/en/signer/sign-a-document.md))
-  - [Sign without leaving your page](https://try.lacunasoftware.com/en/signer/embedded-signature)
-    ([notes for agents](https://try.lacunasoftware.com/en/signer/embedded-signature.md))
+- Demo site: [Sign a document](https://try.lacunasoftware.com/en/signer/sign-a-document)
+  ([notes for agents](https://try.lacunasoftware.com/en/signer/sign-a-document.md)) and
+  [Sign without leaving your page](https://try.lacunasoftware.com/en/signer/embedded-signature)
+  ([notes for agents](https://try.lacunasoftware.com/en/signer/embedded-signature.md)).
 - PKI Suite samples (same catalog format): https://github.com/LacunaSoftware/PkiSuiteSamples
 - Client libraries: NuGet `Lacuna.Signer.Client`, Maven `signer-client`, npm `signer-node-client`.
   Composer: `lacuna/signer-client`.

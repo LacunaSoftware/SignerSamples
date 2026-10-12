@@ -2,6 +2,7 @@
 using Lacuna.Signer.Api.Invoices;
 using Lacuna.Signer.Api.Webhooks;
 using Lacuna.Signer.Client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace Console.Scenarios
             {
                 if (webhook.Type == WebhookTypes.InvoiceClosed)
                 {
-                    var invoice = (InvoiceClosedModel)webhook.Data;
+                    // WebhookModel.Data is an object: a JSON deserializer leaves it as a JObject (or a
+                    // JsonElement), never an InvoiceClosedModel, so a cast would throw. Deserialize it again.
+                    var invoice = JsonConvert.DeserializeObject<InvoiceClosedModel>(webhook.Data.ToString());
 
                     System.Console.WriteLine($"Invoice {invoice.Id} for year {invoice.Year} and month {invoice.Month} is closed");
                     System.Console.WriteLine($"The standing value is {invoice.Value}");
