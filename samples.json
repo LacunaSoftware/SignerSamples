@@ -1,0 +1,2644 @@
+[
+  {
+    "id": "sign-a-document-signer",
+    "title": "Sign a document: create it with one signer",
+    "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
+    "product": "signer",
+    "area": "documents",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithOneSignerScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/get-started",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/sign-a-document",
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "sign-a-document-signer",
+    "title": "Sign a document: create it with one signer",
+    "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
+    "product": "signer",
+    "area": "documents",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithOneSignerScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/get-started",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/sign-a-document",
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "sign-a-document-signer",
+    "title": "Sign a document: create it with one signer",
+    "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
+    "product": "signer",
+    "area": "documents",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithOneSignerScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/get-started",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/sign-a-document",
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithOneSignerScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "sign-a-document-signer",
+    "title": "Sign a document: create it with one signer",
+    "description": "Uploads a PDF, then creates a document whose flow has a single `Signer` action; Signer e-mails the participant an invitation to sign.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithOneSignerScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/get-started",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/sign-a-document",
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-attachment-signer",
+    "title": "Create a document with an attachment",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `IsPrivate = true`.",
+    "product": "signer",
+    "area": "documents",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithAttachmentScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-attachment-signer",
+    "title": "Create a document with an attachment",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate` to false.",
+    "product": "signer",
+    "area": "documents",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithAttachmentScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-attachment-signer",
+    "title": "Create a document with an attachment",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate: false`.",
+    "product": "signer",
+    "area": "documents",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithAttachmentScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithAttachmentScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-attachment-signer",
+    "title": "Create a document with an attachment",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Caveat: this PHP file gives the participant an `Approver` action, where the other languages use `Signer`.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithAttachmentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-description-signer",
+    "title": "Create a document with a description",
+    "description": "Creates a one-signer document and sets its `description` text.",
+    "product": "signer",
+    "area": "documents",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithDescriptionScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-description-signer",
+    "title": "Create a document with a description",
+    "description": "Creates a one-signer document and sets its `description` text.",
+    "product": "signer",
+    "area": "documents",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithDescriptionScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-description-signer",
+    "title": "Create a document with a description",
+    "description": "Creates a one-signer document and sets its `description` text.",
+    "product": "signer",
+    "area": "documents",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithDescriptionScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithDescriptionScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-description-signer",
+    "title": "Create a document with a description",
+    "description": "Creates a one-signer document and sets its `description` text.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithDescriptionScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-envelope-signer",
+    "title": "Merge several PDFs into one document (envelope)",
+    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
+    "product": "signer",
+    "area": "documents",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithEnvelopeScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#merge-multiple-files-into-a-single-document-envelope",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-envelope-signer",
+    "title": "Merge several PDFs into one document (envelope)",
+    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
+    "product": "signer",
+    "area": "documents",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithEnvelopeScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#merge-multiple-files-into-a-single-document-envelope",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-envelope-signer",
+    "title": "Merge several PDFs into one document (envelope)",
+    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
+    "product": "signer",
+    "area": "documents",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithEnvelopeScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#merge-multiple-files-into-a-single-document-envelope",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithEnvelopeScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-envelope-signer",
+    "title": "Merge several PDFs into one document (envelope)",
+    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithEnvelopeScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#merge-multiple-files-into-a-single-document-envelope",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "upload-file-base64-signer",
+    "title": "Upload a file as Base64",
+    "description": "Reads a PDF, sends its Base64 bytes to the Base64 upload API (`POST /api/uploads/bytes`) and creates a one-signer document from the returned upload id. Uses `uploadFileBytes` with an `UploadsUploadBytesRequest`, then builds the `UploadModel` by hand.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateBase64DocumentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "upload-file-multipart-signer",
+    "title": "Upload a file as multipart/form-data",
+    "description": "Uploads a PDF with the multipart upload API (`POST /api/uploads`) and prints the result, whose `id` is the upload id that document creation takes. Uses `UploadApi.apiUploadsPost`. Caveat: the file path is written with Windows backslashes, so it only resolves on Windows.",
+    "product": "signer",
+    "area": "documents",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/uploadUsingMultipartFormDataScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node uploadUsingMultipartFormDataScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-large-file-signer",
+    "title": "Create a document from a large file",
+    "description": "Uploads a large PDF with the client's file upload (the comment asks for a file over 10 MB), then creates a one-signer document from it. Caveat: it reads `resources/bigsample.pdf`, which is not in the repository; add your own large PDF there.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateLargeDocumentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/get-started#step-2-upload-the-file",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "generate-document-from-template-signer",
+    "title": "Generate a document from a PDF form template and CSV data",
+    "description": "Uploads a PDF form template and a CSV data file, then calls the document generation API with both files and two `Signer` actions. Prints the generation id and does not wait for the generation to finish.",
+    "product": "signer",
+    "area": "documents",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/GenerateDocumentWithTwoOrMoreSignersScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/Contrato-Servicos.pdf",
+      "java/console/src/main/resources/static/Contrato-Servicos.csv"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration-guide",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "generate-document-from-template-signer",
+    "title": "Generate a document from a PDF form template and CSV data",
+    "description": "Uploads a PDF form template and a CSV data file, then calls the document generation API with both files and two `Signer` actions. Waits 10 seconds, then checks `getGenerationStatus` for `DONE`.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/GenerateDocumentWithTwoOrMoreSignersScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/Contrato-Servicos.pdf",
+      "php/resources/Contrato-Servicos.csv"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration-guide",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-multiple-signers-signer",
+    "title": "Create a document with two or more signers, in any order",
+    "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
+    "product": "signer",
+    "area": "flows",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-multiple-signers-signer",
+    "title": "Create a document with two or more signers, in any order",
+    "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
+    "product": "signer",
+    "area": "flows",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-multiple-signers-signer",
+    "title": "Create a document with two or more signers, in any order",
+    "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
+    "product": "signer",
+    "area": "flows",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithTwoOrMoreSignersWithoutOrderScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithTwoOrMoreSignersWithoutOrderScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-multiple-signers-signer",
+    "title": "Create a document with two or more signers, in any order",
+    "description": "Creates a document with two `Signer` actions and no `step`, so both participants can sign at the same time.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-ordered-flow-signer",
+    "title": "Create a document with signers in a fixed order",
+    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
+    "product": "signer",
+    "area": "flows",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithTwoOrMoreSignersWithOrderScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-ordered-flow-signer",
+    "title": "Create a document with signers in a fixed order",
+    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
+    "product": "signer",
+    "area": "flows",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithTwoOrMoreSignersWithOrderScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-ordered-flow-signer",
+    "title": "Create a document with signers in a fixed order",
+    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
+    "product": "signer",
+    "area": "flows",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithTwoOrMoreSignersWithOrderScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithTwoOrMoreSignersWithOrderScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-ordered-flow-signer",
+    "title": "Create a document with signers in a fixed order",
+    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs. Caveat: this PHP file calls `setStep(2)` on the first action instead of the second, so the order is not what the title says; copy the step assignment from another language.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithTwoOrMoreSignersWithOrderScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-approver-signer",
+    "title": "Create a document with an approver",
+    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
+    "product": "signer",
+    "area": "flows",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithApproversScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-approver-signer",
+    "title": "Create a document with an approver",
+    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
+    "product": "signer",
+    "area": "flows",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithApproversScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-approver-signer",
+    "title": "Create a document with an approver",
+    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
+    "product": "signer",
+    "area": "flows",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithApproversScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithApproversScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-approver-signer",
+    "title": "Create a document with an approver",
+    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithApproversScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signing-rule-signer",
+    "title": "Create a document with a signing rule (any N of a group)",
+    "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
+    "product": "signer",
+    "area": "flows",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithSigningRuleScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signing-rule-signer",
+    "title": "Create a document with a signing rule (any N of a group)",
+    "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
+    "product": "signer",
+    "area": "flows",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithSigningRuleScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signing-rule-signer",
+    "title": "Create a document with a signing rule (any N of a group)",
+    "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
+    "product": "signer",
+    "area": "flows",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithSigningRuleScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithSigningRuleScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signing-rule-signer",
+    "title": "Create a document with a signing rule (any N of a group)",
+    "description": "Creates one `SignRule` action with two users in `signRuleUsers` and `numberRequiredSignatures = 1`, so a signature from either of them completes the action.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithSigningRuleScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-positioned-signatures-signer",
+    "title": "Pre-position a signature on the document",
+    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file. The class in this file is named `CreateDocumentWithPositionedSignatures`, without the `Scenario` suffix.",
+    "product": "signer",
+    "area": "flows",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithPositionedSignaturesScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#pre-positioning-a-signature-on-the-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-positioned-signatures-signer",
+    "title": "Pre-position a signature on the document",
+    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
+    "product": "signer",
+    "area": "flows",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithPositionedSignaturesScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#pre-positioning-a-signature-on-the-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-positioned-signatures-signer",
+    "title": "Pre-position a signature on the document",
+    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
+    "product": "signer",
+    "area": "flows",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithPositionedSignaturesScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#pre-positioning-a-signature-on-the-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentWithPositionedSignaturesScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-positioned-signatures-signer",
+    "title": "Pre-position a signature on the document",
+    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithPositionedSignaturesScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#pre-positioning-a-signature-on-the-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "add-signer-to-existing-document-signer",
+    "title": "Add a signer to an existing document",
+    "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/AddSignerToExistingDocumentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "edit-flow-action-signer",
+    "title": "Change a participant in an ongoing flow",
+    "description": "Creates a document, reads its flow actions, then edits the flow (`POST /api/documents/{id}/flow`) with an `editedFlowActions` entry that changes the e-mail address of the first action's participant.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/DocumentFlowEditRequestScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#the-flow-flowactions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdf-with-cades-signature-signer",
+    "title": "Require a CAdES signature on a PDF",
+    "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreatePDFDocumentWithCadesSignatureScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdf-with-cades-signature-signer",
+    "title": "Require a CAdES signature on a PDF",
+    "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreatePDFDocumentWithCadesSignatureScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdf-with-cades-signature-signer",
+    "title": "Require a CAdES signature on a PDF",
+    "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createPDFDocumentWithCadesSignatureScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createPDFDocumentWithCadesSignatureScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdf-with-cades-signature-signer",
+    "title": "Require a CAdES signature on a PDF",
+    "description": "Creates a one-signer PDF document with `forceCadesSignature = true`, since PAdES is the default for PDF files.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreatePDFDocumentWithCadesSignatureScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-full-signature-signer",
+    "title": "Sign a whole XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateXMLWithFullDocumentSignatureScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-full-signature-signer",
+    "title": "Sign a whole XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateXmlWithFullDocumentSignatureScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-full-signature-signer",
+    "title": "Sign a whole XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createXmlWithFullDocumentSignatureScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createXmlWithFullDocumentSignatureScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-full-signature-signer",
+    "title": "Sign a whole XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` with signature type `FullXml`.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateXmlWithFullDocumentSignatureScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-element-signature-signer",
+    "title": "Sign one element of an XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateXMLWithElementSignatureScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-element-signature-signer",
+    "title": "Sign one element of an XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateXMLWithElementSignatureScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-element-signature-signer",
+    "title": "Sign one element of an XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createXMLWithElementSignatureScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createXMLWithElementSignatureScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-xml-element-signature-signer",
+    "title": "Sign one element of an XML file (XAdES)",
+    "description": "Uploads an XML file and gives the signer's flow action `xadesOptions` of type `XmlElement`, identifying the element to sign by the value of its `Id` attribute.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateXMLWithElementSignatureScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-digital-degree-signer",
+    "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDigitalDegreeScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample-degree.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-digital-degree-signer",
+    "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML. Caveat: the third action reuses the `DadosDiploma` options instead of the `FullXml` ones it builds; copy that action from another language.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDigitalDegreeScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample-degree.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-digital-degree-signer",
+    "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDigitalDegreeScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample-degree.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDigitalDegreeScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-digital-degree-signer",
+    "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
+    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML. Also puts the document in a new folder named \"New Folder\".",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDigitalDegreeScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample-degree.xml"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "public-signature-with-certificate-signer",
+    "title": "Sign with a digital certificate through the API (public signature)",
+    "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Loads the certificate and key from `56072386105.pfx` (a Lacuna test certificate, password `1234`, kept in `nodejs/samples`), which you must copy next to the executable; handles RSA or ECDSA keys and SHA-1 to SHA-512.",
+    "product": "signer",
+    "area": "signing",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/PublicSignatureScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf",
+      "nodejs/samples/56072386105.pfx"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signing-in-your-own-application",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "public-signature-with-certificate-signer",
+    "title": "Sign with a digital certificate through the API (public signature)",
+    "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Caveat: `performSignature` is a stub that throws, the `certificate.cer` it loads is not in the repository, and it does not send the ticket; use the .NET or Node.js sample as the reference.",
+    "product": "signer",
+    "area": "signing",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/PublicSignatureScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signing-in-your-own-application",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "public-signature-with-certificate-signer",
+    "title": "Sign with a digital certificate through the API (public signature)",
+    "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Loads the test PFX with node-forge, handles SHA-256 hashes only, and prints the document's validation URL. Not compiled into `scenarios/dist`; run it with ts-node.",
+    "product": "signer",
+    "area": "signing",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/publicSignatureScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf",
+      "nodejs/samples/56072386105.pfx"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signing-in-your-own-application",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/publicSignatureScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "electronic-signature-with-signature-image-signer",
+    "title": "Sign electronically with an uploaded signature image",
+    "description": "Creates a document with `allowElectronicSignature`, gets the action URL, takes the document key and ticket from it, uploads a PNG, and calls `signElectronicallyWithKey` (`POST /api/documents/keys/{key}/electronic-signature`) with the signature position, the image as initials, and the user's time zone offset.",
+    "product": "signer",
+    "area": "signing",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/ElectronicSignatureWithSignatureImageScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf",
+      "java/console/src/main/resources/static/signature-img.png"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signing-in-your-own-application",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "embedded-signature-signer",
+    "title": "Sign without leaving your page (embedded signature)",
+    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "product": "signer",
+    "area": "embedded-signing",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/EmbeddedSignatureScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/embedded-signature",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/embedded-signature",
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "embedded-signature-signer",
+    "title": "Sign without leaving your page (embedded signature)",
+    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "product": "signer",
+    "area": "embedded-signing",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/EmbeddedSignatureScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/embedded-signature",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/embedded-signature",
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "embedded-signature-signer",
+    "title": "Sign without leaving your page (embedded signature)",
+    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "product": "signer",
+    "area": "embedded-signing",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/embeddedSignatureScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/embedded-signature",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/embedded-signature",
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node embeddedSignatureScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "embedded-signature-signer",
+    "title": "Sign without leaving your page (embedded signature)",
+    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "product": "signer",
+    "area": "embedded-signing",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/EmbeddedSignatureScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/embedded-signature",
+    "demo_url": "https://try.lacunasoftware.com/en/signer/embedded-signature",
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "check-document-status-signer",
+    "title": "Check a document's status and its participants' actions",
+    "description": "Creates a document, reads it back with the document details call, and checks whether the whole flow is concluded and the `status` of each flow action. The comments recommend a webhook instead of polling.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CheckDocumentStatusScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/tracking#check-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "check-document-status-signer",
+    "title": "Check a document's status and its participants' actions",
+    "description": "Creates a document, reads it back with the document details call, and checks whether the whole flow is concluded and the `status` of each flow action. The comments recommend a webhook instead of polling.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CheckDocumentStatusScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/tracking#check-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "check-document-status-signer",
+    "title": "Check a document's status and its participants' actions",
+    "description": "Creates a document, reads it back with the document details call, and checks whether the whole flow is concluded and the `status` of each flow action. The comments recommend a webhook instead of polling. Prints the participants whose action is still `Pending`.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CheckDocumentStatusScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/tracking#check-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "send-signing-reminders-signer",
+    "title": "Send reminders to participants with pending actions",
+    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/NotifyFlowParticipantsScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/tracking#send-signing-reminders",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "send-signing-reminders-signer",
+    "title": "Send reminders to participants with pending actions",
+    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/NotifyFlowParticipantsScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/tracking#send-signing-reminders",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "send-signing-reminders-signer",
+    "title": "Send reminders to participants with pending actions",
+    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/notifyFlowParticipantsScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/tracking#send-signing-reminders",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios && node dist/notifyFlowParticipantsScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "send-signing-reminders-signer",
+    "title": "Send reminders to participants with pending actions",
+    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/NotifyFlowParticipantsScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/tracking#send-signing-reminders",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "list-documents-signer",
+    "title": "List documents",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `IsConcluded = false`.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/ListDocumentsScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#list-documents",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "list-documents-signer",
+    "title": "List documents",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `DocumentFilterStatus.CONCLUDED`; its comment calls `isConcluded` deprecated.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/ListDocumentsScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#list-documents",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "list-documents-signer",
+    "title": "List documents",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `setIsConcluded(false)`.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/ListDocumentsScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#list-documents",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "list-document-flows-signer",
+    "title": "List saved document flows",
+    "description": "Lists the organization's saved document flows (`GET /api/document-flows`) with a name filter, page size, offset and order, and prints the result. Despite its file name, it does not list documents. Uses `FlowsApi.apiDocumentFlowsGet`.",
+    "product": "signer",
+    "area": "tracking",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/listDocumentScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration-guide",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node listDocumentScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-document-events-signer",
+    "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Deserializes `data` with Newtonsoft.Json.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CheckDocumentStatusScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/Scenarios/IWebhookHandlerScenario.cs"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-document-events-signer",
+    "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Re-reads `data` with `signerClient.getGson()`, which is configured for the API's date fields.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CheckDocumentStatusScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/IWebhookHandlerScenario.java"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-document-events-signer",
+    "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Caveat: `handleWebhook` wraps its argument in `{ data }`, so `type` is always undefined and no branch runs; read `type` and `data` from the received body instead.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/checkDocumentStatusScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node checkDocumentStatusScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-document-events-signer",
+    "title": "Handle document webhooks (signed, approved, refused, concluded)",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Takes the raw JSON body. Caveat: it reads every event's `data` as `WebhooksDocumentConcludedModel`; use the model that matches the event type.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CheckDocumentStatusScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/Scenarios/IWebhookHandlerScenario.php"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-invoice-closed-signer",
+    "title": "Handle the invoice-closed billing webhook",
+    "description": "A `HandleWebhook` method handles `InvoiceClosed`: it prints the invoice period and value, the totals per transaction type, and the billing information. This event comes from the instance billing webhook, which the system administrator configures, not from an organization webhook.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/InvoiceWebhookHandlingScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/Scenarios/IWebhookHandlerScenario.cs"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-invoice-closed-signer",
+    "title": "Handle the invoice-closed billing webhook",
+    "description": "A `HandleWebhook` method handles `InvoiceClosed`: it prints the invoice period and value, the totals per transaction type, and the billing information. This event comes from the instance billing webhook, which the system administrator configures, not from an organization webhook.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/InvoiceWebhookHandlingScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/IWebhookHandlerScenario.java"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-invoice-closed-signer",
+    "title": "Handle the invoice-closed billing webhook",
+    "description": "A `HandleWebhook` method handles `InvoiceClosed`: it prints the invoice period and value, the totals per transaction type, and the billing information. This event comes from the instance billing webhook, which the system administrator configures, not from an organization webhook.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/InvoiceWebhookHandlingScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/Scenarios/IWebhookHandlerScenario.php"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "mark-invoice-paid-signer",
+    "title": "Mark an invoice as paid",
+    "description": "Updates an invoice's payment status with `isPaid = true` for a hard-coded invoice id. The comment says this needs an API key with billing administration privileges.",
+    "product": "signer",
+    "area": "billing",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/InvoiceWebhookHandlingScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "mark-invoice-paid-signer",
+    "title": "Mark an invoice as paid",
+    "description": "Updates an invoice's payment status with `isPaid = true` for a hard-coded invoice id. The comment says this needs an API key with billing administration privileges.",
+    "product": "signer",
+    "area": "billing",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/InvoiceWebhookHandlingScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "mark-invoice-paid-signer",
+    "title": "Mark an invoice as paid",
+    "description": "Updates an invoice's payment status with `isPaid = true` for a hard-coded invoice id. The comment says this needs an API key with billing administration privileges.",
+    "product": "signer",
+    "area": "billing",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/InvoiceWebhookHandlingScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "download-document-versions-signer",
+    "title": "Download a document's versions",
+    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` and gets the `Signatures` (signed) version's bytes.",
+    "product": "signer",
+    "area": "downloads",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/DownloadDocumentVersionScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#download-document-versions",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "download-document-versions-signer",
+    "title": "Download a document's versions",
+    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only.",
+    "product": "signer",
+    "area": "downloads",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/DownloadDocumentVersionScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#download-document-versions",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "download-document-versions-signer",
+    "title": "Download a document's versions",
+    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only; gets the bytes from `GET /api/documents/{id}/content-b64`. It saves to `../../samples/sample-copy.pdf`, which does not resolve from `nodejs/scenarios`, so the save fails there. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "product": "signer",
+    "area": "downloads",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/downloadDocumentVersionScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#download-document-versions",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios && node dist/downloadDocumentVersionScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "download-document-versions-signer",
+    "title": "Download a document's versions",
+    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only.",
+    "product": "signer",
+    "area": "downloads",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/DownloadDocumentVersionScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#download-document-versions",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "cancel-document-signer",
+    "title": "Cancel a document",
+    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CancelDocumentScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#cancel-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "cancel-document-signer",
+    "title": "Cancel a document",
+    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CancelDocumentScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#cancel-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "cancel-document-signer",
+    "title": "Cancel a document",
+    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/cancelDocumentScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#cancel-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios && node dist/cancelDocumentScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "cancel-document-signer",
+    "title": "Cancel a document",
+    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CancelDocumentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#cancel-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "refuse-document-signer",
+    "title": "Refuse a document as the organization",
+    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/RefuseDocumentScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#refuse-a-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "refuse-document-signer",
+    "title": "Refuse a document as the organization",
+    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/RefuseDocumentScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#refuse-a-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "refuse-document-signer",
+    "title": "Refuse a document as the organization",
+    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/refuseDocumentScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#refuse-a-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios && node dist/refuseDocumentScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "refuse-document-signer",
+    "title": "Refuse a document as the organization",
+    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/RefuseDocumentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#refuse-a-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "delete-document-signer",
+    "title": "Delete a document",
+    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/DeleteDocumentScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#delete-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "delete-document-signer",
+    "title": "Delete a document",
+    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/DeleteDocumentScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#delete-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "delete-document-signer",
+    "title": "Delete a document",
+    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/deleteDocumentScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#delete-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios && node dist/deleteDocumentScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "delete-document-signer",
+    "title": "Delete a document",
+    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/DeleteDocumentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#delete-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "add-document-version-signer",
+    "title": "Upload a new version of a document",
+    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset. Caveat: this file is not listed in `Console.csproj`, so it is not compiled; add it to the project before selecting it in `Program.cs`.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/AddNewDocumentVersionScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#submit-a-new-document-version",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "add-document-version-signer",
+    "title": "Upload a new version of a document",
+    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/AddNewDocumentVersionScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#submit-a-new-document-version",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "add-document-version-signer",
+    "title": "Upload a new version of a document",
+    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/addNewDocumentVersionScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#submit-a-new-document-version",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios && node dist/addNewDocumentVersionScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "add-document-version-signer",
+    "title": "Upload a new version of a document",
+    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/AddNewDocumentVersionScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#submit-a-new-document-version",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-in-new-folder-signer",
+    "title": "Create a document in a new folder",
+    "description": "Creates a one-signer document with `newFolderName`, which creates the folder together with the document.",
+    "product": "signer",
+    "area": "folders",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentInNewFolderScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-in-new-folder-signer",
+    "title": "Create a document in a new folder",
+    "description": "Creates a one-signer document with `newFolderName`, which creates the folder together with the document.",
+    "product": "signer",
+    "area": "folders",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentInNewFolderScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-in-new-folder-signer",
+    "title": "Create a document in a new folder",
+    "description": "Creates a one-signer document with `newFolderName`, which creates the folder together with the document.",
+    "product": "signer",
+    "area": "folders",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentInNewFolderScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-in-existing-folder-signer",
+    "title": "Create a document in an existing folder",
+    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
+    "product": "signer",
+    "area": "folders",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentInExistingFolderScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-in-existing-folder-signer",
+    "title": "Create a document in an existing folder",
+    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
+    "product": "signer",
+    "area": "folders",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentInExistingFolder.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-in-existing-folder-signer",
+    "title": "Create a document in an existing folder",
+    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample folder\" with `FoldersApi.apiFoldersGet`.",
+    "product": "signer",
+    "area": "folders",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentInExistingFolderScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && cd scenarios/dist && node createDocumentInExistingFolderScenario.js",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-in-existing-folder-signer",
+    "title": "Create a document in an existing folder",
+    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
+    "product": "signer",
+    "area": "folders",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentInExistingFolder.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  }
+]
