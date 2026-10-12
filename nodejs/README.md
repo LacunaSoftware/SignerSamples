@@ -43,6 +43,7 @@ languages. Before changing anything, read [AGENTS.md](../AGENTS.md).
 | Sign without leaving your page (embedded signature)<br>`embedded-signature` | Embedded signing | [embeddedSignatureScenario.ts](scenarios/embeddedSignatureScenario.ts) | `current` | `npm install && npx ts-node scenarios/embeddedSignatureScenario.ts` |
 | Send reminders to participants with pending actions<br>`send-signing-reminders` | Track and list documents | [notifyFlowParticipantsScenario.ts](scenarios/notifyFlowParticipantsScenario.ts) | `current` | `npm install && npx ts-node scenarios/notifyFlowParticipantsScenario.ts` |
 | List saved document flows<br>`list-document-flows` | Track and list documents | [listDocumentScenario.ts](scenarios/listDocumentScenario.ts) | `current` | `npm install && npx ts-node scenarios/listDocumentScenario.ts` |
+| Receive webhooks with a minimal HTTP endpoint<br>`webhook-endpoint` | Webhooks | [webhookEndpointScenario.ts](scenarios/webhookEndpointScenario.ts) | `current` | `npm install && npx ts-node scenarios/webhookEndpointScenario.ts` |
 | Handle document webhooks (signed, approved, refused, concluded)<br>`webhook-document-events` | Webhooks | [checkDocumentStatusScenario.ts](scenarios/checkDocumentStatusScenario.ts) | `current` | `npm install && npx ts-node scenarios/checkDocumentStatusScenario.ts` |
 | Download a document's versions<br>`download-document-versions` | Download documents | [downloadDocumentVersionScenario.ts](scenarios/downloadDocumentVersionScenario.ts) | `current` | `npm install && npx ts-node scenarios/downloadDocumentVersionScenario.ts` |
 | Cancel a document<br>`cancel-document` | Document lifecycle | [cancelDocumentScenario.ts](scenarios/cancelDocumentScenario.ts) | `current` | `npm install && npx ts-node scenarios/cancelDocumentScenario.ts` |
@@ -80,19 +81,48 @@ Prerequisites of some scenarios:
 
 ## Receive webhooks locally
 
-[`checkDocumentStatusScenario.ts`](scenarios/checkDocumentStatusScenario.ts) exports
-`handleWebhook`, which takes the parsed JSON body that Signer posts,
-`{ "type": "...", "data": { ... } }`, switches on `type` and reads `data` as the matching model.
-Nothing in this project calls it. To receive webhooks:
+[`webhookEndpointScenario.ts`](scenarios/webhookEndpointScenario.ts) is a minimal webhook
+endpoint built on Node's `http` module. It listens on `http://localhost:8080/webhook` and follows
+the [webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
 
-1. In your own web app (Express, for example), add a `POST` endpoint that parses the JSON body,
-   answers 200 at once, then passes the body to `handleWebhook` (or your own switch on
-   `body.type`).
-2. Expose that endpoint with an HTTPS tunnel (ngrok, Cloudflare Tunnel, ...), because Signer calls
-   it from its own servers.
-3. Register the public URL in Signer under **Organization → Integration**, with an auth type
-   other than `NoAuth`, and check that header in your endpoint.
+1. It answers 401 unless the `Authorization` header is `Bearer <token>` with the token you
+   registered (`expectedAuthorization`), because Signer does not sign the body.
+2. It answers 200 at once and processes the event afterwards. Signer retries a non-2xx answer or a
+   connection error, up to 10 times by default.
+3. It ignores an event it has already received, keyed on `type`, the document `id` and, when there
+   is one, `flowActionId`. It keeps the keys in memory; production needs durable storage.
+4. Events can arrive out of order, so before acting on `DocumentConcluded` it reads the document
+   back (`GET /api/documents/{id}`) and checks that its `status` is `Concluded`. This is its only
+   call to Signer.
 
-To test without Signer, post a body copied from the
-[webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks) to your local
-endpoint.
+It then passes the body to `handleWebhook`, exported by
+[`checkDocumentStatusScenario.ts`](scenarios/checkDocumentStatusScenario.ts), which switches on
+`type` and reads `data` as the matching model.
+
+To test it without Signer, run `npx ts-node scenarios/webhookEndpointScenario.ts`, and post a
+`DocumentSigned` event from bash (Git Bash on Windows):
+
+```bash
+curl -i http://localhost:8080/webhook \
+  -H "Authorization: Bearer my-webhook-token" \
+  -H "Content-Type: application/json" \
+  -d '{"type":"DocumentSigned","data":{"id":"3fa85f64-5717-4562-b3fc-2c963f66afa6","name":"sample.pdf",
+       "signature":{"flowActionId":"5c1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b","name":"Jack Bauer",
+       "identifier":"75502846369","emailAddress":"jack.bauer@mailinator.com"}}}'
+```
+
+The answer is `200`, and the console prints `Accepted: ...` and `Document ... is signed`. Post it
+again and the console prints `Ignored a repeated event`; change the token and the answer is `401`.
+A `DocumentConcluded` body, `{"type":"DocumentConcluded","data":{"id":"<document id>"}}`, makes
+the endpoint read that document from Signer after answering; with a made-up id, that call fails.
+
+To receive real events:
+
+1. Expose port 8080 with an HTTPS tunnel (ngrok, Cloudflare Tunnel, ...), for example
+   `ngrok http 8080`, because Signer calls the endpoint from its own servers.
+2. In Signer, under **Organization → Integration**, register `https://<tunnel host>/webhook` with
+   the auth type `Bearer` and a long random token, or call
+   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Put the same
+   token in `expectedAuthorization`.
+3. Webhooks belong to an organization (personal organizations have none), so register it in your
+   own organization and create the documents there, with its API key (see Configuration).

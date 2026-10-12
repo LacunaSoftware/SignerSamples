@@ -22,8 +22,8 @@ It is **not** a production template. Copy the API calls, not the scaffolding:
 - **Running a scenario creates real documents** on that instance, and Signer e-mails the
   participants. The samples use made-up people at `@mailinator.com` with test CPFs such as
   `75502846369`. Never put a real person's data in a sample run.
-- There is no web server. Webhook handlers are plain `HandleWebhook` methods that nothing calls,
-  and the embedded-signature scenario only prints the URL you would embed.
+- Only the webhook endpoint samples (`webhook-endpoint-signer`) serve HTTP, on
+  `http://localhost:8080/webhook`; the embedded-signature scenario only prints the URL to embed.
 - `nodejs/samples/56072386105.pfx` (password `1234`) is a Lacuna **test** certificate (issuer
   *Lacuna CA Test v7*). In a real integration the key stays on the signer's device.
 - Some samples have known defects, marked **"Caveat:"** in the catalog's `description`.
@@ -161,11 +161,15 @@ billing webhook. A webhook handler must:
 1. Check the auth header you registered (Signer does not sign the body).
 2. Answer 2xx quickly and work afterwards. Failures and non-2xx answers are retried, by default up
    to 10 times.
-3. Be idempotent, keyed on `type` + document `id` (+ `flowActionId`), because an event can repeat.
+3. Be idempotent, keyed on `type` + document `id` (+ `flowActionId`, inside `signature`,
+   `approval` or `refusal`), because an event can repeat.
 4. Not assume ordering, and read `GET /api/documents/{id}` before any sensitive action.
 
-The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `data` with
-`signerClient.getGson()` (or `getJackson()`), which handles the API's date fields.
+The `webhook-endpoint-signer` samples do all four with each platform's built-in HTTP server, then
+call `HandleWebhook`, which switches on `type`. `DocumentsCreated` and `DocumentDeleted` carry a
+`documents` list instead of an `id`; .NET's `WebhookTypes` (Lacuna.Signer.Api 1.47.0) lacks both.
+In Java, read `data` with `signerClient.getGson()` (or `getJackson()`), which handles the API's
+date fields.
 
 **Getting the files.**
 
