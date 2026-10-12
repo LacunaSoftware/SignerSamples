@@ -167,8 +167,8 @@ billing webhook. A webhook handler must:
 The `webhook-endpoint-signer` samples do all four with each platform's built-in HTTP server, then
 call `HandleWebhook`, which switches on `type`. `DocumentsCreated` and `DocumentDeleted` carry a
 `documents` list instead of an `id`; .NET's `WebhookTypes` (Lacuna.Signer.Api 1.47.0) lacks both.
-In Java, read `data` with `signerClient.getGson()` (or `getJackson()`), which handles the API's
-date fields.
+`WebhookModel` types `data` as `object`/`Object` in .NET and Java, so a cast to the event's model
+throws: deserialize it again (Java: with `signerClient.getGson()`, which reads the API's dates).
 
 **Getting the files.**
 
