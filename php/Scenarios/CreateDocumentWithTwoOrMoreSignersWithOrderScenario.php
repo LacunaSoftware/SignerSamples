@@ -54,7 +54,7 @@ class CreateDocumentWithTwoOrMoreSignersWithOrderScenario extends Scenario
         $flowActionCreateModelTwo = new FlowActionsFlowActionCreateModel();
         $flowActionCreateModelTwo->setType(FlowActionType::SIGNER);
         $flowActionCreateModelTwo->setUser($participantUserTwo);
-        $flowActionCreateModelOne->setStep(2);
+        $flowActionCreateModelTwo->setStep(2);
 
         // 5. Send the document create request
         $documentRequest = new DocumentsCreateDocumentRequest();

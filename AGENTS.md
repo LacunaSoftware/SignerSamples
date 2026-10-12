@@ -194,8 +194,7 @@ The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `dat
 3. **Webhooks that aren't idempotent**, that do slow work before answering 2xx, or that trust the
    order of events (section 4).
 4. **Step mistakes.** Only actions on the same `step` run in parallel. A signer added to a running
-   flow needs a `step` greater than or equal to the current pending step (PHP comment). The PHP
-   ordered-flow sample sets both steps on the same action; copy another language's.
+   flow needs a `step` greater than or equal to the current pending step (PHP comment).
 5. **Unwanted e-mails.** Creating a document notifies the first step unless you pass
    `disablePendingActionNotifications: true`. Pass it for embedded and API signing.
 6. **Treating the create response as one document.** It is a list, with one item per file.

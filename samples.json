@@ -647,7 +647,7 @@
   {
     "id": "create-document-ordered-flow-signer",
     "title": "Create a document with signers in a fixed order",
-    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs. Caveat: this PHP file calls `setStep(2)` on the first action instead of the second, so the order is not what the title says; copy the step assignment from another language.",
+    "description": "Creates a document with two `Signer` actions at `step` 1 and `step` 2; the second participant is notified only after the first one signs.",
     "product": "signer",
     "area": "flows",
     "language": "php",
