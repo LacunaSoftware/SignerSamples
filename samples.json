@@ -141,7 +141,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
-    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate: false`.",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate: false`. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "documents",
     "language": "nodejs",
@@ -233,7 +233,7 @@
   {
     "id": "create-document-with-description-signer",
     "title": "Create a document with a description",
-    "description": "Creates a one-signer document and sets its `description` text.",
+    "description": "Creates a one-signer document and sets its `description` text. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "documents",
     "language": "nodejs",
@@ -325,7 +325,7 @@
   {
     "id": "create-envelope-signer",
     "title": "Merge several PDFs into one document (envelope)",
-    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
+    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "documents",
     "language": "nodejs",
@@ -717,7 +717,7 @@
   {
     "id": "create-document-with-approver-signer",
     "title": "Create a document with an approver",
-    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
+    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "flows",
     "language": "nodejs",
@@ -901,7 +901,7 @@
   {
     "id": "create-document-with-positioned-signatures-signer",
     "title": "Pre-position a signature on the document",
-    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
+    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "flows",
     "language": "nodejs",
@@ -946,7 +946,7 @@
   {
     "id": "add-signer-to-existing-document-signer",
     "title": "Add a signer to an existing document",
-    "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step.",
+    "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "flows",
     "language": "php",
@@ -1665,7 +1665,7 @@
   {
     "id": "send-signing-reminders-signer",
     "title": "Send reminders to participants with pending actions",
-    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "tracking",
     "language": "nodejs",
@@ -2071,7 +2071,7 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
-    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only; gets the bytes from `GET /api/documents/{id}/content-b64`. It saves to `../../samples/sample-copy.pdf`, which does not resolve from `nodejs/scenarios`, so the save fails there. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only; gets the bytes from `GET /api/documents/{id}/content-b64`. It saves to `../../samples/sample-copy.pdf`, which does not resolve from `nodejs/scenarios`, so the save fails there. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "downloads",
     "language": "nodejs",
@@ -2161,7 +2161,7 @@
   {
     "id": "cancel-document-signer",
     "title": "Cancel a document",
-    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2253,7 +2253,7 @@
   {
     "id": "refuse-document-signer",
     "title": "Refuse a document as the organization",
-    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2345,7 +2345,7 @@
   {
     "id": "delete-document-signer",
     "title": "Delete a document",
-    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2437,7 +2437,7 @@
   {
     "id": "add-document-version-signer",
     "title": "Upload a new version of a document",
-    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it.",
+    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2599,7 +2599,7 @@
   {
     "id": "create-document-in-existing-folder-signer",
     "title": "Create a document in an existing folder",
-    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample folder\" with `FoldersApi.apiFoldersGet`.",
+    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample folder\" with `FoldersApi.apiFoldersGet`. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
     "product": "signer",
     "area": "folders",
     "language": "nodejs",

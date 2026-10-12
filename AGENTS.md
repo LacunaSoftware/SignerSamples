@@ -20,8 +20,9 @@ It is **not** a production template. Copy the API calls, not the scaffolding:
   needs their own key, created in their own organization (**Applications → Keys**); it is shown
   only once.
 - **Running a scenario creates real documents** on that instance, and Signer e-mails the
-  participants. The samples use made-up people at `@mailinator.com` with test CPFs such as
-  `75502846369`. Never put a real person's data in a sample run.
+  participants. The samples use made-up people at `@mailinator.com` (some files misspell it
+  `@mailnator.com`; fix that first) with test CPFs such as `75502846369`. Never put a real
+  person's data in a sample run.
 - There is no web server. Webhook handlers are plain `HandleWebhook` methods that nothing calls,
   and the embedded-signature scenario only prints the URL you would embed.
 - `nodejs/samples/56072386105.pfx` (password `1234`) is a Lacuna **test** certificate (issuer
@@ -33,8 +34,7 @@ It is **not** a production template. Copy the API calls, not the scaffolding:
 
 - **[`samples.json`](samples.json)**: one entry per (task, language), with the schema
   [`schema/samples.schema.json`](schema/samples.schema.json) shared with PkiSuiteSamples.
-- **[`SAMPLES.md`](SAMPLES.md)**: the same data as tables by area and task, one column per
-  language. It is generated, so never edit it by hand.
+- **[`SAMPLES.md`](SAMPLES.md)**: the same data as tables per language. Generated; never edit it.
 
 Each entry has: `id` (`<task>-signer`), `title`, `description`, `product` (`signer`), `area`,
 `language`, `framework` (`console`), `path` (the scenario file), `related_files` (the scenario
@@ -87,9 +87,9 @@ Per-project notes:
 - **Node.js**: files are opened relative to the working directory. Most scenarios run from
   `scenarios/dist`, but the six that call the shared `CreateDocument()` helper run from
   `scenarios` (`node dist/<x>.js`), on Windows only. `publicSignatureScenario.ts` is not
-  compiled: run `npx ts-node scenarios/publicSignatureScenario.ts` from `nodejs`. `scenario.ts`
-  differs from `dist/scenario.js`, so don't regenerate `dist` with `tsc` without checking it.
-  `run.command` in the catalog has the right command for each scenario.
+  compiled: run `npx ts-node scenarios/publicSignatureScenario.ts` from `nodejs`. Check
+  `scenario.ts` against `dist/scenario.js` before running `tsc`. The catalog's `run.command` is
+  right for each scenario.
 - **PHP**: run from `php/`; scenarios open `resources/...` relative to it.
 
 ## 4. The Signer integration model, as the samples show it
