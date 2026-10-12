@@ -1866,7 +1866,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
-    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Takes the raw JSON body. Caveat: it reads every event's `data` as `WebhooksDocumentConcludedModel`; use the model that matches the event type.",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Takes the raw JSON body.",
     "product": "signer",
     "area": "webhooks",
     "language": "php",
