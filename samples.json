@@ -64,7 +64,7 @@
     "demo_url": "https://try.lacunasoftware.com/en/signer/sign-a-document",
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithOneSignerScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithOneSignerScenario.ts",
       "url": null
     }
   },
@@ -141,7 +141,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
-    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate: false`. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate: false`.",
     "product": "signer",
     "area": "documents",
     "language": "nodejs",
@@ -156,7 +156,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithAttachmentScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithAttachmentScenario.ts",
       "url": null
     }
   },
@@ -233,7 +233,7 @@
   {
     "id": "create-document-with-description-signer",
     "title": "Create a document with a description",
-    "description": "Creates a one-signer document and sets its `description` text. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a one-signer document and sets its `description` text.",
     "product": "signer",
     "area": "documents",
     "language": "nodejs",
@@ -248,7 +248,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithDescriptionScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithDescriptionScenario.ts",
       "url": null
     }
   },
@@ -325,7 +325,7 @@
   {
     "id": "create-envelope-signer",
     "title": "Merge several PDFs into one document (envelope)",
-    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Uploads two PDFs and creates a single document from both with `isEnvelope = true` and an `envelopeName`, which an envelope must have. Merging only works when every file is a PDF.",
     "product": "signer",
     "area": "documents",
     "language": "nodejs",
@@ -340,7 +340,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithEnvelopeScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithEnvelopeScenario.ts",
       "url": null
     }
   },
@@ -393,7 +393,7 @@
   {
     "id": "upload-file-multipart-signer",
     "title": "Upload a file as multipart/form-data",
-    "description": "Uploads a PDF with the multipart upload API (`POST /api/uploads`) and prints the result, whose `id` is the upload id that document creation takes. Uses `UploadApi.apiUploadsPost`. Caveat: the file path is written with Windows backslashes, so it only resolves on Windows.",
+    "description": "Uploads a PDF with the multipart upload API (`POST /api/uploads`) and prints the result, whose `id` is the upload id that document creation takes. Uses `UploadApi.apiUploadsPost`.",
     "product": "signer",
     "area": "documents",
     "language": "nodejs",
@@ -408,7 +408,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node uploadUsingMultipartFormDataScenario.js",
+      "command": "npm install && npx ts-node scenarios/uploadUsingMultipartFormDataScenario.ts",
       "url": null
     }
   },
@@ -548,7 +548,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithTwoOrMoreSignersWithoutOrderScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithTwoOrMoreSignersWithoutOrderScenario.ts",
       "url": null
     }
   },
@@ -640,7 +640,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithTwoOrMoreSignersWithOrderScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithTwoOrMoreSignersWithOrderScenario.ts",
       "url": null
     }
   },
@@ -717,7 +717,7 @@
   {
     "id": "create-document-with-approver-signer",
     "title": "Create a document with an approver",
-    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a document whose flow action has type `Approver`: the participant approves the document without signing it.",
     "product": "signer",
     "area": "flows",
     "language": "nodejs",
@@ -732,7 +732,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithApproversScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithApproversScenario.ts",
       "url": null
     }
   },
@@ -824,7 +824,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithSigningRuleScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithSigningRuleScenario.ts",
       "url": null
     }
   },
@@ -901,7 +901,7 @@
   {
     "id": "create-document-with-positioned-signatures-signer",
     "title": "Pre-position a signature on the document",
-    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a one-signer document whose flow action has a `prePositionedMarks` entry of type `SignatureVisualRepresentation`, which places the signature on a given page, position and size of the uploaded file.",
     "product": "signer",
     "area": "flows",
     "language": "nodejs",
@@ -916,7 +916,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentWithPositionedSignaturesScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithPositionedSignaturesScenario.ts",
       "url": null
     }
   },
@@ -1054,7 +1054,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createPDFDocumentWithCadesSignatureScenario.js",
+      "command": "npm install && npx ts-node scenarios/createPDFDocumentWithCadesSignatureScenario.ts",
       "url": null
     }
   },
@@ -1146,7 +1146,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createXmlWithFullDocumentSignatureScenario.js",
+      "command": "npm install && npx ts-node scenarios/createXmlWithFullDocumentSignatureScenario.ts",
       "url": null
     }
   },
@@ -1238,7 +1238,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createXMLWithElementSignatureScenario.js",
+      "command": "npm install && npx ts-node scenarios/createXMLWithElementSignatureScenario.ts",
       "url": null
     }
   },
@@ -1330,7 +1330,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDigitalDegreeScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDigitalDegreeScenario.ts",
       "url": null
     }
   },
@@ -1408,7 +1408,7 @@
   {
     "id": "public-signature-with-certificate-signer",
     "title": "Sign with a digital certificate through the API (public signature)",
-    "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Loads the test PFX with node-forge, handles SHA-256 hashes only, and prints the document's validation URL. Not compiled into `scenarios/dist`; run it with ts-node.",
+    "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Loads the test PFX with node-forge, handles SHA-256 hashes only, and prints the document's validation URL.",
     "product": "signer",
     "area": "signing",
     "language": "nodejs",
@@ -1518,7 +1518,7 @@
     "demo_url": "https://try.lacunasoftware.com/en/signer/embedded-signature",
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node embeddedSignatureScenario.js",
+      "command": "npm install && npx ts-node scenarios/embeddedSignatureScenario.ts",
       "url": null
     }
   },
@@ -1665,7 +1665,7 @@
   {
     "id": "send-signing-reminders-signer",
     "title": "Send reminders to participants with pending actions",
-    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Reads the document's flow actions and sends a flow-action reminder for each one (`POST /api/notifications/flow-action-reminder`); only participants with pending actions are notified.",
     "product": "signer",
     "area": "tracking",
     "language": "nodejs",
@@ -1680,7 +1680,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios && node dist/notifyFlowParticipantsScenario.js",
+      "command": "npm install && npx ts-node scenarios/notifyFlowParticipantsScenario.ts",
       "url": null
     }
   },
@@ -1791,7 +1791,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node listDocumentScenario.js",
+      "command": "npm install && npx ts-node scenarios/listDocumentScenario.ts",
       "url": null
     }
   },
@@ -1845,7 +1845,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
-    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Caveat: `handleWebhook` wraps its argument in `{ data }`, so `type` is always undefined and no branch runs; read `type` and `data` from the received body instead.",
+    "description": "The exported `handleWebhook` function takes the received webhook body (`{ type, data }`), switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours.",
     "product": "signer",
     "area": "webhooks",
     "language": "nodejs",
@@ -1859,7 +1859,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node checkDocumentStatusScenario.js",
+      "command": "npm install && npx ts-node scenarios/checkDocumentStatusScenario.ts",
       "url": null
     }
   },
@@ -2071,21 +2071,22 @@
   {
     "id": "download-document-versions-signer",
     "title": "Download a document's versions",
-    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only; gets the bytes from `GET /api/documents/{id}/content-b64`. It saves to `../../samples/sample-copy.pdf`, which does not resolve from `nodejs/scenarios`, so the save fails there. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Gets a download ticket (a temporary URL) for one version of a document, downloads that version's content and saves it to a file, and also fetches a version's bytes directly. The version is chosen with `DocumentDownloadTypes` / `DocumentTicketType`; `Signatures` is the signed file. Downloads `Original` only; gets the bytes from `GET /api/documents/{id}/content-b64`. It saves the content to `nodejs/samples/sample-copy.pdf`. Caveat: the content is requested without `responseType: 'arraybuffer'`, so axios decodes the PDF as text and the saved copy is corrupted; pass that option before saving.",
     "product": "signer",
     "area": "downloads",
     "language": "nodejs",
     "framework": "console",
     "path": "nodejs/scenarios/downloadDocumentVersionScenario.ts",
     "related_files": [
-      "nodejs/scenarios/scenario.ts"
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
     ],
     "status": "current",
     "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#download-document-versions",
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios && node dist/downloadDocumentVersionScenario.js",
+      "command": "npm install && npx ts-node scenarios/downloadDocumentVersionScenario.ts",
       "url": null
     }
   },
@@ -2161,7 +2162,7 @@
   {
     "id": "cancel-document-signer",
     "title": "Cancel a document",
-    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a document, then cancels it with a `reason` (`POST /api/documents/{id}/cancellation`).",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2176,7 +2177,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios && node dist/cancelDocumentScenario.js",
+      "command": "npm install && npx ts-node scenarios/cancelDocumentScenario.ts",
       "url": null
     }
   },
@@ -2253,7 +2254,7 @@
   {
     "id": "refuse-document-signer",
     "title": "Refuse a document as the organization",
-    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a document, then refuses it with a `reason` (`POST /api/documents/{id}/refusal`).",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2268,7 +2269,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios && node dist/refuseDocumentScenario.js",
+      "command": "npm install && npx ts-node scenarios/refuseDocumentScenario.ts",
       "url": null
     }
   },
@@ -2345,7 +2346,7 @@
   {
     "id": "delete-document-signer",
     "title": "Delete a document",
-    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`). Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a document, then deletes it by id (`DELETE /api/documents/{id}`).",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2360,7 +2361,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios && node dist/deleteDocumentScenario.js",
+      "command": "npm install && npx ts-node scenarios/deleteDocumentScenario.ts",
       "url": null
     }
   },
@@ -2437,7 +2438,7 @@
   {
     "id": "add-document-version-signer",
     "title": "Upload a new version of a document",
-    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset. Caveat: it uses the shared `CreateDocument()` helper, whose Windows-style relative path only resolves on Windows from `nodejs/scenarios` (see `run.command`), and `scenario.ts` names a `bigSample.pdf` that is not in the repository, so recompiling `dist` breaks it. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a document, uploads a new file and adds it as the document's new version (`POST /api/documents/{id}/versions`); the signing flow is reset.",
     "product": "signer",
     "area": "lifecycle",
     "language": "nodejs",
@@ -2452,7 +2453,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios && node dist/addNewDocumentVersionScenario.js",
+      "command": "npm install && npx ts-node scenarios/addNewDocumentVersionScenario.ts",
       "url": null
     }
   },
@@ -2599,7 +2600,7 @@
   {
     "id": "create-document-in-existing-folder-signer",
     "title": "Create a document in an existing folder",
-    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample folder\" with `FoldersApi.apiFoldersGet`. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample folder\" with `FoldersApi.apiFoldersGet`.",
     "product": "signer",
     "area": "folders",
     "language": "nodejs",
@@ -2614,7 +2615,7 @@
     "demo_url": null,
     "run": {
       "cwd": "nodejs",
-      "command": "npm install && cd scenarios/dist && node createDocumentInExistingFolderScenario.js",
+      "command": "npm install && npx ts-node scenarios/createDocumentInExistingFolderScenario.ts",
       "url": null
     }
   },

@@ -57,7 +57,7 @@ python -c "import json;[print(e['id'],e['path']) for e in json.load(open('sample
 |---|---|---|---|---|
 | `dotnet/console` | .NET Framework 4.8, NuGet `packages.config` | `dotnet/console` | Open `Console.sln` in Visual Studio, F5 | `Console/Program.cs` (`new XScenario()`) |
 | `java/console` | Java 8, Gradle 5.2.1 wrapper | `java/console` | `./gradlew run` (`gradlew.bat run` on Windows) | `src/main/java/.../sample/App.java` |
-| `nodejs` | TypeScript; compiled JS committed in `scenarios/dist` | `nodejs` | `npm install && cd scenarios/dist && node <scenario>.js` | each file is its own script |
+| `nodejs` | TypeScript, run with ts-node | `nodejs` | `npm install && npx ts-node scenarios/<scenario>.ts` | each file is its own script |
 | `php` | PHP CLI, Composer | `php` | `composer install && php index.php` | `index.php` (`new XScenario()`) |
 
 The Signer URL and API key are set in (the public-signature scenarios also hard-code a PFX):
@@ -84,12 +84,10 @@ Per-project notes:
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
   the supported build (`signer-client` 2.13.0); `pom.xml` is unsupported and out of date (client
   1.0.0, Bintray). Gradle 5.2.1 needs JDK 8 to 11.
-- **Node.js**: files open relative to the working directory, so most scenarios run from
-  `scenarios/dist`, and the six that call the shared `CreateDocument()` helper from `scenarios`
-  (`node dist/<x>.js`, Windows only). Run `publicSignatureScenario.ts`, which isn't compiled, with
-  `npx ts-node scenarios/publicSignatureScenario.ts` from `nodejs`. ts-node is the intended way
-  for all of them once scenarios resolve files from `__dirname`, and `dist` will then be dropped;
-  until then use the catalog's `run.command`, and don't regenerate `dist` with `tsc`.
+- **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in
+  `samples` through `__dirname`. No compiled JS is committed (`scenarios/dist` is git-ignored).
+  `typescript` is pinned to 5.x because ts-node 10 cannot load TypeScript 7. Type-check all
+  scenarios, without running them, with `npx tsc --noEmit -p scenarios`.
 - **PHP**: run from `php/`; scenarios open `resources/...` relative to it.
 
 ## 4. The Signer integration model, as the samples show it
@@ -206,8 +204,8 @@ The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `dat
 9. **Public signature.** The certificate's identifier (CPF/CNPJ) must match the participant's
    `identifier`. The PFX here is a test shortcut; in production the hash is signed on the
    user's device (smart card, token, browser).
-10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the Node.js webhook
-    handler, which never matches an event type.
+10. **Copying a defect.** Read the catalog's "Caveat:" notes, for example on the Node.js download
+    sample, which saves a corrupted copy of the PDF.
 
 ## 6. Conventions for adding or changing a sample
 
@@ -216,7 +214,7 @@ The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `dat
 - Follow the project's structure: .NET `Console/Scenarios/<Name>Scenario.cs` (a `Scenario`
   subclass, listed in `Console.csproj`); Java `scenarios/<Name>Scenario.java` (a `Scenario`
   subclass); Node.js `scenarios/<name>Scenario.ts`, importing `config` from `./scenario`, opening
-  files from `__dirname` and run with ts-node, with no new output in `dist`; PHP
+  files with `path.join(__dirname, "..", "samples", ...)` and run with ts-node (commit no JS); PHP
   `Scenarios/<Name>Scenario.php` in namespace `Lacuna\Scenarios`, with a `use` line in `index.php`.
 - **Every sample needs a catalog entry** in `samples.json`, one per language, with an `area` from
   `AREAS` in the generator. Then regenerate and validate; validation must pass:
