@@ -28,7 +28,7 @@ class AddSignerToExistingDocumentScenario extends Scenario
         // 3. For each participant on the new flow, create one instance of ParticipantUserModel
         $user = new UsersParticipantUserModel();
         $user->setName('Anakin Skywalker');
-        $user->setEmail('anakin.skywalker@mailnator.com');
+        $user->setEmail('anakin.skywalker@mailinator.com');
         $user->setIdentifier("75502846369");
 
         // 4. Create a FlowActionCreateModel instance for each action (signature or approval) in the flow.

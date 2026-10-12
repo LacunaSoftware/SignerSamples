@@ -946,7 +946,7 @@
   {
     "id": "add-signer-to-existing-document-signer",
     "title": "Add a signer to an existing document",
-    "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step. Caveat: a participant's e-mail is misspelled `@mailnator.com`, which is not Mailinator; fix it before running.",
+    "description": "Creates a document, then edits its flow (`POST /api/documents/{id}/flow`) with an `addedFlowActions` entry whose `step` comes after the existing actions, and sends a reminder to every participant whose action is `Pending`. The comment says the new action's step must be greater than or equal to the current pending step.",
     "product": "signer",
     "area": "flows",
     "language": "php",
