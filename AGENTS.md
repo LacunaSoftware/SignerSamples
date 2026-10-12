@@ -81,15 +81,15 @@ Per-project notes:
 - **.NET**: input files are copied to the output folder. `Console.csproj` does not glob, so list
   every scenario file in it (`AddNewDocumentVersionScenario.cs` is missing). Public signature
   expects `56072386105.pfx` next to the executable.
-- **Java**: input files live in `src/main/resources/static/` and load through `Util`. Use Gradle
-  (`signer-client` 2.13.0); `pom.xml` is out of date (client 1.0.0, Bintray). Gradle 5.2.1 needs
-  JDK 8 to 11.
-- **Node.js**: files are opened relative to the working directory. Most scenarios run from
-  `scenarios/dist`, but the six that call the shared `CreateDocument()` helper run from
-  `scenarios` (`node dist/<x>.js`), on Windows only. `publicSignatureScenario.ts` is not
-  compiled: run `npx ts-node scenarios/publicSignatureScenario.ts` from `nodejs`. Check
-  `scenario.ts` against `dist/scenario.js` before running `tsc`. The catalog's `run.command` is
-  right for each scenario.
+- **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
+  the supported build (`signer-client` 2.13.0); `pom.xml` is unsupported and out of date (client
+  1.0.0, Bintray). Gradle 5.2.1 needs JDK 8 to 11.
+- **Node.js**: files open relative to the working directory, so most scenarios run from
+  `scenarios/dist`, and the six that call the shared `CreateDocument()` helper from `scenarios`
+  (`node dist/<x>.js`, Windows only). Run `publicSignatureScenario.ts`, which isn't compiled, with
+  `npx ts-node scenarios/publicSignatureScenario.ts` from `nodejs`. ts-node is the intended way
+  for all of them once scenarios resolve files from `__dirname`, and `dist` will then be dropped;
+  until then use the catalog's `run.command`, and don't regenerate `dist` with `tsc`.
 - **PHP**: run from `php/`; scenarios open `resources/...` relative to it.
 
 ## 4. The Signer integration model, as the samples show it
@@ -142,14 +142,17 @@ Signing through the API, without Signer's page: `public-signature-with-certifica
 document key and `ticket` from the action URL, calls `startPublicSignature` with the certificate,
 signs the returned hash, then calls `completePublicSignature`.
 `electronic-signature-with-signature-image` (Java) posts to
-`/api/documents/keys/{key}/electronic-signature`. Neither call is in the public API reference.
+`/api/documents/keys/{key}/electronic-signature`. Both are supported for client integrations,
+though not yet in the public API reference. Copy public signature from .NET or Node.js: the Java
+one is a deprecated stub.
 
 **Learning that a document is complete: use a webhook, not polling.** Polling is
 `GET /api/documents/{id}` (`GetDocumentDetailsAsync` / `getDocumentDetails`). Document `status`
 is one of `Pending`, `FlowConcluded` (all actions done, final processing still running),
 `Concluded`, `Refused`, `Canceled` or `Expired`. Each flow action's `status` is one of `Created`
 (waiting for an earlier step), `Pending`, `Completed` or `Refused`. The docs say not to poll in
-production.
+production. To list documents (`GET /api/documents`), filter with `Status`
+(`DocumentFilterStatus`, as the Java sample does); the `IsConcluded` filter is legacy.
 
 A webhook is registered per organization (**Organization → Integration**, or
 `POST /api/organizations/{orgId}/webhooks` with `url`, `authType`, `token`). Signer `POST`s
@@ -210,14 +213,11 @@ The samples' `HandleWebhook` shows only the switch on `type`. In Java, read `dat
 
 - **Reuse slugs.** Check `SAMPLES.md` for an existing task first. A new task is named
   `<task>-signer` and uses that slug in every language.
-- Follow the project's structure:
-  - .NET: `Console/Scenarios/<Name>Scenario.cs`, a subclass of `Scenario`, listed in
-    `Console.csproj`.
-  - Java: `scenarios/<Name>Scenario.java`, a subclass of `Scenario`.
-  - Node.js: `scenarios/<name>Scenario.ts`, importing `config` from `./scenario`, plus its
-    compiled output in `scenarios/dist`.
-  - PHP: `Scenarios/<Name>Scenario.php` in namespace `Lacuna\Scenarios`, with a `use` line in
-    `index.php`.
+- Follow the project's structure: .NET `Console/Scenarios/<Name>Scenario.cs` (a `Scenario`
+  subclass, listed in `Console.csproj`); Java `scenarios/<Name>Scenario.java` (a `Scenario`
+  subclass); Node.js `scenarios/<name>Scenario.ts`, importing `config` from `./scenario`, opening
+  files from `__dirname` and run with ts-node, with no new output in `dist`; PHP
+  `Scenarios/<Name>Scenario.php` in namespace `Lacuna\Scenarios`, with a `use` line in `index.php`.
 - **Every sample needs a catalog entry** in `samples.json`, one per language, with an `area` from
   `AREAS` in the generator. Then regenerate and validate; validation must pass:
 

@@ -70,6 +70,11 @@ repository), so check the helper before regenerating `dist` with `tsc`. Every ru
 documents on the configured Signer instance, and Signer e-mails the sample participants (made-up
 `@mailinator.com` addresses).
 
+ts-node is the intended way to run every scenario. Once the scenarios open their files relative
+to their own folder (`__dirname`) instead of the working directory, they will run with
+`npx ts-node scenarios/<scenario>.ts` from this folder, and `scenarios/dist` will be removed.
+Until then, use the commands above.
+
 ## Configuration
 
 The Signer instance URL and API key are hard-coded in

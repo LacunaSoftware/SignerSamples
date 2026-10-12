@@ -26,7 +26,7 @@ other languages. Before changing anything, read [AGENTS.md](../../AGENTS.md).
 | Sign a whole XML file (XAdES)<br>`create-xml-full-signature` | Signature formats (CAdES, XAdES) | [CreateXmlWithFullDocumentSignatureScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateXmlWithFullDocumentSignatureScenario.java) | `current` |
 | Sign one element of an XML file (XAdES)<br>`create-xml-element-signature` | Signature formats (CAdES, XAdES) | [CreateXMLWithElementSignatureScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateXMLWithElementSignatureScenario.java) | `current` |
 | Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)<br>`create-digital-degree` | Signature formats (CAdES, XAdES) | [CreateDigitalDegreeScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDigitalDegreeScenario.java) | `current` |
-| Sign with a digital certificate through the API (public signature)<br>`public-signature-with-certificate` | Sign through the API | [PublicSignatureScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/PublicSignatureScenario.java) | `current` |
+| Sign with a digital certificate through the API (public signature)<br>`public-signature-with-certificate` | Sign through the API | [PublicSignatureScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/PublicSignatureScenario.java) | `deprecated` |
 | Sign electronically with an uploaded signature image<br>`electronic-signature-with-signature-image` | Sign through the API | [ElectronicSignatureWithSignatureImageScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/ElectronicSignatureWithSignatureImageScenario.java) | `current` |
 | Sign without leaving your page (embedded signature)<br>`embedded-signature` | Embedded signing | [EmbeddedSignatureScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/EmbeddedSignatureScenario.java) | `current` |
 | Check a document's status and its participants' actions<br>`check-document-status` | Track and list documents | [CheckDocumentStatusScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/CheckDocumentStatusScenario.java) | `current` |
@@ -56,8 +56,8 @@ other languages. Before changing anything, read [AGENTS.md](../../AGENTS.md).
 
    On Windows, use `gradlew.bat run`. The wrapper is Gradle 5.2.1, which runs on JDK 8 to 11.
 
-Use Gradle: `pom.xml` still references `signer-client` 1.0.0 and a Bintray repository that no
-longer exists. Every run creates real documents on the configured Signer instance, and Signer
+Gradle is the supported build. `pom.xml` is unsupported: it still references `signer-client`
+1.0.0 and a Bintray repository that no longer exists. Every run creates real documents on the configured Signer instance, and Signer
 e-mails the sample participants (made-up `@mailinator.com` addresses).
 
 ## Configuration

@@ -1,5 +1,7 @@
 This folder contains **Java sample projects** demonstrating the usage of [Signer](https://www.dropsigner.com/).
 
+> **Note:** Gradle is the supported build. The Maven instructions, `pom.xml` and the Bintray link below are out of date. See [console/README.md](console/README.md) for current instructions.
+
 For other languages, please visit the [repository root](https://github.com/LacunaSoftware/SignerSamples).
 
 ## Default sample (Console application)

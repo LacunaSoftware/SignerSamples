@@ -74,7 +74,7 @@ languages. Before changing anything, read [AGENTS.md](../AGENTS.md).
 | Sign without leaving your page (embedded signature)<br>`embedded-signature` | Embedded signing | [EmbeddedSignatureScenario.php](Scenarios/EmbeddedSignatureScenario.php) | `current` |
 | Check a document's status and its participants' actions<br>`check-document-status` | Track and list documents | [CheckDocumentStatusScenario.php](Scenarios/CheckDocumentStatusScenario.php) | `current` |
 | Send reminders to participants with pending actions<br>`send-signing-reminders` | Track and list documents | [NotifyFlowParticipantsScenario.php](Scenarios/NotifyFlowParticipantsScenario.php) | `current` |
-| List documents<br>`list-documents` | Track and list documents | [ListDocumentsScenario.php](Scenarios/ListDocumentsScenario.php) | `current` |
+| List documents<br>`list-documents` | Track and list documents | [ListDocumentsScenario.php](Scenarios/ListDocumentsScenario.php) | `legacy` |
 | Handle document webhooks (signed, approved, refused, concluded)<br>`webhook-document-events` | Webhooks | [CheckDocumentStatusScenario.php](Scenarios/CheckDocumentStatusScenario.php) | `current` |
 | Handle the invoice-closed billing webhook<br>`webhook-invoice-closed` | Webhooks | [InvoiceWebhookHandlingScenario.php](Scenarios/InvoiceWebhookHandlingScenario.php) | `current` |
 | Mark an invoice as paid<br>`mark-invoice-paid` | Billing | [InvoiceWebhookHandlingScenario.php](Scenarios/InvoiceWebhookHandlingScenario.php) | `current` |

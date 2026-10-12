@@ -1384,7 +1384,7 @@
   {
     "id": "public-signature-with-certificate-signer",
     "title": "Sign with a digital certificate through the API (public signature)",
-    "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Caveat: `performSignature` is a stub that throws, the `certificate.cer` it loads is not in the repository, and it does not send the ticket; use the .NET or Node.js sample as the reference.",
+    "description": "Creates a one-signer document, gets the participant's action URL, takes the document key and ticket from it, calls `startPublicSignature` with the signer's certificate, signs the returned hash with the matching private key, and sends the signature to `completePublicSignature`. Deprecated until it is fixed: `performSignature` is a stub that throws, the `certificate.cer` it loads is not in the repository, and it does not send the ticket; use the .NET or Node.js sample as the reference.",
     "product": "signer",
     "area": "signing",
     "language": "java",
@@ -1396,7 +1396,7 @@
       "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
       "java/console/src/main/resources/static/sample.pdf"
     ],
-    "status": "current",
+    "status": "deprecated",
     "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signing-in-your-own-application",
     "demo_url": null,
     "run": {
@@ -1710,7 +1710,7 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
-    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `IsConcluded = false`.",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Legacy: it filters with `IsConcluded = false`; filter with `Status` (`DocumentFilterStatus`) instead, as the Java sample does.",
     "product": "signer",
     "area": "tracking",
     "language": "dotnet",
@@ -1720,7 +1720,7 @@
       "dotnet/console/Console/Program.cs",
       "dotnet/console/Console/Scenarios/Scenario.cs"
     ],
-    "status": "current",
+    "status": "legacy",
     "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#list-documents",
     "demo_url": null,
     "run": {
@@ -1732,7 +1732,7 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
-    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `DocumentFilterStatus.CONCLUDED`; its comment calls `isConcluded` deprecated.",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `DocumentFilterStatus.CONCLUDED` (the `Status` parameter), which is the current way to filter.",
     "product": "signer",
     "area": "tracking",
     "language": "java",
@@ -1755,7 +1755,7 @@
   {
     "id": "list-documents-signer",
     "title": "List documents",
-    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Filters with `setIsConcluded(false)`.",
+    "description": "Lists the organization's documents (`GET /api/documents`) with a name filter `q`, a page size, newest first, and a filter on whether the document is concluded. Legacy: it filters with `setIsConcluded(false)`; filter with `Status` (`DocumentFilterStatus`) instead, as the Java sample does.",
     "product": "signer",
     "area": "tracking",
     "language": "php",
@@ -1765,7 +1765,7 @@
       "php/index.php",
       "php/Scenarios/Scenario.php"
     ],
-    "status": "current",
+    "status": "legacy",
     "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list#list-documents",
     "demo_url": null,
     "run": {
