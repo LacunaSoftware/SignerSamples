@@ -20,9 +20,8 @@ It is **not** a production template. Copy the API calls, not the scaffolding:
   Do not edit, move, rotate or "clean up" the key. Your client needs their own key, created in
   their own organization (**Applications → Keys**); it is shown only once.
 - **Running a scenario creates real documents** on that instance, and Signer e-mails the
-  participants. The samples use made-up people at `@mailinator.com` (some files misspell it
-  `@mailnator.com`; fix that first) with test CPFs such as `75502846369`. Never put a real
-  person's data in a sample run.
+  participants. The samples use made-up people at `@mailinator.com` with test CPFs such as
+  `75502846369`. Never put a real person's data in a sample run.
 - There is no web server. Webhook handlers are plain `HandleWebhook` methods that nothing calls,
   and the embedded-signature scenario only prints the URL you would embed.
 - `nodejs/samples/56072386105.pfx` (password `1234`) is a Lacuna **test** certificate (issuer
