@@ -94,7 +94,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
-    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `IsPrivate = true`.",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `IsPrivate = false`.",
     "product": "signer",
     "area": "documents",
     "language": "dotnet",
@@ -163,7 +163,7 @@
   {
     "id": "create-document-with-attachment-signer",
     "title": "Create a document with an attachment",
-    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Caveat: this PHP file gives the participant an `Approver` action, where the other languages use `Signer`.",
+    "description": "Uploads the document file and an attachment file, then creates the document with the attachment in `attachments`; `isPrivate` restricts the attachment to the organization's participants (true) or shows it to everyone in the flow (false). Sets `isPrivate` to false.",
     "product": "signer",
     "area": "documents",
     "language": "php",
