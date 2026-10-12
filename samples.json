@@ -1796,9 +1796,100 @@
     }
   },
   {
+    "id": "webhook-endpoint-signer",
+    "title": "Receive webhooks with a minimal HTTP endpoint",
+    "description": "Listens on `http://localhost:8080/webhook` with `System.Net.HttpListener`. It answers 401 unless the `Authorization` header matches the token registered with the webhook, answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. Keeps the event keys in memory, then calls `CheckDocumentStatusScenario.HandleWebhook`. `HttpListener` accepts only the `localhost` Host header, so a tunnel must rewrite it (ngrok `--host-header=rewrite`).",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/WebhookEndpointScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/Scenarios/CheckDocumentStatusScenario.cs"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "Open Console.sln in Visual Studio and press F5",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-endpoint-signer",
+    "title": "Receive webhooks with a minimal HTTP endpoint",
+    "description": "Listens on `http://localhost:8080/webhook` with the JDK's `com.sun.net.httpserver.HttpServer`. It answers 401 unless the `Authorization` header matches the token registered with the webhook, answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. Keeps the event keys in memory and processes events on a separate thread, then calls `CheckDocumentStatusScenario.HandleWebhook`.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/WebhookEndpointScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CheckDocumentStatusScenario.java"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-endpoint-signer",
+    "title": "Receive webhooks with a minimal HTTP endpoint",
+    "description": "Listens on `http://localhost:8080/webhook` with Node's `http` module. It answers 401 unless the `Authorization` header matches the token registered with the webhook, answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. Keeps the event keys in memory, then calls `handleWebhook` from `checkDocumentStatusScenario.ts`.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/webhookEndpointScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/scenarios/checkDocumentStatusScenario.ts"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/webhookEndpointScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "webhook-endpoint-signer",
+    "title": "Receive webhooks with a minimal HTTP endpoint",
+    "description": "Answers on `http://localhost:8080/webhook` under PHP's built-in web server, with `webhook.php` as the router script. It answers 401 unless the `Authorization` header matches the token registered with the webhook, answers 200 before processing the event, ignores an event it already received (keyed on `type`, document `id` and `flowActionId`), and before acting on `DocumentConcluded` reads the document back and checks that its `status` is `Concluded`. PHP keeps nothing in memory between requests, so each event key is recorded as a file in the temp folder. Then it passes the body to `CheckDocumentStatusScenario::HandleWebhook`.",
+    "product": "signer",
+    "area": "webhooks",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/WebhookEndpointScenario.php",
+    "related_files": [
+      "php/webhook.php",
+      "php/Scenarios/Scenario.php",
+      "php/Scenarios/CheckDocumentStatusScenario.php"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php -S localhost:8080 webhook.php",
+      "url": null
+    }
+  },
+  {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
-    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Deserializes `data` with Newtonsoft.Json.",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint. Deserializes `data` with Newtonsoft.Json.",
     "product": "signer",
     "area": "webhooks",
     "language": "dotnet",
@@ -1821,7 +1912,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
-    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Re-reads `data` with `signerClient.getGson()`, which is configured for the API's date fields.",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint. Re-reads `data` with `signerClient.getGson()`, which is configured for the API's date fields.",
     "product": "signer",
     "area": "webhooks",
     "language": "java",
@@ -1845,7 +1936,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
-    "description": "The exported `handleWebhook` function takes the received webhook body (`{ type, data }`), switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours.",
+    "description": "The exported `handleWebhook` function takes the received webhook body (`{ type, data }`), switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint.",
     "product": "signer",
     "area": "webhooks",
     "language": "nodejs",
@@ -1866,7 +1957,7 @@
   {
     "id": "webhook-document-events-signer",
     "title": "Handle document webhooks (signed, approved, refused, concluded)",
-    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. It is not wired to an HTTP endpoint; call it from yours. Takes the raw JSON body.",
+    "description": "A `HandleWebhook` method takes a webhook envelope, switches on its `type` (`DocumentConcluded`, `DocumentRefused`, `DocumentApproved`, `DocumentSigned`) and reads `data` as the matching model. `webhook-endpoint-signer` calls it from an HTTP endpoint. Takes the raw JSON body.",
     "product": "signer",
     "area": "webhooks",
     "language": "php",

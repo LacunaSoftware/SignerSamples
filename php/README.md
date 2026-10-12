@@ -51,40 +51,41 @@ as [SAMPLES.md](../SAMPLES.md)), where each slug has its docs link and the same 
 languages. Before changing anything, read [AGENTS.md](../AGENTS.md).
 
 <!-- BEGIN GENERATED SAMPLES LIST (project: php) -->
-| Sample | Area | Entry file | Status |
-|---|---|---|---|
-| Sign a document: create it with one signer<br>`sign-a-document` | Create documents | [CreateDocumentWithOneSignerScenario.php](Scenarios/CreateDocumentWithOneSignerScenario.php) | `current` |
-| Create a document with an attachment<br>`create-document-with-attachment` | Create documents | [CreateDocumentWithAttachmentScenario.php](Scenarios/CreateDocumentWithAttachmentScenario.php) | `current` |
-| Create a document with a description<br>`create-document-with-description` | Create documents | [CreateDocumentWithDescriptionScenario.php](Scenarios/CreateDocumentWithDescriptionScenario.php) | `current` |
-| Merge several PDFs into one document (envelope)<br>`create-envelope` | Create documents | [CreateDocumentWithEnvelopeScenario.php](Scenarios/CreateDocumentWithEnvelopeScenario.php) | `current` |
-| Upload a file as Base64<br>`upload-file-base64` | Create documents | [CreateBase64DocumentScenario.php](Scenarios/CreateBase64DocumentScenario.php) | `current` |
-| Create a document from a large file<br>`create-document-large-file` | Create documents | [CreateLargeDocumentScenario.php](Scenarios/CreateLargeDocumentScenario.php) | `current` |
-| Generate a document from a PDF form template and CSV data<br>`generate-document-from-template` | Create documents | [GenerateDocumentWithTwoOrMoreSignersScenario.php](Scenarios/GenerateDocumentWithTwoOrMoreSignersScenario.php) | `current` |
-| Create a document with two or more signers, in any order<br>`create-document-multiple-signers` | Flows: participants, order and rules | [CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.php](Scenarios/CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.php) | `current` |
-| Create a document with signers in a fixed order<br>`create-document-ordered-flow` | Flows: participants, order and rules | [CreateDocumentWithTwoOrMoreSignersWithOrderScenario.php](Scenarios/CreateDocumentWithTwoOrMoreSignersWithOrderScenario.php) | `current` |
-| Create a document with an approver<br>`create-document-with-approver` | Flows: participants, order and rules | [CreateDocumentWithApproversScenario.php](Scenarios/CreateDocumentWithApproversScenario.php) | `current` |
-| Create a document with a signing rule (any N of a group)<br>`create-document-with-signing-rule` | Flows: participants, order and rules | [CreateDocumentWithSigningRuleScenario.php](Scenarios/CreateDocumentWithSigningRuleScenario.php) | `current` |
-| Pre-position a signature on the document<br>`create-document-with-positioned-signatures` | Flows: participants, order and rules | [CreateDocumentWithPositionedSignaturesScenario.php](Scenarios/CreateDocumentWithPositionedSignaturesScenario.php) | `current` |
-| Add a signer to an existing document<br>`add-signer-to-existing-document` | Flows: participants, order and rules | [AddSignerToExistingDocumentScenario.php](Scenarios/AddSignerToExistingDocumentScenario.php) | `current` |
-| Change a participant in an ongoing flow<br>`edit-flow-action` | Flows: participants, order and rules | [DocumentFlowEditRequestScenario.php](Scenarios/DocumentFlowEditRequestScenario.php) | `current` |
-| Require a CAdES signature on a PDF<br>`create-pdf-with-cades-signature` | Signature formats (CAdES, XAdES) | [CreatePDFDocumentWithCadesSignatureScenario.php](Scenarios/CreatePDFDocumentWithCadesSignatureScenario.php) | `current` |
-| Sign a whole XML file (XAdES)<br>`create-xml-full-signature` | Signature formats (CAdES, XAdES) | [CreateXmlWithFullDocumentSignatureScenario.php](Scenarios/CreateXmlWithFullDocumentSignatureScenario.php) | `current` |
-| Sign one element of an XML file (XAdES)<br>`create-xml-element-signature` | Signature formats (CAdES, XAdES) | [CreateXMLWithElementSignatureScenario.php](Scenarios/CreateXMLWithElementSignatureScenario.php) | `current` |
-| Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)<br>`create-digital-degree` | Signature formats (CAdES, XAdES) | [CreateDigitalDegreeScenario.php](Scenarios/CreateDigitalDegreeScenario.php) | `current` |
-| Sign without leaving your page (embedded signature)<br>`embedded-signature` | Embedded signing | [EmbeddedSignatureScenario.php](Scenarios/EmbeddedSignatureScenario.php) | `current` |
-| Check a document's status and its participants' actions<br>`check-document-status` | Track and list documents | [CheckDocumentStatusScenario.php](Scenarios/CheckDocumentStatusScenario.php) | `current` |
-| Send reminders to participants with pending actions<br>`send-signing-reminders` | Track and list documents | [NotifyFlowParticipantsScenario.php](Scenarios/NotifyFlowParticipantsScenario.php) | `current` |
-| List documents<br>`list-documents` | Track and list documents | [ListDocumentsScenario.php](Scenarios/ListDocumentsScenario.php) | `legacy` |
-| Handle document webhooks (signed, approved, refused, concluded)<br>`webhook-document-events` | Webhooks | [CheckDocumentStatusScenario.php](Scenarios/CheckDocumentStatusScenario.php) | `current` |
-| Handle the invoice-closed billing webhook<br>`webhook-invoice-closed` | Webhooks | [InvoiceWebhookHandlingScenario.php](Scenarios/InvoiceWebhookHandlingScenario.php) | `current` |
-| Mark an invoice as paid<br>`mark-invoice-paid` | Billing | [InvoiceWebhookHandlingScenario.php](Scenarios/InvoiceWebhookHandlingScenario.php) | `current` |
-| Download a document's versions<br>`download-document-versions` | Download documents | [DownloadDocumentVersionScenario.php](Scenarios/DownloadDocumentVersionScenario.php) | `current` |
-| Cancel a document<br>`cancel-document` | Document lifecycle | [CancelDocumentScenario.php](Scenarios/CancelDocumentScenario.php) | `current` |
-| Refuse a document as the organization<br>`refuse-document` | Document lifecycle | [RefuseDocumentScenario.php](Scenarios/RefuseDocumentScenario.php) | `current` |
-| Delete a document<br>`delete-document` | Document lifecycle | [DeleteDocumentScenario.php](Scenarios/DeleteDocumentScenario.php) | `current` |
-| Upload a new version of a document<br>`add-document-version` | Document lifecycle | [AddNewDocumentVersionScenario.php](Scenarios/AddNewDocumentVersionScenario.php) | `current` |
-| Create a document in a new folder<br>`create-document-in-new-folder` | Folders | [CreateDocumentInNewFolderScenario.php](Scenarios/CreateDocumentInNewFolderScenario.php) | `current` |
-| Create a document in an existing folder<br>`create-document-in-existing-folder` | Folders | [CreateDocumentInExistingFolder.php](Scenarios/CreateDocumentInExistingFolder.php) | `current` |
+| Sample | Area | Entry file | Status | Command |
+|---|---|---|---|---|
+| Sign a document: create it with one signer<br>`sign-a-document` | Create documents | [CreateDocumentWithOneSignerScenario.php](Scenarios/CreateDocumentWithOneSignerScenario.php) | `current` | `composer install && php index.php` |
+| Create a document with an attachment<br>`create-document-with-attachment` | Create documents | [CreateDocumentWithAttachmentScenario.php](Scenarios/CreateDocumentWithAttachmentScenario.php) | `current` | `composer install && php index.php` |
+| Create a document with a description<br>`create-document-with-description` | Create documents | [CreateDocumentWithDescriptionScenario.php](Scenarios/CreateDocumentWithDescriptionScenario.php) | `current` | `composer install && php index.php` |
+| Merge several PDFs into one document (envelope)<br>`create-envelope` | Create documents | [CreateDocumentWithEnvelopeScenario.php](Scenarios/CreateDocumentWithEnvelopeScenario.php) | `current` | `composer install && php index.php` |
+| Upload a file as Base64<br>`upload-file-base64` | Create documents | [CreateBase64DocumentScenario.php](Scenarios/CreateBase64DocumentScenario.php) | `current` | `composer install && php index.php` |
+| Create a document from a large file<br>`create-document-large-file` | Create documents | [CreateLargeDocumentScenario.php](Scenarios/CreateLargeDocumentScenario.php) | `current` | `composer install && php index.php` |
+| Generate a document from a PDF form template and CSV data<br>`generate-document-from-template` | Create documents | [GenerateDocumentWithTwoOrMoreSignersScenario.php](Scenarios/GenerateDocumentWithTwoOrMoreSignersScenario.php) | `current` | `composer install && php index.php` |
+| Create a document with two or more signers, in any order<br>`create-document-multiple-signers` | Flows: participants, order and rules | [CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.php](Scenarios/CreateDocumentWithTwoOrMoreSignersWithoutOrderScenario.php) | `current` | `composer install && php index.php` |
+| Create a document with signers in a fixed order<br>`create-document-ordered-flow` | Flows: participants, order and rules | [CreateDocumentWithTwoOrMoreSignersWithOrderScenario.php](Scenarios/CreateDocumentWithTwoOrMoreSignersWithOrderScenario.php) | `current` | `composer install && php index.php` |
+| Create a document with an approver<br>`create-document-with-approver` | Flows: participants, order and rules | [CreateDocumentWithApproversScenario.php](Scenarios/CreateDocumentWithApproversScenario.php) | `current` | `composer install && php index.php` |
+| Create a document with a signing rule (any N of a group)<br>`create-document-with-signing-rule` | Flows: participants, order and rules | [CreateDocumentWithSigningRuleScenario.php](Scenarios/CreateDocumentWithSigningRuleScenario.php) | `current` | `composer install && php index.php` |
+| Pre-position a signature on the document<br>`create-document-with-positioned-signatures` | Flows: participants, order and rules | [CreateDocumentWithPositionedSignaturesScenario.php](Scenarios/CreateDocumentWithPositionedSignaturesScenario.php) | `current` | `composer install && php index.php` |
+| Add a signer to an existing document<br>`add-signer-to-existing-document` | Flows: participants, order and rules | [AddSignerToExistingDocumentScenario.php](Scenarios/AddSignerToExistingDocumentScenario.php) | `current` | `composer install && php index.php` |
+| Change a participant in an ongoing flow<br>`edit-flow-action` | Flows: participants, order and rules | [DocumentFlowEditRequestScenario.php](Scenarios/DocumentFlowEditRequestScenario.php) | `current` | `composer install && php index.php` |
+| Require a CAdES signature on a PDF<br>`create-pdf-with-cades-signature` | Signature formats (CAdES, XAdES) | [CreatePDFDocumentWithCadesSignatureScenario.php](Scenarios/CreatePDFDocumentWithCadesSignatureScenario.php) | `current` | `composer install && php index.php` |
+| Sign a whole XML file (XAdES)<br>`create-xml-full-signature` | Signature formats (CAdES, XAdES) | [CreateXmlWithFullDocumentSignatureScenario.php](Scenarios/CreateXmlWithFullDocumentSignatureScenario.php) | `current` | `composer install && php index.php` |
+| Sign one element of an XML file (XAdES)<br>`create-xml-element-signature` | Signature formats (CAdES, XAdES) | [CreateXMLWithElementSignatureScenario.php](Scenarios/CreateXMLWithElementSignatureScenario.php) | `current` | `composer install && php index.php` |
+| Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)<br>`create-digital-degree` | Signature formats (CAdES, XAdES) | [CreateDigitalDegreeScenario.php](Scenarios/CreateDigitalDegreeScenario.php) | `current` | `composer install && php index.php` |
+| Sign without leaving your page (embedded signature)<br>`embedded-signature` | Embedded signing | [EmbeddedSignatureScenario.php](Scenarios/EmbeddedSignatureScenario.php) | `current` | `composer install && php index.php` |
+| Check a document's status and its participants' actions<br>`check-document-status` | Track and list documents | [CheckDocumentStatusScenario.php](Scenarios/CheckDocumentStatusScenario.php) | `current` | `composer install && php index.php` |
+| Send reminders to participants with pending actions<br>`send-signing-reminders` | Track and list documents | [NotifyFlowParticipantsScenario.php](Scenarios/NotifyFlowParticipantsScenario.php) | `current` | `composer install && php index.php` |
+| List documents<br>`list-documents` | Track and list documents | [ListDocumentsScenario.php](Scenarios/ListDocumentsScenario.php) | `legacy` | `composer install && php index.php` |
+| Receive webhooks with a minimal HTTP endpoint<br>`webhook-endpoint` | Webhooks | [WebhookEndpointScenario.php](Scenarios/WebhookEndpointScenario.php) | `current` | `composer install && php -S localhost:8080 webhook.php` |
+| Handle document webhooks (signed, approved, refused, concluded)<br>`webhook-document-events` | Webhooks | [CheckDocumentStatusScenario.php](Scenarios/CheckDocumentStatusScenario.php) | `current` | `composer install && php index.php` |
+| Handle the invoice-closed billing webhook<br>`webhook-invoice-closed` | Webhooks | [InvoiceWebhookHandlingScenario.php](Scenarios/InvoiceWebhookHandlingScenario.php) | `current` | `composer install && php index.php` |
+| Mark an invoice as paid<br>`mark-invoice-paid` | Billing | [InvoiceWebhookHandlingScenario.php](Scenarios/InvoiceWebhookHandlingScenario.php) | `current` | `composer install && php index.php` |
+| Download a document's versions<br>`download-document-versions` | Download documents | [DownloadDocumentVersionScenario.php](Scenarios/DownloadDocumentVersionScenario.php) | `current` | `composer install && php index.php` |
+| Cancel a document<br>`cancel-document` | Document lifecycle | [CancelDocumentScenario.php](Scenarios/CancelDocumentScenario.php) | `current` | `composer install && php index.php` |
+| Refuse a document as the organization<br>`refuse-document` | Document lifecycle | [RefuseDocumentScenario.php](Scenarios/RefuseDocumentScenario.php) | `current` | `composer install && php index.php` |
+| Delete a document<br>`delete-document` | Document lifecycle | [DeleteDocumentScenario.php](Scenarios/DeleteDocumentScenario.php) | `current` | `composer install && php index.php` |
+| Upload a new version of a document<br>`add-document-version` | Document lifecycle | [AddNewDocumentVersionScenario.php](Scenarios/AddNewDocumentVersionScenario.php) | `current` | `composer install && php index.php` |
+| Create a document in a new folder<br>`create-document-in-new-folder` | Folders | [CreateDocumentInNewFolderScenario.php](Scenarios/CreateDocumentInNewFolderScenario.php) | `current` | `composer install && php index.php` |
+| Create a document in an existing folder<br>`create-document-in-existing-folder` | Folders | [CreateDocumentInExistingFolder.php](Scenarios/CreateDocumentInExistingFolder.php) | `current` | `composer install && php index.php` |
 <!-- END GENERATED SAMPLES LIST -->
 
 ## Run a scenario
@@ -123,20 +124,59 @@ Prerequisites of some scenarios:
 
 ## Receive webhooks locally
 
-`CheckDocumentStatusScenario::HandleWebhook` (document events) and
-`InvoiceWebhookHandlingScenario::HandleWebhook` (`InvoiceClosed`) take the raw JSON body, but
-nothing calls them. To try one:
+[`WebhookEndpointScenario`](Scenarios/WebhookEndpointScenario.php) is a minimal webhook endpoint
+for PHP's built-in web server, with [`webhook.php`](webhook.php) as the router script. Served with
+`php -S localhost:8080 webhook.php`, it answers on `http://localhost:8080/webhook` and follows the
+[webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
 
-1. Write a small endpoint of your own outside this repository's samples, for example a
-   `webhook.php` that requires `vendor/autoload.php`, answers 200, and passes
-   `file_get_contents('php://input')` to the handler. Serve it locally with
-   `php -S localhost:8000 webhook.php`.
-2. Expose it with an HTTPS tunnel (ngrok, Cloudflare Tunnel, ...), because Signer calls it from its
-   own servers.
-3. Register the public URL in Signer under **Organization → Integration**, with an auth type
-   other than `NoAuth`, and check that header in your endpoint.
+1. It answers 401 unless the `Authorization` header is `Bearer <token>` with the token you
+   registered (`EXPECTED_AUTHORIZATION`), because Signer does not sign the body.
+2. It answers 200 at once (`fastcgi_finish_request()` under PHP-FPM, `flush()` elsewhere) and
+   processes the event afterwards. Signer retries a non-2xx answer or a connection error, up to 10
+   times by default.
+3. It ignores an event it has already received, keyed on `type`, the document `id` and, when there
+   is one, `flowActionId`. PHP keeps nothing in memory between requests, so it records each key as
+   an empty file in `signer-webhook-events` under the temp folder (delete the folder to forget
+   them); production needs durable storage, such as a table with a unique index on the key.
+4. Events can arrive out of order, so before acting on `DocumentConcluded` it reads the document
+   back (`GET /api/documents/{id}`) and checks that its `status` is `Concluded`. This is its only
+   call to Signer.
 
-To test without Signer, post a body copied from the
-[webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks) to your local
-endpoint. `InvoiceClosed` is sent by the instance's billing webhook, which the system
-administrator configures, not by an organization webhook.
+It then passes the body to `CheckDocumentStatusScenario::HandleWebhook`, which switches on `type`,
+and writes what it echoes to the server's console. It needs PHP 7.0 or later. PHP's built-in
+server handles one request at a time, which is enough for local tests; in production, run the
+endpoint under PHP-FPM.
+
+To test it without Signer, run `composer install && php -S localhost:8080 webhook.php` from this
+folder, and post a `DocumentSigned` event from bash (Git Bash on Windows):
+
+```bash
+curl -i http://localhost:8080/webhook \
+  -H "Authorization: Bearer my-webhook-token" \
+  -H "Content-Type: application/json" \
+  -d '{"type":"DocumentSigned","data":{"id":"3fa85f64-5717-4562-b3fc-2c963f66afa6","name":"sample.pdf",
+       "signature":{"flowActionId":"5c1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b","name":"Jack Bauer",
+       "identifier":"75502846369","emailAddress":"jack.bauer@mailinator.com"}}}'
+```
+
+The answer is `200`, and the server's console prints `Accepted: ...` and `Document ... is Signed`.
+Post it again and the console prints `Ignored a repeated event`; change the token and the answer is
+`401`. A `DocumentConcluded` body, `{"type":"DocumentConcluded","data":{"id":"<document id>"}}`,
+makes the endpoint read that document from Signer after answering; with a made-up id, that call
+fails. On PHP 8.1 and later, the client library's models also print `Deprecated` notices there;
+they are harmless.
+
+To receive real events:
+
+1. Expose port 8080 with an HTTPS tunnel (ngrok, Cloudflare Tunnel, ...), for example
+   `ngrok http 8080`, because Signer calls the endpoint from its own servers.
+2. In Signer, under **Organization → Integration**, register `https://<tunnel host>/webhook` with
+   the auth type `Bearer` and a long random token, or call
+   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Put the same
+   token in `EXPECTED_AUTHORIZATION`.
+3. Webhooks belong to an organization (personal organizations have none), so register it in your
+   own organization and create the documents there, with its API key (see Configuration).
+
+`InvoiceClosed` is sent by the instance's billing webhook, which the system administrator
+configures, not by an organization webhook. `InvoiceWebhookHandlingScenario::HandleWebhook`
+handles it, but no endpoint calls it.

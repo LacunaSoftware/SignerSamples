@@ -32,6 +32,7 @@ other languages. Before changing anything, read [AGENTS.md](../../AGENTS.md).
 | Check a document's status and its participants' actions<br>`check-document-status` | Track and list documents | [CheckDocumentStatusScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/CheckDocumentStatusScenario.java) | `current` |
 | Send reminders to participants with pending actions<br>`send-signing-reminders` | Track and list documents | [NotifyFlowParticipantsScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/NotifyFlowParticipantsScenario.java) | `current` |
 | List documents<br>`list-documents` | Track and list documents | [ListDocumentsScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/ListDocumentsScenario.java) | `current` |
+| Receive webhooks with a minimal HTTP endpoint<br>`webhook-endpoint` | Webhooks | [WebhookEndpointScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/WebhookEndpointScenario.java) | `current` |
 | Handle document webhooks (signed, approved, refused, concluded)<br>`webhook-document-events` | Webhooks | [CheckDocumentStatusScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/CheckDocumentStatusScenario.java) | `current` |
 | Handle the invoice-closed billing webhook<br>`webhook-invoice-closed` | Webhooks | [InvoiceWebhookHandlingScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/InvoiceWebhookHandlingScenario.java) | `current` |
 | Mark an invoice as paid<br>`mark-invoice-paid` | Billing | [InvoiceWebhookHandlingScenario.java](src/main/java/com/lacunasoftware/signer/sample/scenarios/InvoiceWebhookHandlingScenario.java) | `current` |
@@ -82,20 +83,52 @@ Prerequisites of some scenarios:
 
 ## Receive webhooks locally
 
-`CheckDocumentStatusScenario.HandleWebhook` (document events) and
-`InvoiceWebhookHandlingScenario.HandleWebhook` (`InvoiceClosed`) take a `WebhookModel`, but
-nothing calls them: this console app has no HTTP endpoint. To try one:
+[`WebhookEndpointScenario`](src/main/java/com/lacunasoftware/signer/sample/scenarios/WebhookEndpointScenario.java)
+is a minimal webhook endpoint built on the JDK's `com.sun.net.httpserver.HttpServer`. It listens on
+`http://localhost:8080/webhook` and follows the
+[webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices):
 
-1. In your own web app (Spring Boot, for example), add a `POST` endpoint that reads the JSON body
-   (`{ "type": "...", "data": { ... } }`) into `WebhookModel` with `signerClient.getGson()`,
-   answers 200 at once, and passes the model to the handler. Call `Init()` first:
-   `CheckDocumentStatusScenario.HandleWebhook` uses `signerClient`.
-2. Expose that endpoint with an HTTPS tunnel (ngrok, Cloudflare Tunnel, ...), because Signer calls
-   it from its own servers.
-3. Register the public URL in Signer under **Organization → Integration**, with an auth type
-   other than `NoAuth`, and check that header in your endpoint.
+1. It answers 401 unless the `Authorization` header is `Bearer <token>` with the token you
+   registered (`EXPECTED_AUTHORIZATION`), because Signer does not sign the body.
+2. It answers 200 at once and processes the event afterwards, on another thread. Signer retries a
+   non-2xx answer or a connection error, up to 10 times by default.
+3. It ignores an event it has already received, keyed on `type`, the document `id` and, when there
+   is one, `flowActionId`. It keeps the keys in memory; production needs durable storage.
+4. Events can arrive out of order, so before acting on `DocumentConcluded` it reads the document
+   back (`GET /api/documents/{id}`) and checks that its `status` is `Concluded`. This is its only
+   call to Signer.
 
-To test without Signer, post a body copied from the
-[webhooks docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks) to your local
-endpoint. `InvoiceClosed` is sent by the instance's billing webhook, which the system
-administrator configures, not by an organization webhook.
+It then reads the body into a `WebhookModel` with `signerClient.getGson()`, which handles the
+API's enums and dates, and passes it to `CheckDocumentStatusScenario.HandleWebhook`.
+
+To test it without Signer, set `Scenario scenario = new WebhookEndpointScenario();` in `App.java`,
+run `./gradlew run`, and post a `DocumentSigned` event from bash (Git Bash on Windows):
+
+```bash
+curl -i http://localhost:8080/webhook \
+  -H "Authorization: Bearer my-webhook-token" \
+  -H "Content-Type: application/json" \
+  -d '{"type":"DocumentSigned","data":{"id":"3fa85f64-5717-4562-b3fc-2c963f66afa6","name":"sample.pdf",
+       "signature":{"flowActionId":"5c1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b","name":"Jack Bauer",
+       "identifier":"75502846369","emailAddress":"jack.bauer@mailinator.com"}}}'
+```
+
+The answer is `200`, and the console prints `Accepted: ...` and `Document ... is Signed`. Post it
+again and the console prints `Ignored a repeated event`; change the token and the answer is `401`.
+A `DocumentConcluded` body, `{"type":"DocumentConcluded","data":{"id":"<document id>"}}`, makes
+the endpoint read that document from Signer after answering; with a made-up id, that call fails.
+
+To receive real events:
+
+1. Expose port 8080 with an HTTPS tunnel (ngrok, Cloudflare Tunnel, ...), for example
+   `ngrok http 8080`, because Signer calls the endpoint from its own servers.
+2. In Signer, under **Organization → Integration**, register `https://<tunnel host>/webhook` with
+   the auth type `Bearer` and a long random token, or call
+   `POST /api/organizations/{orgId}/webhooks` with `url`, `authType` and `token`. Put the same
+   token in `EXPECTED_AUTHORIZATION`.
+3. Webhooks belong to an organization (personal organizations have none), so register it in your
+   own organization and create the documents there, with its API key (see Configuration).
+
+`InvoiceClosed` is sent by the instance's billing webhook, which the system administrator
+configures, not by an organization webhook. `InvoiceWebhookHandlingScenario.HandleWebhook` handles
+it, but no endpoint calls it.

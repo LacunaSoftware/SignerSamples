@@ -31,7 +31,7 @@ Every project is a console program that runs one scenario per execution, against
 - [Sign through the API](#sign-through-the-api): 2 tasks
 - [Embedded signing](#embedded-signing): 1 task
 - [Track and list documents](#track-and-list-documents): 4 tasks
-- [Webhooks](#webhooks): 2 tasks
+- [Webhooks](#webhooks): 3 tasks
 - [Download documents](#download-documents): 1 task
 - [Document lifecycle](#document-lifecycle): 4 tasks
 - [Folders](#folders): 2 tasks
@@ -97,6 +97,7 @@ Every project is a console program that runs one scenario per execution, against
 
 | Task | Status | .NET | Java | Node.js | PHP | Docs |
 |---|---|---|---|---|---|---|
+| **Receive webhooks with a minimal HTTP endpoint**<br>`webhook-endpoint` | `current` | [code](dotnet/console/Console/Scenarios/WebhookEndpointScenario.cs) | [code](java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/WebhookEndpointScenario.java) | [code](nodejs/scenarios/webhookEndpointScenario.ts) | [code](php/Scenarios/WebhookEndpointScenario.php) | [docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#best-practices) |
 | **Handle document webhooks (signed, approved, refused, concluded)**<br>`webhook-document-events` | `current` | [code](dotnet/console/Console/Scenarios/CheckDocumentStatusScenario.cs) | [code](java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CheckDocumentStatusScenario.java) | [code](nodejs/scenarios/checkDocumentStatusScenario.ts) | [code](php/Scenarios/CheckDocumentStatusScenario.php) | [docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events) |
 | **Handle the invoice-closed billing webhook**<br>`webhook-invoice-closed` | `current` | [code](dotnet/console/Console/Scenarios/InvoiceWebhookHandlingScenario.cs) | [code](java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/InvoiceWebhookHandlingScenario.java) | — | [code](php/Scenarios/InvoiceWebhookHandlingScenario.php) | [docs](https://docs.lacunasoftware.com/en-us/articles/signer/webhooks#events) |
 
