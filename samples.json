@@ -1291,7 +1291,7 @@
   {
     "id": "create-digital-degree-signer",
     "title": "Sign a Brazilian digital diploma (XAdES, Portaria MEC 554/2019)",
-    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML. Caveat: the third action reuses the `DadosDiploma` options instead of the `FullXml` ones it builds; copy that action from another language.",
+    "description": "Uploads a diploma XML, declares the `dip` namespace in `xmlNamespaces`, and creates three signer actions: one signs `//dip:DadosDiploma`, one `//dip:DadosRegistro` (XPath, `AppendChild`), and one the full XML.",
     "product": "signer",
     "area": "signature-formats",
     "language": "java",
