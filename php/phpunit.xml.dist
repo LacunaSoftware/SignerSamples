@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The tests of the base class's helpers and of the webhook endpoint: composer test -->
+<phpunit bootstrap="vendor/autoload.php" colors="true">
+    <testsuites>
+        <testsuite name="Signer samples">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

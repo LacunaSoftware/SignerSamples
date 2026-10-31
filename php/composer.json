@@ -2,7 +2,8 @@
   "name": "lacuna/signer-client-sample",
   "description": "",
   "scripts": {
-    "start": "php -S localhost:8000 "
+    "start": "php -S localhost:8000 ",
+    "test": "phpunit"
   },
   "autoload": {
     "psr-4": {
@@ -12,10 +13,18 @@
 
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Lacuna\\Tests\\": "tests/"
+    }
+  },
   "require": {
     "php": ">=7.2.5",
     "lacuna/signer-client": "1.4.10",
     "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5 || ^9.6"
   },
   "config": {
     "process-timeout": 0

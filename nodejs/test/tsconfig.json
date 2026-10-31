@@ -1,0 +1,5 @@
+{
+    // Type-checks the tests with the scenarios' options: npx tsc --noEmit -p test
+    "extends": "../scenarios/tsconfig.json",
+    "include": ["*.ts"]
+}

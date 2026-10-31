@@ -1,0 +1,41 @@
+name: Test php
+
+# Checks the syntax of every PHP file, then runs the tests of the base class's helpers and of the
+# webhook endpoint against a fake Signer on localhost. They need no Signer API key. PHP 7.2 is the
+# oldest the samples support (lacuna/signer-client 1.4.10 needs 7.2.5); composer.lock is not
+# committed, so each PHP gets the packages that suit it.
+on:
+  pull_request:
+    paths:
+      - "php/**"
+      - ".github/workflows/test-php.yml"
+  push:
+    branches: [master]
+    paths:
+      - "php/**"
+      - ".github/workflows/test-php.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["7.2", "8.5"]
+    defaults:
+      run:
+        working-directory: php
+    steps:
+      - uses: actions/checkout@v7
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+      - run: composer install --no-interaction --no-progress
+      - name: Check the syntax of every PHP file
+        run: find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l
+      - run: composer test

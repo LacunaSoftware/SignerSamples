@@ -1,0 +1,38 @@
+name: Test java/console
+
+# Compiles every Java scenario and runs the tests of the base class's helpers and of the webhook
+# endpoint against a fake Signer on localhost. They need no Signer API key. Gradle 5.2.1 runs on
+# JDK 8 to 11, so both ends are checked.
+on:
+  pull_request:
+    paths:
+      - "java/console/**"
+      - ".github/workflows/test-java-console.yml"
+  push:
+    branches: [master]
+    paths:
+      - "java/console/**"
+      - ".github/workflows/test-java-console.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ["8", "11"]
+    defaults:
+      run:
+        working-directory: java/console
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: gradle
+      - run: ./gradlew build --no-daemon

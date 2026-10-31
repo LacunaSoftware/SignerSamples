@@ -27,6 +27,25 @@ dependencies {
     implementation 'com.lacunasoftware.signer:signer-client:2.13.0'
     implementation 'com.google.code.gson:gson:2.8.1'
 
+    testImplementation 'junit:junit:4.13.2'
 }
 
 mainClassName = 'com.lacunasoftware.signer.sample.App'
+
+// The tests run the scenarios against a fake Signer and post events to the webhook endpoint, on
+// free ports of localhost. The scenarios read their settings from the environment, so the test JVM
+// gets its own: these values, never the shell's.
+test {
+    doFirst {
+        def freePort = { new ServerSocket(0).withCloseable { it.localPort } }
+        // With a trailing slash, which callSignerApi drops.
+        environment 'SIGNER_ENDPOINT', "http://localhost:${freePort()}/"
+        environment 'SIGNER_API_KEY', 'Java Tests|0123456789abcdef'
+        environment 'SIGNER_WEBHOOK_PORT', "${freePort()}"
+        environment 'SIGNER_WEBHOOK_TOKEN', 'webhook-tests-token'
+    }
+    testLogging {
+        events 'failed'
+        exceptionFormat 'full'
+    }
+}

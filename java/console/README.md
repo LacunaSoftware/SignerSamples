@@ -158,3 +158,21 @@ To receive real events:
 `InvoiceClosed` is sent by the instance's billing webhook, which the system administrator
 configures, not by an organization webhook. `InvoiceWebhookHandlingScenario.HandleWebhook` handles
 it, but no endpoint calls it.
+
+## Tests
+
+[`src/test`](src/test/java/com/lacunasoftware/signer/sample/scenarios) holds JUnit 4 tests of
+the base class's `callSignerApi` and `requiredField` (the headers, the JSON body, the errors on a
+non-2xx or non-JSON answer) and of the webhook endpoint over HTTP (401, 404, 400, repeated events,
+two participants' events, the answer before the processing, `DocumentConcluded` read back). Their
+fake Signer, on the JDK's HTTP server, takes the place of the real one through `SIGNER_ENDPOINT`.
+`build.gradle` sets that variable, the API key and the webhook port and token for the test run
+only, so the tests need no API key and send no e-mail. They don't run the other scenarios yet. From
+this folder:
+
+```bash
+./gradlew test
+```
+
+`./gradlew build` compiles every scenario and runs the tests, as CI does on JDK 8 and 11
+([`test-java-console.yml`](../../.github/workflows/test-java-console.yml)).

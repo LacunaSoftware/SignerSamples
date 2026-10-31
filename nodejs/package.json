@@ -2,6 +2,9 @@
   "engines": {
     "node": ">=18"
   },
+  "scripts": {
+    "test": "ts-node test/signerApi.test.ts && ts-node test/webhookEndpoint.test.ts"
+  },
   "dependencies": {
     "form-data": "^4.0.0",
     "node-forge": "^1.3.1",
