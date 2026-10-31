@@ -31,11 +31,11 @@ public class WebhookHandlerTests
     }
 
     [Fact]
-    public void Other_events_and_null_are_ignored_by_the_document_handler()
+    public void Other_events_are_reported_as_unhandled_and_null_is_ignored_by_the_document_handler()
     {
         var created = Deserialize($$"""{ "type": "DocumentsCreated", "data": { "documents": [ { "id": "{{DocumentId}}" } ] } }""");
 
-        Assert.Empty(Handle(new CheckDocumentStatusScenario(), created));
+        Assert.Equal("This sample does not handle DocumentsCreated events", Handle(new CheckDocumentStatusScenario(), created).Trim());
         Assert.Empty(Handle(new CheckDocumentStatusScenario(), null));
     }
 

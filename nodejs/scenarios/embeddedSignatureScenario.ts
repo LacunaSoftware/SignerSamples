@@ -40,10 +40,12 @@ import {
       user: participant,
     };
 
-    // 5. Send the document create request
+    // 5. Send the document create request. The participant signs inside your page, so don't let
+    //    Signer e-mail them a link to sign on Signer's own page.
     const documentRequest: DocumentsCreateDocumentRequest = {
       files: [uploadModel],
       flowActions: [flowAction],
+      disablePendingActionNotifications: true,
     };
     documentsApi.apiDocumentsPost(documentRequest).then((res) => {
       const actionUrlRequest: DocumentsActionUrlRequest ={

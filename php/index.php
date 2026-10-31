@@ -30,6 +30,11 @@ use Lacuna\Scenarios\DocumentFlowEditRequestScenario;
 use Lacuna\Scenarios\CreateLargeDocumentScenario;
 use Lacuna\Scenarios\CreateBase64DocumentScenario;
 use Lacuna\Scenarios\WebhookEndpointScenario;
+use Lacuna\Scenarios\PauseAndResumeDocumentScenario;
+use Lacuna\Scenarios\CreateDocumentWithoutRefusalScenario;
+use Lacuna\Scenarios\CreateDocumentWithSignerPositioningScenario;
+use Lacuna\Scenarios\CreateDocumentWithNotificationLanguageScenario;
+use Lacuna\Scenarios\CreatePdfADocumentWithTimestampScenario;
 use Lacuna\Scenarios\Scenario;
 
 

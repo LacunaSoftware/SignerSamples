@@ -45,8 +45,10 @@ public class EmbeddedSignatureScenario extends Scenario {
         flowActionCreateModel.setType(FlowActionType.SIGNER);
         flowActionCreateModel.setUser(user);
 
-        // 5. Send the document create request
+        // 5. Send the document create request. The participant signs inside your page, so don't let
+        //    Signer e-mail them a link to sign on Signer's own page.
         CreateDocumentRequest documentRequest = new CreateDocumentRequest();
+        documentRequest.setDisablePendingActionNotifications(true);
         documentRequest.setFiles(new ArrayList<FileUploadModel>() {
             private static final long serialVersionUID = 1L;
             {

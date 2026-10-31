@@ -205,7 +205,7 @@ public class WebhookEndpointTests(WebhookEndpointFixture endpoint) : IClassFixtu
     }
 
     [Fact]
-    public async Task Deleted_event_is_accepted_though_the_sdk_does_not_know_its_type()
+    public async Task Deleted_event_is_keyed_on_all_the_documents_it_lists()
     {
         var first = Guid.NewGuid();
         var second = Guid.NewGuid();
@@ -215,7 +215,21 @@ public class WebhookEndpointTests(WebhookEndpointFixture endpoint) : IClassFixtu
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         await console.WaitForAsync($"Accepted: DocumentDeleted:{first},{second}");
-        await console.WaitForAsync("This sample does not handle DocumentDeleted events");
+        var output = await console.WaitForAsync("This sample does not handle DocumentDeleted events");
+        Assert.DoesNotContain("Could not process", output);
+    }
+
+    [Fact]
+    public async Task Paused_event_is_accepted_though_the_sdk_does_not_know_its_type()
+    {
+        var documentId = Guid.NewGuid();
+        using var console = new ConsoleCapture();
+
+        var response = await PostAsync($$"""{ "type": "DocumentPaused", "data": { "id": "{{documentId}}", "name": "sample.pdf" } }""");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        await console.WaitForAsync($"Accepted: DocumentPaused:{documentId}");
+        await console.WaitForAsync("This sample does not handle DocumentPaused events");
     }
 
     private static string SignedEvent(Guid documentId, Guid flowActionId) => ParticipantEvent("DocumentSigned", "signature", documentId, flowActionId);

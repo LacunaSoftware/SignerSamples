@@ -71,6 +71,10 @@ namespace Console.Scenarios
                     var signedDocument = JsonConvert.DeserializeObject<DocumentSignedModel>(webhook.Data.ToString());
                     System.Console.WriteLine($"Document {signedDocument.Id} is signed!");
                 }
+                else
+                {
+                    System.Console.WriteLine($"This sample does not handle {webhook.Type} events");
+                }
             }
         }
     }
