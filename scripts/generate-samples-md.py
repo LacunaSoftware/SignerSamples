@@ -82,6 +82,13 @@ PROJECTS = OrderedDict([
         "pick": "dotnet/console/Console/Program.cs",
         "config": "dotnet/console/Console/Scenarios/Scenario.cs",
     }),
+    ("dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp", {
+        "stack": ".NET 10 console tool for a coding agent (Windows), with PKI SDK",
+        "command": "`dotnet run -- certs` (or `list`, `sign`)",
+        "pick": None,
+        "pick_note": "not a scenario project: one command per run",
+        "config": "dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp/appsettings.json.example",
+    }),
     ("java/console", {
         "stack": "Java 8 console app, Gradle wrapper",
         "command": "`./gradlew run` (`gradlew.bat run` on Windows)",
@@ -179,14 +186,17 @@ def render(catalog):
         "reads the Signer instance URL and API key from the `SIGNER_ENDPOINT` and `SIGNER_API_KEY` "
         "environment variables and, when they are unset, uses the sandbox and a shared sample key. "
         "Read [AGENTS.md](AGENTS.md) before running one: each run creates real documents on that "
-        "instance.",
+        "instance. The exception is the .NET Skill-friendly signature app, a command-line tool that "
+        "signs the user's own pending documents: it targets DropSigner by default and reads its "
+        "own configuration, with no shared key (see its README).",
         "",
         "| Project | Stack | Command | Pick the scenario in | Signer URL and API key |",
         "|---|---|---|---|---|",
     ]
     for cwd in OrderedDict((e["run"]["cwd"], None) for e in catalog):
         p = PROJECTS.get(cwd, {})
-        pick = f"[{Path(p['pick']).name}]({p['pick']})" if p.get("pick") else "each scenario is its own script"
+        pick = (f"[{Path(p['pick']).name}]({p['pick']})" if p.get("pick")
+                else p.get("pick_note", "each scenario is its own script"))
         config = f"[{Path(p['config']).name}]({p['config']})" if p.get("config") else "—"
         out.append(f"| [`{cwd}`]({cwd}) | {p.get('stack', '—')} | {p.get('command', '—')} | {pick} | {config} |")
 
