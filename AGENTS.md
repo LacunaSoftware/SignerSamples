@@ -93,13 +93,27 @@ Per-project notes:
   test there.
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
   the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
+  JUnit 4 tests in `src/test` check `callSignerApi`, `requiredField` and the webhook endpoint
+  against a fake Signer; `build.gradle` gives the test JVM its own `SIGNER_*` variables.
+  `./gradlew build` compiles every scenario and runs the tests, in CI through
+  `.github/workflows/test-java-console.yml` (JDK 8 and 11).
 - **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in
   `samples` through `__dirname`. No compiled JS is committed (`scenarios/dist` is git-ignored).
   `typescript` is pinned to 5.x because ts-node 10 cannot load TypeScript 7. Node.js 18 or later
   (`engines` in `package.json`): `callSignerApi` uses the global `fetch`. Type-check all
-  scenarios, without running them, with `npx tsc --noEmit -p scenarios`.
+  scenarios, without running them, with `npx tsc --noEmit -p scenarios`. `npm test` runs the
+  `node:test` tests in `test` (`callSignerApi`, `requiredField`, the webhook endpoint in its own
+  process) against a fake Signer, through ts-node's own entry point: Node 22.18 and later strip a
+  `.ts` entry's types themselves, so `node --require ts-node/register` would bypass ts-node, and
+  that stripping rejects TypeScript-only syntax such as `FakeSigner`'s parameter property. CI,
+  `.github/workflows/test-nodejs.yml`, also runs both type-checks (`-p scenarios`, `-p test`),
+  on Node.js 18 and 24.
 - **PHP**: run from `php/`; scenarios open `resources/...` relative to it. `lacuna/signer-client`
   1.4.10 brings in Guzzle 7, so PHP 7.2.5 or later; `composer install` needs no extra flags.
+  `composer test` runs the PHPUnit tests in `tests` (`callSignerApi`, `requiredField`, the webhook
+  endpoint under `php -S`) against a fake Signer, itself a `php -S` router. Keep test code PHP 7.2
+  compatible. CI, `.github/workflows/test-php.yml`, also runs `php -l` on every file, on PHP 7.2
+  and 8.5.
 - **Skill-friendly signature app** (`dotnet/SkillFriendlySignatureApp`): reads `Signer:Endpoint`
   (DropSigner by default, not the sandbox) and `Signer:ApiKey` from `appsettings.json`, user
   secrets or the environment (`Signer__ApiKey`), never from `SIGNER_ENDPOINT`/`SIGNER_API_KEY`,
@@ -266,6 +280,9 @@ throws: deserialize it again (Java: with `signerClient.getGson()`, which reads t
   subclass); Node.js `scenarios/<name>Scenario.ts`, importing `config` from `./scenario`, opening
   files with `path.join(__dirname, "..", "samples", ...)` and run with ts-node (commit no JS); PHP
   `Scenarios/<Name>Scenario.php` in namespace `Lacuna\Scenarios`, with a `use` line in `index.php`.
+- In Java, Node.js and PHP, a change to `callSignerApi`, `requiredField` or the webhook endpoint
+  needs its test updated (section 3); the rest of the base class and the other scenarios have no
+  tests yet, so CI only compiles, type-checks or lints them.
 - **Every sample needs a catalog entry** in `samples.json`, one per language, with an `area` from
   `AREAS` in the generator. Regenerate and validate; CI runs the validator on every pull request:
 
