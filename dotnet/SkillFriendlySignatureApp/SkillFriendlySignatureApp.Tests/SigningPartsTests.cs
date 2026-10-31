@@ -85,7 +85,16 @@ public class LocalCertificatesTests {
 	}
 }
 
-public class PkiSdkLicenseTests {
+/// <summary>
+/// PKI SDK keeps one license for the process. Loading another while a test in another class
+/// reads a certificate makes that read throw a NullReferenceException inside PKI SDK, so these
+/// tests run alone, and each one ends by loading the valid license again.
+/// </summary>
+[CollectionDefinition(nameof(PkiSdkLicenseTests), DisableParallelization = true)]
+[Collection(nameof(PkiSdkLicenseTests))]
+public class PkiSdkLicenseTests : IDisposable {
+
+	public void Dispose() => TestCertificates.LoadPkiSdkLicense();
 
 	[Fact]
 	public void A_base64_license_in_configuration_is_loaded() {

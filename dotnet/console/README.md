@@ -1,8 +1,8 @@
 # Signer samples: .NET console
 
-A .NET Framework 4.8 console app with one class per Lacuna Signer integration task, in
+A .NET 10 console app with one class per Lacuna Signer integration task, in
 [`Console/Scenarios`](Console/Scenarios). Each scenario calls the Signer API through the
-`Lacuna.Signer.Client` NuGet package (1.17.0, with `Lacuna.Signer.Api` 1.47.0).
+`Lacuna.Signer.Client` NuGet package (1.24.0, with `Lacuna.Signer.Api` 1.77.1).
 
 The table is generated from the repository's catalog ([samples.json](../../samples.json), also
 shown as [SAMPLES.md](../../SAMPLES.md)), where each slug has its docs link and the same task in
@@ -44,11 +44,15 @@ other languages. Before changing anything, read [AGENTS.md](../../AGENTS.md).
 
 ## Run a scenario
 
-1. Open `Console.sln` in Visual Studio, with the .NET Framework 4.8 targeting pack installed,
-   and let it restore the NuGet packages (`packages.config`).
-2. In [`Console/Program.cs`](Console/Program.cs), set the scenario to run:
+You need the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
+
+1. In [`Console/Program.cs`](Console/Program.cs), set the scenario to run:
    `var scenario = new CreateDocumentWithOneSignerScenario();`
-3. Press F5.
+2. From this folder, run `dotnet run --project Console`. Or open `Console.sln` in Visual Studio
+   2026 (or another IDE with .NET 10 support) and press F5.
+
+Both start the program in its output folder, `Console/bin/Debug/net10.0`, where the build copies
+the input files (`sample.pdf`, `sample.xml`, `sample-degree.xml`).
 
 Every run creates real documents on the configured Signer instance, and Signer e-mails the sample
 participants (made-up `@mailinator.com` addresses).
@@ -64,22 +68,13 @@ The sandbox is where you should develop and test: to use your own organization t
 [`.env.example`](.env.example) lists every value the project uses, including the webhook
 endpoint's; nothing loads that file automatically.
 
-The program inherits the variables from whatever starts it. A .NET Framework project's debug
-settings have no environment variables, so set them for your Windows user and then restart Visual
-Studio, from PowerShell:
-
-```powershell
-[Environment]::SetEnvironmentVariable("SIGNER_API_KEY", "your-application|your-key", "User")
-```
-
-Or set them for one shell, and run `Console.exe` from its output folder, where the input files
-are. In PowerShell:
+The program inherits the variables from whatever starts it. Set them for one shell and run it
+from there. In PowerShell:
 
 ```powershell
 $env:SIGNER_ENDPOINT = "https://signer-lac.azurewebsites.net"
 $env:SIGNER_API_KEY = "your-application|your-key"
-cd Console\bin\Debug
-.\Console.exe
+dotnet run --project Console
 ```
 
 In bash (Git Bash on Windows), quoting the key because of its `|`:
@@ -87,16 +82,21 @@ In bash (Git Bash on Windows), quoting the key because of its `|`:
 ```bash
 export SIGNER_ENDPOINT=https://signer-lac.azurewebsites.net
 export SIGNER_API_KEY='your-application|your-key'
-cd Console/bin/Debug
-./Console.exe
+dotnet run --project Console
+```
+
+For Visual Studio, set them for your Windows user and then restart Visual Studio, from PowerShell:
+
+```powershell
+[Environment]::SetEnvironmentVariable("SIGNER_API_KEY", "your-application|your-key", "User")
 ```
 
 Prerequisites of some scenarios:
 
 - `CreateDocumentInExistingFolderScenario`: the organization needs a folder named "Sample Folder".
 - `PublicSignatureScenario`: copy [`nodejs/samples/56072386105.pfx`](../../nodejs/samples/56072386105.pfx)
-  (a Lacuna test certificate, password `1234`) next to `Console.exe`, for example to
-  `Console/bin/Debug`.
+  (a Lacuna test certificate, password `1234`) next to `Console.exe`, in
+  `Console/bin/Debug/net10.0`.
 - `InvoiceWebhookHandlingScenario.RunAsync`: needs an API key with billing administration
   privileges and a real invoice id.
 
@@ -121,7 +121,7 @@ endpoint built on `System.Net.HttpListener`. It listens on `http://localhost:808
 It then passes the event to `CheckDocumentStatusScenario.HandleWebhook`, which switches on `type`.
 
 To test it without Signer, set `var scenario = new WebhookEndpointScenario();` in `Program.cs`,
-press F5, and post a `DocumentSigned` event with the default token from bash (Git Bash on
+run it (`dotnet run --project Console`), and post a `DocumentSigned` event with the default token from bash (Git Bash on
 Windows):
 
 ```bash

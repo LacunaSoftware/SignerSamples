@@ -23,7 +23,7 @@ namespace Console.Scenarios
      * 3. Be idempotent: the same event can arrive more than once.
      * 4. Don't trust the order of events: read the document from Signer before acting on it.
      *
-     * Select it in Program.cs and press F5. The README shows how to test it with curl, and how to
+     * Select it in Program.cs and run the project. The README shows how to test it with curl, and how to
      * receive real events through an HTTPS tunnel.
      */
     public class WebhookEndpointScenario : Scenario
@@ -83,7 +83,7 @@ namespace Console.Scenarios
 
                 // The body is { "type": "...", "data": { ... } }, with camelCase fields. Read it as JSON rather
                 // than as a WebhookModel, which rejects the event types that this version of
-                // Lacuna.Signer.Api doesn't know (DocumentsCreated, DocumentDeleted).
+                // Lacuna.Signer.Api doesn't know (DocumentDeleted).
                 string body;
                 using (var reader = new StreamReader(request.InputStream, Encoding.UTF8))
                 {
