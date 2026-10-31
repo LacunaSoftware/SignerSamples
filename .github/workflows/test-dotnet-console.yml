@@ -1,0 +1,35 @@
+name: Test dotnet/console
+
+# Runs the .NET console scenarios against a fake Signer on localhost and checks the requests they
+# send, plus the webhook endpoint over HTTP. They need no Signer API key; LiveSandboxTests skip
+# themselves unless SIGNER_LIVE_TESTS is 1.
+on:
+  pull_request:
+    paths:
+      - "dotnet/console/**"
+      - "nodejs/samples/56072386105.pfx"
+      - ".github/workflows/test-dotnet-console.yml"
+  push:
+    branches: [master]
+    paths:
+      - "dotnet/console/**"
+      - "nodejs/samples/56072386105.pfx"
+      - ".github/workflows/test-dotnet-console.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        # global.json here selects Microsoft.Testing.Platform, which `dotnet test --solution` needs.
+        working-directory: dotnet/console
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "10.0.x"
+      - run: dotnet test --solution Console.sln

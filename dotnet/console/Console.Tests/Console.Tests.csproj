@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- xUnit v3 test projects are executables, run by Microsoft.Testing.Platform (see ../global.json). -->
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Console.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Kestrel, for the fake Signer the scenarios call through SIGNER_ENDPOINT. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="xunit.v3" Version="4.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The scenarios' input files (sample.pdf, sample.xml, sample-degree.xml) come with it. -->
+    <ProjectReference Include="..\Console\Console.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The Lacuna test certificate (password 1234) that PublicSignatureScenario opens from the working folder. -->
+    <None Include="..\..\..\nodejs\samples\56072386105.pfx" Link="56072386105.pfx" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
