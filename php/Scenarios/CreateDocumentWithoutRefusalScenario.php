@@ -12,7 +12,7 @@ class CreateDocumentWithoutRefusalScenario extends Scenario
      * from them. The setting is per participant: the other signer can still refuse, and your
      * application can still refuse the document on the organization's behalf (RefuseDocumentScenario).
      *
-     * lacuna/signer-client 1.4.10 has no disableRefusal, so the scenario creates the document with a
+     * lacuna/signer-client has no disableRefusal, so the scenario creates the document with a
      * direct call to the REST API (callSignerApi, in Scenario.php).
      */
     function run()
@@ -55,7 +55,7 @@ class CreateDocumentWithoutRefusalScenario extends Scenario
         // 3. Read the document back: each flow action has disableRefusal.
         $document = $this->callSignerApi("GET", "/api/documents/$documentId");
         foreach ($document['flowActions'] as $flowAction) {
-            echo $flowAction['user']['name'] . " can refuse: " . ($flowAction['disableRefusal'] ? "no" : "yes") . "\n";
+            echo $flowAction['user']['name'] . " can refuse: " . (self::requiredField($flowAction, 'disableRefusal') ? "no" : "yes") . "\n";
         }
     }
 }

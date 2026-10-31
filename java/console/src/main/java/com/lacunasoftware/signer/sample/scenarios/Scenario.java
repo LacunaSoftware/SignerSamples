@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.lacunasoftware.signer.documents.CreateDocumentRequest;
 import com.lacunasoftware.signer.documents.CreateDocumentResult;
@@ -43,13 +44,16 @@ public abstract class Scenario {
 		signerClient = new SignerClient(domain, token);
     }
 
-    // Calls the Signer REST API directly, for the features that signer-client 2.13.0 doesn't have yet,
-    // such as pausing a document. The body is sent as JSON, with the field names and enum values of the
-    // API reference (https://www.dropsigner.com/swagger); pass null for no body. Returns the JSON of the
+    // Calls the Signer REST API directly, for the features that signer-client doesn't have yet, such as
+    // pausing a document. The body is sent as JSON, with the field names and enum values of the API
+    // reference (https://www.dropsigner.com/swagger); pass null for no body. Returns the JSON of the
     // response, or null when it has none. Throws on an answer other than 2xx, with the body, which for
-    // a 422 holds Signer's error code and message.
+    // a 422 holds Signer's error code and message, and on a 2xx that isn't JSON.
     protected JsonElement callSignerApi(String method, String path, JsonElement body) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(domain.replaceAll("/$", "") + path).openConnection();
+        // HttpURLConnection waits forever by default.
+        connection.setConnectTimeout(30000);
+        connection.setReadTimeout(100000);
         connection.setRequestMethod(method);
         connection.setRequestProperty("X-Api-Key", token);
         if (!"GET".equals(method)) {
@@ -75,7 +79,24 @@ public abstract class Scenario {
         if (status < 200 || status >= 300) {
             throw new IOException(String.format("%s %s answered %d: %s", method, path, status, content));
         }
-        return content.isEmpty() ? null : new JsonParser().parse(content);
+        if (content.isEmpty()) {
+            return null;
+        }
+        try {
+            return new JsonParser().parse(content);
+        } catch (JsonParseException e) {
+            throw new IOException(String.format("%s %s answered %d with invalid JSON: %s", method, path, status, content), e);
+        }
+    }
+
+    // Returns a field of a response from callSignerApi, and throws if Signer left it out or sent null: an
+    // instance older than the feature ignores the request field instead of rejecting it.
+    protected static JsonElement requiredField(JsonObject parent, String name) {
+        JsonElement value = parent.get(name);
+        if (value == null || value.isJsonNull()) {
+            throw new IllegalStateException(String.format("Signer did not return %s: this instance may predate the feature", name));
+        }
+        return value;
     }
 
     // The JSON of an uploaded file, for the "files" of a create request sent with callSignerApi.

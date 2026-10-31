@@ -1,6 +1,6 @@
 import { getBase64, UploadApi } from "signer-node-client";
 import * as path from "path";
-import { callSignerApi, config } from "./scenario";
+import { callSignerApi, config, requiredField } from "./scenario";
 
 /**
  * This scenario creates a document that Signer converts to PDF/A, for long-term archiving, and
@@ -12,7 +12,7 @@ import { callSignerApi, config } from "./scenario";
  *   timestamps every signature and false none; leave it out to use the organization's setting. On
  *   an instance without a timestamper, Signer rejects a document that sets it.
  *
- * signer-node-client 1.1.0 has none of these fields, so the scenario creates the document with a
+ * signer-node-client has none of these fields, so the scenario creates the document with a
  * direct call to the REST API (callSignerApi, in scenario.ts).
  */
 const uploadApi = new UploadApi(config);
@@ -42,7 +42,7 @@ async function run() {
 
   // 3. Read the document back.
   const document = await callSignerApi("GET", `/api/documents/${documentId}`);
-  console.log(`Document ${documentId}: timestampEnabled = ${document.timestampEnabled}`);
+  console.log(`Document ${documentId}: timestampEnabled = ${requiredField(document, "timestampEnabled")}`);
 }
 
 run().catch((error) => console.error(error));

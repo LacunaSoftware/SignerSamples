@@ -8,7 +8,7 @@ For other languages, please visit the [repository root](https://github.com/Lacun
 ## Installing
 
 Run `npm install` in this folder to install the client library, TypeScript and ts-node. The
-samples were last type-checked with Node.js 24.
+samples were last type-checked with Node.js 24, and need Node.js 18 or later for the global `fetch`.
 
 ## How to run a sample
 

@@ -6,13 +6,13 @@ namespace Console.Scenarios
     /**
      * This scenario pauses a pending document and then resumes it. While a document is paused, nobody can
      * sign, approve or refuse it, Signer sends no reminders and the document doesn't expire; you can still
-     * cancel it. Resuming lets the flow continue where it stopped. Each step e-mails the participants
-     * whose turn has come and sends a webhook event, DocumentPaused or DocumentResumed.
+     * cancel it. Resuming lets the flow continue where it stopped. Pausing and resuming each e-mail the
+     * pending participants and send a webhook event, DocumentPaused or DocumentResumed.
      *
-     * Lacuna.Signer.Client 1.24.0 has no pause or resume methods, so the scenario calls the REST API
+     * Lacuna.Signer.Client has no pause or resume methods, so the scenario calls the REST API
      * directly (CallSignerApiAsync, in Scenario.cs). It reads the document the same way:
      * GetDocumentDetailsAsync throws on a paused document, because the DocumentStatus enum of
-     * Lacuna.Signer.Api 2.1.0 has no Paused value.
+     * Lacuna.Signer.Api has no Paused value.
      */
     class PauseAndResumeDocumentScenario : Scenario
     {

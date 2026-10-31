@@ -18,7 +18,7 @@ import com.lacunasoftware.signer.sample.Util;
  *
  * The languages are Pt, Es and En; without one, Signer uses the instance's default language.
  *
- * signer-client 2.13.0 has neither field, so the scenario creates the document with a direct call to
+ * signer-client has neither field, so the scenario creates the document with a direct call to
  * the REST API (callSignerApi, in Scenario.java).
  */
 public class CreateDocumentWithNotificationLanguageScenario extends Scenario {
@@ -59,12 +59,12 @@ public class CreateDocumentWithNotificationLanguageScenario extends Scenario {
         for (JsonElement flowAction : document.getAsJsonArray("flowActions")) {
             JsonObject action = flowAction.getAsJsonObject();
             System.out.println(String.format("%s is notified in %s",
-                action.getAsJsonObject("user").get("email").getAsString(), action.get("notificationLanguage").getAsString()));
+                action.getAsJsonObject("user").get("email").getAsString(), requiredField(action, "notificationLanguage").getAsString()));
         }
-        for (JsonElement element : document.getAsJsonArray("notifiedEmailsData")) {
+        for (JsonElement element : requiredField(document, "notifiedEmailsData").getAsJsonArray()) {
             JsonObject email = element.getAsJsonObject();
             System.out.println(String.format("%s learns of the conclusion in %s",
-                email.get("email").getAsString(), email.get("notificationLanguage").getAsString()));
+                email.get("email").getAsString(), requiredField(email, "notificationLanguage").getAsString()));
         }
     }
 }

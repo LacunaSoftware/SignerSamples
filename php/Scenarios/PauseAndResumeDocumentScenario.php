@@ -7,10 +7,10 @@ class PauseAndResumeDocumentScenario extends Scenario
     /**
      * This scenario pauses a pending document and then resumes it. While a document is paused, nobody
      * can sign, approve or refuse it, Signer sends no reminders and the document doesn't expire; you
-     * can still cancel it. Resuming lets the flow continue where it stopped. Each step e-mails the
-     * participants whose turn has come and sends a webhook event, DocumentPaused or DocumentResumed.
+     * can still cancel it. Resuming lets the flow continue where it stopped. Pausing and resuming each
+     * e-mail the pending participants and send a webhook event, DocumentPaused or DocumentResumed.
      *
-     * lacuna/signer-client 1.4.10 has no pause or resume methods, so the scenario calls the REST API
+     * lacuna/signer-client has no pause or resume methods, so the scenario calls the REST API
      * directly (callSignerApi, in Scenario.php). Its DocumentStatus has no Paused value either.
      */
     function run()

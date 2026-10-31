@@ -14,11 +14,12 @@ class CreateDocumentWithSignerPositioningScenario extends Scenario
      *   puts it in the page footer, SignatureSheet on a signature sheet at the end of the PDF, and
      *   Disabled leaves it off. Disabled can't be combined with signerPositioningEnabled = false.
      *
-     * It sets them when it creates the document, then changes them with PUT /signer-positioning, which
-     * works until a participant signs or approves. A null value takes the organization's current
-     * setting, and the document keeps it even if the organization changes later.
+     * It sets them when it creates the document, then changes them with
+     * PUT /api/documents/{id}/signer-positioning, which works until a participant signs or approves. A
+     * null value takes the organization's current setting, and the document keeps it even if the
+     * organization changes later.
      *
-     * lacuna/signer-client 1.4.10 has neither setting, so the scenario calls the REST API directly
+     * lacuna/signer-client has neither setting, so the scenario calls the REST API directly
      * (callSignerApi, in Scenario.php).
      */
     function run()
@@ -67,7 +68,7 @@ class CreateDocumentWithSignerPositioningScenario extends Scenario
     private function printSettings($documentId)
     {
         $document = $this->callSignerApi("GET", "/api/documents/$documentId");
-        echo "Document $documentId: signerPositioningEnabled = " . var_export($document['signerPositioningEnabled'], true)
-            . ", automaticSignaturePositioning = {$document['automaticSignaturePositioning']}\n";
+        echo "Document $documentId: signerPositioningEnabled = " . var_export(self::requiredField($document, 'signerPositioningEnabled'), true)
+            . ", automaticSignaturePositioning = " . self::requiredField($document, 'automaticSignaturePositioning') . "\n";
     }
 }

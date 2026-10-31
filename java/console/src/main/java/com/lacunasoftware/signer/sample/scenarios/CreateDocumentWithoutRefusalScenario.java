@@ -15,7 +15,7 @@ import com.lacunasoftware.signer.sample.Util;
  * The setting is per participant: the other signer can still refuse, and your application can still
  * refuse the document on the organization's behalf (RefuseDocumentScenario).
  *
- * FlowActionCreateModel in signer-client 2.13.0 has no disableRefusal, so the scenario creates the
+ * FlowActionCreateModel in signer-client has no disableRefusal, so the scenario creates the
  * document with a direct call to the REST API (callSignerApi, in Scenario.java).
  */
 public class CreateDocumentWithoutRefusalScenario extends Scenario {
@@ -50,7 +50,7 @@ public class CreateDocumentWithoutRefusalScenario extends Scenario {
             JsonObject action = flowAction.getAsJsonObject();
             System.out.println(String.format("%s can refuse: %s",
                 action.getAsJsonObject("user").get("name").getAsString(),
-                !action.get("disableRefusal").getAsBoolean()));
+                !requiredField(action, "disableRefusal").getAsBoolean()));
         }
     }
 }

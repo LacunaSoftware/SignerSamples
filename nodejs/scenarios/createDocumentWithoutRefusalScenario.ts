@@ -1,6 +1,6 @@
 import { getBase64, UploadApi } from "signer-node-client";
 import * as path from "path";
-import { callSignerApi, config } from "./scenario";
+import { callSignerApi, config, requiredField } from "./scenario";
 
 /**
  * This scenario creates a document that one of its two signers cannot refuse. Signer hides the
@@ -8,7 +8,7 @@ import { callSignerApi, config } from "./scenario";
  * from them. The setting is per participant: the other signer can still refuse, and your
  * application can still refuse the document on the organization's behalf (refuseDocumentScenario.ts).
  *
- * signer-node-client 1.1.0 has no disableRefusal, so the scenario creates the document with a
+ * signer-node-client has no disableRefusal, so the scenario creates the document with a
  * direct call to the REST API (callSignerApi, in scenario.ts).
  */
 const uploadApi = new UploadApi(config);
@@ -42,7 +42,7 @@ async function run() {
   // 3. Read the document back: each flow action has disableRefusal.
   const document = await callSignerApi("GET", `/api/documents/${documentId}`);
   for (const flowAction of document.flowActions) {
-    console.log(`${flowAction.user.name} can refuse: ${!flowAction.disableRefusal}`);
+    console.log(`${flowAction.user.name} can refuse: ${!requiredField(flowAction, "disableRefusal")}`);
   }
 }
 

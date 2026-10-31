@@ -16,7 +16,7 @@ class CreatePdfADocumentWithTimestampScenario extends Scenario
      *   timestamps every signature and false none; leave it out to use the organization's setting. On
      *   an instance without a timestamper, Signer rejects a document that sets it.
      *
-     * lacuna/signer-client 1.4.10 has none of these fields, so the scenario creates the document with a
+     * lacuna/signer-client has none of these fields, so the scenario creates the document with a
      * direct call to the REST API (callSignerApi, in Scenario.php).
      */
     function run()
@@ -55,6 +55,6 @@ class CreatePdfADocumentWithTimestampScenario extends Scenario
 
         // 3. Read the document back.
         $document = $this->callSignerApi("GET", "/api/documents/$documentId");
-        echo "Document $documentId: timestampEnabled = " . var_export($document['timestampEnabled'], true) . "\n";
+        echo "Document $documentId: timestampEnabled = " . var_export(self::requiredField($document, 'timestampEnabled'), true) . "\n";
     }
 }

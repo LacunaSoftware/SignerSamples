@@ -14,7 +14,7 @@ namespace Console.Scenarios
      *   every signature and false none; leave it out to use the organization's setting. On an instance
      *   without a timestamper, Signer rejects a document that sets it.
      *
-     * Lacuna.Signer.Api 2.1.0 has none of these fields, so the scenario creates the document with a direct
+     * Lacuna.Signer.Api has none of these fields, so the scenario creates the document with a direct
      * call to the REST API (CallSignerApiAsync, in Scenario.cs).
      */
     class CreatePdfADocumentWithTimestampScenario : Scenario
@@ -51,7 +51,7 @@ namespace Console.Scenarios
 
             // 3. Read the document back.
             var document = await CallSignerApiAsync(HttpMethod.Get, $"/api/documents/{documentId}");
-            System.Console.WriteLine($"Document {documentId}: timestampEnabled = {document["timestampEnabled"]}");
+            System.Console.WriteLine($"Document {documentId}: timestampEnabled = {RequiredField(document, "timestampEnabled")}");
         }
     }
 }

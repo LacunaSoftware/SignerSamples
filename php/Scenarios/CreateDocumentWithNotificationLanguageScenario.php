@@ -15,7 +15,7 @@ class CreateDocumentWithNotificationLanguageScenario extends Scenario
      *
      * The languages are Pt, Es and En; without one, Signer uses the instance's default language.
      *
-     * lacuna/signer-client 1.4.10 has neither field, so the scenario creates the document with a direct
+     * lacuna/signer-client has neither field, so the scenario creates the document with a direct
      * call to the REST API (callSignerApi, in Scenario.php).
      */
     function run()
@@ -61,10 +61,10 @@ class CreateDocumentWithNotificationLanguageScenario extends Scenario
         // 3. Read the document back.
         $document = $this->callSignerApi("GET", "/api/documents/$documentId");
         foreach ($document['flowActions'] as $flowAction) {
-            echo "{$flowAction['user']['email']} is notified in {$flowAction['notificationLanguage']}\n";
+            echo "{$flowAction['user']['email']} is notified in " . self::requiredField($flowAction, 'notificationLanguage') . "\n";
         }
-        foreach ($document['notifiedEmailsData'] as $notifiedEmail) {
-            echo "{$notifiedEmail['email']} learns of the conclusion in {$notifiedEmail['notificationLanguage']}\n";
+        foreach (self::requiredField($document, 'notifiedEmailsData') as $notifiedEmail) {
+            echo "{$notifiedEmail['email']} learns of the conclusion in " . self::requiredField($notifiedEmail, 'notificationLanguage') . "\n";
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Console.Scenarios
      * The setting is per participant: the other signer can still refuse, and your application can still
      * refuse the document on the organization's behalf (RefuseDocumentScenario).
      *
-     * FlowActionCreateModel in Lacuna.Signer.Api 2.1.0 has no DisableRefusal, so the scenario creates the
+     * FlowActionCreateModel in Lacuna.Signer.Api has no DisableRefusal, so the scenario creates the
      * document with a direct call to the REST API (CallSignerApiAsync, in Scenario.cs).
      */
     class CreateDocumentWithoutRefusalScenario : Scenario
@@ -53,7 +53,7 @@ namespace Console.Scenarios
             var document = await CallSignerApiAsync(HttpMethod.Get, $"/api/documents/{documentId}");
             foreach (var flowAction in document["flowActions"])
             {
-                System.Console.WriteLine($"{flowAction["user"]["name"]} can refuse: {!(bool)flowAction["disableRefusal"]}");
+                System.Console.WriteLine($"{flowAction["user"]["name"]} can refuse: {!(bool)RequiredField(flowAction, "disableRefusal")}");
             }
         }
     }

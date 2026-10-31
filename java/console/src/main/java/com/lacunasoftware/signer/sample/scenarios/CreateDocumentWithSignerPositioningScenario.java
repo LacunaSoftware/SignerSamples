@@ -16,11 +16,12 @@ import com.lacunasoftware.signer.sample.Util;
  *   it in the page footer, SignatureSheet on a signature sheet at the end of the PDF, and Disabled
  *   leaves it off. Disabled can't be combined with signerPositioningEnabled = false.
  *
- * It sets them when it creates the document, then changes them with PUT /signer-positioning, which
- * works until a participant signs or approves. A null value takes the organization's current
- * setting, and the document keeps it even if the organization changes later.
+ * It sets them when it creates the document, then changes them with
+ * PUT /api/documents/{id}/signer-positioning, which works until a participant signs or approves. A
+ * null value takes the organization's current setting, and the document keeps it even if the
+ * organization changes later.
  *
- * signer-client 2.13.0 has neither setting, so the scenario calls the REST API directly
+ * signer-client has neither setting, so the scenario calls the REST API directly
  * (callSignerApi, in Scenario.java).
  */
 public class CreateDocumentWithSignerPositioningScenario extends Scenario {
@@ -58,6 +59,7 @@ public class CreateDocumentWithSignerPositioningScenario extends Scenario {
     private void printSettings(String documentId) throws IOException {
         JsonObject document = callSignerApi("GET", "/api/documents/" + documentId, null).getAsJsonObject();
         System.out.println(String.format("Document %s: signerPositioningEnabled = %s, automaticSignaturePositioning = %s",
-            documentId, document.get("signerPositioningEnabled"), document.get("automaticSignaturePositioning").getAsString()));
+            documentId, requiredField(document, "signerPositioningEnabled").getAsBoolean(),
+            requiredField(document, "automaticSignaturePositioning").getAsString()));
     }
 }

@@ -215,6 +215,8 @@ public class WebhookEndpointTests(WebhookEndpointFixture endpoint) : IClassFixtu
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         await console.WaitForAsync($"Accepted: DocumentDeleted:{first},{second}");
+        var output = await console.WaitForAsync("This sample does not handle DocumentDeleted events");
+        Assert.DoesNotContain("Could not process", output);
     }
 
     [Fact]

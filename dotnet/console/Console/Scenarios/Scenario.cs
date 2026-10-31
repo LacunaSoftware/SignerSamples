@@ -37,11 +37,11 @@ namespace Console.Scenarios
             SignerClient = new SignerClient(domain, token);
         }
 
-        // Calls the Signer REST API directly, for the features that Lacuna.Signer.Client 1.24.0 and
-        // Lacuna.Signer.Api 2.1.0 don't have yet, such as pausing a document. The body is sent as JSON, with
-        // the field names and enum values of the API reference (https://www.dropsigner.com/swagger).
-        // Returns the JSON of the response, or null when it has none. Throws on an answer other than 2xx,
-        // with the body, which for a 422 holds Signer's error code and message.
+        // Calls the Signer REST API directly, for the features that Lacuna.Signer.Client and
+        // Lacuna.Signer.Api don't have yet, such as pausing a document. The body is sent as JSON, with the
+        // field names and enum values of the API reference (https://www.dropsigner.com/swagger). Returns
+        // the JSON of the response, or null when it has none. Throws on an answer other than 2xx, with the
+        // body, which for a 422 holds Signer's error code and message, and on a 2xx that isn't JSON.
         protected async Task<JToken> CallSignerApiAsync(HttpMethod method, string path, object body = null)
         {
             using (var request = new HttpRequestMessage(method, domain.TrimEnd('/') + path))
@@ -58,9 +58,32 @@ namespace Console.Scenarios
                     {
                         throw new HttpRequestException($"{method} {path} answered {(int)response.StatusCode}: {content}");
                     }
-                    return string.IsNullOrEmpty(content) ? null : JToken.Parse(content);
+                    if (string.IsNullOrEmpty(content))
+                    {
+                        return null;
+                    }
+                    try
+                    {
+                        return JToken.Parse(content);
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        throw new HttpRequestException($"{method} {path} answered {(int)response.StatusCode} with invalid JSON: {content}", ex);
+                    }
                 }
             }
+        }
+
+        // Returns a field of a response from CallSignerApiAsync, and throws if Signer left it out or sent
+        // null: an instance older than the feature ignores the request field instead of rejecting it.
+        protected static JToken RequiredField(JToken parent, string name)
+        {
+            var value = parent[name];
+            if (value == null || value.Type == JTokenType.Null)
+            {
+                throw new InvalidOperationException($"Signer did not return {name}: this instance may predate the feature");
+            }
+            return value;
         }
 
         public abstract Task RunAsync();

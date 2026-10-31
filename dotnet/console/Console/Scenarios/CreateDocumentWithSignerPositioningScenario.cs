@@ -12,11 +12,12 @@ namespace Console.Scenarios
      *   it in the page footer, SignatureSheet on a signature sheet at the end of the PDF, and Disabled
      *   leaves it off. Disabled can't be combined with signerPositioningEnabled = false.
      *
-     * It sets them when it creates the document, then changes them with PUT /signer-positioning, which
-     * works until a participant signs or approves. A null value takes the organization's current
-     * setting, and the document keeps it even if the organization changes later.
+     * It sets them when it creates the document, then changes them with
+     * PUT /api/documents/{id}/signer-positioning, which works until a participant signs or approves. A
+     * null value takes the organization's current setting, and the document keeps it even if the
+     * organization changes later.
      *
-     * Lacuna.Signer.Api 2.1.0 has neither setting, so the scenario calls the REST API directly
+     * Lacuna.Signer.Api has neither setting, so the scenario calls the REST API directly
      * (CallSignerApiAsync, in Scenario.cs).
      */
     class CreateDocumentWithSignerPositioningScenario : Scenario
@@ -64,7 +65,7 @@ namespace Console.Scenarios
         private async Task PrintSettingsAsync(string documentId)
         {
             var document = await CallSignerApiAsync(HttpMethod.Get, $"/api/documents/{documentId}");
-            System.Console.WriteLine($"Document {documentId}: signerPositioningEnabled = {document["signerPositioningEnabled"]}, automaticSignaturePositioning = {document["automaticSignaturePositioning"]}");
+            System.Console.WriteLine($"Document {documentId}: signerPositioningEnabled = {RequiredField(document, "signerPositioningEnabled")}, automaticSignaturePositioning = {RequiredField(document, "automaticSignaturePositioning")}");
         }
     }
 }

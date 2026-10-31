@@ -21,7 +21,7 @@ public class SignerApiScenarioTests : FakeSignerTest
 
         Assert.Equal("Waiting for the contract review", (string?)Signer.Single("POST", $"{DocumentPath}/pause").Json["reason"]);
         Assert.Empty(Signer.Single("POST", $"{DocumentPath}/resume").Body);
-        Assert.All(Signer.Requests, request => Assert.Equal(ApiKey, request.ApiKey));
+        AssertApiKeyAndJson();
         Assert.Matches(new Regex($"is Paused: Waiting for the contract review\\s+Document {Signer.DocumentId} is Pending"), output);
     }
 
@@ -40,8 +40,18 @@ public class SignerApiScenarioTests : FakeSignerTest
         Assert.Equal(["75502846369", "95588148061"], actions.Select(action => (string?)action["user"]!["identifier"]));
         Assert.True((bool)actions[0]["disableRefusal"]!);
         Assert.Null(actions[1]["disableRefusal"]);
+        AssertApiKeyAndJson();
         Assert.Contains("Jack Bauer can refuse: False", output);
         Assert.Contains("James Bond can refuse: True", output);
+    }
+
+    [Fact]
+    public async Task Without_refusal_fails_clearly_on_an_instance_that_does_not_return_disable_refusal()
+    {
+        // The fake's flow actions have no disableRefusal, as on a Signer older than the feature.
+        var error = await Assert.ThrowsAsync<InvalidOperationException>(RunAsync<CreateDocumentWithoutRefusalScenario>);
+
+        Assert.Equal("Signer did not return disableRefusal: this instance may predate the feature", error.Message);
     }
 
     [Fact]
@@ -59,6 +69,7 @@ public class SignerApiScenarioTests : FakeSignerTest
         var change = Signer.Single("PUT", $"{DocumentPath}/signer-positioning").Json;
         Assert.False((bool)change["signerPositioningEnabled"]!);
         Assert.Equal("Footnote", (string?)change["automaticSignaturePositioning"]);
+        AssertApiKeyAndJson();
         Assert.Matches(new Regex("signerPositioningEnabled = True, automaticSignaturePositioning = SignatureSheet\\s+.*signerPositioningEnabled = False, automaticSignaturePositioning = Footnote"), output);
     }
 
@@ -79,6 +90,7 @@ public class SignerApiScenarioTests : FakeSignerTest
         var notified = Assert.Single(request["notifiedEmailsData"]!);
         Assert.Equal("jill.palmer@mailinator.com", (string?)notified["email"]);
         Assert.Equal("Pt", (string?)notified["notificationLanguage"]);
+        AssertApiKeyAndJson();
         Assert.Contains("jack.bauer@mailinator.com is notified in En", output);
         Assert.Contains("james.bond@mailinator.com is notified in Es", output);
         Assert.Contains("jill.palmer@mailinator.com learns of the conclusion in Pt", output);
@@ -96,10 +108,50 @@ public class SignerApiScenarioTests : FakeSignerTest
         Assert.True((bool)request["convertToPdfA"]!);
         Assert.Equal("PdfA2b", (string?)request["pdfAProfile"]);
         Assert.True((bool)request["timestampEnabled"]!);
+        AssertApiKeyAndJson();
         Assert.Contains($"Document {Signer.DocumentId}: timestampEnabled = True", output);
     }
 
+    [Fact]
+    public async Task Api_call_throws_with_the_status_and_body_of_an_error_answer()
+    {
+        const string body = """{"code":"DocumentNotPending","message":"The document is not pending"}""";
+        Signer.ErrorAnswer = (422, body);
+        var path = $"/api/documents/{Guid.NewGuid()}/pause";
+
+        var error = await Assert.ThrowsAsync<HttpRequestException>(new ApiCallScenario(HttpMethod.Post, path).RunAsync);
+
+        Assert.Equal($"POST {path} answered 422: {body}", error.Message);
+    }
+
+    [Fact]
+    public async Task Api_call_throws_on_a_success_answer_that_is_not_json()
+    {
+        var documentId = Guid.NewGuid();
+        Signer.AddDocument(documentId);
+        var path = $"/api/documents/{documentId}/content";
+
+        var error = await Assert.ThrowsAsync<HttpRequestException>(new ApiCallScenario(HttpMethod.Get, path).RunAsync);
+
+        Assert.Equal($"GET {path} answered 200 with invalid JSON: %PDF-1.4 fake", error.Message);
+    }
+
     private JToken CreateRequest() => Signer.Single("POST", "/api/documents").Json;
+
+    // Every request carries the API key, and every request to the documents API with a body sends it as JSON.
+    private void AssertApiKeyAndJson()
+    {
+        Assert.All(Signer.Requests, request => Assert.Equal(ApiKey, request.ApiKey));
+        Assert.All(
+            Signer.Requests.Where(request => request.Path.StartsWith("/api/documents") && request.Body != ""),
+            request => Assert.StartsWith("application/json", request.ContentType));
+    }
+
+    // Calls CallSignerApiAsync once, for the tests of the helper itself.
+    private sealed class ApiCallScenario(HttpMethod method, string path) : Scenario
+    {
+        public override async Task RunAsync() => await CallSignerApiAsync(method, path);
+    }
 
     // The file uploaded with the client, sent with the name and type the upload returned.
     private static void AssertFile(JToken request, string displayName)

@@ -1,6 +1,6 @@
 import { getBase64, UploadApi } from "signer-node-client";
 import * as path from "path";
-import { callSignerApi, config } from "./scenario";
+import { callSignerApi, config, requiredField } from "./scenario";
 
 /**
  * This scenario sets, for one document, two settings that otherwise come from the organization:
@@ -10,18 +10,19 @@ import { callSignerApi, config } from "./scenario";
  *   puts it in the page footer, SignatureSheet on a signature sheet at the end of the PDF, and
  *   Disabled leaves it off. Disabled can't be combined with signerPositioningEnabled = false.
  *
- * It sets them when it creates the document, then changes them with PUT /signer-positioning, which
- * works until a participant signs or approves. A null value takes the organization's current
- * setting, and the document keeps it even if the organization changes later.
+ * It sets them when it creates the document, then changes them with
+ * PUT /api/documents/{id}/signer-positioning, which works until a participant signs or approves. A
+ * null value takes the organization's current setting, and the document keeps it even if the
+ * organization changes later.
  *
- * signer-node-client 1.1.0 has neither setting, so the scenario calls the REST API directly
+ * signer-node-client has neither setting, so the scenario calls the REST API directly
  * (callSignerApi, in scenario.ts).
  */
 const uploadApi = new UploadApi(config);
 
 async function printSettings(documentId: string) {
   const document = await callSignerApi("GET", `/api/documents/${documentId}`);
-  console.log(`Document ${documentId}: signerPositioningEnabled = ${document.signerPositioningEnabled}, automaticSignaturePositioning = ${document.automaticSignaturePositioning}`);
+  console.log(`Document ${documentId}: signerPositioningEnabled = ${requiredField(document, "signerPositioningEnabled")}, automaticSignaturePositioning = ${requiredField(document, "automaticSignaturePositioning")}`);
 }
 
 async function run() {

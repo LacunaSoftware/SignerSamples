@@ -18,7 +18,7 @@ import com.lacunasoftware.signer.sample.Util;
  *   timestamps every signature and false none; leave it out to use the organization's setting. On an
  *   instance without a timestamper, Signer rejects a document that sets it.
  *
- * signer-client 2.13.0 has none of these fields, so the scenario creates the document with a direct
+ * signer-client has none of these fields, so the scenario creates the document with a direct
  * call to the REST API (callSignerApi, in Scenario.java).
  */
 public class CreatePdfADocumentWithTimestampScenario extends Scenario {
@@ -46,6 +46,6 @@ public class CreatePdfADocumentWithTimestampScenario extends Scenario {
 
         // 3. Read the document back.
         JsonObject document = callSignerApi("GET", "/api/documents/" + documentId, null).getAsJsonObject();
-        System.out.println(String.format("Document %s: timestampEnabled = %s", documentId, document.get("timestampEnabled")));
+        System.out.println(String.format("Document %s: timestampEnabled = %s", documentId, requiredField(document, "timestampEnabled").getAsBoolean()));
     }
 }

@@ -95,7 +95,8 @@ Per-project notes:
   the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
 - **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in
   `samples` through `__dirname`. No compiled JS is committed (`scenarios/dist` is git-ignored).
-  `typescript` is pinned to 5.x because ts-node 10 cannot load TypeScript 7. Type-check all
+  `typescript` is pinned to 5.x because ts-node 10 cannot load TypeScript 7. Node.js 18 or later
+  (`engines` in `package.json`): `callSignerApi` uses the global `fetch`. Type-check all
   scenarios, without running them, with `npx tsc --noEmit -p scenarios`.
 - **PHP**: run from `php/`; scenarios open `resources/...` relative to it. `lacuna/signer-client`
   1.4.10 brings in Guzzle 7, so PHP 7.2.5 or later; `composer install` needs no extra flags.
@@ -139,8 +140,11 @@ library has yet (Lacuna.Signer.Client 1.24.0 with Lacuna.Signer.Api 2.1.0, `sign
 fields above, and per action `disableRefusal` and `notificationLanguage`. Each base class has a
 helper that sends JSON with the same `X-Api-Key` (.NET `CallSignerApiAsync`, Java
 `callSignerApi` with `fileJson`/`signerJson`, Node.js `callSignerApi`, PHP `callSignerApi`); the
-scenarios upload with the client and create with the helper. In Java, build the JSON with Gson's
-`JsonObject`: `signerClient.getGson()` cannot serialize the client's `FileUploadModel`.
+scenarios upload with the client and create with the helper. It throws on a non-2xx answer, with
+the body, and on a 2xx that isn't JSON. An older Signer ignores a field it doesn't know instead of
+rejecting it, so the scenarios read new fields back through `RequiredField` / `requiredField`,
+which throws when Signer left one out. In Java, build the JSON with Gson's `JsonObject`:
+`signerClient.getGson()` cannot serialize the client's `FileUploadModel`.
 
 **A flow is a list of flow actions.** Each has a `type`: `Signer`, `Approver`, `SignRule` or
 `ApproverRule` (no sample uses the last). A rule is **one** action with `signRuleUsers` and
@@ -149,9 +153,9 @@ notified only when the previous one finishes, and with no `step` at all, any ord
 action the samples also set `prePositionedMarks` (page, position, size), `xadesOptions`
 (`FullXml`, or `XmlElement` by `Id` or XPath), `allowElectronicSignature`, `disableRefusal` (that
 participant cannot refuse; the organization's application still can) and `notificationLanguage`
-(`Pt`, `En` or `Es`). A running flow is
-changed with `POST /api/documents/{id}/flow` (`addedFlowActions`, `editedFlowActions`; PHP only).
-A new version (`POST /api/documents/{id}/versions`) **resets the flow**.
+(`Pt`, `En` or `Es`). A running flow is changed with `POST /api/documents/{id}/flow`
+(`addedFlowActions`, `editedFlowActions`; PHP only). A new version
+(`POST /api/documents/{id}/versions`) **resets the flow**.
 
 **Signers.** A participant is `user: { name, email, identifier }`; the identifier is a CPF in the
 samples. By default the participant gets an e-mail link and signs without logging in.
@@ -184,9 +188,10 @@ is one of `Pending`, `FlowConcluded` (all actions done, final processing still r
 `/resume`; treat it as in progress). .NET's `GetDocumentDetailsAsync` throws on a paused document,
 as Lacuna.Signer.Api 2.1.0 has no `Paused`: read it with `CallSignerApiAsync`. Each flow action's
 `status` is one of `Created` (waiting for an earlier step), `Pending`, `Completed` or `Refused`.
-The docs say not to poll in production. To list documents (`GET /api/documents`), filter with `Status`
-(`DocumentFilterStatus`, as the .NET, Java and Node.js samples do); `IsConcluded` is deprecated.
-The PHP sample still uses it: `lacuna/signer-client` 1.4.10, the latest, cannot send `Status`.
+The docs say not to poll in production. To list documents (`GET /api/documents`), filter with
+`Status` (`DocumentFilterStatus`, as the .NET, Java and Node.js samples do); `IsConcluded` is
+deprecated. The PHP sample still uses it: `lacuna/signer-client` 1.4.10, the latest, cannot send
+`Status`.
 
 A webhook is registered per organization (**Organization → Integration**, or
 `POST /api/organizations/{orgId}/webhooks` with `url`, `authType`, `token`). Signer `POST`s

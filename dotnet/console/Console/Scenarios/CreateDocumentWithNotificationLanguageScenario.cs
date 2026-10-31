@@ -13,7 +13,7 @@ namespace Console.Scenarios
      *
      * The languages are Pt, Es and En; without one, Signer uses the instance's default language.
      *
-     * Lacuna.Signer.Api 2.1.0 has neither field, so the scenario creates the document with a direct call
+     * Lacuna.Signer.Api has neither field, so the scenario creates the document with a direct call
      * to the REST API (CallSignerApiAsync, in Scenario.cs).
      */
     class CreateDocumentWithNotificationLanguageScenario : Scenario
@@ -60,11 +60,11 @@ namespace Console.Scenarios
             var document = await CallSignerApiAsync(HttpMethod.Get, $"/api/documents/{documentId}");
             foreach (var flowAction in document["flowActions"])
             {
-                System.Console.WriteLine($"{flowAction["user"]["email"]} is notified in {flowAction["notificationLanguage"]}");
+                System.Console.WriteLine($"{flowAction["user"]["email"]} is notified in {RequiredField(flowAction, "notificationLanguage")}");
             }
-            foreach (var notifiedEmail in document["notifiedEmailsData"])
+            foreach (var notifiedEmail in RequiredField(document, "notifiedEmailsData"))
             {
-                System.Console.WriteLine($"{notifiedEmail["email"]} learns of the conclusion in {notifiedEmail["notificationLanguage"]}");
+                System.Console.WriteLine($"{notifiedEmail["email"]} learns of the conclusion in {RequiredField(notifiedEmail, "notificationLanguage")}");
             }
         }
     }

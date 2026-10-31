@@ -42,17 +42,20 @@ abstract class Scenario
 
     abstract protected function run();
 
-    // Calls the Signer REST API directly, for the features that lacuna/signer-client 1.4.10 doesn't have
-    // yet, such as pausing a document. The body is an array sent as JSON, with the field names and enum
-    // values of the API reference (https://www.dropsigner.com/swagger). Returns the JSON of the response
-    // as an associative array, or null when it has none. Throws on an answer other than 2xx, with the
-    // body, which for a 422 holds Signer's error code and message.
+    // Calls the Signer REST API directly, for the features that lacuna/signer-client doesn't have yet,
+    // such as pausing a document. The body is an array sent as JSON, with the field names and enum values
+    // of the API reference (https://www.dropsigner.com/swagger). Returns the JSON of the response as an
+    // associative array, or null when it has none. Throws on an answer other than 2xx, with the body,
+    // which for a 422 holds Signer's error code and message, and on a 2xx that isn't JSON.
     protected function callSignerApi($method, $path, $body = null)
     {
         $options = [
             'headers' => ['X-Api-Key' => $this->apiKey],
             // Read the error body instead of letting Guzzle throw.
             'http_errors' => false,
+            // Guzzle waits forever by default.
+            'connect_timeout' => 30,
+            'timeout' => 100,
         ];
         if ($body !== null) {
             $options['json'] = $body;
@@ -64,7 +67,25 @@ abstract class Scenario
         if ($status < 200 || $status >= 300) {
             throw new \RuntimeException("$method $path answered $status: $content");
         }
-        return $content === '' ? null : json_decode($content, true);
+        if ($content === '') {
+            return null;
+        }
+        // json_decode returns null both for invalid JSON and for "null", so check the error.
+        $result = json_decode($content, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new \RuntimeException("$method $path answered $status with invalid JSON: $content");
+        }
+        return $result;
+    }
+
+    // Returns a field of a response from callSignerApi, and throws if Signer left it out or sent null: an
+    // instance older than the feature ignores the request field instead of rejecting it.
+    protected static function requiredField($parent, $name)
+    {
+        if (!isset($parent[$name])) {
+            throw new \RuntimeException("Signer did not return $name: this instance may predate the feature");
+        }
+        return $parent[$name];
     }
 
     protected function createDocument()

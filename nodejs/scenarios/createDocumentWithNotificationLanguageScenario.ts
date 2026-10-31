@@ -1,6 +1,6 @@
 import { getBase64, UploadApi } from "signer-node-client";
 import * as path from "path";
-import { callSignerApi, config } from "./scenario";
+import { callSignerApi, config, requiredField } from "./scenario";
 
 /**
  * This scenario chooses the language of each e-mail that Signer sends about a document:
@@ -11,7 +11,7 @@ import { callSignerApi, config } from "./scenario";
  *
  * The languages are Pt, Es and En; without one, Signer uses the instance's default language.
  *
- * signer-node-client 1.1.0 has neither field, so the scenario creates the document with a direct
+ * signer-node-client has neither field, so the scenario creates the document with a direct
  * call to the REST API (callSignerApi, in scenario.ts).
  */
 const uploadApi = new UploadApi(config);
@@ -48,10 +48,10 @@ async function run() {
   // 3. Read the document back.
   const document = await callSignerApi("GET", `/api/documents/${documentId}`);
   for (const flowAction of document.flowActions) {
-    console.log(`${flowAction.user.email} is notified in ${flowAction.notificationLanguage}`);
+    console.log(`${flowAction.user.email} is notified in ${requiredField(flowAction, "notificationLanguage")}`);
   }
-  for (const notifiedEmail of document.notifiedEmailsData) {
-    console.log(`${notifiedEmail.email} learns of the conclusion in ${notifiedEmail.notificationLanguage}`);
+  for (const notifiedEmail of requiredField(document, "notifiedEmailsData")) {
+    console.log(`${notifiedEmail.email} learns of the conclusion in ${requiredField(notifiedEmail, "notificationLanguage")}`);
   }
 }
 

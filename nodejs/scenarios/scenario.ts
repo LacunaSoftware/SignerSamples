@@ -17,11 +17,11 @@ export const config = new Configuration({
     basePath: basePath,
 })
 
-// Calls the Signer REST API directly, for the features that signer-node-client 1.1.0 doesn't have
-// yet, such as pausing a document. The body is sent as JSON, with the field names and enum values of
-// the API reference (https://www.dropsigner.com/swagger). Returns the parsed JSON of the response, or
+// Calls the Signer REST API directly, for the features that signer-node-client doesn't have yet,
+// such as pausing a document. The body is sent as JSON, with the field names and enum values of the
+// API reference (https://www.dropsigner.com/swagger). Returns the parsed JSON of the response, or
 // null when it has none. Throws on an answer other than 2xx, with the body, which for a 422 holds
-// Signer's error code and message.
+// Signer's error code and message, and on a 2xx that isn't JSON. Uses the global fetch of Node.js 18.
 export async function callSignerApi(method: string, apiPath: string, body?: object): Promise<any> {
     const response = await fetch(basePath.replace(/\/$/, "") + apiPath, {
         method: method,
@@ -32,7 +32,24 @@ export async function callSignerApi(method: string, apiPath: string, body?: obje
     if (!response.ok) {
         throw new Error(`${method} ${apiPath} answered ${response.status}: ${content}`);
     }
-    return content ? JSON.parse(content) : null;
+    if (!content) {
+        return null;
+    }
+    try {
+        return JSON.parse(content);
+    } catch {
+        throw new Error(`${method} ${apiPath} answered ${response.status} with invalid JSON: ${content}`);
+    }
+}
+
+// Returns a field of a response from callSignerApi, and throws if Signer left it out or sent null: an
+// instance older than the feature ignores the request field instead of rejecting it.
+export function requiredField(parent: any, name: string): any {
+    const value = parent[name];
+    if (value === undefined || value === null) {
+        throw new Error(`Signer did not return ${name}: this instance may predate the feature`);
+    }
+    return value;
 }
 
 const uploadApi = new UploadApi(config)

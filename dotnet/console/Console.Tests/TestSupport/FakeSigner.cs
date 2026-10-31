@@ -70,8 +70,8 @@ public sealed class FakeSigner : IAsyncDisposable
 
     /// <summary>
     /// Fields that GET /api/documents/{id} adds to the DocumentModel, or replaces in it (an array is
-    /// replaced whole): the API's fields that Lacuna.Signer.Api 2.1.0 lacks, such as
-    /// signerPositioningEnabled, and the status Paused. Pause, resume and PUT /signer-positioning change them.
+    /// replaced whole): the API's fields that Lacuna.Signer.Api lacks, such as
+    /// signerPositioningEnabled, and the status Paused. Pause, resume and PUT .../signer-positioning change them.
     /// </summary>
     public JObject DocumentFields { get; } = [];
 
@@ -100,6 +100,9 @@ public sealed class FakeSigner : IAsyncDisposable
 
     /// <summary>When set, GET /api/documents/{id} waits for this task before it answers.</summary>
     public Task? DocumentDetailsDelay { get; set; }
+
+    /// <summary>When set, every request is answered with this status and JSON body, as Signer answers an error.</summary>
+    public (int Status, string Body)? ErrorAnswer { get; set; }
 
     public static async Task<FakeSigner> StartAsync()
     {
@@ -133,9 +136,17 @@ public sealed class FakeSigner : IAsyncDisposable
                 context.Request.Path.Value ?? "",
                 context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString(), StringComparer.OrdinalIgnoreCase),
                 context.Request.Headers["X-Api-Key"].ToString(),
-                body);
+                body,
+                context.Request.ContentType);
             context.Items[RequestKey] = request;
             requests.Enqueue(request);
+            if (ErrorAnswer is { } error)
+            {
+                context.Response.StatusCode = error.Status;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(error.Body);
+                return;
+            }
             try
             {
                 await next();
@@ -288,7 +299,7 @@ public sealed class FakeSigner : IAsyncDisposable
 }
 
 /// <summary>A request as the fake Signer received it.</summary>
-public record RecordedRequest(string Method, string Path, IReadOnlyDictionary<string, string> Query, string ApiKey, string Body)
+public record RecordedRequest(string Method, string Path, IReadOnlyDictionary<string, string> Query, string ApiKey, string Body, string? ContentType)
 {
     /// <summary>
     /// The JSON body with camelCase names, as the API reference spells them ("flowActions"). The
