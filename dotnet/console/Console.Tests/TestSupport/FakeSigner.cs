@@ -10,6 +10,7 @@ using Lacuna.Spa.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -66,6 +67,13 @@ public sealed class FakeSigner : IAsyncDisposable
     public IReadOnlyList<Exception> Errors => errors.ToArray();
 
     public DocumentStatus DocumentStatus { get; set; } = DocumentStatus.Pending;
+
+    /// <summary>
+    /// Fields that GET /api/documents/{id} adds to the DocumentModel, or replaces in it (an array is
+    /// replaced whole): the API's fields that Lacuna.Signer.Api 2.1.0 lacks, such as
+    /// signerPositioningEnabled, and the status Paused. Pause, resume and PUT /signer-positioning change them.
+    /// </summary>
+    public JObject DocumentFields { get; } = [];
 
     public bool HasSignature { get; set; }
 
@@ -141,11 +149,17 @@ public sealed class FakeSigner : IAsyncDisposable
         });
 
         // The client uploads multipart/form-data; the file name is in the part's Content-Disposition.
-        app.MapPost("/api/uploads", (HttpContext context) => Json(new Lacuna.Signer.Api.UploadModel
+        // The part has no type, and Signer answers with the one it detects (application/pdf for a PDF).
+        app.MapPost("/api/uploads", (HttpContext context) =>
         {
-            Id = $"upload-{Interlocked.Increment(ref uploadCount)}",
-            Name = Regex.Match(Recorded(context).Body, "filename=([^;\r\n]+)").Groups[1].Value,
-        }));
+            var name = Regex.Match(Recorded(context).Body, "filename=([^;\r\n]+)").Groups[1].Value;
+            return Json(new Lacuna.Signer.Api.UploadModel
+            {
+                Id = $"upload-{Interlocked.Increment(ref uploadCount)}",
+                Name = name,
+                ContentType = new FileExtensionContentTypeProvider().TryGetContentType(name, out var contentType) ? contentType : "application/octet-stream",
+            });
+        });
 
         app.MapPost("/api/documents", (HttpContext context) =>
         {
@@ -174,7 +188,7 @@ public sealed class FakeSigner : IAsyncDisposable
             {
                 await DocumentDetailsDelay;
             }
-            return IfKnown(id, () => Json(new DocumentModel
+            return IfKnown(id, () => DocumentJson(new DocumentModel
             {
                 Id = id,
                 Name = "sample.pdf",
@@ -194,6 +208,23 @@ public sealed class FakeSigner : IAsyncDisposable
         app.MapPost("/api/documents/{id:guid}/versions", (Guid id) => IfKnown(id, () => Results.Ok()));
         app.MapPost("/api/documents/{id:guid}/cancellation", (Guid id) => IfKnown(id, () => Results.Ok()));
         app.MapPost("/api/documents/{id:guid}/refusal", (Guid id) => IfKnown(id, () => Results.Ok()));
+        app.MapPost("/api/documents/{id:guid}/pause", (Guid id, HttpContext context) => IfKnown(id, () =>
+        {
+            DocumentFields["status"] = "Paused";
+            DocumentFields["statusUpdateReason"] = Recorded(context).Json["reason"];
+            return Results.Ok();
+        }));
+        app.MapPost("/api/documents/{id:guid}/resume", (Guid id) => IfKnown(id, () =>
+        {
+            DocumentFields.Remove("status");
+            DocumentFields.Remove("statusUpdateReason");
+            return Results.Ok();
+        }));
+        app.MapPut("/api/documents/{id:guid}/signer-positioning", (Guid id, HttpContext context) => IfKnown(id, () =>
+        {
+            DocumentFields.Merge(Recorded(context).Json);
+            return Results.Ok();
+        }));
         app.MapPost("/api/documents/{id:guid}/action-url", (Guid id) => IfKnown(id, () => Json(new ActionUrlResponse
         {
             Url = ActionUrl,
@@ -245,6 +276,13 @@ public sealed class FakeSigner : IAsyncDisposable
 
     private static IResult Json(object value) =>
         Results.Content(JsonConvert.SerializeObject(value, JsonSettings), "application/json");
+
+    private IResult DocumentJson(DocumentModel document)
+    {
+        var json = JObject.FromObject(document, JsonSerializer.Create(JsonSettings));
+        json.Merge(DocumentFields, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Replace });
+        return Results.Content(json.ToString(), "application/json");
+    }
 
     public ValueTask DisposeAsync() => app.DisposeAsync();
 }

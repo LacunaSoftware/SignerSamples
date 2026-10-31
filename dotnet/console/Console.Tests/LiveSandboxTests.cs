@@ -51,6 +51,11 @@ public class LiveSandboxTests : IDisposable
         typeof(RefuseDocumentScenario),
         typeof(DeleteDocumentScenario),
         typeof(AddNewDocumentVersionScenario),
+        typeof(PauseAndResumeDocumentScenario),
+        typeof(CreateDocumentWithoutRefusalScenario),
+        typeof(CreateDocumentWithSignerPositioningScenario),
+        typeof(CreateDocumentWithNotificationLanguageScenario),
+        typeof(CreatePdfADocumentWithTimestampScenario),
     ];
 
     [Theory]
