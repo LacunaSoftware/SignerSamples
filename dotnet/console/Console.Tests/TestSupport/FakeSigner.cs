@@ -70,6 +70,9 @@ public sealed class FakeSigner : IAsyncDisposable
     /// <summary>The hash that the public signature start step hands out to be signed.</summary>
     public byte[] ToSignHash { get; } = System.Security.Cryptography.SHA256.HashData("to sign"u8);
 
+    /// <summary>The digest algorithm that the start step reports: by OID, as the sandbox does, unless a test sets a name.</summary>
+    public string DigestAlgorithm { get; set; } = "2.16.840.1.101.3.4.2.1";
+
     public static async Task<FakeSigner> StartAsync()
     {
         var builder = WebApplication.CreateSlimBuilder();
@@ -172,7 +175,7 @@ public sealed class FakeSigner : IAsyncDisposable
         {
             Success = true,
             ToSignHash = ToSignHash,
-            DigestAlgorithm = "SHA256",
+            DigestAlgorithm = DigestAlgorithm,
             Token = "the-signature-token",
         }));
         app.MapPost("/api/documents/keys/{key}/signature", () => Json(new CompleteSignatureResponse()));

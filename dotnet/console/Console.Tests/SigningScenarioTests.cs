@@ -21,9 +21,14 @@ public class SigningScenarioTests : FakeSignerTest
         Assert.Contains($"{Signer.Url}/document/embed/the-embed-ticket", output);
     }
 
-    [Fact]
-    public async Task Public_signature_signs_the_hash_with_the_certificate_of_the_participant()
+    // Signer reports SHA-256 by its OID; the scenario accepts the name too.
+    [Theory]
+    [InlineData("2.16.840.1.101.3.4.2.1")]
+    [InlineData("SHA256")]
+    public async Task Public_signature_signs_the_hash_with_the_certificate_of_the_participant(string digestAlgorithm)
     {
+        Signer.DigestAlgorithm = digestAlgorithm;
+
         var output = await RunAsync<PublicSignatureScenario>();
 
         // The document is created for the certificate's holder: Signer checks that the CPFs match.
