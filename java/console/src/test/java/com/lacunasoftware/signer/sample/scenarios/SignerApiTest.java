@@ -76,6 +76,9 @@ public class SignerApiTest {
         IOException error = assertThrows(IOException.class, () -> scenario.callSignerApi("POST", path, new JsonObject()));
 
         assertEquals(String.format("POST %s answered 422: %s", path, body), error.getMessage());
+        // The fake answers every path alike, and the message is built from the arguments: check the
+        // request itself.
+        assertEquals(1, signer.requestsTo("POST", path).size());
     }
 
     @Test
@@ -86,14 +89,21 @@ public class SignerApiTest {
         IOException error = assertThrows(IOException.class, () -> scenario.callSignerApi("GET", path, null));
 
         assertEquals(String.format("GET %s answered 200 with invalid JSON: %%PDF-1.4 fake", path), error.getMessage());
+        // A GET, with no body and no Content-Type: setDoOutput(true) would turn it into a POST.
+        List<FakeSigner.Request> requests = signer.requestsTo("GET", path);
+        assertEquals(1, requests.size());
+        assertNull(requests.get(0).contentType);
+        assertEquals("", requests.get(0).body);
     }
 
     @Test
-    public void requiredFieldReturnsTheFieldEvenWhenItIsFalse() {
+    public void requiredFieldReturnsTheFieldEvenWhenItIsFalseOrZero() {
         JsonObject parent = new JsonObject();
         parent.addProperty("disableRefusal", false);
+        parent.addProperty("step", 0);
 
         assertFalse(Scenario.requiredField(parent, "disableRefusal").getAsBoolean());
+        assertEquals(0, Scenario.requiredField(parent, "step").getAsInt());
     }
 
     @Test

@@ -86,10 +86,12 @@ class SignerApiTest extends TestCase
         self::$signer->setAnswer(422, $body);
         $path = '/api/documents/3fa85f64-5717-4562-b3fc-2c963f66afa6/pause';
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage("POST $path answered 422: $body");
+        $error = $this->callAndCatch('POST', $path, []);
 
-        $this->scenario->call('POST', $path, []);
+        $this->assertSame("POST $path answered 422: $body", $error->getMessage());
+        // The fake answers every path alike, and the message is built from the arguments: check the
+        // request itself.
+        $this->assertCount(1, self::$signer->requests('POST', $path));
     }
 
     public function testThrowsOnASuccessAnswerThatIsNotJson()
@@ -97,10 +99,14 @@ class SignerApiTest extends TestCase
         self::$signer->setAnswer(200, '%PDF-1.4 fake');
         $path = '/api/documents/3fa85f64-5717-4562-b3fc-2c963f66afa6/content';
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage("GET $path answered 200 with invalid JSON: %PDF-1.4 fake");
+        $error = $this->callAndCatch('GET', $path);
 
-        $this->scenario->call('GET', $path);
+        $this->assertSame("GET $path answered 200 with invalid JSON: %PDF-1.4 fake", $error->getMessage());
+        // A GET, with no body and so no Content-Type.
+        $requests = self::$signer->requests('GET', $path);
+        $this->assertCount(1, $requests);
+        $this->assertNull($requests[0]['contentType']);
+        $this->assertSame('', $requests[0]['body']);
     }
 
     public function testRequiredFieldReturnsTheFieldEvenWhenItIsFalseOrZero()
@@ -123,5 +129,15 @@ class SignerApiTest extends TestCase
         $this->expectExceptionMessage('Signer did not return timestampEnabled: this instance may predate the feature');
 
         ApiCallScenario::required(['timestampEnabled' => null], 'timestampEnabled');
+    }
+
+    private function callAndCatch($method, $path, $body = null)
+    {
+        try {
+            $this->scenario->call($method, $path, $body);
+        } catch (\RuntimeException $e) {
+            return $e;
+        }
+        $this->fail("$method $path did not throw");
     }
 }

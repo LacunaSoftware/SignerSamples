@@ -164,11 +164,11 @@ it, but no endpoint calls it.
 [`src/test`](src/test/java/com/lacunasoftware/signer/sample/scenarios) holds JUnit 4 tests of
 the base class's `callSignerApi` and `requiredField` (the headers, the JSON body, the errors on a
 non-2xx or non-JSON answer) and of the webhook endpoint over HTTP (401, 404, 400, repeated events,
-two participants' events, the answer before the processing, `DocumentConcluded` read back). Their
-fake Signer, on the JDK's HTTP server, takes the place of the real one through `SIGNER_ENDPOINT`.
-`build.gradle` sets that variable, the API key and the webhook port and token for the test run
-only, so the tests need no API key and send no e-mail. They don't run the other scenarios yet. From
-this folder:
+two participants' events, the answer before the processing, `DocumentConcluded` read back, an
+event that fails to process). Their fake Signer, on the JDK's HTTP server, takes the place of the
+real one through `SIGNER_ENDPOINT`. `build.gradle` sets that variable, the API key and the webhook
+port and token for the test run only, so the tests need no API key and send no e-mail. They don't
+run the other scenarios yet. From this folder (`gradlew.bat test` on Windows):
 
 ```bash
 ./gradlew test

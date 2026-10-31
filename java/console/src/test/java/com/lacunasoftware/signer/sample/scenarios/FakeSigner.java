@@ -21,8 +21,8 @@ import com.sun.net.httpserver.HttpServer;
 
 /**
  * A fake Signer on localhost, for the tests: it records every request and answers
- * GET /api/documents/{id} with a document whose status is documentStatus. Set answer to send
- * something else to every other request.
+ * GET /api/documents/{id} with a document whose status is documentStatus, or with the error status
+ * in documentDetailsError. Call setAnswer to send something else to every other request.
  *
  * The scenarios read SIGNER_ENDPOINT when they start, and build.gradle sets it to a free port for
  * the tests, so the fake listens there, once for the whole test run.
@@ -50,15 +50,21 @@ public class FakeSigner {
 
     public final List<Request> requests = new CopyOnWriteArrayList<>();
     public volatile String documentStatus = "Pending";
-    // While set, GET /api/documents/{id} waits for it (up to 10 seconds).
+    // While set, GET /api/documents/{id} waits for it, and answers 504 after 10 seconds.
     public volatile CountDownLatch documentDetailsDelay;
+    // When not 0, the status code GET /api/documents/{id} answers instead, with an error body.
+    public volatile int documentDetailsError;
     // The status and body of the answer to every other request; null answers 404.
     public volatile int answerStatus;
     public volatile String answerBody;
 
     public static synchronized FakeSigner instance() throws IOException {
         if (instance == null) {
-            URI endpoint = URI.create(System.getenv("SIGNER_ENDPOINT"));
+            String setting = System.getenv("SIGNER_ENDPOINT");
+            if (setting == null) {
+                throw new IllegalStateException("SIGNER_ENDPOINT is not set: run the tests with ./gradlew test, whose build.gradle sets it");
+            }
+            URI endpoint = URI.create(setting);
             instance = new FakeSigner(endpoint.getPort());
         }
         return instance;
@@ -78,6 +84,7 @@ public class FakeSigner {
     public void reset() {
         requests.clear();
         answerBody = null;
+        documentDetailsError = 0;
     }
 
     public void setAnswer(int status, String body) {
@@ -106,11 +113,23 @@ public class FakeSigner {
         if ("GET".equals(method) && document.matches()) {
             CountDownLatch delay = documentDetailsDelay;
             if (delay != null) {
+                boolean released;
                 try {
-                    delay.await(10, TimeUnit.SECONDS);
+                    released = delay.await(10, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                    released = false;
                 }
+                if (!released) {
+                    // The test never released it: fail the read, so that the endpoint prints an error.
+                    respond(exchange, 504, "{\"message\":\"The fake Signer held this request for over 10 seconds\"}");
+                    return;
+                }
+            }
+            int error = documentDetailsError;
+            if (error != 0) {
+                respond(exchange, error, "{\"message\":\"The fake Signer was told to fail this request\"}");
+                return;
             }
             respond(exchange, 200, String.format("{\"id\":\"%s\",\"name\":\"sample.pdf\",\"status\":\"%s\"}", document.group(1), documentStatus));
             return;

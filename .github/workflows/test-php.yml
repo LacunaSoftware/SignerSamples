@@ -36,6 +36,8 @@ jobs:
           php-version: ${{ matrix.php }}
           tools: composer
       - run: composer install --no-interaction --no-progress
+      # php -l exits 255 on an error, which would stop xargs at the first bad file; exit 1 instead
+      # lets it check them all and still fail.
       - name: Check the syntax of every PHP file
-        run: find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l
+        run: find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 sh -c 'php -l "$0" || exit 1'
       - run: composer test

@@ -5,7 +5,8 @@ namespace Lacuna\Tests;
 /**
  * A fake Signer on localhost, for the tests: tests/fake-signer.php served by php -S. It records
  * every request and answers GET /api/documents/{id} with a document whose status is the one given
- * to setDocumentStatus. setAnswer sets what every other request gets.
+ * to setDocumentStatus, or with the error given to failDocumentDetails. setAnswer sets what every
+ * other request gets.
  */
 class FakeSigner
 {
@@ -17,7 +18,12 @@ class FakeSigner
     {
         $this->dir = sys_get_temp_dir() . '/fake-signer-' . bin2hex(random_bytes(8));
         mkdir($this->dir);
-        $this->server = new PhpServer(__DIR__, 'fake-signer.php', ['FAKE_SIGNER_DIR' => $this->dir]);
+        try {
+            $this->server = new PhpServer(__DIR__, 'fake-signer.php', ['FAKE_SIGNER_DIR' => $this->dir]);
+        } catch (\Exception $e) {
+            rmdir($this->dir);
+            throw $e;
+        }
         $this->url = $this->server->url;
     }
 
@@ -50,7 +56,17 @@ class FakeSigner
         file_put_contents("$this->dir/document-status", $status);
     }
 
-    // While held, GET /api/documents/{id} waits (up to 10 seconds).
+    // Makes GET /api/documents/{id} answer this status code, with an error body; null undoes it.
+    public function failDocumentDetails($status)
+    {
+        if ($status !== null) {
+            file_put_contents("$this->dir/document-details-error", (string)$status);
+        } else {
+            @unlink("$this->dir/document-details-error");
+        }
+    }
+
+    // While held, GET /api/documents/{id} waits, and answers 504 after 10 seconds.
     public function holdDocumentDetails($hold)
     {
         if ($hold) {

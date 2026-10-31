@@ -13,6 +13,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
+import java.util.regex.Pattern;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -35,6 +36,10 @@ public class WebhookEndpointTest {
     @BeforeClass
     public static void startEndpoint() throws Exception {
         signer = FakeSigner.instance();
+        String port = System.getenv("SIGNER_WEBHOOK_PORT");
+        if (port == null) {
+            throw new IllegalStateException("SIGNER_WEBHOOK_PORT is not set: run the tests with ./gradlew test, whose build.gradle sets it");
+        }
         // Copy what the endpoint prints, on any thread, to output too.
         originalOut = System.out;
         System.setOut(new PrintStream(new OutputStream() {
@@ -58,7 +63,7 @@ public class WebhookEndpointTest {
         WebhookEndpointScenario endpoint = new WebhookEndpointScenario();
         endpoint.Init();
         endpoint.Run();
-        baseUrl = "http://localhost:" + System.getenv("SIGNER_WEBHOOK_PORT");
+        baseUrl = "http://localhost:" + port;
     }
 
     @AfterClass
@@ -72,26 +77,37 @@ public class WebhookEndpointTest {
     }
 
     @Test
-    public void eventWithoutTheTokenAnswers401() throws IOException {
-        assertEquals(401, post(signedEvent(newId(), newId()), null, "/webhook"));
+    public void eventWithoutTheTokenAnswers401AndIsNotRecorded() throws Exception {
+        String documentId = newId();
+        String flowActionId = newId();
+
+        assertStatus(401, post(signedEvent(documentId, flowActionId), null, "/webhook"));
+
+        assertTakenAsNewAndHandledOnce(documentId, flowActionId);
     }
 
     @Test
-    public void eventWithAnotherTokenAnswers401() throws IOException {
-        assertEquals(401, post(signedEvent(newId(), newId()), "not-the-token", "/webhook"));
+    public void eventWithAnotherTokenAnswers401AndIsNotRecorded() throws Exception {
+        String documentId = newId();
+        String flowActionId = newId();
+
+        assertStatus(401, post(signedEvent(documentId, flowActionId), "not-the-token", "/webhook"));
+
+        assertTakenAsNewAndHandledOnce(documentId, flowActionId);
     }
 
     @Test
     public void getAndOtherPathsAnswer404() throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(baseUrl + "/webhook").openConnection();
-        assertEquals(404, connection.getResponseCode());
-        assertEquals(404, post(signedEvent(newId(), newId()), token(), "/other"));
+        assertStatus(404, send("GET", "/webhook", null, null, 30000));
+        // The server itself answers /other; /webhook/other reaches the endpoint, which checks the path.
+        assertStatus(404, post(signedEvent(newId(), newId()), token(), "/other"));
+        assertStatus(404, post(signedEvent(newId(), newId()), token(), "/webhook/other"));
     }
 
     @Test
     public void bodyThatIsNotAWebhookAnswers400() throws IOException {
-        assertEquals(400, post("not json"));
-        assertEquals(400, post("{ \"data\": { \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\" } }"));
+        assertStatus(400, post("not json"));
+        assertStatus(400, post("{ \"data\": { \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\" } }"));
     }
 
     @Test
@@ -99,7 +115,7 @@ public class WebhookEndpointTest {
         String documentId = newId();
         String flowActionId = newId();
 
-        assertEquals(200, post(signedEvent(documentId, flowActionId)));
+        assertStatus(200, post(signedEvent(documentId, flowActionId)));
 
         waitFor("Accepted: DocumentSigned:" + documentId + ":" + flowActionId, 1);
         waitFor("Document " + documentId + " is Signed", 1);
@@ -114,34 +130,27 @@ public class WebhookEndpointTest {
         waitFor("Document " + documentId + " is Signed", 1);
         int repeated = post(signedEvent(documentId, flowActionId));
 
-        assertEquals(200, repeated);
-        String printed = waitFor("Ignored a repeated event: DocumentSigned:" + documentId + ":" + flowActionId, 1);
-        assertEquals(1, count(printed, "Document " + documentId + " is Signed"));
+        assertStatus(200, repeated);
+        waitFor("Ignored a repeated event: DocumentSigned:" + documentId + ":" + flowActionId, 1);
+        String printed = waitForEarlierEvents();
+        assertEquals(printed, 1, count(printed, "Document " + documentId + " is Signed"));
     }
 
     // The flow action id is in "signature", "approval" or "refusal", by event type; without it the
     // second participant's event would look like a repeat of the first and be dropped.
     @Test
-    public void eventsOfTwoParticipantsAreTwoEvents() throws Exception {
-        String[][] cases = {
-            { "DocumentSigned", "signature", "Signed" },
-            { "DocumentApproved", "approval", "Approved" },
-            { "DocumentRefused", "refusal", "Refused" },
-        };
-        for (String[] each : cases) {
-            String type = each[0];
-            String documentId = newId();
-            String first = newId();
-            String second = newId();
+    public void signedEventsOfTwoParticipantsAreTwoEvents() throws Exception {
+        assertTwoParticipantsAreTwoEvents("DocumentSigned", "signature", "Signed");
+    }
 
-            post(participantEvent(type, each[1], documentId, first));
-            post(participantEvent(type, each[1], documentId, second));
+    @Test
+    public void approvedEventsOfTwoParticipantsAreTwoEvents() throws Exception {
+        assertTwoParticipantsAreTwoEvents("DocumentApproved", "approval", "Approved");
+    }
 
-            waitFor("Accepted: " + type + ":" + documentId + ":" + first, 1);
-            waitFor("Accepted: " + type + ":" + documentId + ":" + second, 1);
-            String printed = waitFor("Document " + documentId + " is " + each[2], 2);
-            assertFalse(printed.contains("Could not process"));
-        }
+    @Test
+    public void refusedEventsOfTwoParticipantsAreTwoEvents() throws Exception {
+        assertTwoParticipantsAreTwoEvents("DocumentRefused", "refusal", "Refused");
     }
 
     @Test
@@ -152,7 +161,7 @@ public class WebhookEndpointTest {
         CountDownLatch reading = new CountDownLatch(1);
         signer.documentDetailsDelay = reading;
         try {
-            assertEquals(200, post(concludedEvent(documentId), token(), "/webhook", 5000));
+            assertStatus(200, post(concludedEvent(documentId), token(), "/webhook", 5000));
             assertFalse(printed().contains("Document " + documentId + " is concluded"));
         } finally {
             reading.countDown();
@@ -166,7 +175,7 @@ public class WebhookEndpointTest {
         String documentId = newId();
         signer.documentStatus = "Concluded";
 
-        assertEquals(200, post(concludedEvent(documentId)));
+        assertStatus(200, post(concludedEvent(documentId)));
 
         waitFor("Document " + documentId + " is concluded", 1);
         assertEquals(1, signer.requestsTo("GET", "/api/documents/" + documentId).size());
@@ -177,7 +186,7 @@ public class WebhookEndpointTest {
         String documentId = newId();
         signer.documentStatus = "Pending";
 
-        assertEquals(200, post(concludedEvent(documentId)));
+        assertStatus(200, post(concludedEvent(documentId)));
 
         String printed = waitFor(String.format("Document %s is Pending, not Concluded: nothing to do yet", documentId), 1);
         assertFalse(printed.contains("Document " + documentId + " is concluded"));
@@ -190,9 +199,9 @@ public class WebhookEndpointTest {
 
         int status = post(String.format("{ \"type\": \"DocumentDeleted\", \"data\": { \"documents\": [ { \"id\": \"%s\" }, { \"id\": \"%s\" } ] } }", first, second));
 
-        assertEquals(200, status);
+        assertStatus(200, status);
         waitFor("Accepted: DocumentDeleted:" + first + "," + second, 1);
-        assertProcessedWithoutError();
+        assertNoErrorAbout(first, waitForEarlierEvents());
     }
 
     @Test
@@ -201,19 +210,65 @@ public class WebhookEndpointTest {
 
         int status = post(String.format("{ \"type\": \"DocumentPaused\", \"data\": { \"id\": \"%s\", \"name\": \"sample.pdf\" } }", documentId));
 
-        assertEquals(200, status);
+        assertStatus(200, status);
         waitFor("Accepted: DocumentPaused:" + documentId, 1);
         waitFor("This sample does not handle the event DocumentPaused:" + documentId, 1);
-        assertProcessedWithoutError();
+        assertNoErrorAbout(documentId, waitForEarlierEvents());
     }
 
-    // HandleWebhook prints nothing for some events. The endpoint processes events one at a time, in
-    // the order they arrive, so once a signed event sent afterwards is handled, the earlier one is
-    // done too.
-    private void assertProcessedWithoutError() throws Exception {
+    @Test
+    public void eventThatFailsToProcessIsPrintedAndTheNextOneIsStillHandled() throws Exception {
+        String documentId = newId();
+        signer.documentDetailsError = 503;
+        try {
+            assertStatus(200, post(concludedEvent(documentId)));
+
+            waitFor("Could not process DocumentConcluded:" + documentId, 1);
+        } finally {
+            signer.documentDetailsError = 0;
+        }
+        waitForEarlierEvents();
+    }
+
+    private void assertTwoParticipantsAreTwoEvents(String type, String part, String what) throws Exception {
+        String documentId = newId();
+        String first = newId();
+        String second = newId();
+
+        post(participantEvent(type, part, documentId, first));
+        post(participantEvent(type, part, documentId, second));
+
+        waitFor("Accepted: " + type + ":" + documentId + ":" + first, 1);
+        waitFor("Accepted: " + type + ":" + documentId + ":" + second, 1);
+        assertNoErrorAbout(documentId, waitFor("Document " + documentId + " is " + what, 2));
+    }
+
+    // A rejected event must leave no trace: sent again with the token, it is new, not a repeat, and
+    // it is handled once.
+    private void assertTakenAsNewAndHandledOnce(String documentId, String flowActionId) throws Exception {
+        assertStatus(200, post(signedEvent(documentId, flowActionId)));
+        waitFor("Accepted: DocumentSigned:" + documentId + ":" + flowActionId, 1);
+        String printed = waitForEarlierEvents();
+        assertEquals(printed, 1, count(printed, "Document " + documentId + " is Signed"));
+    }
+
+    // Sends a signed event, waits until it is handled, and returns all the endpoint printed. The
+    // endpoint processes events one at a time, in the order they arrive (a single-thread executor),
+    // so the events sent before it are done too, even those HandleWebhook prints nothing for.
+    private static String waitForEarlierEvents() throws Exception {
         String documentId = newId();
         post(signedEvent(documentId, newId()));
-        assertFalse(waitFor("Document " + documentId + " is Signed", 1).contains("Could not process"));
+        return waitFor("Document " + documentId + " is Signed", 1);
+    }
+
+    // Looks only for this test's document, so that another test's failure doesn't fail this one.
+    private static void assertNoErrorAbout(String documentId, String printed) {
+        assertFalse(printed, Pattern.compile("Could not process [^\\n]*" + documentId).matcher(printed).find());
+    }
+
+    // Shows what the endpoint printed when the status differs.
+    private static void assertStatus(int expected, int status) {
+        assertEquals("The endpoint printed:\n" + printed(), expected, status);
     }
 
     private static String token() {
@@ -228,19 +283,26 @@ public class WebhookEndpointTest {
         return post(body, token, path, 30000);
     }
 
-    // Posts the body and returns the status code of the answer.
     private static int post(String body, String token, String path, int timeout) throws IOException {
+        return send("POST", path, token, body, timeout);
+    }
+
+    // Sends a request, with the token and body unless they are null, and returns the status code of
+    // the answer. HttpURLConnection waits forever by default, so it has a timeout.
+    private static int send(String method, String path, String token, String body, int timeout) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(baseUrl + path).openConnection();
         connection.setConnectTimeout(timeout);
         connection.setReadTimeout(timeout);
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestMethod(method);
         if (token != null) {
             connection.setRequestProperty("Authorization", "Bearer " + token);
         }
-        try (OutputStream stream = connection.getOutputStream()) {
-            stream.write(body.getBytes(StandardCharsets.UTF_8));
+        if (body != null) {
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json");
+            try (OutputStream stream = connection.getOutputStream()) {
+                stream.write(body.getBytes(StandardCharsets.UTF_8));
+            }
         }
         int status = connection.getResponseCode();
         connection.disconnect();
@@ -254,7 +316,7 @@ public class WebhookEndpointTest {
     }
 
     private static int count(String text, String part) {
-        return text.split(java.util.regex.Pattern.quote(part), -1).length - 1;
+        return text.split(Pattern.quote(part), -1).length - 1;
     }
 
     // Waits until the endpoint has printed the text the given number of times, and returns all it printed.

@@ -207,7 +207,8 @@ handles it, but no endpoint calls it.
 [`tests`](tests) holds PHPUnit tests of the base class's `callSignerApi` and `requiredField` (the
 headers, the JSON body, the errors on a non-2xx or non-JSON answer) and of the webhook endpoint
 over HTTP (401, 404, 400, repeated events, two participants' events, the answer before the
-processing, `DocumentConcluded` read back). The endpoint is served with `php -S ... webhook.php`,
+processing, `DocumentConcluded` read back, an event that fails to process). The endpoint is served
+with `php -S ... webhook.php`,
 as above, with its own temp folder for the event keys. Their fake Signer,
 [`tests/fake-signer.php`](tests/fake-signer.php) under another `php -S`, takes the place of the
 real one through `SIGNER_ENDPOINT`, so the tests need no API key and send no e-mail. They don't run

@@ -166,10 +166,10 @@ To receive real events:
 [`test`](test) holds `node:test` tests of `callSignerApi` and `requiredField` from
 `scenarios/scenario.ts` (the headers, the JSON body, the errors on a non-2xx or non-JSON answer)
 and of the webhook endpoint over HTTP (401, 404, 400, repeated events, two participants' events,
-the answer before the processing, `DocumentConcluded` read back). The endpoint runs in its own
-process, as `npx ts-node` runs it. Their fake Signer, on Node's `http` module, takes the place of
-the real one through `SIGNER_ENDPOINT`, so the tests need no API key and send no e-mail. They
-don't run the other scenarios yet. From this folder:
+the answer before the processing, `DocumentConcluded` read back, an event that fails to process).
+The endpoint runs in its own process, as `npx ts-node` runs it. Their fake Signer, on Node's
+`http` module, takes the place of the real one through `SIGNER_ENDPOINT`, so the tests need no API
+key and send no e-mail. They don't run the other scenarios yet. From this folder:
 
 ```bash
 npm test

@@ -17,7 +17,14 @@ describe("callSignerApi", () => {
     // With a trailing slash, which callSignerApi drops.
     process.env.SIGNER_ENDPOINT = signer.url + "/";
     process.env.SIGNER_API_KEY = apiKey;
-    scenario = require("../scenarios/scenario");
+    try {
+      scenario = require("../scenarios/scenario");
+    } catch (error) {
+      // When "before" fails, node:test may skip "after", and the open fake Signer would keep the
+      // tests running.
+      await signer.close();
+      throw error;
+    }
   });
 
   after(() => signer.close());
@@ -57,6 +64,9 @@ describe("callSignerApi", () => {
     await assert.rejects(scenario.callSignerApi("POST", path, {}), {
       message: `POST ${path} answered 422: ${body}`,
     });
+    // The fake answers every path alike, and the message is built from the arguments: check the
+    // request itself.
+    assert.strictEqual(signer.requestsTo("POST", path).length, 1);
   });
 
   it("throws on a success answer that is not JSON", async () => {
@@ -66,6 +76,9 @@ describe("callSignerApi", () => {
     await assert.rejects(scenario.callSignerApi("GET", path), {
       message: `GET ${path} answered 200 with invalid JSON: %PDF-1.4 fake`,
     });
+    const requests = signer.requestsTo("GET", path);
+    assert.strictEqual(requests.length, 1);
+    assert.strictEqual(requests[0].body, "");
   });
 
   describe("requiredField", () => {

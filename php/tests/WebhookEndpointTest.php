@@ -25,15 +25,22 @@ class WebhookEndpointTest extends TestCase
         self::$signer = new FakeSigner();
         self::$tempDir = sys_get_temp_dir() . '/webhook-tests-' . bin2hex(random_bytes(8));
         mkdir(self::$tempDir);
-        self::$endpoint = new PhpServer(dirname(__DIR__), 'webhook.php', [
-            'SIGNER_ENDPOINT' => self::$signer->url,
-            'SIGNER_API_KEY' => 'PHP Tests|0123456789abcdef',
-            'SIGNER_WEBHOOK_TOKEN' => self::TOKEN,
-            // sys_get_temp_dir() reads TMPDIR on Linux and macOS, TMP or TEMP on Windows.
-            'TMPDIR' => self::$tempDir,
-            'TMP' => self::$tempDir,
-            'TEMP' => self::$tempDir,
-        ]);
+        try {
+            self::$endpoint = new PhpServer(dirname(__DIR__), 'webhook.php', [
+                'SIGNER_ENDPOINT' => self::$signer->url,
+                'SIGNER_API_KEY' => 'PHP Tests|0123456789abcdef',
+                'SIGNER_WEBHOOK_TOKEN' => self::TOKEN,
+                // sys_get_temp_dir() reads TMPDIR on Linux and macOS, TMP or TEMP on Windows.
+                'TMPDIR' => self::$tempDir,
+                'TMP' => self::$tempDir,
+                'TEMP' => self::$tempDir,
+            ]);
+        } catch (\Exception $e) {
+            // PHPUnit skips tearDownAfterClass when this method throws.
+            self::$signer->stop();
+            self::removeFolder(self::$tempDir);
+            throw $e;
+        }
         self::$http = new Client(['base_uri' => self::$endpoint->url, 'http_errors' => false, 'timeout' => 30]);
     }
 
@@ -44,24 +51,31 @@ class WebhookEndpointTest extends TestCase
         self::removeFolder(self::$tempDir);
     }
 
-    public function testEventWithoutTheTokenAnswers401()
+    public function testEventWithoutTheTokenAnswers401AndIsNotRecorded()
     {
-        $response = $this->post(self::signedEvent(self::newId(), self::newId()), null);
+        $documentId = self::newId();
+        $flowActionId = self::newId();
 
-        $this->assertSame(401, $response->getStatusCode());
+        $this->assertStatus(401, $this->post(self::signedEvent($documentId, $flowActionId), null));
+
+        $this->assertTakenAsNewAndHandledOnce($documentId, $flowActionId);
     }
 
-    public function testEventWithAnotherTokenAnswers401()
+    public function testEventWithAnotherTokenAnswers401AndIsNotRecorded()
     {
-        $response = $this->post(self::signedEvent(self::newId(), self::newId()), 'not-the-token');
+        $documentId = self::newId();
+        $flowActionId = self::newId();
 
-        $this->assertSame(401, $response->getStatusCode());
+        $this->assertStatus(401, $this->post(self::signedEvent($documentId, $flowActionId), 'not-the-token'));
+
+        $this->assertTakenAsNewAndHandledOnce($documentId, $flowActionId);
     }
 
     public function testGetAndOtherPathsAnswer404()
     {
-        $this->assertSame(404, self::$http->get('/webhook')->getStatusCode());
-        $this->assertSame(404, $this->post(self::signedEvent(self::newId(), self::newId()), self::TOKEN, '/other')->getStatusCode());
+        $this->assertStatus(404, self::$http->get('/webhook'));
+        $this->assertStatus(404, $this->post(self::signedEvent(self::newId(), self::newId()), self::TOKEN, '/other'));
+        $this->assertStatus(404, $this->post(self::signedEvent(self::newId(), self::newId()), self::TOKEN, '/webhook/other'));
     }
 
     /**
@@ -69,7 +83,7 @@ class WebhookEndpointTest extends TestCase
      */
     public function testBodyThatIsNotAWebhookAnswers400($body)
     {
-        $this->assertSame(400, $this->post($body)->getStatusCode());
+        $this->assertStatus(400, $this->post($body));
     }
 
     public static function notWebhooks()
@@ -87,7 +101,7 @@ class WebhookEndpointTest extends TestCase
 
         $response = $this->post(self::signedEvent($documentId, $flowActionId));
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertStatus(200, $response);
         $this->waitFor("Accepted: DocumentSigned:$documentId:$flowActionId");
         $this->waitFor("Document $documentId is Signed");
     }
@@ -101,9 +115,10 @@ class WebhookEndpointTest extends TestCase
         $this->waitFor("Document $documentId is Signed");
         $repeated = $this->post(self::signedEvent($documentId, $flowActionId));
 
-        $this->assertSame(200, $repeated->getStatusCode());
-        $output = $this->waitFor("Ignored a repeated event: DocumentSigned:$documentId:$flowActionId");
-        $this->assertSame(1, substr_count($output, "Document $documentId is Signed"));
+        $this->assertStatus(200, $repeated);
+        $this->waitFor("Ignored a repeated event: DocumentSigned:$documentId:$flowActionId");
+        $output = $this->waitForEarlierEvents();
+        $this->assertSame(1, substr_count($output, "Document $documentId is Signed"), $output);
     }
 
     /**
@@ -124,7 +139,7 @@ class WebhookEndpointTest extends TestCase
         $this->waitFor("Accepted: $type:$documentId:$first");
         $this->waitFor("Accepted: $type:$documentId:$second");
         $output = $this->waitFor("Document $documentId is $what", 2);
-        $this->assertStringNotContainsString('Could not process', $output);
+        $this->assertNoErrorAbout($documentId, $output);
     }
 
     public static function participantEvents()
@@ -145,7 +160,7 @@ class WebhookEndpointTest extends TestCase
         try {
             $response = $this->post(self::concludedEvent($documentId), self::TOKEN, '/webhook', 5);
 
-            $this->assertSame(200, $response->getStatusCode());
+            $this->assertStatus(200, $response);
             $this->assertStringNotContainsString("Document $documentId is concluded", self::$endpoint->output());
         } finally {
             self::$signer->holdDocumentDetails(false);
@@ -158,7 +173,7 @@ class WebhookEndpointTest extends TestCase
         $documentId = self::newId();
         self::$signer->setDocumentStatus('Concluded');
 
-        $this->assertSame(200, $this->post(self::concludedEvent($documentId))->getStatusCode());
+        $this->assertStatus(200, $this->post(self::concludedEvent($documentId)));
 
         $this->waitFor("Document $documentId is concluded");
         $this->assertCount(1, self::$signer->requests('GET', "/api/documents/$documentId"));
@@ -169,7 +184,7 @@ class WebhookEndpointTest extends TestCase
         $documentId = self::newId();
         self::$signer->setDocumentStatus('Pending');
 
-        $this->assertSame(200, $this->post(self::concludedEvent($documentId))->getStatusCode());
+        $this->assertStatus(200, $this->post(self::concludedEvent($documentId)));
 
         $output = $this->waitFor("Document $documentId is Pending, not Concluded: nothing to do yet");
         $this->assertStringNotContainsString("Document $documentId is concluded", $output);
@@ -182,9 +197,9 @@ class WebhookEndpointTest extends TestCase
 
         $response = $this->post(json_encode(['type' => 'DocumentDeleted', 'data' => ['documents' => [['id' => $first], ['id' => $second]]]]));
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertStatus(200, $response);
         $this->waitFor("Accepted: DocumentDeleted:$first,$second");
-        $this->assertProcessedWithoutError();
+        $this->assertNoErrorAbout($first, $this->waitForEarlierEvents());
     }
 
     public function testPausedEventIsAcceptedThoughHandleWebhookDoesNotHandleIt()
@@ -193,19 +208,55 @@ class WebhookEndpointTest extends TestCase
 
         $response = $this->post(json_encode(['type' => 'DocumentPaused', 'data' => ['id' => $documentId, 'name' => 'sample.pdf']]));
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertStatus(200, $response);
         $this->waitFor("Accepted: DocumentPaused:$documentId");
-        $this->assertProcessedWithoutError();
+        $this->assertNoErrorAbout($documentId, $this->waitForEarlierEvents());
     }
 
-    // HandleWebhook prints nothing for an event it doesn't handle. php -S serves one request at a
-    // time, so once a signed event sent afterwards is handled, the earlier one is done too.
-    private function assertProcessedWithoutError()
+    public function testEventThatFailsToProcessIsLoggedAndTheNextOneIsStillHandled()
+    {
+        $documentId = self::newId();
+        self::$signer->failDocumentDetails(503);
+        try {
+            $this->assertStatus(200, $this->post(self::concludedEvent($documentId)));
+
+            $this->waitFor("Could not process DocumentConcluded:$documentId");
+        } finally {
+            self::$signer->failDocumentDetails(null);
+        }
+        $this->waitForEarlierEvents();
+    }
+
+    // A rejected event must leave no trace: sent again with the token, it is new, not a repeat, and
+    // it is handled once.
+    private function assertTakenAsNewAndHandledOnce($documentId, $flowActionId)
+    {
+        $this->assertStatus(200, $this->post(self::signedEvent($documentId, $flowActionId)));
+        $this->waitFor("Accepted: DocumentSigned:$documentId:$flowActionId");
+        $output = $this->waitForEarlierEvents();
+        $this->assertSame(1, substr_count($output, "Document $documentId is Signed"), $output);
+    }
+
+    // Sends a signed event, waits until it is handled, and returns all the endpoint wrote. php -S
+    // serves one request at a time (PhpServer starts it without workers), so the events sent before
+    // it are done too, even those HandleWebhook prints nothing for.
+    private function waitForEarlierEvents()
     {
         $documentId = self::newId();
         $this->post(self::signedEvent($documentId, self::newId()));
-        $output = $this->waitFor("Document $documentId is Signed");
-        $this->assertStringNotContainsString('Could not process', $output);
+        return $this->waitFor("Document $documentId is Signed");
+    }
+
+    // Looks only for this test's document, so that another test's failure doesn't fail this one.
+    private function assertNoErrorAbout($documentId, $output)
+    {
+        $this->assertSame(0, preg_match("/Could not process [^\n]*$documentId/", $output), $output);
+    }
+
+    // Shows what the endpoint wrote when the status differs: a PHP error, for example.
+    private function assertStatus($expected, $response)
+    {
+        $this->assertSame($expected, $response->getStatusCode(), "The endpoint wrote:\n" . self::$endpoint->output());
     }
 
     private function post($body, $token = self::TOKEN, $path = '/webhook', $timeout = 30)
