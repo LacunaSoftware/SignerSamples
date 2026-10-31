@@ -3295,7 +3295,7 @@
     "id": "create-document-in-existing-folder-signer",
     "title": "Create a document in an existing folder",
     "title_pt": "Criar um documento em uma pasta existente",
-    "description": "Searches the organization's folders by name, takes the first match, and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
+    "description": "Searches the organization's folders by name, takes the one whose name matches exactly (the search also finds names that only contain it), and creates the document with its `folderId`. It fails when no folder matches, so create the folder first. Searches for \"Sample Folder\".",
     "product": "signer",
     "area": "folders",
     "language": "dotnet",

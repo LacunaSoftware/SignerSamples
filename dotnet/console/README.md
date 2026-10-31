@@ -105,6 +105,32 @@ Prerequisites of some scenarios:
 - `InvoiceWebhookHandlingScenario.RunAsync`: needs an API key with billing administration
   privileges and a real invoice id.
 
+## Tests
+
+[`Console.Tests`](Console.Tests) is an xUnit v3 project that runs the scenarios unchanged. Its
+fake Signer, an ASP.NET Core server on `127.0.0.1`, takes the place of the real one through
+`SIGNER_ENDPOINT`, records every request and answers with the client's own models where the
+client reads one; a route it doesn't know, or a document it didn't create, answers 404, so a
+scenario that calls something new or sends the wrong id fails its test. The tests check
+what each scenario sends (files, flow actions, steps, XAdES options, query filters), the
+download and public-signature steps (the signature is verified with the test certificate), the
+`HandleWebhook` methods, and the webhook endpoint over HTTP (401, 400, repeated events,
+`DocumentConcluded` read back). They need no API key and send no e-mail. From this folder:
+
+```bash
+dotnet test --solution Console.sln
+```
+
+In Visual Studio, use Test Explorer. CI runs them on every pull request that touches this folder.
+
+`LiveSandboxTests` run most scenarios against a real Signer instead, with `SIGNER_ENDPOINT` and
+`SIGNER_API_KEY` or the sandbox defaults. They are skipped unless `SIGNER_LIVE_TESTS` is `1`,
+because each run creates documents and Signer e-mails the sample participants:
+
+```bash
+SIGNER_LIVE_TESTS=1 dotnet test --solution Console.sln
+```
+
 ## Receive webhooks locally
 
 [`WebhookEndpointScenario`](Console/Scenarios/WebhookEndpointScenario.cs) is a minimal webhook

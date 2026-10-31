@@ -74,6 +74,11 @@ namespace Console.Scenarios
                 Ticket = ticket
             };
             var startResponse = await SignerClient.StartPublicSignatureAsync(key, startRequest);
+            // The response can come back with Success = false and the reasons in ValidationResults (for
+            // instance, a certificate Signer does not accept), so check Success before going on.
+            if (!startResponse.Success) {
+                throw new InvalidOperationException($"Signer could not start the signature: {DescribeErrors(startResponse.ValidationResults)}");
+            }
             System.Console.WriteLine($"Signature started, digest algorithm: {startResponse.DigestAlgorithm}");
 
             // 5. Sign the hash with the private key matching the certificate sent above
@@ -85,9 +90,18 @@ namespace Console.Scenarios
                 Signature = signature,
                 Token = startResponse.Token
             };
-            await SignerClient.CompletePublicSignatureAsync(key, completeRequest);
+            var completeResponse = await SignerClient.CompletePublicSignatureAsync(key, completeRequest);
+            if (!completeResponse.Success) {
+                throw new InvalidOperationException($"Signer did not accept the signature: {DescribeErrors(completeResponse.ValidationResults)}");
+            }
 
             System.Console.WriteLine("Public signature completed successfully");
+        }
+
+        private static string DescribeErrors(ValidationResultsModel validationResults)
+        {
+            var errors = validationResults?.Errors?.Select(error => error.Message).ToList();
+            return errors?.Count > 0 ? string.Join("; ", errors) : "no validation errors reported";
         }
 
         private async Task<CreateDocumentResult> CreateDocumentForSigningAsync()
@@ -108,7 +122,9 @@ namespace Console.Scenarios
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
-                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel }
+                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel },
+                // The signature happens through the API, so don't e-mail the participant a signing link
+                DisablePendingActionNotifications = true
             };
 
             return (await SignerClient.CreateDocumentAsync(documentRequest)).First();
@@ -138,7 +154,8 @@ namespace Console.Scenarios
          *
          * @param certificate     the signer's certificate, holding the private key
          * @param toSignHash      the bytes returned by StartPublicSignatureAsync that must be signed
-         * @param digestAlgorithm the hash algorithm reported by the server (e.g. "SHA256")
+         * @param digestAlgorithm the hash algorithm reported by the server, by OID (e.g. "2.16.840.1.101.3.4.2.1")
+         *                        or by name (e.g. "SHA256")
          */
         private static byte[] SignHash(X509Certificate2 certificate, byte[] toSignHash, string digestAlgorithm)
         {
@@ -159,15 +176,21 @@ namespace Console.Scenarios
             throw new InvalidOperationException("The certificate does not have an usable private key");
         }
 
+        // Signer reports the digest algorithm by its OID (SHA-256 is "2.16.840.1.101.3.4.2.1"); the
+        // names are accepted too.
         private static HashAlgorithmName GetHashAlgorithmName(string digestAlgorithm)
         {
             switch ((digestAlgorithm ?? "").Replace("-", "").ToUpperInvariant()) {
+                case "1.3.14.3.2.26":
                 case "SHA1":
                     return HashAlgorithmName.SHA1;
+                case "2.16.840.1.101.3.4.2.1":
                 case "SHA256":
                     return HashAlgorithmName.SHA256;
+                case "2.16.840.1.101.3.4.2.2":
                 case "SHA384":
                     return HashAlgorithmName.SHA384;
+                case "2.16.840.1.101.3.4.2.3":
                 case "SHA512":
                     return HashAlgorithmName.SHA512;
                 default:
