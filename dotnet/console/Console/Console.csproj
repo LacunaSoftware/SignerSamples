@@ -13,8 +13,8 @@
   <ItemGroup>
     <!-- Signer client: brings in Lacuna.Signer.Api (the request and response models) and Lacuna.RestClient. -->
     <PackageReference Include="Lacuna.Signer.Client" Version="1.24.0" />
-    <!-- Newer than the 1.67.0 the client asks for. 2.x needs a prerelease Lacuna.Spa.Api. -->
-    <PackageReference Include="Lacuna.Signer.Api" Version="1.77.1" />
+    <!-- Newer than the 1.67.0 the client asks for. -->
+    <PackageReference Include="Lacuna.Signer.Api" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 

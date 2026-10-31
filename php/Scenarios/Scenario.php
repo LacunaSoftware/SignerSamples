@@ -42,6 +42,31 @@ abstract class Scenario
 
     abstract protected function run();
 
+    // Calls the Signer REST API directly, for the features that lacuna/signer-client 1.4.10 doesn't have
+    // yet, such as pausing a document. The body is an array sent as JSON, with the field names and enum
+    // values of the API reference (https://www.dropsigner.com/swagger). Returns the JSON of the response
+    // as an associative array, or null when it has none. Throws on an answer other than 2xx, with the
+    // body, which for a 422 holds Signer's error code and message.
+    protected function callSignerApi($method, $path, $body = null)
+    {
+        $options = [
+            'headers' => ['X-Api-Key' => $this->apiKey],
+            // Read the error body instead of letting Guzzle throw.
+            'http_errors' => false,
+        ];
+        if ($body !== null) {
+            $options['json'] = $body;
+        }
+        $response = (new \GuzzleHttp\Client())->request($method, rtrim($this->endPoint, '/') . $path, $options);
+
+        $content = (string)$response->getBody();
+        $status = $response->getStatusCode();
+        if ($status < 200 || $status >= 300) {
+            throw new \RuntimeException("$method $path answered $status: $content");
+        }
+        return $content === '' ? null : json_decode($content, true);
+    }
+
     protected function createDocument()
     {
         $filePath = "resources/sample.pdf";

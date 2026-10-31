@@ -50,8 +50,10 @@ class EmbeddedSignatureScenario extends Scenario
         $flowActionCreateModel->setUser($user);
 
 
-        // 5. Send the document create request
+        // 5. Send the document create request. The participant signs inside your page, so don't let
+        //    Signer e-mail them a link to sign on Signer's own page.
         $documentRequest = new DocumentsCreateDocumentRequest();
+        $documentRequest->setDisablePendingActionNotifications(true);
         $documentRequest->setFiles(
             array($fileUploadModelBuilder->toModel())
         );

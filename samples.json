@@ -288,6 +288,102 @@
     }
   },
   {
+    "id": "create-document-with-notification-language-signer",
+    "title": "Choose the language of notification e-mails",
+    "title_pt": "Escolher o idioma dos e-mails de notificação",
+    "description": "Creates a document with a `notificationLanguage` (`Pt`, `En` or `Es`) per participant and `notifiedEmailsData`, the addresses told of the conclusion, each with its own language. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "documents",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithNotificationLanguageScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/concepts/notifications#language",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "dotnet run --project Console",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-notification-language-signer",
+    "title": "Choose the language of notification e-mails",
+    "title_pt": "Escolher o idioma dos e-mails de notificação",
+    "description": "Creates a document with a `notificationLanguage` (`Pt`, `En` or `Es`) per participant and `notifiedEmailsData`, the addresses told of the conclusion, each with its own language. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "documents",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithNotificationLanguageScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/concepts/notifications#language",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-notification-language-signer",
+    "title": "Choose the language of notification e-mails",
+    "title_pt": "Escolher o idioma dos e-mails de notificação",
+    "description": "Creates a document with a `notificationLanguage` (`Pt`, `En` or `Es`) per participant and `notifiedEmailsData`, the addresses told of the conclusion, each with its own language. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "documents",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithNotificationLanguageScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/concepts/notifications#language",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithNotificationLanguageScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-notification-language-signer",
+    "title": "Choose the language of notification e-mails",
+    "title_pt": "Escolher o idioma dos e-mails de notificação",
+    "description": "Creates a document with a `notificationLanguage` (`Pt`, `En` or `Es`) per participant and `notifiedEmailsData`, the addresses told of the conclusion, each with its own language. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "documents",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithNotificationLanguageScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/concepts/notifications#language",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
     "id": "create-envelope-signer",
     "title": "Merge several PDFs into one document (envelope)",
     "title_pt": "Mesclar vários PDFs em um único documento (envelope)",
@@ -985,6 +1081,198 @@
     }
   },
   {
+    "id": "create-document-without-refusal-signer",
+    "title": "Create a document a signer cannot refuse",
+    "title_pt": "Criar um documento que um signatário não pode recusar",
+    "description": "Creates a document with two signers, one of them with `disableRefusal: true`, so Signer hides the refuse option from that participant and rejects their refusal. Calls the REST API directly, as the client library has no `disableRefusal`.",
+    "product": "signer",
+    "area": "flows",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithoutRefusalScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#participant-options",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "dotnet run --project Console",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-without-refusal-signer",
+    "title": "Create a document a signer cannot refuse",
+    "title_pt": "Criar um documento que um signatário não pode recusar",
+    "description": "Creates a document with two signers, one of them with `disableRefusal: true`, so Signer hides the refuse option from that participant and rejects their refusal. Calls the REST API directly, as the client library has no `disableRefusal`.",
+    "product": "signer",
+    "area": "flows",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithoutRefusalScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#participant-options",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-without-refusal-signer",
+    "title": "Create a document a signer cannot refuse",
+    "title_pt": "Criar um documento que um signatário não pode recusar",
+    "description": "Creates a document with two signers, one of them with `disableRefusal: true`, so Signer hides the refuse option from that participant and rejects their refusal. Calls the REST API directly, as the client library has no `disableRefusal`.",
+    "product": "signer",
+    "area": "flows",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithoutRefusalScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#participant-options",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithoutRefusalScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-without-refusal-signer",
+    "title": "Create a document a signer cannot refuse",
+    "title_pt": "Criar um documento que um signatário não pode recusar",
+    "description": "Creates a document with two signers, one of them with `disableRefusal: true`, so Signer hides the refuse option from that participant and rejects their refusal. Calls the REST API directly, as the client library has no `disableRefusal`.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithoutRefusalScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#participant-options",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signer-positioning-signer",
+    "title": "Control who positions the signature",
+    "title_pt": "Controlar quem posiciona a assinatura",
+    "description": "Creates a document with `signerPositioningEnabled` and `automaticSignaturePositioning` (`Disabled`, `Footnote` or `SignatureSheet`), then changes them with `PUT /api/documents/{id}/signer-positioning` before anyone signs. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "flows",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreateDocumentWithSignerPositioningScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signer-positioning",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "dotnet run --project Console",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signer-positioning-signer",
+    "title": "Control who positions the signature",
+    "title_pt": "Controlar quem posiciona a assinatura",
+    "description": "Creates a document with `signerPositioningEnabled` and `automaticSignaturePositioning` (`Disabled`, `Footnote` or `SignatureSheet`), then changes them with `PUT /api/documents/{id}/signer-positioning` before anyone signs. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "flows",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreateDocumentWithSignerPositioningScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signer-positioning",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signer-positioning-signer",
+    "title": "Control who positions the signature",
+    "title_pt": "Controlar quem posiciona a assinatura",
+    "description": "Creates a document with `signerPositioningEnabled` and `automaticSignaturePositioning` (`Disabled`, `Footnote` or `SignatureSheet`), then changes them with `PUT /api/documents/{id}/signer-positioning` before anyone signs. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "flows",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createDocumentWithSignerPositioningScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signer-positioning",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/createDocumentWithSignerPositioningScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "create-document-with-signer-positioning-signer",
+    "title": "Control who positions the signature",
+    "title_pt": "Controlar quem posiciona a assinatura",
+    "description": "Creates a document with `signerPositioningEnabled` and `automaticSignaturePositioning` (`Disabled`, `Footnote` or `SignatureSheet`), then changes them with `PUT /api/documents/{id}/signer-positioning` before anyone signs. Calls the REST API directly, as the client library has neither field.",
+    "product": "signer",
+    "area": "flows",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreateDocumentWithSignerPositioningScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signer-positioning",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
     "id": "add-signer-to-existing-document-signer",
     "title": "Add a signer to an existing document",
     "title_pt": "Adicionar um signatário a um documento existente",
@@ -1121,6 +1409,102 @@
     ],
     "status": "current",
     "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#step-by-step",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdfa-document-with-timestamp-signer",
+    "title": "Convert to PDF/A and timestamp the signatures",
+    "title_pt": "Converter para PDF/A e aplicar carimbo do tempo às assinaturas",
+    "description": "Creates a document that Signer converts to PDF/A (`convertToPdfA`, `pdfAProfile`), with `timestampEnabled` overriding the organization's timestamp setting. Calls the REST API directly, as the client library has none of these fields.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/CreatePdfADocumentWithTimestampScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#document-options",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "dotnet run --project Console",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdfa-document-with-timestamp-signer",
+    "title": "Convert to PDF/A and timestamp the signatures",
+    "title_pt": "Converter para PDF/A e aplicar carimbo do tempo às assinaturas",
+    "description": "Creates a document that Signer converts to PDF/A (`convertToPdfA`, `pdfAProfile`), with `timestampEnabled` overriding the organization's timestamp setting. Calls the REST API directly, as the client library has none of these fields.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/CreatePdfADocumentWithTimestampScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#document-options",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdfa-document-with-timestamp-signer",
+    "title": "Convert to PDF/A and timestamp the signatures",
+    "title_pt": "Converter para PDF/A e aplicar carimbo do tempo às assinaturas",
+    "description": "Creates a document that Signer converts to PDF/A (`convertToPdfA`, `pdfAProfile`), with `timestampEnabled` overriding the organization's timestamp setting. Calls the REST API directly, as the client library has none of these fields.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/createPdfADocumentWithTimestampScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#document-options",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/createPdfADocumentWithTimestampScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "create-pdfa-document-with-timestamp-signer",
+    "title": "Convert to PDF/A and timestamp the signatures",
+    "title_pt": "Converter para PDF/A e aplicar carimbo do tempo às assinaturas",
+    "description": "Creates a document that Signer converts to PDF/A (`convertToPdfA`, `pdfAProfile`), with `timestampEnabled` overriding the organization's timestamp setting. Calls the REST API directly, as the client library has none of these fields.",
+    "product": "signer",
+    "area": "signature-formats",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/CreatePdfADocumentWithTimestampScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/document-fields#document-options",
     "demo_url": null,
     "run": {
       "cwd": "php",
@@ -1553,7 +1937,7 @@
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
     "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
-    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "description": "Creates a one-signer document with `disablePendingActionNotifications`, so the participant gets no e-mail, and asks for their action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
     "language": "dotnet",
@@ -1577,7 +1961,7 @@
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
     "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
-    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "description": "Creates a one-signer document with `disablePendingActionNotifications`, so the participant gets no e-mail, and asks for their action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
     "language": "java",
@@ -1602,7 +1986,7 @@
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
     "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
-    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "description": "Creates a one-signer document with `disablePendingActionNotifications`, so the participant gets no e-mail, and asks for their action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
     "language": "nodejs",
@@ -1625,7 +2009,7 @@
     "id": "embedded-signature-signer",
     "title": "Sign without leaving your page (embedded signature)",
     "title_pt": "Assinar sem sair da sua página (assinatura embutida)",
-    "description": "Creates a one-signer document and asks for the participant's action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
+    "description": "Creates a one-signer document with `disablePendingActionNotifications`, so the participant gets no e-mail, and asks for their action URL; the response's `embedUrl` is what the LacunaSignerWidget renders inside your page. The sample only prints it.",
     "product": "signer",
     "area": "embedded-signing",
     "language": "php",
@@ -2539,6 +2923,102 @@
     ],
     "status": "current",
     "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#refuse-a-document",
+    "demo_url": null,
+    "run": {
+      "cwd": "php",
+      "command": "composer install && php index.php",
+      "url": null
+    }
+  },
+  {
+    "id": "pause-resume-document-signer",
+    "title": "Pause and resume a document",
+    "title_pt": "Pausar e retomar um documento",
+    "description": "Creates a document, pauses it with a `reason` (`POST /api/documents/{id}/pause`), reads its `Paused` status, then resumes it (`POST /api/documents/{id}/resume`). Calls the REST API directly, as the client library has no pause.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "dotnet",
+    "framework": "console",
+    "path": "dotnet/console/Console/Scenarios/PauseAndResumeDocumentScenario.cs",
+    "related_files": [
+      "dotnet/console/Console/Program.cs",
+      "dotnet/console/Console/Scenarios/Scenario.cs",
+      "dotnet/console/Console/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#pause",
+    "demo_url": null,
+    "run": {
+      "cwd": "dotnet/console",
+      "command": "dotnet run --project Console",
+      "url": null
+    }
+  },
+  {
+    "id": "pause-resume-document-signer",
+    "title": "Pause and resume a document",
+    "title_pt": "Pausar e retomar um documento",
+    "description": "Creates a document, pauses it with a `reason` (`POST /api/documents/{id}/pause`), reads its `Paused` status, then resumes it (`POST /api/documents/{id}/resume`). Calls the REST API directly, as the client library has no pause.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "java",
+    "framework": "console",
+    "path": "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/PauseAndResumeDocumentScenario.java",
+    "related_files": [
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/App.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java",
+      "java/console/src/main/java/com/lacunasoftware/signer/sample/Util.java",
+      "java/console/src/main/resources/static/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#pause",
+    "demo_url": null,
+    "run": {
+      "cwd": "java/console",
+      "command": "./gradlew run",
+      "url": null
+    }
+  },
+  {
+    "id": "pause-resume-document-signer",
+    "title": "Pause and resume a document",
+    "title_pt": "Pausar e retomar um documento",
+    "description": "Creates a document, pauses it with a `reason` (`POST /api/documents/{id}/pause`), reads its `Paused` status, then resumes it (`POST /api/documents/{id}/resume`). Calls the REST API directly, as the client library has no pause.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "nodejs",
+    "framework": "console",
+    "path": "nodejs/scenarios/pauseAndResumeDocumentScenario.ts",
+    "related_files": [
+      "nodejs/scenarios/scenario.ts",
+      "nodejs/samples/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#pause",
+    "demo_url": null,
+    "run": {
+      "cwd": "nodejs",
+      "command": "npm install && npx ts-node scenarios/pauseAndResumeDocumentScenario.ts",
+      "url": null
+    }
+  },
+  {
+    "id": "pause-resume-document-signer",
+    "title": "Pause and resume a document",
+    "title_pt": "Pausar e retomar um documento",
+    "description": "Creates a document, pauses it with a `reason` (`POST /api/documents/{id}/pause`), reads its `Paused` status, then resumes it (`POST /api/documents/{id}/resume`). Calls the REST API directly, as the client library has no pause.",
+    "product": "signer",
+    "area": "lifecycle",
+    "language": "php",
+    "framework": "console",
+    "path": "php/Scenarios/PauseAndResumeDocumentScenario.php",
+    "related_files": [
+      "php/index.php",
+      "php/Scenarios/Scenario.php",
+      "php/resources/sample.pdf"
+    ],
+    "status": "current",
+    "docs_url": "https://docs.lacunasoftware.com/en-us/articles/signer/integration/lifecycle#pause",
     "demo_url": null,
     "run": {
       "cwd": "php",

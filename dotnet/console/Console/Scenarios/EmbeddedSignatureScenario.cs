@@ -44,11 +44,13 @@ namespace Console.Scenarios
                 User = participantUser
             };
 
-            // 5. Send the document create request
+            // 5. Send the document create request. The participant signs inside your page, so don't let
+            //    Signer e-mail them a link to sign on Signer's own page.
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
-                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel }
+                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel },
+                DisablePendingActionNotifications = true
             };
             var result = (await SignerClient.CreateDocumentAsync(documentRequest)).First();
 

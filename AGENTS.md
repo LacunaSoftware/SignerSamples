@@ -123,15 +123,30 @@ Configuration({ apiKey, basePath })`). A key sees and creates its own organizati
    unless `isEnvelope: true` plus `envelopeName` merges them (PDFs only) into one.
 
 The samples also set `description`, `attachments` (with `isPrivate`), `folderId` or
-`newFolderName`, `forceCadesSignature` (PDFs default to PAdES) and `xmlNamespaces`. A document
-from a PDF form template and a CSV uses a separate call, `generateDocument` (Java, PHP).
+`newFolderName`, `forceCadesSignature` (PDFs default to PAdES) and `xmlNamespaces`, and, through
+a direct call (below), `notifiedEmailsData` (conclusion e-mails, each with a language),
+`signerPositioningEnabled` with `automaticSignaturePositioning`, `convertToPdfA` with
+`pdfAProfile`, and `timestampEnabled`. With `convertToPdfA`, the result's `uploadId` is a new one,
+not the id you sent. A document from a PDF form template and a CSV uses a separate call,
+`generateDocument` (Java, PHP).
+
+**Features newer than the client libraries.** Signer 3.x added fields and calls that no client
+library has yet (Lacuna.Signer.Client 1.24.0 with Lacuna.Signer.Api 2.1.0, `signer-client`
+2.13.0, `signer-node-client` 1.1.0, `lacuna/signer-client` 1.4.10): pause and resume, the
+fields above, and per action `disableRefusal` and `notificationLanguage`. Each base class has a
+helper that sends JSON with the same `X-Api-Key` (.NET `CallSignerApiAsync`, Java
+`callSignerApi` with `fileJson`/`signerJson`, Node.js `callSignerApi`, PHP `callSignerApi`); the
+scenarios upload with the client and create with the helper. In Java, build the JSON with Gson's
+`JsonObject`: `signerClient.getGson()` cannot serialize the client's `FileUploadModel`.
 
 **A flow is a list of flow actions.** Each has a `type`: `Signer`, `Approver`, `SignRule` or
 `ApproverRule` (no sample uses the last). A rule is **one** action with `signRuleUsers` and
 `numberRequiredSignatures`. `step` orders them: the same step runs in parallel, a later step is
 notified only when the previous one finishes, and with no `step` at all, any order goes. Per
 action the samples also set `prePositionedMarks` (page, position, size), `xadesOptions`
-(`FullXml`, or `XmlElement` by `Id` or XPath) and `allowElectronicSignature`. A running flow is
+(`FullXml`, or `XmlElement` by `Id` or XPath), `allowElectronicSignature`, `disableRefusal` (that
+participant cannot refuse; the organization's application still can) and `notificationLanguage`
+(`Pt`, `En` or `Es`). A running flow is
 changed with `POST /api/documents/{id}/flow` (`addedFlowActions`, `editedFlowActions`; PHP only).
 A new version (`POST /api/documents/{id}/versions`) **resets the flow**.
 
@@ -162,9 +177,11 @@ one is a deprecated stub.
 **Learning that a document is complete: use a webhook, not polling.** Polling is
 `GET /api/documents/{id}` (`GetDocumentDetailsAsync` / `getDocumentDetails`). Document `status`
 is one of `Pending`, `FlowConcluded` (all actions done, final processing still running),
-`Concluded`, `Refused`, `Canceled` or `Expired`. Each flow action's `status` is one of `Created`
-(waiting for an earlier step), `Pending`, `Completed` or `Refused`. The docs say not to poll in
-production. To list documents (`GET /api/documents`), filter with `Status`
+`Concluded`, `Refused`, `Canceled`, `Expired` or `Paused` (`POST /api/documents/{id}/pause`, until
+`/resume`; treat it as in progress). .NET's `GetDocumentDetailsAsync` throws on a paused document,
+as Lacuna.Signer.Api 2.1.0 has no `Paused`: read it with `CallSignerApiAsync`. Each flow action's
+`status` is one of `Created` (waiting for an earlier step), `Pending`, `Completed` or `Refused`.
+The docs say not to poll in production. To list documents (`GET /api/documents`), filter with `Status`
 (`DocumentFilterStatus`, as the .NET, Java and Node.js samples do); `IsConcluded` is deprecated.
 The PHP sample still uses it: `lacuna/signer-client` 1.4.10, the latest, cannot send `Status`.
 
@@ -172,8 +189,8 @@ A webhook is registered per organization (**Organization → Integration**, or
 `POST /api/organizations/{orgId}/webhooks` with `url`, `authType`, `token`). Signer `POST`s
 `{ "type": "...", "data": { ... } }`. The event types are `DocumentsCreated`, `DocumentSigned`,
 `DocumentApproved`, `DocumentRefused`, `DocumentConcluded`, `DocumentCanceled`,
-`DocumentExpired`, `DocumentDeleted` and `InvoiceClosed`; the last comes from the instance's
-billing webhook. A webhook handler must:
+`DocumentExpired`, `DocumentDeleted`, `DocumentPaused`, `DocumentResumed` and `InvoiceClosed`;
+the last comes from the instance's billing webhook. A webhook handler must:
 
 1. Check the auth header you registered (Signer does not sign the body).
 2. Answer 2xx quickly and work afterwards. Failures and non-2xx answers are retried, by default up
@@ -184,8 +201,8 @@ billing webhook. A webhook handler must:
 
 The `webhook-endpoint-signer` samples do all four with each platform's built-in HTTP server, then
 call `HandleWebhook`, which switches on `type`. `DocumentsCreated` and `DocumentDeleted` carry a
-`documents` list instead of an `id`; .NET's `WebhookTypes` (Lacuna.Signer.Api 1.77.1) lacks
-`DocumentDeleted`.
+`documents` list instead of an `id`; .NET's `WebhookTypes` (Lacuna.Signer.Api 2.1.0) lacks
+`DocumentPaused` and `DocumentResumed`, so the .NET endpoint reads the body as JSON.
 `WebhookModel` types `data` as `object`/`Object` in .NET and Java, so a cast to the event's model
 throws: deserialize it again (Java: with `signerClient.getGson()`, which reads the API's dates).
 
@@ -229,6 +246,8 @@ throws: deserialize it again (Java: with `signerClient.getGson()`, which reads t
    `identifier`. The PFX here is a test shortcut; in production the hash is signed on the
    user's device (smart card, token, browser).
 10. **Copying a defect.** Read the catalog's "Caveat:" notes (section 1) before copying a sample.
+11. **Taking the client library for the API.** A method or field missing from the client doesn't
+    mean Signer lacks it: check the Swagger, and call it with the base class's helper (section 4).
 
 ## 6. Conventions for adding or changing a sample
 

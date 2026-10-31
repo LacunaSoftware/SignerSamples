@@ -83,7 +83,7 @@ namespace Console.Scenarios
 
                 // The body is { "type": "...", "data": { ... } }, with camelCase fields. Read it as JSON rather
                 // than as a WebhookModel, which rejects the event types that this version of
-                // Lacuna.Signer.Api doesn't know (DocumentDeleted).
+                // Lacuna.Signer.Api doesn't know (DocumentPaused, DocumentResumed).
                 string body;
                 using (var reader = new StreamReader(request.InputStream, Encoding.UTF8))
                 {
