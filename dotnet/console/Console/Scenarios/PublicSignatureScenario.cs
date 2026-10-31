@@ -64,7 +64,7 @@ namespace Console.Scenarios
             // 3. Load the signer's certificate. In a real application the certificate and the
             //    private key operation would come from the user's hardware token, smart card or
             //    from the browser's certificate API - here we use a local PFX for simplicity.
-            var certificate = new X509Certificate2(File.ReadAllBytes(PfxPath), PfxPassword);
+            var certificate = X509CertificateLoader.LoadPkcs12FromFile(PfxPath, PfxPassword);
 
             // 4. Start the signature. The server returns the hash to be signed and a token
             //    identifying this signature attempt.

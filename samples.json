@@ -19,7 +19,7 @@
     "demo_url": "https://try.lacunasoftware.com/en/signer/sign-a-document",
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -115,7 +115,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -211,7 +211,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -307,7 +307,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -524,7 +524,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -620,7 +620,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -716,7 +716,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -812,7 +812,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -908,7 +908,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1052,7 +1052,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1148,7 +1148,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1244,7 +1244,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1340,7 +1340,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1437,7 +1437,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1569,7 +1569,7 @@
     "demo_url": "https://try.lacunasoftware.com/en/signer/embedded-signature",
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1665,7 +1665,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1738,7 +1738,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1833,7 +1833,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -1948,7 +1948,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2043,7 +2043,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2138,7 +2138,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2210,7 +2210,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2280,7 +2280,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2374,7 +2374,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2470,7 +2470,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2566,7 +2566,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2662,7 +2662,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2758,7 +2758,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },
@@ -2831,7 +2831,7 @@
     "demo_url": null,
     "run": {
       "cwd": "dotnet/console",
-      "command": "Open Console.sln in Visual Studio and press F5",
+      "command": "dotnet run --project Console",
       "url": null
     }
   },

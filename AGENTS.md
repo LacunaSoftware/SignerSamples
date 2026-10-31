@@ -61,7 +61,7 @@ python -c "import json;[print(e['id'],e['path']) for e in json.load(open('sample
 
 | Project | Stack | Run from | Command | Pick the scenario in |
 |---|---|---|---|---|
-| `dotnet/console` | .NET Framework 4.8, NuGet `packages.config` | `dotnet/console` | Open `Console.sln` in Visual Studio, F5 | `Console/Program.cs` (`new XScenario()`) |
+| `dotnet/console` | .NET 10 console app | `dotnet/console` | `dotnet run --project Console` (or `Console.sln` in Visual Studio, F5) | `Console/Program.cs` (`new XScenario()`) |
 | `java/console` | Java 8, Gradle 5.2.1 wrapper | `java/console` | `./gradlew run` (`gradlew.bat run` on Windows) | `src/main/java/.../sample/App.java` |
 | `nodejs` | TypeScript, run with ts-node | `nodejs` | `npm install && npx ts-node scenarios/<scenario>.ts` | each file is its own script |
 | `php` | PHP CLI, Composer | `php` | `composer install && php index.php` | `index.php` (`new XScenario()`) |
@@ -84,8 +84,10 @@ Windows user variables for Visual Studio). Production, with its own key, is Drop
 
 Per-project notes:
 
-- **.NET**: input files are copied to the output folder. `Console.csproj` does not glob, so list
-  every scenario file in it. Public signature expects `56072386105.pfx` next to the executable.
+- **.NET**: input files are copied to the output folder, `Console/bin/Debug/net10.0`, and
+  `dotnet run` starts there (`RunWorkingDirectory`), as Visual Studio does. `Console.csproj` is
+  SDK-style and picks up every `.cs` file. Public signature expects `56072386105.pfx` next to the
+  executable.
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
   the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
 - **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in
@@ -182,7 +184,8 @@ billing webhook. A webhook handler must:
 
 The `webhook-endpoint-signer` samples do all four with each platform's built-in HTTP server, then
 call `HandleWebhook`, which switches on `type`. `DocumentsCreated` and `DocumentDeleted` carry a
-`documents` list instead of an `id`; .NET's `WebhookTypes` (Lacuna.Signer.Api 1.47.0) lacks both.
+`documents` list instead of an `id`; .NET's `WebhookTypes` (Lacuna.Signer.Api 1.77.1) lacks
+`DocumentDeleted`.
 `WebhookModel` types `data` as `object`/`Object` in .NET and Java, so a cast to the event's model
 throws: deserialize it again (Java: with `signerClient.getGson()`, which reads the API's dates).
 

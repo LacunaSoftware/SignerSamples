@@ -77,8 +77,8 @@ AREAS = OrderedDict([
 # One row per project (`run.cwd`). scripts/validate-catalog.py rejects a `run.cwd` missing here.
 PROJECTS = OrderedDict([
     ("dotnet/console", {
-        "stack": ".NET Framework 4.8 console app, NuGet `packages.config`",
-        "command": "Open `Console.sln` in Visual Studio and press F5",
+        "stack": ".NET 10 console app",
+        "command": "`dotnet run --project Console` (or `Console.sln` in Visual Studio, F5)",
         "pick": "dotnet/console/Console/Program.cs",
         "config": "dotnet/console/Console/Scenarios/Scenario.cs",
     }),
