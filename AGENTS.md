@@ -11,6 +11,13 @@ dozen *scenarios*: one file per integration task, calling the Signer REST API th
 client library for that language. A scenario creates documents, builds flows, gets signing
 URLs, downloads files, or shows how to handle a webhook.
 
+A fifth project, `dotnet/SkillFriendlySignatureApp`, is a tool rather than scenarios: a .NET 10
+command-line app that a coding agent calls, through the Claude Code skill in its `skill/SKILL.md`,
+to list a participant's pending documents and sign them with a certificate from the Windows
+store, through PKI SDK (`sign-pending-documents-signer`). It does not follow the scenario
+conventions below; its [README](dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp/README.md)
+says how it differs.
+
 It is **not** a production template. Copy the API calls, not the scaffolding:
 
 - The Signer URL and API key come from the `SIGNER_ENDPOINT` and `SIGNER_API_KEY` environment
@@ -58,6 +65,7 @@ python -c "import json;[print(e['id'],e['path']) for e in json.load(open('sample
 | `java/console` | Java 8, Gradle 5.2.1 wrapper | `java/console` | `./gradlew run` (`gradlew.bat run` on Windows) | `src/main/java/.../sample/App.java` |
 | `nodejs` | TypeScript, run with ts-node | `nodejs` | `npm install && npx ts-node scenarios/<scenario>.ts` | each file is its own script |
 | `php` | PHP CLI, Composer | `php` | `composer install && php index.php` | `index.php` (`new XScenario()`) |
+| `dotnet/SkillFriendlySignatureApp` | .NET 10 console tool, Windows only | `dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp` | `dotnet run -- certs` (or `list`, `sign`; `--help` lists them) | not a scenario project: one command per run |
 
 Each base class reads `SIGNER_ENDPOINT` and `SIGNER_API_KEY` (unset or empty: sandbox values):
 
@@ -86,6 +94,15 @@ Per-project notes:
   scenarios, without running them, with `npx tsc --noEmit -p scenarios`.
 - **PHP**: run from `php/`; scenarios open `resources/...` relative to it. `lacuna/signer-client`
   1.4.10 brings in Guzzle 7, so PHP 7.2.5 or later; `composer install` needs no extra flags.
+- **Skill-friendly signature app** (`dotnet/SkillFriendlySignatureApp`): reads `Signer:Endpoint`
+  (DropSigner by default, not the sandbox) and `Signer:ApiKey` from `appsettings.json`, user
+  secrets or the environment (`Signer__ApiKey`), never from `SIGNER_ENDPOINT`/`SIGNER_API_KEY`,
+  and commits no Signer key. Its PKI SDK license is the trial `LacunaPkiLicense.config` next to
+  the executable, or a Base64 license in `PkiSdk:License`. It prints JSON and never prompts.
+  `sign` takes explicit document ids only, and the skill makes the user confirm before signing:
+  keep it that way. Its xUnit tests run with `dotnet test --solution SkillFriendlySignatureApp.slnx`
+  from `dotnet/SkillFriendlySignatureApp`, and in CI through
+  `.github/workflows/test-skill-friendly-signature-app.yml`.
 
 ## 4. The Signer integration model, as the samples show it
 

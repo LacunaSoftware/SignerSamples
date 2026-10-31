@@ -1,0 +1,33 @@
+name: Test dotnet/SkillFriendlySignatureApp
+
+# Runs the unit and command-line contract tests of the Skill-friendly signature app. They use an
+# in-memory Signer and Pierre de Fermat's PFX, so they need no Signer API key and no certificate
+# in the store; LiveSandboxTests skip themselves without a key.
+on:
+  pull_request:
+    paths:
+      - "dotnet/SkillFriendlySignatureApp/**"
+      - ".github/workflows/test-skill-friendly-signature-app.yml"
+  push:
+    branches: [master]
+    paths:
+      - "dotnet/SkillFriendlySignatureApp/**"
+      - ".github/workflows/test-skill-friendly-signature-app.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        # global.json here selects Microsoft.Testing.Platform, which `dotnet test --solution` needs.
+        working-directory: dotnet/SkillFriendlySignatureApp
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "10.0.x"
+      - run: dotnet test --solution SkillFriendlySignatureApp.slnx

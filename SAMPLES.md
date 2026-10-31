@@ -14,7 +14,7 @@ Every Lacuna Signer sample in this repository, grouped by feature area and task,
 
 ## How to run each project
 
-Every project is a console program that runs one scenario per execution. Its base class reads the Signer instance URL and API key from the `SIGNER_ENDPOINT` and `SIGNER_API_KEY` environment variables and, when they are unset, uses the sandbox and a shared sample key. Read [AGENTS.md](AGENTS.md) before running one: each run creates real documents on that instance.
+Every project is a console program that runs one scenario per execution. Its base class reads the Signer instance URL and API key from the `SIGNER_ENDPOINT` and `SIGNER_API_KEY` environment variables and, when they are unset, uses the sandbox and a shared sample key. Read [AGENTS.md](AGENTS.md) before running one: each run creates real documents on that instance. The exception is the .NET Skill-friendly signature app, a command-line tool that signs the user's own pending documents: it targets DropSigner by default and reads its own configuration, with no shared key (see its README).
 
 | Project | Stack | Command | Pick the scenario in | Signer URL and API key |
 |---|---|---|---|---|
@@ -22,13 +22,14 @@ Every project is a console program that runs one scenario per execution. Its bas
 | [`java/console`](java/console) | Java 8 console app, Gradle wrapper | `./gradlew run` (`gradlew.bat run` on Windows) | [App.java](java/console/src/main/java/com/lacunasoftware/signer/sample/App.java) | [Scenario.java](java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/Scenario.java) |
 | [`nodejs`](nodejs) | TypeScript scripts, run with ts-node | `npm install && npx ts-node scenarios/<scenario>.ts` | each scenario is its own script | [scenario.ts](nodejs/scenarios/scenario.ts) |
 | [`php`](php) | PHP command-line script, Composer | `composer install && php index.php` | [index.php](php/index.php) | [Scenario.php](php/Scenarios/Scenario.php) |
+| [`dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp`](dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp) | .NET 10 console tool for a coding agent (Windows), with PKI SDK | `dotnet run -- certs` (or `list`, `sign`) | not a scenario project: one command per run | [appsettings.json.example](dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp/appsettings.json.example) |
 
 ## Areas
 
 - [Create documents](#create-documents): 8 tasks
 - [Flows: participants, order and rules](#flows-participants-order-and-rules): 7 tasks
 - [Signature formats (CAdES, XAdES)](#signature-formats-cades-xades): 4 tasks
-- [Sign through the API](#sign-through-the-api): 2 tasks
+- [Sign through the API](#sign-through-the-api): 3 tasks
 - [Embedded signing](#embedded-signing): 1 task
 - [Track and list documents](#track-and-list-documents): 4 tasks
 - [Webhooks](#webhooks): 3 tasks
@@ -77,6 +78,7 @@ Every project is a console program that runs one scenario per execution. Its bas
 |---|---|---|---|---|---|---|
 | **Sign with a digital certificate through the API (public signature)**<br>`public-signature-with-certificate` | `current` / `deprecated` | [code](dotnet/console/Console/Scenarios/PublicSignatureScenario.cs) | [code](java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/PublicSignatureScenario.java) | [code](nodejs/scenarios/publicSignatureScenario.ts) | — | [docs](https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signing-in-your-own-application) |
 | **Sign electronically with an uploaded signature image**<br>`electronic-signature-with-signature-image` | `current` | — | [code](java/console/src/main/java/com/lacunasoftware/signer/sample/scenarios/ElectronicSignatureWithSignatureImageScenario.java) | — | — | [docs](https://docs.lacunasoftware.com/en-us/articles/signer/integration/documents#signing-in-your-own-application) |
+| **Sign your pending Signer documents from a Claude Code skill**<br>`sign-pending-documents` | `current` | [code](dotnet/SkillFriendlySignatureApp/SkillFriendlySignatureApp/Commands/SignCommand.cs) | — | — | — | [docs](https://docs.lacunasoftware.com/en-us/articles/signer/integration/download-and-list) |
 
 ## Embedded signing
 
