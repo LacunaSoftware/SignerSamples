@@ -87,7 +87,10 @@ Per-project notes:
 - **.NET**: input files are copied to the output folder, `Console/bin/Debug/net10.0`, and
   `dotnet run` starts there (`RunWorkingDirectory`), as Visual Studio does. `Console.csproj` is
   SDK-style and picks up every `.cs` file. Public signature expects `56072386105.pfx` next to the
-  executable.
+  executable. `Console.Tests` (xUnit v3) runs the scenarios against a fake Signer on localhost and
+  checks the requests they send: `dotnet test --solution Console.sln` from `dotnet/console`, and
+  in CI through `.github/workflows/test-dotnet-console.yml`. A changed or new .NET scenario needs a
+  test there.
 - **Java**: input files live in `src/main/resources/static/` and load through `Util`. Gradle is
   the only build (`signer-client` 2.13.0; there is no Maven build); Gradle 5.2.1 needs JDK 8-11.
 - **Node.js**: every scenario runs with ts-node from `nodejs` and opens its input files in

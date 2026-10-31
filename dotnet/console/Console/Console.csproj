@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- The tests run the scenarios, most of which are internal. -->
+    <InternalsVisibleTo Include="Console.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- Input files the scenarios open by relative path, from the output folder. -->
     <None Update="sample.pdf" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.xml" CopyToOutputDirectory="PreserveNewest" />
