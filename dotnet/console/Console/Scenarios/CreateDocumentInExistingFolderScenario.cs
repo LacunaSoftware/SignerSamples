@@ -46,9 +46,12 @@ namespace Console.Scenarios
             };
 
             // 5. Search a folder by it's name
-            var paginatedSearchParams = new PaginatedSearchParams() { Q = "Sample Folder" };
+            //    The search matches part of the name ("Sample Folder Archive" too), so pick the folder
+            //    whose name is exactly the one searched
+            var folderName = "Sample Folder";
+            var paginatedSearchParams = new PaginatedSearchParams() { Q = folderName };
             var paginatedSearchResult = await SignerClient.ListFoldersPaginatedAsync(paginatedSearchParams, null);
-            var folder = paginatedSearchResult.Items.FirstOrDefault();
+            var folder = paginatedSearchResult.Items.FirstOrDefault(f => f.Name == folderName);
 
             if (folder == null)
             {

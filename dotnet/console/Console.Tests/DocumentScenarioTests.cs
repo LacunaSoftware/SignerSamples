@@ -35,11 +35,13 @@ public class DocumentScenarioTests : FakeSignerTest
     [Fact]
     public async Task Reminder_is_sent_for_each_flow_action_of_the_document()
     {
+        Signer.FlowActionIds.Add(Guid.NewGuid());
+
         await RunAsync<NotifyFlowParticipantsScenario>();
 
-        var reminder = Signer.Single("POST", "/api/notifications/flow-action-reminder").Json;
-        Assert.Equal(Signer.DocumentId, (Guid)reminder["documentId"]!);
-        Assert.Equal(Signer.FlowActionId, (Guid)reminder["flowActionId"]!);
+        var reminders = Signer.RequestsTo("POST", "/api/notifications/flow-action-reminder").Select(request => request.Json).ToList();
+        Assert.All(reminders, reminder => Assert.Equal(Signer.DocumentId, (Guid)reminder["documentId"]!));
+        Assert.Equal(Signer.FlowActionIds, reminders.Select(reminder => (Guid)reminder["flowActionId"]!));
     }
 
     [Fact]

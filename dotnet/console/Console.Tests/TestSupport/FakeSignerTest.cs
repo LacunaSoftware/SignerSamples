@@ -28,18 +28,42 @@ public abstract class FakeSignerTest : IAsyncLifetime
         Environment.CurrentDirectory = AppContext.BaseDirectory;
     }
 
+    // Runs even when InitializeAsync failed part way, so it restores only what was set.
     public async ValueTask DisposeAsync()
     {
-        Environment.CurrentDirectory = previousDirectory!;
+        if (previousDirectory != null)
+        {
+            Environment.CurrentDirectory = previousDirectory;
+        }
         environment?.Dispose();
-        await Signer.DisposeAsync();
+        if (Signer != null)
+        {
+            await Signer.DisposeAsync();
+            // A scenario that catches and prints errors could pass while the fake failed.
+            Assert.True(Signer.Errors.Count == 0, $"The fake Signer threw:\n{string.Join("\n", Signer.Errors)}");
+        }
     }
 
-    /// <summary>Creates the scenario (after the environment is set), runs it and returns what it printed.</summary>
-    protected static async Task<string> RunAsync<TScenario>() where TScenario : Scenario, new()
+    /// <summary>
+    /// Creates the scenario (after the environment is set), runs it and returns what it printed. If it
+    /// throws, what it printed and what the fake Signer threw go to the test's output.
+    /// </summary>
+    protected async Task<string> RunAsync<TScenario>() where TScenario : Scenario, new()
     {
         using var console = new ConsoleCapture();
-        await new TScenario().RunAsync();
+        try
+        {
+            await new TScenario().RunAsync();
+        }
+        catch
+        {
+            TestContext.Current.TestOutputHelper?.WriteLine($"{typeof(TScenario).Name} printed:\n{console.Text}");
+            foreach (var error in Signer.Errors)
+            {
+                TestContext.Current.TestOutputHelper?.WriteLine($"The fake Signer threw: {error}");
+            }
+            throw;
+        }
         return console.Text;
     }
 }

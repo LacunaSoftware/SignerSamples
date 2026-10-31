@@ -126,25 +126,61 @@ public class WebhookEndpointTests(WebhookEndpointFixture endpoint) : IClassFixtu
         Assert.Single(output.Split('\n'), line => line.Contains($"Document {documentId} is signed!"));
     }
 
-    [Fact]
-    public async Task Signatures_of_two_participants_are_two_events()
+    // The flow action id is in "signature", "approval" or "refusal", by event type; without it the
+    // second participant's event would look like a repeat of the first and be dropped.
+    [Theory]
+    [InlineData("DocumentSigned", "signature", "signed")]
+    [InlineData("DocumentApproved", "approval", "approved")]
+    [InlineData("DocumentRefused", "refusal", "refused")]
+    public async Task Events_of_two_participants_are_two_events(string type, string part, string what)
     {
         var documentId = Guid.NewGuid();
         var first = Guid.NewGuid();
         var second = Guid.NewGuid();
         using var console = new ConsoleCapture();
 
-        await PostAsync(SignedEvent(documentId, first));
-        await PostAsync(SignedEvent(documentId, second));
+        await PostAsync(ParticipantEvent(type, part, documentId, first));
+        await PostAsync(ParticipantEvent(type, part, documentId, second));
 
-        await console.WaitForAsync($"Accepted: DocumentSigned:{documentId}:{first}");
-        await console.WaitForAsync($"Accepted: DocumentSigned:{documentId}:{second}");
+        await console.WaitForAsync($"Accepted: {type}:{documentId}:{first}");
+        await console.WaitForAsync($"Accepted: {type}:{documentId}:{second}");
+        var output = await console.WaitForAsync($"Document {documentId} is {what}!", times: 2);
+        Assert.DoesNotContain("Could not process", output);
+    }
+
+    [Fact]
+    public async Task Event_is_answered_before_it_is_processed()
+    {
+        var documentId = Guid.NewGuid();
+        endpoint.Signer.AddDocument(documentId);
+        endpoint.Signer.DocumentStatus = DocumentStatus.Concluded;
+        // Processing a DocumentConcluded event reads the document; hold that read until the answer arrives.
+        var reading = new TaskCompletionSource();
+        endpoint.Signer.DocumentDetailsDelay = reading.Task;
+        using var console = new ConsoleCapture();
+        try
+        {
+            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+            timeout.CancelAfter(TimeSpan.FromSeconds(5));
+
+            var response = await PostAsync(ConcludedEvent(documentId), cancellationToken: timeout.Token);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.DoesNotContain($"Document {documentId} is concluded!", console.Text);
+        }
+        finally
+        {
+            reading.SetResult();
+            endpoint.Signer.DocumentDetailsDelay = null;
+        }
+        await console.WaitForAsync($"Document {documentId} is concluded!");
     }
 
     [Fact]
     public async Task Concluded_event_is_handled_after_reading_the_document_as_concluded()
     {
         var documentId = Guid.NewGuid();
+        endpoint.Signer.AddDocument(documentId);
         endpoint.Signer.DocumentStatus = DocumentStatus.Concluded;
         using var console = new ConsoleCapture();
 
@@ -158,6 +194,7 @@ public class WebhookEndpointTests(WebhookEndpointFixture endpoint) : IClassFixtu
     public async Task Concluded_event_for_a_document_still_pending_does_nothing()
     {
         var documentId = Guid.NewGuid();
+        endpoint.Signer.AddDocument(documentId);
         endpoint.Signer.DocumentStatus = DocumentStatus.Pending;
         using var console = new ConsoleCapture();
 
@@ -181,20 +218,23 @@ public class WebhookEndpointTests(WebhookEndpointFixture endpoint) : IClassFixtu
         await console.WaitForAsync("This sample does not handle DocumentDeleted events");
     }
 
-    private static string SignedEvent(Guid documentId, Guid flowActionId) => $$"""
+    private static string SignedEvent(Guid documentId, Guid flowActionId) => ParticipantEvent("DocumentSigned", "signature", documentId, flowActionId);
+
+    // An event about one participant's action: "part" is "signature", "approval" or "refusal".
+    private static string ParticipantEvent(string type, string part, Guid documentId, Guid flowActionId) => $$"""
         {
-          "type": "DocumentSigned",
+          "type": "{{type}}",
           "data": {
             "id": "{{documentId}}",
             "name": "sample.pdf",
-            "signature": { "flowActionId": "{{flowActionId}}", "name": "Jack Bauer", "identifier": "75502846369", "emailAddress": "jack.bauer@mailinator.com" }
+            "{{part}}": { "flowActionId": "{{flowActionId}}", "name": "Jack Bauer", "identifier": "75502846369", "emailAddress": "jack.bauer@mailinator.com" }
           }
         }
         """;
 
     private static string ConcludedEvent(Guid documentId) => $$"""{ "type": "DocumentConcluded", "data": { "id": "{{documentId}}", "name": "sample.pdf" } }""";
 
-    private async Task<HttpResponseMessage> PostAsync(string body, string? token = WebhookEndpointFixture.Token, string path = "webhook")
+    private async Task<HttpResponseMessage> PostAsync(string body, string? token = WebhookEndpointFixture.Token, string path = "webhook", CancellationToken? cancellationToken = null)
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, path)
         {
@@ -204,6 +244,6 @@ public class WebhookEndpointTests(WebhookEndpointFixture endpoint) : IClassFixtu
         {
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
-        return await endpoint.Http.SendAsync(request, TestContext.Current.CancellationToken);
+        return await endpoint.Http.SendAsync(request, cancellationToken ?? TestContext.Current.CancellationToken);
     }
 }

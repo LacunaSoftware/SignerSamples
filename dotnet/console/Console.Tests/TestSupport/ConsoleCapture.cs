@@ -18,15 +18,27 @@ public sealed class ConsoleCapture : IDisposable
 
     public string Text => recorder.Text;
 
-    public async Task<string> WaitForAsync(string expected, TimeSpan? timeout = null)
+    /// <summary>Waits until the console has printed <paramref name="expected"/> at least <paramref name="times"/> times.</summary>
+    public async Task<string> WaitForAsync(string expected, int times = 1, TimeSpan? timeout = null)
     {
         var deadline = DateTime.UtcNow + (timeout ?? TimeSpan.FromSeconds(10));
-        while (!Text.Contains(expected))
+        while (CountOf(expected) < times)
         {
-            Assert.True(DateTime.UtcNow < deadline, $"The console never printed \"{expected}\". It printed:\n{Text}");
+            Assert.True(DateTime.UtcNow < deadline, $"The console did not print \"{expected}\" {times} time(s). It printed:\n{Text}");
             await Task.Delay(20);
         }
         return Text;
+    }
+
+    private int CountOf(string expected)
+    {
+        var text = Text;
+        var count = 0;
+        for (var index = text.IndexOf(expected, StringComparison.Ordinal); index >= 0; index = text.IndexOf(expected, index + expected.Length, StringComparison.Ordinal))
+        {
+            count++;
+        }
+        return count;
     }
 
     public void Dispose()

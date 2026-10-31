@@ -74,6 +74,11 @@ namespace Console.Scenarios
                 Ticket = ticket
             };
             var startResponse = await SignerClient.StartPublicSignatureAsync(key, startRequest);
+            // The response can come back with Success = false and the reasons in ValidationResults (for
+            // instance, a certificate Signer does not accept), so check Success before going on.
+            if (!startResponse.Success) {
+                throw new InvalidOperationException($"Signer could not start the signature: {DescribeErrors(startResponse.ValidationResults)}");
+            }
             System.Console.WriteLine($"Signature started, digest algorithm: {startResponse.DigestAlgorithm}");
 
             // 5. Sign the hash with the private key matching the certificate sent above
@@ -85,9 +90,18 @@ namespace Console.Scenarios
                 Signature = signature,
                 Token = startResponse.Token
             };
-            await SignerClient.CompletePublicSignatureAsync(key, completeRequest);
+            var completeResponse = await SignerClient.CompletePublicSignatureAsync(key, completeRequest);
+            if (!completeResponse.Success) {
+                throw new InvalidOperationException($"Signer did not accept the signature: {DescribeErrors(completeResponse.ValidationResults)}");
+            }
 
             System.Console.WriteLine("Public signature completed successfully");
+        }
+
+        private static string DescribeErrors(ValidationResultsModel validationResults)
+        {
+            var errors = validationResults?.Errors?.Select(error => error.Message).ToList();
+            return errors?.Count > 0 ? string.Join("; ", errors) : "no validation errors reported";
         }
 
         private async Task<CreateDocumentResult> CreateDocumentForSigningAsync()
@@ -108,7 +122,9 @@ namespace Console.Scenarios
             var documentRequest = new CreateDocumentRequest()
             {
                 Files = new List<FileUploadModel>() { fileUploadModel },
-                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel }
+                FlowActions = new List<FlowActionCreateModel>() { flowActionCreateModel },
+                // The signature happens through the API, so don't e-mail the participant a signing link
+                DisablePendingActionNotifications = true
             };
 
             return (await SignerClient.CreateDocumentAsync(documentRequest)).First();

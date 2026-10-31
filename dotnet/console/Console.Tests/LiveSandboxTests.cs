@@ -71,7 +71,12 @@ public class LiveSandboxTests : IDisposable
         {
             var document = await new SignerClientAccess().Client.GetDocumentDetailsAsync(Guid.Parse(created.Groups[1].Value));
             Assert.NotEmpty(document.FlowActions);
-            if (scenarioType != typeof(PublicSignatureScenario))
+            if (scenarioType == typeof(PublicSignatureScenario))
+            {
+                // The scenario signed as the only participant, so Signer must show that action as done.
+                Assert.Equal(ActionStatus.Completed, Assert.Single(document.FlowActions).Status);
+            }
+            else
             {
                 Assert.Equal(DocumentStatus.Pending, document.Status);
             }

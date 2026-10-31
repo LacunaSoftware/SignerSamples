@@ -194,6 +194,8 @@ public class CreateDocumentScenarioTests : FakeSignerTest
     public async Task Existing_folder_is_searched_by_name_and_its_id_sent()
     {
         var folderId = Guid.NewGuid();
+        // The search matches part of the name, so it finds the archive first: the scenario must check the name.
+        Signer.Folders.Add(new FolderInfoModel { Id = Guid.NewGuid(), Name = "Sample Folder Archive" });
         Signer.Folders.Add(new FolderInfoModel { Id = folderId, Name = "Sample Folder" });
 
         await RunAsync<CreateDocumentInExistingFolderScenario>();

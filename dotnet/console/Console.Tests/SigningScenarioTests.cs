@@ -16,6 +16,8 @@ public class SigningScenarioTests : FakeSignerTest
     {
         var output = await RunAsync<EmbeddedSignatureScenario>();
 
+        // The participant signs in the page that embeds Signer, so Signer must not e-mail them a link.
+        Assert.True((bool)Signer.Single("POST", "/api/documents").Json["disablePendingActionNotifications"]!);
         var request = Signer.Single("POST", $"/api/documents/{Signer.DocumentId}/action-url").Json;
         Assert.Equal("75502846369", (string?)request["identifier"]);
         Assert.Contains($"{Signer.Url}/document/embed/the-embed-ticket", output);
@@ -33,8 +35,11 @@ public class SigningScenarioTests : FakeSignerTest
 
         // The document is created for the certificate's holder: Signer checks that the CPFs match.
         using var certificate = X509CertificateLoader.LoadPkcs12FromFile("56072386105.pfx", "1234");
-        var action = Assert.Single(Signer.Single("POST", "/api/documents").Json["flowActions"]!);
+        var create = Signer.Single("POST", "/api/documents").Json;
+        var action = Assert.Single(create["flowActions"]!);
         Assert.Equal("56072386105", (string?)action["user"]!["identifier"]);
+        // The signature goes through the API, so Signer must not e-mail the participant a link.
+        Assert.True((bool)create["disablePendingActionNotifications"]!);
         // ICP-Brasil puts the CPF in the subject alternative name (otherName 2.16.76.1.3.1, after the birth date).
         var alternativeName = certificate.Extensions.OfType<X509SubjectAlternativeNameExtension>().Single();
         Assert.Contains("56072386105", System.Text.Encoding.ASCII.GetString(alternativeName.RawData));
@@ -55,5 +60,27 @@ public class SigningScenarioTests : FakeSignerTest
         Assert.True(publicKey.VerifyHash(Signer.ToSignHash, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1), "The signature does not verify with the certificate's public key");
 
         Assert.Contains("Public signature completed successfully", output);
+    }
+
+    // The start and complete responses carry Success = false, with ValidationResults, when Signer rejects them.
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task Public_signature_rejected_by_signer_throws_with_its_errors(bool atStart)
+    {
+        const string rejection = "The certificate's CPF does not match the participant's";
+        if (atStart)
+        {
+            Signer.StartSignatureError = rejection;
+        }
+        else
+        {
+            Signer.CompleteSignatureError = rejection;
+        }
+
+        var error = await Assert.ThrowsAsync<InvalidOperationException>(RunAsync<PublicSignatureScenario>);
+
+        Assert.Contains(rejection, error.Message);
+        Assert.Equal(atStart ? 0 : 1, Signer.RequestsTo("POST", "/api/documents/keys/the-document-key/signature").Count);
     }
 }

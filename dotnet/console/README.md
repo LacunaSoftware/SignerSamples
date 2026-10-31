@@ -104,8 +104,9 @@ Prerequisites of some scenarios:
 
 [`Console.Tests`](Console.Tests) is an xUnit v3 project that runs the scenarios unchanged. Its
 fake Signer, an ASP.NET Core server on `127.0.0.1`, takes the place of the real one through
-`SIGNER_ENDPOINT`, records every request and answers with the client's own models; a route it
-doesn't know answers 404, so a scenario that calls something new fails its test. The tests check
+`SIGNER_ENDPOINT`, records every request and answers with the client's own models where the
+client reads one; a route it doesn't know, or a document it didn't create, answers 404, so a
+scenario that calls something new or sends the wrong id fails its test. The tests check
 what each scenario sends (files, flow actions, steps, XAdES options, query filters), the
 download and public-signature steps (the signature is verified with the test certificate), the
 `HandleWebhook` methods, and the webhook endpoint over HTTP (401, 400, repeated events,

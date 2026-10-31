@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- The tests run the scenarios, most of which are internal. -->
+    <!-- The tests run the scenarios, some of which are internal. -->
     <InternalsVisibleTo Include="Console.Tests" />
   </ItemGroup>
 
